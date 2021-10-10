@@ -1,0 +1,20 @@
+.Piano{
+    position: relative;
+    margin-top: 20px;
+    width:100%;
+    height: 200px;
+}
+
+.whiteKey{
+    
+    border:1px solid black;
+    height:200px;
+    position: absolute;
+}
+
+.blackKey{
+    
+    border:1px solid black;
+    height:120px;
+    position: absolute;
+}

@@ -8,12 +8,10 @@ class MidiPlayer{
     //Typescript Declarations
     private ref: React.RefObject<HTMLInputElement>
     private Midi: Object | null
-    private Time: number
     //Constructor
     constructor(fileRef: React.RefObject<HTMLInputElement>){
         this.ref = fileRef
         this.Midi = null
-        this.Time = 0;
         this.GetMidiAsObject();
     }
 

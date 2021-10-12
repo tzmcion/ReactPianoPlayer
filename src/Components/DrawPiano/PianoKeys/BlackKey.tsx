@@ -1,10 +1,10 @@
 import React, { ReactElement,useEffect,useState } from 'react'
-import { MidiEventType } from "../../../Utils/TypesForMidi";
+import { noteEvent } from "../../../Utils/TypesForMidi";
 
 interface WhiteKeyProps{
     WhiteKeyWidth: number,
     pos_x:number,
-    Data: Array<MidiEventType> | undefined,
+    Data: Array<noteEvent> | undefined,
     id: number
 }
 
@@ -14,21 +14,17 @@ export default function BlackKey({WhiteKeyWidth,pos_x,Data, id}:WhiteKeyProps):R
 
     useEffect(()=>{
         Data?.map(event =>{
-            if('noteOn' in event){
-                if(event.noteOn.noteNumber === id){
-                    setBackgroundColor('#b40f46')
-                }
-            }
-            if('noteOff' in event){
-                if(event.noteOff.noteNumber === id){
-                    setBackgroundColor('black')
-                }
+            if(event.NoteNumber === id){
+                setBackgroundColor('#5f014f');
+                setTimeout(()=>{setBackgroundColor('black')},event.Duration/1000)
             }
             return null;
         })
-    },[Data])
+    },[Data,id])
 
     return (
-        <div className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',left:pos_x.toString() + 'px',backgroundColor: backgroundColor}}/>
+        <div className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',left:pos_x.toString() + 'px',backgroundColor: backgroundColor,transform:`rotateX(${backgroundColor === 'black' ? '0deg': '25deg'})`}}>
+            <h1>{id}</h1>
+        </div>
     )
 }

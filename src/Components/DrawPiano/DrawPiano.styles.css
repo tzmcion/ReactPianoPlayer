@@ -1,8 +1,20 @@
 .Piano{
     position: relative;
-    margin-top: 20px;
-    width:100%;
+    margin: 20px auto;
+    width:84%;
     height: 200px;
+    color: #5f014f;
+}
+
+.cover{
+    position:absolute;
+    width:95.4%;
+    margin-top: -5px;
+    height:25px;
+    box-shadow: 1px 1px 2px black;
+    background-color: black;
+    border-radius: 2px;
+    z-index: 999;
 }
 
 .whiteKey{
@@ -10,11 +22,29 @@
     border:1px solid black;
     height:200px;
     position: absolute;
+    transition: 0.05s;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 2px;
+    color:black;
+    
 }
 
 .blackKey{
-    
     border:1px solid black;
     height:120px;
     position: absolute;
+    transition: 0.05s;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 2px;
+    color:white;
+}
+
+h1{
+    font-size: 12px; 
+    margin-top: 100px;
+    text-align: center;
+}
+
+.whiteKey>h1{
+    margin-top: 150px;
 }

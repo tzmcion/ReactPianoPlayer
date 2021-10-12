@@ -32,7 +32,11 @@ export interface MidiEventType{
     noteOff:{noteNumber:number,velocity:number},
 }
 
-export interface LastIndexOfAsync{
-    LastIndex : number,
-    timeElapsed: number
+export interface noteEvent{
+    NoteNumber:number,
+    Delta:number,
+    Duration:number,
+    SoundDuration:number,
+    Velocity:number
 }
+

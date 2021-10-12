@@ -1,6 +1,7 @@
-import  {IMidiFile, MidiEventType} from "../Utils/TypesForMidi";
+import  {IMidiFile, noteEvent} from "../Utils/TypesForMidi";
 
 import getConstantDataFromMidiFile from "./getConstantDataFromMidiFile";
+import ConvertToNoteEventsJSON from './getNoteEventsJSON';
 
 const PlayMidiAsync = async (fileData:Object,onEvent:Function) =>{
     const File = fileData as IMidiFile;
@@ -9,68 +10,29 @@ const PlayMidiAsync = async (fileData:Object,onEvent:Function) =>{
     let tickTime = microsecondsPerQuarter /  StaticMidiFileData.division;  //In microseconds
     console.log(File);
 
-    const PlayAsync = async (indexes:Array<number>, TicksSpentOnTracks:Array<number>,microsecondsGap:number) =>{
-        const FunctionTimeStart =  new Date().getTime();   //in miliseconds
-        let Array_TicksToNextEvent = new Array(TicksSpentOnTracks.length);
-        let newIndexes = new Array(indexes.length);
-        indexes.map((e,index)=>{
-            newIndexes[index] = e;
-            return null;
-        })
-        let newTicksSpentOnTracks = new Array(TicksSpentOnTracks.length);
-        TicksSpentOnTracks.map((e,index)=>{
-            newTicksSpentOnTracks[index] = e;
-            return null;
-        })
-        let Events:Array<MidiEventType> = [];
-        //  
+    const noteEventsJSON = ConvertToNoteEventsJSON(File,microsecondsPerQuarter,StaticMidiFileData,tickTime);
+    console.log(noteEventsJSON);
+    const PlayFromNotesAsync = async () =>{
+        let isFinished = false, timer = 0, currentIndex = 0;
+        let Events:Array<noteEvent> = [];
+        const timeStamps = 50;
+        const interval = setInterval(()=>{
+            timer += timeStamps;
             while(true){
-                let eventWasFound = false;
-                // eslint-disable-next-line no-loop-func
-                File.tracks.map((Track,index) =>{
-                    const Event = Track[newIndexes[index]] as MidiEventType;
-                    if(Event){
-                    if('delta' in Event){
-                        if(Event.delta - newTicksSpentOnTracks[index] <= 0){
-                            newTicksSpentOnTracks[index] = 0;
-                            eventWasFound = true;
-                            newIndexes[index] += 1;
-                            Events.push(Event);
-                            if('setTempo' in Event){
-                                microsecondsPerQuarter =  Event.setTempo.microsecondsPerQuarter;
-                                tickTime = microsecondsPerQuarter /  StaticMidiFileData.division; 
-                            }
-                        }else{
-                            Array_TicksToNextEvent[index] = Event.delta - newTicksSpentOnTracks[index];
-                        }
-                    }
-                    }
-                    return null;
-                })
-                if(!eventWasFound){
+                if(noteEventsJSON[currentIndex].Delta / 1000 <= timer){
+                    Events.push(noteEventsJSON[currentIndex]);
+                    currentIndex+=1
+                }else{
+                    onEvent(Events);
+                    Events = [];
                     break;
                 }
             }
-        //
-        let ticksRequiredToSleep = 10000000;
-        Array_TicksToNextEvent.forEach(element =>{
-            if(element < ticksRequiredToSleep){
-                ticksRequiredToSleep = element;
-            }
-        })
-        TicksSpentOnTracks.map((e,index)=>{
-            newTicksSpentOnTracks[index] = e + ticksRequiredToSleep;
-            return null;
-        })
-        let TimeRequiredToSleep = ticksRequiredToSleep * tickTime / 1000;
-        TimeRequiredToSleep -= Math.floor(microsecondsGap); 
-        const NextMicrosecondsGap = (TimeRequiredToSleep % 1) + (microsecondsGap % 1);
-        onEvent(Events);
-        TimeRequiredToSleep -= new Date().getTime() - FunctionTimeStart;
-        setTimeout(()=>{PlayAsync(newIndexes,newTicksSpentOnTracks,NextMicrosecondsGap)},TimeRequiredToSleep);
+            isFinished && clearInterval(interval);
+        },timeStamps);
     }
-
-    PlayAsync([0,0],[0,0],0);
+    PlayFromNotesAsync();
+    //PlayAsync([0,0],[0,0],0);
 }
 
 export default PlayMidiAsync;

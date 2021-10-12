@@ -1,12 +1,12 @@
 import React, { ReactElement,useRef } from 'react'
 import './DrawPiano.styles.css';
 
-import { MidiEventType } from "../../Utils/TypesForMidi";
+import { noteEvent } from "../../Utils/TypesForMidi";
 import WhiteKey from './PianoKeys/WhiteKey';
 import BlackKey from './PianoKeys/BlackKey';
 
 interface DrawPianoProps{
-    Data: Array<MidiEventType> | undefined
+    Data: Array<noteEvent> | undefined
 }
 
 export default function DrawPiano({Data}:DrawPianoProps):ReactElement {
@@ -24,7 +24,7 @@ export default function DrawPiano({Data}:DrawPianoProps):ReactElement {
 
     const renderPianoKeys = () =>{
         let To_Render = [];
-        let counter_ids = 21;
+        let counter_ids = 25;
         for(let x = 0; x < 52; x++){
             To_Render.push(drawWhitePianoKey(WhiteKeyWidth.current * x,counter_ids))
             const num = x % 7;
@@ -39,6 +39,7 @@ export default function DrawPiano({Data}:DrawPianoProps):ReactElement {
 
     return (
         <div className='Piano'>
+            <div className='cover' />
             {renderPianoKeys()}
         </div>
     )

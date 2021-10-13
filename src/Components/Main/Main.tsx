@@ -3,12 +3,13 @@ import SoundFont from 'soundfont-player';
 import './Main.styles.css';
 
 import MidiPlayer from '../../Helpers/MidiPlayer';
-//import InputFile from '../Inputfile/InputFile';
+import InputFile from '../Inputfile/InputFile';
 import DrawPiano from '../DrawPiano/DrawPiano';
 import { noteEvent } from "../../Utils/TypesForMidi";
 
 export default function Main() {
 
+    const DefaultSpeed = useRef<number>(45);
     const MidiFileRef = useRef<HTMLInputElement>(null);
     const [Player,setPlayer] = useState<MidiPlayer>()
     const [Events,setEvents] = useState<Array<noteEvent>>();
@@ -16,6 +17,7 @@ export default function Main() {
 
     const handleInput = () =>{
         setPlayer(new MidiPlayer(MidiFileRef));
+        console.log('handling Input');
     }
 
     const handleMidiEvent = (Events:Array<noteEvent>,e:any,Acontext:any) =>{
@@ -26,7 +28,7 @@ export default function Main() {
                     
                     e.play(event.NoteNumber,undefined,{gain: event.Velocity/127} ).stop(Acontext.currentTime + event.SoundDuration / 1000);
                 }catch{e.play(event.NoteNumber,undefined,{gain: event.Velocity/127})}
-                },5000/5);
+                },5000/(100/DefaultSpeed.current));
                 
                 
                 return null;
@@ -43,10 +45,12 @@ export default function Main() {
 
     return (
         <div className='main'>
-            <input type='file' ref={MidiFileRef} onInput={handleInput}/>
-            <button onClick={handleClick}>Play!</button>
-            {/* <InputFile /> */}
-             <DrawPiano Data={Events}/>
+            {/* <input type='file' ref={MidiFileRef} onInput={handleInput}/> */}
+            {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={handleInput} /> }
+            {Player &&<DrawPiano Data={Events} Speed={DefaultSpeed.current}/>}
+            <div className='PlayDiv'>
+            <button onClick={handleClick} className='PlayButton'>Play!</button>
+            </div>
         </div>
     )
 }

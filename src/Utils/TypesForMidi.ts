@@ -41,6 +41,7 @@ export interface noteEvent{
 }
 
 export interface blockNote{
+    color:string
     width:number
     NoteNumber:number,
     Delta:number,

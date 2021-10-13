@@ -1,18 +1,46 @@
 .FileInput{
-    width:500px;
-    height:500px;
-    border:1px solid black;
-    color:#00754e
+    width:100%;
+    height:200%;
+    margin-top: -10%;
+    position: absolute;
+    cursor:pointer;
+}
+
+.Informations{
+    margin-top: 5%;
+    padding: 50px;
+}
+
+.flexInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.MidiImage{
+    width:75px;
+    display: inline-block;
+}
+
+.flexInfo>h1{
+    font-size: 24px;
+    display: inline-block;
+    align-self: center;
+    margin-top: unset;
+}
+
+.Informations>h2{
+    font-size: 12px;
+    text-align: center;
 }
 
 .FileInputDiv{
-    width:500px;
+    border-radius: 20px;
+    position: relative;
+    width:90%;
+    margin: 20px auto;
     height:500px;
-    border:1px solid black;
-}
-
-.file_Upload_Label{
-    width:500px;
-    height:500px;
-    border:1px solid black;
+    overflow: hidden;
+    border:5px solid black;
 }

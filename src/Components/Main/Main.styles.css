@@ -1,3 +1,25 @@
 .main{
     width:100%;
 }
+
+.PlayButton{
+    margin: 20px auto;
+    font-size: 24px;
+    padding: 15px 20px 15px 20px;
+    outline: none;
+    border:none;
+    border-radius: 5px;
+}
+
+.PlayButton:hover{
+    cursor:pointer;
+    transition: 0.4s;
+    background-color: tomato;
+}
+
+.PlayDiv{
+    width:100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}

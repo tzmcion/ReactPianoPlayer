@@ -10,11 +10,12 @@ interface TracksProps{
     Speed:number
     Data: Array<noteEvent>
     BlackNumbers: Array<number>
-    KeysPositions: Array<any>
+    KeysPositions: Array<any>,
+    intervalSpeed: number
 }
 
 
-export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions}:TracksProps):ReactElement {
+export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null)
     const [blocks,setBlocks] = useState<Array<blockNote>>([]);
@@ -28,7 +29,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
 
         setInterval(() =>{
             setTimer(prev => prev + 1)
-        },20)
+        },intervalSpeed)
     },[])
 
     useEffect(()=>{
@@ -38,7 +39,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
             blocksToMap.map(block =>{
                 let newBlock = block;
                 newBlock.pos_y += Speed;
-                CanvasRoundRect(context!,'#04c4b4',block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
+                CanvasRoundRect(context!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
                 if(newBlock.pos_y - block.height! < Height){
                 newBlocksToState.push(newBlock);
                 }
@@ -51,6 +52,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
         let newblocks:Array<blockNote> = [...blocks]
         Data && Data.map(Event =>{
             const newBlock:blockNote = {
+                color: `rgb(${Math.random() * 254},${Math.random() * 254}, ${Math.random() * 254})`,
                 width: BlackNumbers.includes(Event.NoteNumber) ? Width / 52 / 1.8 : Width / 52,
                 Velocity: Event.Velocity,
                 NoteNumber: Event.NoteNumber,

@@ -7,20 +7,21 @@ import WhiteKey from './PianoKeys/WhiteKey';
 import BlackKey from './PianoKeys/BlackKey';
 
 interface DrawPianoProps{
-    Data: Array<noteEvent> | undefined
+    Data: Array<noteEvent> | undefined,
+    Speed: number
 }
 
-export default function DrawPiano({Data}:DrawPianoProps):ReactElement {
+export default function DrawPiano({Data,Speed}:DrawPianoProps):ReactElement {
 
-    const Wh_Width = (parseInt(window.getComputedStyle(document.body).width.replace('px', '')) - (parseInt(window.getComputedStyle(document.body).width.replace('px', ''))/5)) / 52;
+    const Wh_Width = window.innerWidth / 52;
     const WhiteKeyWidth = useRef<number>(Wh_Width);
 
     const drawWhitePianoKey = (pos_x:number,id:number) =>{
-        return <WhiteKey WhiteKeyWidth={WhiteKeyWidth.current} pos_x={pos_x} Data={Data} id={id} key={id} Delay={1000} />
+        return <WhiteKey WhiteKeyWidth={WhiteKeyWidth.current} pos_x={pos_x} Data={Data} id={id} key={id} Delay={((window.innerHeight - 215) * 10)/(100/Speed)} />
     }
 
     const drawBlackPianoKey = (pos_x:number,id:number) =>{
-        return <BlackKey WhiteKeyWidth={WhiteKeyWidth.current} pos_x={pos_x} Data={Data} id={id} key={id} Delay={1000}/>
+        return <BlackKey WhiteKeyWidth={WhiteKeyWidth.current} pos_x={pos_x} Data={Data} id={id} key={id} Delay={((window.innerHeight - 215) * 10)/(100/Speed)}/>
     }
 
     const renderPianoKeys = () =>{
@@ -73,9 +74,9 @@ export default function DrawPiano({Data}:DrawPianoProps):ReactElement {
     }
 
     return (
-        <div className='Piano'>
-            <Tracks Width={WhiteKeyWidth.current * 52} Height={500} Speed={10} Data={Data!} BlackNumbers={blackKeysNumbers()} KeysPositions={KeysPositions()} />
-            <div className='piano_keys'>
+        <div className='Piano' style={{height: window.innerHeight}}>
+            <Tracks Width={WhiteKeyWidth.current * 52} Height={window.innerHeight-215 + 15} Speed={10} Data={Data!} BlackNumbers={blackKeysNumbers()} KeysPositions={KeysPositions()} intervalSpeed={Speed} />
+            <div className='piano_keys' style={{marginTop: window.innerHeight + 15 - 235}}>
             {renderPianoKeys()}
             </div>
         </div>

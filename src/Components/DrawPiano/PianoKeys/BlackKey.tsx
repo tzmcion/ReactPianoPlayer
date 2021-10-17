@@ -17,7 +17,7 @@ export default function BlackKey({WhiteKeyWidth,pos_x,Data, id,Delay}:WhiteKeyPr
         Data?.map(event =>{
             if(event.NoteNumber === id && event.Velocity > 0){
                 setTimeout(()=>{
-                    setBackgroundColor('#5f014f');
+                    setBackgroundColor('#D4AF37');
                     setTimeout(()=>{setBackgroundColor('black')},event.Duration/1000)
                 },Delay)
             }
@@ -27,7 +27,6 @@ export default function BlackKey({WhiteKeyWidth,pos_x,Data, id,Delay}:WhiteKeyPr
 
     return (
         <div className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',left:pos_x.toString() + 'px',backgroundColor: backgroundColor,transform:`rotateX(${backgroundColor === 'black' ? '0deg': '-25deg'})`}}>
-            <h1>{id}</h1>
         </div>
     )
 }

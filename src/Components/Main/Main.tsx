@@ -1,4 +1,4 @@
-import React,{useRef, useState} from 'react';
+import React,{useRef, useState,useEffect} from 'react';
 import SoundFont from 'soundfont-player';
 import './Main.styles.css';
 
@@ -9,7 +9,7 @@ import { noteEvent } from "../../Utils/TypesForMidi";
 
 export default function Main() {
 
-    const DefaultSpeed = useRef<number>(45);
+    const DefaultSpeed = useRef<number>(35);
     const MidiFileRef = useRef<HTMLInputElement>(null);
     const [Player,setPlayer] = useState<MidiPlayer>()
     const [Events,setEvents] = useState<Array<noteEvent>>();
@@ -20,27 +20,20 @@ export default function Main() {
         console.log('handling Input');
     }
 
-    const handleMidiEvent = (Events:Array<noteEvent>,e:any,Acontext:any) =>{
-        Events.length > 0 && setEvents(Events);
-            Events.map(event =>{
-                setTimeout(()=>{
-                    try{
-                    
-                    e.play(event.NoteNumber,undefined,{gain: event.Velocity/127} ).stop(Acontext.currentTime + event.SoundDuration / 1000);
-                }catch{e.play(event.NoteNumber,undefined,{gain: event.Velocity/127})}
-                },5000/(100/DefaultSpeed.current));
-                
-                
-                return null;
-            })
+    const handleClick = () =>{
+        Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev)});
     }
 
-    const handleClick = () =>{
-        const Acontext = new AudioContext();
-        SoundFont.instrument(Acontext,'acoustic_grand_piano').then(e =>{
-            Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev,e,Acontext)});
+    useEffect(()=>{
+        document.addEventListener('keyup',(e)=>{
+            if(e.key === ' ' || e.keyCode === 32){
+                handleClick();
+            }
         })
-        
+    },[handleClick])
+
+    const handleMidiEvent = (Events:Array<noteEvent>) =>{
+        Events.length > 0 && setEvents(Events);
     }
 
     return (
@@ -49,7 +42,6 @@ export default function Main() {
             {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={handleInput} /> }
             {Player &&<DrawPiano Data={Events} Speed={DefaultSpeed.current}/>}
             <div className='PlayDiv'>
-            <button onClick={handleClick} className='PlayButton'>Play!</button>
             </div>
         </div>
     )

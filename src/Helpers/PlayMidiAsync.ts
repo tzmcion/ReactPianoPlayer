@@ -15,7 +15,7 @@ const PlayMidiAsync = async (fileData:Object,onEvent:Function) =>{
     const PlayFromNotesAsync = async () =>{
         let timer = 0, currentIndex = 0;
         let Events:Array<noteEvent> = [];
-        const timeStamps = 30;
+        const timeStamps = 40;
         const interval = setInterval(()=>{
             timer += timeStamps;
             while(true){

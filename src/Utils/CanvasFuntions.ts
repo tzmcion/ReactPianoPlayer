@@ -3,6 +3,7 @@ const CanvasRoundRect = (ctx:CanvasRenderingContext2D,color:string,x:number, y:n
   if (h < 2 * r) r = h / 2;
   ctx.beginPath();
   ctx.fillStyle = color;
+  //ctx.fillRect(x,y,w,h);
   ctx.moveTo(x+r, y);
   ctx.arcTo(x+w, y,   x+w, y+h, r);
   ctx.arcTo(x+w, y+h, x,   y+h, r);

@@ -99,6 +99,7 @@
                         File.tracks.map((Track,index) =>{
                             if(Track.length > newIndexes[index])
                             AllTracksFinished = false;
+                            return null;
                         })
                         endofTrack = AllTracksFinished ? true : false;
                     }
@@ -110,6 +111,7 @@
             let DeltaToWait = smallestDelta.reduce((a,b)=> Math.min(a,b));
             newTicksToNextEvent.map((element,index) =>{
                 newTicksToNextEvent[index] += DeltaToWait;
+                return null;
             })
             smallestDelta = [];
             

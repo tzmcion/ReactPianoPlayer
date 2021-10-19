@@ -32,10 +32,14 @@ const RandomColorToAlhpa = (r?:number,g?:number,b?:number):string=>{
     return `rgba(${r === undefined? Math.random() * 255 : r},${g === undefined ? Math.random() * 255: g},${b === undefined ? Math.random() * 255 : b}`;
 }
 
+const RandomColorToAlphawithMin = (r?:number,g?:number,b?:number):string =>{
+    return `rgba(${r === undefined? Math.random() * 255 : Math.random() * (255 -r) + r},${g === undefined ? Math.random() * 255: Math.random() * (255 -g ) + g},${b === undefined ? Math.random() * 255 : Math.random() * (255 -b) + b}`;
+}
+
 const RandomColorHex = (r?:number,g?:number,b?:number):string =>{
     return rgbHex(Math.floor(r === undefined ? Math.random() * 255:r),Math.floor(g === undefined ? Math.random() * 255:g),Math.floor(b === undefined ? Math.random() * 255:b));
 }
 
 export {CreateEmptyArray as CreateMidiNoteEventsArray};
 export {getEmptyNoteEvent};
-export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin};
+export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin, RandomColorToAlphawithMin};

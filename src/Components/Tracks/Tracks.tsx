@@ -1,8 +1,9 @@
 import React,{ReactElement, useRef, useEffect, useState} from 'react';
 import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
+import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
-import { RandomColorRGBwithMin, RandomColorToAlhpa } from '../../Utils/smallFunctions';
+import { RandomColorRGBwithMin, RandomColorToAlphawithMin } from '../../Utils/smallFunctions';
 import Bg from '../../Assets/BG.jpg'
 import './Tracks.styles.css';
 
@@ -14,11 +15,12 @@ interface TracksProps{
     Data: Array<noteEvent>
     BlackNumbers: Array<number>
     KeysPositions: Array<any>,
-    intervalSpeed: number
+    intervalSpeed: number,
+    options: OptionsType
 }
 
 
-export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed}:TracksProps):ReactElement {
+export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null)
     const [blocks,setBlocks] = useState<Array<blockNote>>([]);
@@ -29,11 +31,11 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
     useEffect(()=>{
         const Canvas = tracksRef.current
         setContext(Canvas?.getContext('2d'));
-        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,8,15,false,true,true,0));
+        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,19,false,true,true,0.20));
         setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
-    },[])
+    },[intervalSpeed,Width]);
 
     useEffect(()=>{
             const blocksToMap = [...blocks];
@@ -48,19 +50,22 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 if(block.pos_y - block.height! < Height){
                     newBlocksToState.push(block);
                 }
-                // if(block.pos_y > Height && timer % 1 === 0){
-                //     EffectLines?.AddEffect(block.pos_x,Height,RandomColorToAlhpa(200,200));
-                // }
+                if(block.pos_y > Height && timer % 1 === 0 && options.IsEffects){
+                    for(let x =0; x < 15; x++){
+                    EffectLines?.AddEffect(block.pos_x,Height,RandomColorToAlphawithMin(200,200,200));
+                    }
+                }
                 return null;
             })
             setBlocks(newBlocksToState);
+             // eslint-disable-next-line react-hooks/exhaustive-deps
     },[timer])
 
     useEffect(() =>{
         let newblocks:Array<blockNote> = [...blocks]
         Data && Data.map(Event =>{
             const newBlock:blockNote = {
-                color: RandomColorRGBwithMin(190,190,190),
+                color: options.RandomColors ? RandomColorRGBwithMin(200,200,200) : options.Color,
                 width: BlackNumbers.includes(Event.NoteNumber) ? Width / 52 / 1.8 : Width / 52,
                 Velocity: Event.Velocity,
                 NoteNumber: Event.NoteNumber,
@@ -72,6 +77,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
             return null;
         })
         setBlocks(newblocks);
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[Data,Speed,Width,BlackNumbers,KeysPositions])
 
     return (

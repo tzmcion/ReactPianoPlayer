@@ -53,7 +53,7 @@ class DancingLines{
             Effect.alpha = this.Rect_Floor_Alpha_ReturnNewAlpha(Effect.pos_x,Effect.pos_y,Effect.color,Effect.alpha);
             Effect.pos_y -= Math.random() * Effect.velocity_y;
             Effect.pos_x += Math.random() * 0.5 * Effect.velocity_x;
-            Effect.velocity_x > 0 ? Effect.velocity_x += Math.random() * 0.35: Effect.velocity_x-= Math.random() * 0.35
+            Effect.velocity_x > 0 ? Effect.velocity_x += Math.random() * 0.25: Effect.velocity_x-= Math.random() * 0.25
             //
             if(this.gravitation)Effect.velocity_y -= this.gravitation_force / Effect.alpha;
             //
@@ -65,6 +65,7 @@ class DancingLines{
 
     private Rect_Floor_Alpha_ReturnNewAlpha(pos_x:number,pos_y:number, color:string, alpha:number){
         this.ctx.fillStyle = color + `,${alpha})`;
+        this.ctx.shadowColor = color + `,${alpha})`;
         this.ctx.fillRect(Math.floor(pos_x),Math.floor(pos_y),Math.floor(this.effect_width),Math.floor(this.effect_height));
         return alpha - 1/this.life_time;
     }

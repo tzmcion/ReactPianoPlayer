@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+
+.Important{
+    position: absolute;
+    background-color: #832232;
+    width:150px;
+    height:25px;
+    transform: rotate(45deg);
+    top:10px;
+    right:-45px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-left: 10px;
+    color:white;
+    font-weight: 500;
+}
+
+.CardData{
+    box-sizing: border-box;
+    position: relative;
+    width:97%;
+    height: 93%;
+    padding: 1.5%;
+    margin: 1.5%;
+    box-shadow: 0px 1px 5px black;
+    border-radius: 8px;
+    background-color: #283845;
+}
+
+.OptionCard{
+    display: inline-block;
+    position: relative;
+    height:200px;
+    width:350px;
+    overflow: hidden;
+}
+
+.CardData:hover{
+    transition: 0.25s ease;
+    box-shadow: 0px 2px 5px rgb(77, 2, 39);
+}
+
+.OptionName{
+    margin: 5px;
+    color:white;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'IM Fell English SC', serif;
+}
+
+.description{
+    width:80%;
+    margin: 10px auto;
+    font-size: 12px;
+    color:white;
+    font-weight: 400;
+    text-align: center;
+}
+
+.input{
+    display: block;
+    margin: 12px auto;
+    text-align: center;
+}

@@ -42,5 +42,6 @@
     margin: 20px auto;
     height:500px;
     overflow: hidden;
+    position: relative;
     border:5px solid black;
 }

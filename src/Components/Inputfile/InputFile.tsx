@@ -4,7 +4,7 @@ import MidiImage from '../../Assets/midi.png';
 
 interface InputFileProps{
     FileRef: React.RefObject<HTMLInputElement>,
-    onFileUpload: Function
+    onFileUpload: Function,
 }
 
 export default function InputFile({FileRef,onFileUpload}:InputFileProps):ReactElement {

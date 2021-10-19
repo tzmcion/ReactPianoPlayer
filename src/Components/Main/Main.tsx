@@ -9,7 +9,7 @@ import { noteEvent } from "../../Utils/TypesForMidi";
 
 export default function Main() {
 
-    const DefaultSpeed = useRef<number>(50);
+    const DefaultSpeed = useRef<number>(40);
     const MidiFileRef = useRef<HTMLInputElement>(null);
     const [Player,setPlayer] = useState<MidiPlayer>()
     const [Events,setEvents] = useState<Array<noteEvent>>();

@@ -2,7 +2,7 @@ import React,{ReactElement, useRef, useEffect, useState} from 'react';
 import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
-import { RandomColor } from '../../Utils/smallFunctions';
+import { RandomColorRGBwithMin, RandomColorToAlhpa } from '../../Utils/smallFunctions';
 import Bg from '../../Assets/BG.jpg'
 import './Tracks.styles.css';
 
@@ -29,12 +29,10 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
     useEffect(()=>{
         const Canvas = tracksRef.current
         setContext(Canvas?.getContext('2d'));
-        console.log(Canvas);
-        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,5,100,1,90));
+        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,8,15,false,true,true,0));
         setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
-        //Canvas!.getContext('2d')!.globalCompositeOperation = 'screen';
     },[])
 
     useEffect(()=>{
@@ -43,18 +41,15 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
             context?.clearRect(0,0,Width,Height);
             EffectLines?.render();
             blocksToMap.map(block =>{
-                let newBlock = block;
-                newBlock.pos_y += Speed;
+                block.pos_y += Speed;
                 context!.shadowColor = block.color;
                 context!.shadowBlur = 9;
-                CanvasRoundRect(context!,block.color,Math.floor(block.pos_x),Math.floor(block.pos_y) - block.height!,Math.floor(block.width),Math.floor(block.height!),5);
-                if(newBlock.pos_y - block.height! < Height){
-                    newBlocksToState.push(newBlock);
+                CanvasRoundRect(context!,block.color,Math.floor(block.pos_x),Math.floor(block.pos_y - block.height!),Math.floor(block.width),Math.floor(block.height!),5);
+                if(block.pos_y - block.height! < Height){
+                    newBlocksToState.push(block);
                 }
-                // if(newBlock.pos_y > Height && timer % 1 === 0){
-                //     for(let x = 0; x < 7; x++){
-                //         EffectLines?.AddEffect(block.pos_x,Height,RandomColor(200,150,100));
-                //     }
+                // if(block.pos_y > Height && timer % 1 === 0){
+                //     EffectLines?.AddEffect(block.pos_x,Height,RandomColorToAlhpa(200,200));
                 // }
                 return null;
             })
@@ -65,7 +60,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
         let newblocks:Array<blockNote> = [...blocks]
         Data && Data.map(Event =>{
             const newBlock:blockNote = {
-                color: `#e5e4e2`,
+                color: RandomColorRGBwithMin(190,190,190),
                 width: BlackNumbers.includes(Event.NoteNumber) ? Width / 52 / 1.8 : Width / 52,
                 Velocity: Event.Velocity,
                 NoteNumber: Event.NoteNumber,
@@ -73,8 +68,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 pos_y: 0,
                 height: Event.Duration / 1000 / 5
             }
-            
-            newBlock.Velocity > 0 && newblocks.push(newBlock);
+            newblocks.push(newBlock);
             return null;
         })
         setBlocks(newblocks);

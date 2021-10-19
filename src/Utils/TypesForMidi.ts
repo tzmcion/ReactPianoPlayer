@@ -41,11 +41,9 @@ export interface noteEvent{
 }
 
 export interface blockNote{
+    color:string
     width:number
     NoteNumber:number,
-    Delta:number,
-    Duration:number,
-    SoundDuration:number,
     Velocity:number,
     pos_y:number,
     pos_x:number,

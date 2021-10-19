@@ -9,7 +9,6 @@ const CanvasRoundRect = (ctx:CanvasRenderingContext2D,color:string,x:number, y:n
   ctx.arcTo(x,   y+h, x,   y,   r);
   ctx.arcTo(x,   y,   x+w, y,   r);
   ctx.fill();
-  ctx.closePath();
 }
 
 export {CanvasRoundRect}

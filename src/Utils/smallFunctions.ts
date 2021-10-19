@@ -19,5 +19,10 @@ const CreateEmptyArray = (Keys:number,startNumber:number):Array<noteEvent> =>{
     return Keys_Array;
 }
 
+const RandomColor = (r?:number,g?:number,b?:number):string=>{
+    return `rgba(${r === undefined? Math.random() * 255 : r},${g === undefined ? Math.random() * 255: g},${b === undefined ? Math.random() * 255 : b}`;
+}
+
 export {CreateEmptyArray as CreateMidiNoteEventsArray};
 export {getEmptyNoteEvent};
+export {RandomColor};

@@ -5,17 +5,11 @@ import ConvertToNoteEventsJSON from './getNoteEventsJSON';
 
 const PlayMidiAsync = async (fileData:Object,onEvent:Function) =>{
     const File = fileData as IMidiFile;
-    let microsecondsPerQuarter = 500000;   //Default Value if it's not given
-    const StaticMidiFileData = getConstantDataFromMidiFile(File);
-    let tickTime = microsecondsPerQuarter /  StaticMidiFileData.division;  //In microseconds
-    console.log(File);
-
-    const noteEventsJSON = ConvertToNoteEventsJSON(File,microsecondsPerQuarter,StaticMidiFileData,tickTime);
-    console.log(noteEventsJSON);
+    const noteEventsJSON = ConvertToNoteEventsJSON(File,500000,getConstantDataFromMidiFile(File));
     const PlayFromNotesAsync = async () =>{
         let timer = 0, currentIndex = 0;
         let Events:Array<noteEvent> = [];
-        const timeStamps = 30;
+        const timeStamps = 40;
         const interval = setInterval(()=>{
             timer += timeStamps;
             while(true){
@@ -36,7 +30,6 @@ const PlayMidiAsync = async (fileData:Object,onEvent:Function) =>{
         },timeStamps);
     }
     PlayFromNotesAsync();
-    //PlayAsync([0,0],[0,0],0);
 }
 
 export default PlayMidiAsync;

@@ -1,11 +1,3 @@
-.main{
-    width:100%;
-}
-
-body{
-    overflow: hidden;
-}
-
 .PlayButton{
     margin: 20px auto;
     font-size: 24px;

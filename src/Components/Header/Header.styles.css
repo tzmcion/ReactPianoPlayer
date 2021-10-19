@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.Header{
+    position: fixed;
+    box-shadow: 0px 0px 10px black;
+    background-color: white;
+    width:100%;
+    height: 50px;
+}
+
+.HeaderData{
+    position: relative;
+    width:1420px;
+    height:100%;
+    margin: 0px auto;
+    display: flex;
+    align-items: center;
+}
+
+.Logo{
+    display: flex;
+    align-items: center;
+    height: 80%;
+    border-right: 1.5px dashed black;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.Logo>h1{
+    display: inline-block;
+    margin: unset;
+    margin-left: 5px;
+    font-size: 20px;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.LogoImage{
+    width:35px;
+}
+
+.Links{
+    box-sizing: border-box;
+    padding: 5px;
+    margin-left: -10px;
+    display: flex;
+    align-items: center;
+}
+
+.Link{
+    margin-top: 0px;
+    margin-left: 30px;
+    color:black;
+    font-size: 18px;
+    letter-spacing: 1.4px;
+    font-weight: 400;
+    text-decoration: none;
+    font-family: 'Bebas Neue';
+}
+
+.Link:hover{
+    transition: 0.2s ease-in;
+    color: rgb(1, 67, 121);
+    transform: scale(1.2);
+}

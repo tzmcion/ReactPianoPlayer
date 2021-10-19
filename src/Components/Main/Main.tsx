@@ -54,7 +54,7 @@ export default function Main() {
     },[handleClick])
 
     return (
-        <div className='main'>
+        <div>
             {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={()=>{setPlayer(new MidiPlayer(MidiFileRef))}} /> }
             {!Player && <Options handleOptionsChange={handleOptionsChange} options={options} />}
             {Player &&<DrawPiano Data={Events} Speed={DefaultSpeed.current} options={options}/>}

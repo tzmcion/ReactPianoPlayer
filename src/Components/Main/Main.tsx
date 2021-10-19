@@ -9,7 +9,7 @@ import { noteEvent } from "../../Utils/TypesForMidi";
 
 export default function Main() {
 
-    const DefaultSpeed = useRef<number>(35);
+    const DefaultSpeed = useRef<number>(50);
     const MidiFileRef = useRef<HTMLInputElement>(null);
     const [Player,setPlayer] = useState<MidiPlayer>()
     const [Events,setEvents] = useState<Array<noteEvent>>();
@@ -38,7 +38,6 @@ export default function Main() {
 
     return (
         <div className='main'>
-            {/* <input type='file' ref={MidiFileRef} onInput={handleInput}/> */}
             {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={handleInput} /> }
             {Player &&<DrawPiano Data={Events} Speed={DefaultSpeed.current}/>}
             <div className='PlayDiv'>

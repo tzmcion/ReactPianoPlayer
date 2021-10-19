@@ -3,6 +3,7 @@ import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
 import { RandomColor } from '../../Utils/smallFunctions';
+import Bg from '../../Assets/BG.jpg'
 import './Tracks.styles.css';
 
 
@@ -50,11 +51,11 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 if(newBlock.pos_y - block.height! < Height){
                     newBlocksToState.push(newBlock);
                 }
-                if(newBlock.pos_y > Height && timer % 1 === 0){
-                    for(let x = 0; x < 7; x++){
-                        EffectLines?.AddEffect(block.pos_x,Height,RandomColor(200,150,100));
-                    }
-                }
+                // if(newBlock.pos_y > Height && timer % 1 === 0){
+                //     for(let x = 0; x < 7; x++){
+                //         EffectLines?.AddEffect(block.pos_x,Height,RandomColor(200,150,100));
+                //     }
+                // }
                 return null;
             })
             setBlocks(newBlocksToState);
@@ -85,7 +86,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 <h1>Piano-Blocks V. 0.1</h1>
                 <h2>Closed Beta Version</h2>
             </div>
-            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px'}}></div>
+            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', backgroundImage : Bg}}></div>
             <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - 300).toString() + 'px' }}></div>
             <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas>
         </div>

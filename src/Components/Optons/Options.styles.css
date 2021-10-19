@@ -1,0 +1,14 @@
+.options{
+    position: relative;
+    z-index: 999;
+    width:100%;
+}
+
+.mainOptions{
+    display: flex;
+    flex-wrap: wrap;
+    width:1080px;
+    flex-direction: row;
+    margin: 10px auto;
+    justify-content: space-between;
+}

@@ -17,7 +17,7 @@ Remember to run everytime you pull !!
 Download project ::
 
 ```
-git pull https://github.com/tzmcion/ReactPianoPlayer/pull/new/UbVersion
+git pull https://github.com/tzmcion/ReactPianoPlayer
 ```
 
 -------

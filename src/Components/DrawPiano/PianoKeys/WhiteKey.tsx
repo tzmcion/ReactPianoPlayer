@@ -16,7 +16,7 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,Delay}:WhiteKeyPro
 
     useEffect(()=>{
         Data?.map(event =>{
-                if(event.NoteNumber === id && event.Velocity > 0){
+                if(event.NoteNumber === id){
                     setTimeout(()=>{
                         setBackgroundColor('#D4AF37');
                         setTimeout(()=>{setBackgroundColor('white')},event.Duration / 1000);

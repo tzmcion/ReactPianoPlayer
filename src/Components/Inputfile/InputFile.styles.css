@@ -38,10 +38,10 @@
 
 .FileInputDiv{
     border-radius: 20px;
-    position: relative;
     width:90%;
     margin: 20px auto;
     height:500px;
     overflow: hidden;
+    position: relative;
     border:5px solid black;
 }

@@ -58,7 +58,9 @@
                                     if(!isPianoSustainOn){  //Sound Duration if Pedal Sustain is  ton on
                                         PianoArrayOfKeys[ArrayIndex].SoundDuration = Math.floor(PianoArrayOfKeys[ArrayIndex].Duration)  //then sound duration is note duration
                                         const Element = PianoArrayOfKeys[ArrayIndex];
+                                        if(Element.Velocity && Element.Delta > 0){
                                         finalNotes.push(Element);  //pushing to final notes
+                                        }
                                         PianoArrayOfKeys[ArrayIndex] = getEmptyNoteEvent(ArrayIndex + 21);  //clearing arrayOfNotes
                                     }else{  //if it's on it's just pushed to waiting notes, they wait for pedal off
                                         waitingNotes.push(PianoArrayOfKeys[ArrayIndex]);
@@ -75,7 +77,9 @@
                                                     return null;
                                                 })
                                                 waitingNotes.map(element =>{    //waiting notes are pushed to final notes NOTE--They are not sorted yet
+                                                    if(element.Velocity && element.Delta > 0){
                                                     finalNotes.push(element);   
+                                                    }
                                                     return null;
                                                 })
                                                 waitingNotes = []; 
@@ -95,6 +99,7 @@
                         File.tracks.map((Track,index) =>{
                             if(Track.length > newIndexes[index])
                             AllTracksFinished = false;
+                            return null;
                         })
                         endofTrack = AllTracksFinished ? true : false;
                     }
@@ -106,6 +111,7 @@
             let DeltaToWait = smallestDelta.reduce((a,b)=> Math.min(a,b));
             newTicksToNextEvent.map((element,index) =>{
                 newTicksToNextEvent[index] += DeltaToWait;
+                return null;
             })
             smallestDelta = [];
             

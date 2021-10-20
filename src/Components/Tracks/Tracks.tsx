@@ -31,9 +31,10 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
         const Canvas = tracksRef.current
         setContext(Canvas?.getContext('2d'));
         setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,19,false,true,true,0.20));
-        setInterval(() =>{
+        const interval = setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
+        return () => clearInterval(interval);
     },[intervalSpeed,Width]);
 
     useEffect(()=>{
@@ -50,7 +51,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                     newBlocksToState.push(block);
                 }
                 if(block.pos_y > Height && timer % 1 === 0 && options.IsEffects){
-                    for(let x =0; x < 15; x++){
+                    for(let x =0; x < 3; x++){
                     EffectLines?.AddEffect(block.pos_x,Height,RandomColorToAlphawithMin(200,200,200));
                     }
                 }
@@ -70,7 +71,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 NoteNumber: Event.NoteNumber,
                 pos_x: KeysPositions[Event.NoteNumber - 21].position,
                 pos_y: 0,
-                height: Event.Duration / 1000 / 5
+                height: Event.Duration / 1000 / (intervalSpeed / Speed)
             }
             newblocks.push(newBlock);
             return null;

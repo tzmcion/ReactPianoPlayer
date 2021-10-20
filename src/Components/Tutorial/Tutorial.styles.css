@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&display=swap');
+
+.mainTutorial{
+    overflow-y: scroll;
+    width:100%;
+    position: absolute;
+}
+
+.Tutorial{
+    position: relative;
+    margin: 70px auto;
+    width:1080px;
+    border-radius: 5px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.gradientLeft{
+    background: #D4F1F4;
+}
+
+.gradientRight{
+    background: #05445E;
+    color:white
+}
+
+.Tutorial_Head{
+    margin-top: 20px;
+}
+
+.Tutorial_Head>h1{
+    display: block;
+    font-family: 'Inconsolata', monospace;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.TutorialBlocks{
+
+}
+
+.TutorialBlock{
+    margin: 20px auto;
+    border-radius: 5px;
+    height:300px;
+    width:90%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.527);
+}
+
+.element{
+    width:50%;
+    box-sizing: border-box;
+    height:100%;
+}
+
+.TextElement{
+    padding: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.TextElement>h1{
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.TextElement>h2{
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.AudioIcon{
+    font-size: 32px;
+    transform: rotate(15deg);
+    color: #283845;
+}
+
+.ImageElement{
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.Editor{
+    width:100%;
+    box-shadow: 0px 0px 10px black;
+}
+
+.flex1{
+    order: 1;
+}
+
+.flex2{
+    order: 2;
+}

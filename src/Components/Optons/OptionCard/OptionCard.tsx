@@ -13,7 +13,7 @@ interface CardProps{
 
 export default function OptionCard({onChange,name,type,Important,title,children,value}:CardProps):ReactElement {
 
-    const [Myvalue,setValue] = useState<any>('#FF3232');
+    const [Myvalue,setValue] = useState<any>('#e5e4e2');
 
     const handleChange = (e:any) =>{
         onChange(e)
@@ -25,7 +25,7 @@ export default function OptionCard({onChange,name,type,Important,title,children,
                     {Important && <div className='Important'>Important</div>}
                     <h1 className='OptionName'>{ title ? title:name}</h1>
                     <h3 className='description'>{children}</h3>
-                    <input className={`${type}Input input`} value={Myvalue} type={type} name={name} onChange={handleChange} />
+                    <input className={`${type}Input input`} value={Myvalue}  type={type} name={name} onChange={handleChange} />
                 </div>
         </div>
     )

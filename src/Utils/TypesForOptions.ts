@@ -2,6 +2,7 @@ export interface Options{
     Color:string,
     RandomColors:boolean,
     IsEffects:boolean,
-    backgroundImage: string
+    backgroundImage: string,
+    speed:number
 }
 

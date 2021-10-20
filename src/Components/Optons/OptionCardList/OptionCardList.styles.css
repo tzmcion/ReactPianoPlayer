@@ -48,7 +48,7 @@
     font-family: 'IM Fell English SC', serif;
 }
 
-.descriptionImage{
+.description{
     width:80%;
     margin: 10px auto;
     height: 75px;
@@ -62,11 +62,4 @@
     display: block;
     margin: 12px auto;
     text-align: center;
-}
-
-.inputImage{
-    width:100%;
-    margin-top: -10px;
-    height:50px;
-    border-radius: 10px;
 }

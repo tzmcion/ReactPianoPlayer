@@ -25,7 +25,7 @@ export default function OptionCard({onChange,name,type,Important,title,children,
                     {Important && <div className='Important'>Important</div>}
                     <h1 className='OptionName'>{ title ? title:name}</h1>
                     <h3 className='description'>{children}</h3>
-                    <input className='input' value={Myvalue} type={type} name={name} onChange={handleChange} />
+                    <input className={`${type}Input input`} value={Myvalue} type={type} name={name} onChange={handleChange} />
                 </div>
         </div>
     )

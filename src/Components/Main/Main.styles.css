@@ -19,3 +19,7 @@
     display: flex;
     justify-content: center;
 }
+
+.mainDiv{
+    overflow-x: hidden;
+}

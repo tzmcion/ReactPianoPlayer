@@ -1,6 +1,7 @@
 export interface Options{
     Color:string,
     RandomColors:boolean,
-    IsEffects:boolean
+    IsEffects:boolean,
+    backgroundImage: string
 }
 

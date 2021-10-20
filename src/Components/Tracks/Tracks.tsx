@@ -4,7 +4,6 @@ import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
 import { RandomColorRGBwithMin, RandomColorToAlphawithMin } from '../../Utils/smallFunctions';
-import Bg from '../../Assets/BG.jpg'
 import './Tracks.styles.css';
 
 
@@ -16,7 +15,7 @@ interface TracksProps{
     BlackNumbers: Array<number>
     KeysPositions: Array<any>,
     intervalSpeed: number,
-    options: OptionsType
+    options: OptionsType,
 }
 
 
@@ -86,7 +85,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 <h1>Piano-Blocks V. 0.1</h1>
                 <h2>Closed Beta Version</h2>
             </div>
-            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', backgroundImage : Bg}}></div>
+            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', background: options.backgroundImage? `url(${options.backgroundImage})` : 'black', backgroundSize: 'cover', backgroundColor:'black'}}></div>
             <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - 300).toString() + 'px' }}></div>
             <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas>
         </div>

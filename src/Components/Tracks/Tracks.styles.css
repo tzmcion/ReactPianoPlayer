@@ -8,7 +8,7 @@
 
 .coverPhoto{
     position: absolute;
-    background: url('../../Assets/BG.jpg');
+    background: black;
     filter: grayscale();
     background-size: cover;
     z-index: 999;

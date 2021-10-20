@@ -10,11 +10,12 @@ import { noteEvent } from "../../Utils/TypesForMidi";
 
 export default function Main() {
 
-    const DefaultSpeed = useRef<number>(35);
+    const DefaultSpeed = useRef<number>(45);
     const MidiFileRef = useRef<HTMLInputElement>(null);
-    const [Player,setPlayer] = useState<MidiPlayer>()
+    const [Player,setPlayer] = useState<MidiPlayer>();
+    const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
     const [Events,setEvents] = useState<Array<noteEvent>>();
-    const [options,setOptions] = useState<OptionsType>({Color:'#FF5532',RandomColors:false,IsEffects:false});
+    const [options,setOptions] = useState<OptionsType>({Color:'#FF5532',RandomColors:false,IsEffects:false, backgroundImage: ''});
 
     const handleMidiEvent = (Events:Array<noteEvent>) =>{
         Events.length > 0 && setEvents(Events);
@@ -39,6 +40,9 @@ export default function Main() {
             case 'IsEffects':
                 currentOptions.IsEffects = !options.IsEffects;
                 break;
+            case 'Image':
+                currentOptions.backgroundImage = event.target.value;
+                break;
             default:
                 break;
         }
@@ -53,8 +57,12 @@ export default function Main() {
         })
     },[handleClick])
 
+    useEffect(()=>{
+        window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
+    },[])
+
     return (
-        <div>
+        <div style={{height:windowHeight, overflowY: Player? 'hidden': 'scroll'}} className='mainDiv'>
             {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={()=>{setPlayer(new MidiPlayer(MidiFileRef))}} /> }
             {!Player && <Options handleOptionsChange={handleOptionsChange} options={options} />}
             {Player &&<DrawPiano Data={Events} Speed={DefaultSpeed.current} options={options}/>}

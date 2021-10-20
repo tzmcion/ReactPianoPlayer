@@ -33,7 +33,8 @@ export default function DrawPiano({Data,Speed,options}:DrawPianoProps):ReactElem
 
     useEffect(()=>{
         window.addEventListener('resize',handleResize);
-    },[])
+        console.log(options.backgroundImage);
+    },[options.backgroundImage])
 
     const renderPianoKeys = () =>{
         let To_Render = [];
@@ -86,7 +87,13 @@ export default function DrawPiano({Data,Speed,options}:DrawPianoProps):ReactElem
 
     return (
         <div className='Piano' style={{height: windowHeight}}>
-            <Tracks Width={WhiteKeyWidth * 52} Height={windowHeight-215 + 15} Speed={10} Data={Data!} BlackNumbers={blackKeysNumbers()} KeysPositions={KeysPositions()} intervalSpeed={Speed} options={options} />
+            <Tracks Width={WhiteKeyWidth * 52}
+             Height={windowHeight-215 + 15} 
+             Speed={10} Data={Data!} 
+             BlackNumbers={blackKeysNumbers()} 
+             KeysPositions={KeysPositions()} 
+             intervalSpeed={Speed} 
+             options={options} />
             <div className='piano_keys' style={{marginTop: windowHeight + 15 - 235}}>
             {renderPianoKeys()}
             </div>

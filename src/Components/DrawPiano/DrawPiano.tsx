@@ -10,15 +10,14 @@ import BlackKey from './PianoKeys/BlackKey';
 interface DrawPianoProps{
     Data: Array<noteEvent> | undefined,
     Speed: number,
-    options: OptionsType
+    options: OptionsType,
+    drawSpeed: number
 }
 
-export default function DrawPiano({Data,Speed,options}:DrawPianoProps):ReactElement {
+export default function DrawPiano({Data,Speed,options,drawSpeed}:DrawPianoProps):ReactElement {
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
-    const [drawSpeed,setDrawSpeed] = useState<number>(25)
-
     const drawWhitePianoKey = (pos_x:number,id:number) =>{
         return <WhiteKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={Data} id={id} key={id} Delay={((windowHeight - 215) * 10)/(drawSpeed * 10/Speed)} />
     }
@@ -89,13 +88,13 @@ export default function DrawPiano({Data,Speed,options}:DrawPianoProps):ReactElem
     return (
         <div className='Piano' style={{height: windowHeight}}>
             <Tracks Width={WhiteKeyWidth * 52}
-             Height={windowHeight-215 + 15} 
+             Height={windowHeight-215} 
              Speed={drawSpeed} Data={Data!} 
              BlackNumbers={blackKeysNumbers()} 
              KeysPositions={KeysPositions()} 
              intervalSpeed={Speed} 
              options={options} />
-            <div className='piano_keys' style={{marginTop: windowHeight + 15 - 235}}>
+            <div className='piano_keys' style={{marginTop: windowHeight - 235}}>
             {renderPianoKeys()}
             </div>
         </div>

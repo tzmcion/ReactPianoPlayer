@@ -1,10 +1,13 @@
 import React,{ReactElement, useRef, useEffect, useState} from 'react';
+import './Tracks.styles.css';
+
 import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
 import { RandomColorRGBwithMin, RandomColorToAlphawithMin } from '../../Utils/smallFunctions';
-import './Tracks.styles.css';
+
+import BG from '../../Assets/BG.jpg';
 
 
 interface TracksProps{
@@ -50,8 +53,8 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 if(block.pos_y - block.height! < Height){
                     newBlocksToState.push(block);
                 }
-                if(block.pos_y > Height && timer % 1 === 0 && options.IsEffects){
-                    for(let x =0; x < 3; x++){
+                if(block.pos_y > Height){
+                    for(let x =0; x < 2; x++){
                     EffectLines?.AddEffect(block.pos_x,Height,RandomColorToAlphawithMin(200,200,200));
                     }
                 }
@@ -82,11 +85,11 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
 
     return (
         <div>
-            <div className='Mark'>
+            {options.watermark && <div className='Mark'>
                 <h1>Piano-Blocks V. 0.1</h1>
                 <h2>Closed Beta Version</h2>
-            </div>
-            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', background: options.backgroundImage? `url(${options.backgroundImage})` : 'black', backgroundSize: 'cover', backgroundColor:'black'}}></div>
+            </div>}
+            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', background: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize:'cover', backgroundPosition: 'centrer'}}></div>
             <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - 300).toString() + 'px' }}></div>
             <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas>
         </div>

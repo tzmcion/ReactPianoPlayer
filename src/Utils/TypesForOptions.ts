@@ -3,6 +3,8 @@ export interface Options{
     RandomColors:boolean,
     IsEffects:boolean,
     backgroundImage: string,
-    speed:number
+    speed:number,
+    playSpeed:number,
+    watermark:boolean
 }
 

@@ -17,7 +17,7 @@ export default function BlackKey({WhiteKeyWidth,pos_x,Data, id,Delay}:WhiteKeyPr
         Data?.map(event =>{
             if(event.NoteNumber === id){
                 setTimeout(()=>{
-                    setBackgroundColor('#D4AF37');
+                    setBackgroundColor('#5085f8');
                     setTimeout(()=>{setBackgroundColor('black')},event.Duration/1000);
                 },Delay)
             }

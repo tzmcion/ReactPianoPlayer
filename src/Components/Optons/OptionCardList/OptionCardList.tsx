@@ -7,31 +7,32 @@ interface CardProps{
     Important?:boolean;
     title?:string;
     children:JSX.Element | string;
-    value: string|boolean
+    values: Array<string>;
+    value: number | boolean
 }
 
-export default function OptionCard({onChange,name,Important,title,children,value}:CardProps):ReactElement {
+export default function OptionCard({onChange,name,Important,title,children,values,value}:CardProps):ReactElement {
 
-    const [Myvalue,setValue] = useState<any>('35');
+    const [Myvalue,setValue] = useState<any>(value.toString());
 
     const handleChange = (e:any) =>{
         onChange(e)
         setValue(e.target.value);
     }
+
+    const RenderOptions = () =>{
+        return values.map((element,index) => <option value={element} key={index}>{element}</option>)
+    }
+
+
     return (
         <div className={`${name}Div OptionCard`}>
                 <div className='CardData'>
-                    {Important && <div className='Important'>Important</div>}
+                    {Important && <div className='Important'></div>}
                     <h1 className='OptionName'>{ title ? title:name}</h1>
                     <h3 className='description'>{children}</h3>
-                        <select id='speeds' value={Myvalue} onChange={handleChange} name='speed' className={`ListInput input`} >
-                            <option value="20" >20</option>
-                            <option value="30" >30</option>
-                            <option value="35" >35</option>
-                            <option value="40" >40</option>
-                            <option value="50" >50</option>
-                            <option value="75" >75</option>
-                            <option value="100" >100</option>
+                        <select id='speeds' value={Myvalue} onChange={handleChange} name={name} className={`ListInput input`} >
+                            {RenderOptions()}
                         </select>
                 </div>
         </div>

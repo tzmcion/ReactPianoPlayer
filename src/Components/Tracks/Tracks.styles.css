@@ -8,7 +8,6 @@
 
 .coverPhoto{
     position: absolute;
-    background: black;
     filter: grayscale();
     background-size: cover;
     z-index: 999;

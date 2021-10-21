@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react'
 import './Tutorial.styles.css';
 
 import Editor from '../../Assets/Editor.png'
+import Footer from '../Footer/Footer';
 
 export default function Tutorial() {
 
@@ -52,6 +53,7 @@ export default function Tutorial() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

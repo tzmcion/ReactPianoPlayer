@@ -10,13 +10,13 @@
     width:100%;
     flex-direction: row;
     margin: 0;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .container{
-    margin: 30px auto;
-    width:1280px;
-    padding: 30px;
+    margin: 10px auto;
+    width:1580px;
+    padding: 20px;
     box-sizing: border-box;
     border-radius: 4px;
 }

@@ -12,7 +12,6 @@
     border:1px solid black;
     height:250px;
     position: absolute;
-    transition: 0.05s;
     box-shadow: 0px 1px 4px black;
     border-radius: 2px;
     color:black;
@@ -27,7 +26,6 @@
     border:1px solid black;
     height:160px;
     position: absolute;
-    transition: 0.05s;
     box-shadow: 0px 1px 4px black;
     border-radius: 2px;
     color:white;

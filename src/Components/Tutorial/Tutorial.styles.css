@@ -4,6 +4,7 @@
     overflow-y: scroll;
     width:100%;
     position: absolute;
+    scroll-behavior: smooth;
 }
 
 .Tutorial{

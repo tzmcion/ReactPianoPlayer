@@ -40,6 +40,17 @@ const RandomColorHex = (r?:number,g?:number,b?:number):string =>{
     return rgbHex(Math.floor(r === undefined ? Math.random() * 255:r),Math.floor(g === undefined ? Math.random() * 255:g),Math.floor(b === undefined ? Math.random() * 255:b));
 }
 
+const checkExtension = (file:any,extension:string):boolean =>{
+    if(file){
+        const ext:string = file.name.split('.').pop();
+        if(ext.toLowerCase() === extension.replace('.','').toLowerCase()){
+            return true;
+        }
+    }
+    return false;
+}
+
 export {CreateEmptyArray as CreateMidiNoteEventsArray};
 export {getEmptyNoteEvent};
 export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin, RandomColorToAlphawithMin};
+export {checkExtension};

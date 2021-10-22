@@ -1,14 +1,22 @@
 .options{
     position: relative;
-    z-index: 999;
+    z-index: 19;
     width:100%;
 }
 
 .mainOptions{
     display: flex;
     flex-wrap: wrap;
-    width:1080px;
+    width:100%;
     flex-direction: row;
+    margin: 0;
+    justify-content: space-evenly;
+}
+
+.container{
     margin: 10px auto;
-    justify-content: space-between;
+    width:1580px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 4px;
 }

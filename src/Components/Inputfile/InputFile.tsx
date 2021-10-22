@@ -1,6 +1,8 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useRef, useEffect} from 'react';
 import './InputFile.styles.css';
+
 import MidiImage from '../../Assets/midi.png';
+import DrawInCanvas from './DrawInCanvas';
 
 interface InputFileProps{
     FileRef: React.RefObject<HTMLInputElement>,
@@ -8,6 +10,14 @@ interface InputFileProps{
 }
 
 export default function InputFile({FileRef,onFileUpload}:InputFileProps):ReactElement {
+
+    const Canvas = useRef<HTMLCanvasElement>(null);
+
+    useEffect(()=>{
+        const Drawing = new DrawInCanvas(Canvas);
+        const interval = setInterval(Drawing.render,45);
+        return () => clearInterval(interval);
+    })
 
     return (
         <div className='FileInputDiv'>
@@ -19,6 +29,7 @@ export default function InputFile({FileRef,onFileUpload}:InputFileProps):ReactEl
                 </div>
                 <h2>Or Click Here To Choose File!</h2>
                 </div>
+            <canvas className='backgroundCanvas' ref={Canvas}/>
         </div>
     )
 }

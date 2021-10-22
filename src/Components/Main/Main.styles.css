@@ -1,11 +1,3 @@
-.main{
-    width:100%;
-}
-
-body{
-    overflow: hidden;
-}
-
 .PlayButton{
     margin: 20px auto;
     font-size: 24px;
@@ -21,9 +13,7 @@ body{
     background-color: tomato;
 }
 
-.PlayDiv{
-    width:100%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
+.mainDiv{
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }

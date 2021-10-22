@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+
+.Footer_Small{
+    height:75px;
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.data{
+    width:95%;
+    height: 100%;
+    margin: 0px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.LogoImg{
+    display: inline-block;
+    transform: rotate(-4deg);
+    width:50px;
+    transition: 0.2s ease;
+}
+
+.LogoImg:hover{
+    transition: 0.8s ease;
+    transform: rotate(50deg);
+}
+
+.AppName{
+    display: flex;
+    align-items: center;
+    color:white;
+    font-family: 'Gowun Batang', serif;
+}
+
+.Technologies{
+    display: flex;
+    flex-direction: row-reverse;
+    filter: saturate(0.9);
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.Tech{
+    width:40px;
+    margin: 15px;
+}
+
+#reactIcon{
+    width:55px;
+    margin: 5px;
+}
+
+.AppName>h1{
+    margin: 0;
+    margin-left: 10px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.AppName>h2{
+    align-self:flex-end;
+    margin-left: 5px;
+    margin-bottom: 16px;
+    font-size: 10px;
+    display: inline-block;
+}
+
+.AppName>h2>span{
+    color: #5085f8;
+}

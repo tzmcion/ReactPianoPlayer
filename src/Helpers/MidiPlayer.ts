@@ -8,9 +8,11 @@ class MidiPlayer{
     //Typescript Declarations
     private ref: React.RefObject<HTMLInputElement>
     private Midi: Object | null
+    public isPlaying:boolean
     //Constructor
     constructor(fileRef: React.RefObject<HTMLInputElement>){
         this.ref = fileRef
+        this.isPlaying = false;
         this.Midi = null
         this.GetMidiAsObject();
     }
@@ -27,6 +29,7 @@ class MidiPlayer{
 
     public Play(onEvent:Function){
         this.Midi && PlayMidiAsync(this.Midi,onEvent);
+        this.isPlaying = true;
     }
 
     public Pause(){

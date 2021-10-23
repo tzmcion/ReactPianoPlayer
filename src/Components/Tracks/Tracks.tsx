@@ -5,7 +5,7 @@ import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
-import { RandomColorRGBwithMin, RandomColorToAlphawithMin } from '../../Utils/smallFunctions';
+import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
 
 import BG from '../../Assets/BG.jpg';
 
@@ -33,29 +33,38 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
     useEffect(()=>{
         const Canvas = tracksRef.current
         setContext(Canvas?.getContext('2d'));
-        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,19,false,true,true,0.20));
+        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,options.playSpeed * 2,false,true,true,options.speed / 60));
         const interval = setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
         return () => clearInterval(interval);
-    },[intervalSpeed,Width]);
-
+    },[intervalSpeed,Width,options]);
+    
     useEffect(()=>{
             const blocksToMap = [...blocks];
             let newBlocksToState:Array<blockNote> = [];
             context?.clearRect(0,0,Width,Height);
             EffectLines?.render();
-            blocksToMap.map(block =>{
+            blocksToMap.reverse().map(block =>{
                 block.pos_y += Speed;
                 context!.shadowColor = block.color;
-                context!.shadowBlur = 9;
-                CanvasRoundRect(context!,block.color,Math.floor(block.pos_x),Math.floor(block.pos_y - block.height!),Math.floor(block.width),Math.floor(block.height!),5);
+                context!.shadowBlur = 8;
+                CanvasRoundRect(context!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
                 if(block.pos_y - block.height! < Height){
                     newBlocksToState.push(block);
                 }
-                if(block.pos_y > Height){
-                    for(let x =0; x < 2; x++){
-                    EffectLines?.AddEffect(block.pos_x,Height,RandomColorToAlphawithMin(200,200,200));
+                if(block.pos_y > Height && options.IsEffects){
+                    const gradient = context!.createRadialGradient(block.pos_x + Width / 52 / 2, Height, 15, block.pos_x + Width / 52 / 2, Height, 45);
+                    gradient.addColorStop(0, 'rgb(100,150,200)');
+                    gradient.addColorStop(0.8, 'rgba(0,0,0,0.5)');
+                    gradient.addColorStop(1,'transparent')
+                    context!.beginPath();
+                    context!.shadowBlur = 0;
+                    context!.fillStyle = gradient;
+                    context!.fillRect(block.pos_x + Width / 52 / 2 - 50, Height - 50,block.pos_x + Width / 52 / 2 +50, Height +50);
+                    context!.closePath();
+                    for(let x =0; x < 3; x++){
+                    EffectLines?.AddEffect(block.pos_x,Height,`rgba(100,150,200`);
                     }
                 }
                 return null;
@@ -63,7 +72,6 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
             setBlocks(newBlocksToState);
              // eslint-disable-next-line react-hooks/exhaustive-deps
     },[timer])
-
     useEffect(() =>{
         let newblocks:Array<blockNote> = [...blocks]
         Data && Data.map(Event =>{

@@ -144,3 +144,17 @@
     background-color: rgb(69, 241, 69);
     position: absolute;
 }
+
+@media only screen and (max-width: 740px){
+    .OptionCard{
+        width:400px;
+        height: 250px;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    .OptionCard{
+        width:300px;
+        height: 200px;
+    }
+}

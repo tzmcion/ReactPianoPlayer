@@ -29,7 +29,7 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
                 <OptionCardImage name='Image' title="Background Image" type='Image' value={options.Color} onChange={handleOptionsChange}>
                     Choose Background Of your track, to be precise, upload it, or it will be default image (which looks bad by the way)
                 </OptionCardImage>
-                <OptionCardList name='speed' Important title="Render Speed" values={['20','30','35','40','45','50','75','100']} value={options.speed} onChange={handleOptionsChange}>
+                <OptionCardList name='speed' Important title="Render Speed" values={['10','15','20','30','35','40','45','50','75','100']} value={options.speed} onChange={handleOptionsChange}>
                     Choose The Speed Of your Render. Remember, The higher render speed is, the more lags may happen, and everything will be faster
                 </OptionCardList>
                 <OptionCardList name='playSpeed' Important title="Playing Speed" values={['5','10','15','20','25','30','40','50', '60']} value={options.playSpeed} onChange={handleOptionsChange}>
@@ -38,6 +38,7 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
                 <OptionCard Important onChange={handleOptionsChange} name='watermark' title='Watermark' type='checkbox' value={options.watermark} >
                     Choose If you want to have watermark in your piano blocks 
                 </OptionCard>
+                <OptionCard Important onChange={handleOptionsChange} name='soundOn' title='Music' type='checkbox' value={options.soundOn}>Choose if you want Piano Blocks App to play music with video</OptionCard>
             </div>
             </div>
         </div>

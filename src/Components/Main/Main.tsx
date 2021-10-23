@@ -1,4 +1,5 @@
 import React,{useRef,ChangeEvent, useState,useEffect, useCallback} from 'react';
+import Soundfont from 'soundfont-player';
 import './Main.styles.css';
 
 import MidiPlayer from '../../Helpers/MidiPlayer';
@@ -16,16 +17,30 @@ export default function Main() {
     const [Player,setPlayer] = useState<MidiPlayer>();
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
     const [Events,setEvents] = useState<Array<noteEvent>>();
-    const [options,setOptions] = useState<OptionsType>({Color:'#e5e4e2',RandomColors:false,IsEffects:false, backgroundImage: '',speed:35, playSpeed:10, watermark:true});
+    const [options,setOptions] = useState<OptionsType>({Color:'#e5e4e2',RandomColors:false,IsEffects:false, backgroundImage: '',speed:35, playSpeed:10, watermark:true,soundOn:true});
 
-    const handleMidiEvent = (Events:Array<noteEvent>) =>{
+    const handleMidiEvent = (Events:Array<noteEvent>,instrument?:any,ac?:AudioContext) =>{
         Events.length > 0 && setEvents(Events);
+        if(instrument && ac){
+        Events.map(event =>{
+            setTimeout(() => {instrument.play(event.NoteNumber,ac.currentTime,{gain:event.Velocity / 127 * (event.NoteNumber/10)}).stop(ac.currentTime + event.SoundDuration)}, ((window.innerHeight - 185) * 10)/(options.playSpeed * 10/options.speed));
+            return null;
+        })
+    }
     }
 
     const handleClick = useCallback(
         () => {
-            Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev)});
+            if(options.soundOn){
+            const ac = new AudioContext();
+            Player && Player.isReady && Soundfont.instrument(ac, 'acoustic_grand_piano',{ soundfont: 'MusyngKite' }).then((instrument) =>{
+                Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev,instrument,ac)});
+            })
+            }else{
+                Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev)});
+            }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [Player],
     )
 
@@ -62,6 +77,9 @@ export default function Main() {
             case 'watermark':
                 currentOptions.watermark = !options.watermark;
                 break;
+            case 'soundOn':
+                currentOptions.soundOn = !options.soundOn;
+                break;
             default:
                 break;
         }
@@ -71,7 +89,9 @@ export default function Main() {
     useEffect(()=>{
         document.addEventListener('keyup',(e)=>{
             if(e.key === ' ' || e.keyCode === 32){
+                if(!Player?.isPlaying){
                 handleClick();
+                }
             }
         })
     },[handleClick])
@@ -81,6 +101,7 @@ export default function Main() {
     },[Player])
 
     useEffect(()=>{
+        document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
     },[])
 

@@ -55,10 +55,10 @@
                                 if('noteOff' in Event){ //boteOff ends a Note
                                     const ArrayIndex = Event.noteOff.noteNumber - 21;   //number of note
                                     PianoArrayOfKeys[ArrayIndex].Duration = Math.floor(newtimePassed - PianoArrayOfKeys[ArrayIndex].Delta); //Note Duration
-                                    if(!isPianoSustainOn){  //Sound Duration if Pedal Sustain is  ton on
+                                    if(!isPianoSustainOn || ('endOfTrack' in (Track[newIndexes[index]] as MidiEventType))){  //Sound Duration if Pedal Sustain is  ton on
                                         PianoArrayOfKeys[ArrayIndex].SoundDuration = Math.floor(PianoArrayOfKeys[ArrayIndex].Duration)  //then sound duration is note duration
                                         const Element = PianoArrayOfKeys[ArrayIndex];
-                                        if(Element.Velocity && Element.Delta > 0){
+                                        if(Element.Velocity && Element.Delta >= 0){
                                         finalNotes.push(Element);  //pushing to final notes
                                         }
                                         PianoArrayOfKeys[ArrayIndex] = getEmptyNoteEvent(ArrayIndex + 21);  //clearing arrayOfNotes

@@ -19,7 +19,7 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,Delay}:WhiteKeyPro
                 if(event.NoteNumber === id){
                     setTimeout(()=>{
                         setBackgroundColor('#5085f8');
-                        setTimeout(()=>{setBackgroundColor('white')},event.Duration / 1000);
+                        setTimeout(()=>{setBackgroundColor('white')},event.Duration / 1000 - 25);
                     },Delay)
                 }
             return null;

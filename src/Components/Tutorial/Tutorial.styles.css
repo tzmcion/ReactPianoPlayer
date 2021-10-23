@@ -91,6 +91,7 @@
 
 .Editor{
     width:100%;
+    max-height: 100%;
     box-shadow: 0px 0px 10px black;
 }
 
@@ -100,4 +101,21 @@
 
 .flex2{
     order: 2;
+}
+
+.Youtube{
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px black;
+}
+
+.YT_tut{
+    display: block;
+    text-align: center;
+    border-top: 2px dashed black;
+    padding: 10px;
+    margin: 20px auto;
+    font-size: 24px;
+    font-family: 'Inconsolata', monospace;
 }

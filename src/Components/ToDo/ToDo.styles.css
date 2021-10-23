@@ -1,0 +1,15 @@
+ .Buttons_PP{
+    display: block;
+    width: 20%;
+    margin: 100px auto;
+} 
+
+ .Donate>h1{
+    margin-top: 50px;
+    font-size: 12px;
+}
+
+.Donate{
+    width:100%;
+    text-align: center;
+}

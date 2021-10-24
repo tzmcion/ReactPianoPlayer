@@ -55,7 +55,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 }
                 if(block.pos_y > Height && options.IsEffects){
                     const gradient = context!.createRadialGradient(block.pos_x + Width / 52 / 2, Height, 15, block.pos_x + Width / 52 / 2, Height, 45);
-                    gradient.addColorStop(0, 'rgb(100,150,200)');
+                    gradient.addColorStop(0, block.color);
                     gradient.addColorStop(0.8, 'rgba(0,0,0,0.5)');
                     gradient.addColorStop(1,'transparent')
                     context!.beginPath();

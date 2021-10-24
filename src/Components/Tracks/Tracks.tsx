@@ -34,10 +34,12 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
         const Canvas = tracksRef.current
         setContext(Canvas?.getContext('2d'));
         setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,options.playSpeed * 2,false,true,true,options.speed / 60));
+        setTimeout(()=>{alert('Press Space to Play (after closing this window)')},50);
         const interval = setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
         return () => clearInterval(interval);
+
     },[intervalSpeed,Width,options]);
     
     useEffect(()=>{

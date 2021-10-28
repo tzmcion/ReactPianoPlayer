@@ -24,7 +24,7 @@ export default function ToDo() {
             <input type='number' value={amount} onChange={onAmountChange} />
             <h2> PLN and make someone's day much better</h2>
             <button onClick={()=>{setClick(true)}}>DONATE</button>
-            {/* {click && <PayPalScriptProvider options={{ "client-id": "AZD7klNPpXJhp9z7JxEva5mAo-6ImBsEjSMXUAMkwf-mpGGFMwuHtG-bmh_QjH7RKCmHTs00su8f--9U", currency:'PLN',intent: "capture"}}>
+            {click && <PayPalScriptProvider options={{ "client-id": "AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT", currency:'PLN',intent: "capture"}}>
                 <PayPalButtons className='Buttons_PP' createOrder={(data, actions) => {
                     return actions.order.create({
                         purchase_units: [
@@ -44,16 +44,16 @@ export default function ToDo() {
                     console.log(error)
                 }}
                 />
-            </PayPalScriptProvider>} */}
+            </PayPalScriptProvider>}
             {/* {click && <PaypalExpressBtn env='production' paymentOptions={{"payer": {
-        "payment_method": "PayPal Credit"
+        "payment_method": "paypal"
       },}} client={{sandbox: 'Ab27Gl7GlRY0swi_lmI7j-i4UGmbSrFmapjYUlbI5UQtJ71b0_YJ8_2GULzQDG7MKdJ-pc7Kr4YW_cOE',production:'AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT'}} currency={'PLN'} total={amount} />} */}
       {/* <form action="https://www.paypal.com/donate" method="post" target="_top">
 <input type="hidden" name="hosted_button_id" value="J6GQGKHC7H7SG" />
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
 <img alt=""  src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" />
 </form> */}
-    {click && <h2>Fajnie mordko ze to klikasz ale tu nic nie ma xd</h2>}
+    {/* {click && <h2>Fajnie mordko ze to klikasz ale tu nic nie ma xd</h2>} */}
             <Footer />
         </div>
     )

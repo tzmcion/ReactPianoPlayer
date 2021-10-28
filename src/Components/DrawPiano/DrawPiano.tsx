@@ -3,6 +3,7 @@ import './DrawPiano.styles.css';
 
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
+import MidiPlayer from '../../Helpers/MidiPlayer';
 import Tracks from '../Tracks/Tracks';
 import WhiteKey from './PianoKeys/WhiteKey';
 import BlackKey from './PianoKeys/BlackKey';
@@ -11,13 +12,20 @@ interface DrawPianoProps{
     Data: Array<noteEvent> | undefined,
     Speed: number,
     options: OptionsType,
-    drawSpeed: number
+    drawSpeed: number,
+    Player: MidiPlayer
 }
 
-export default function DrawPiano({Data,Speed,options,drawSpeed}:DrawPianoProps):ReactElement {
+export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPianoProps):ReactElement {
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
+
+    useEffect(()=>{
+        window.addEventListener('resize',handleResize);
+        console.log(options.backgroundImage);
+    },[options.backgroundImage])
+
     const drawWhitePianoKey = (pos_x:number,id:number) =>{
         return <WhiteKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={Data} id={id} key={id} Delay={((windowHeight - 215) * 10)/(drawSpeed * 10/Speed)} />
     }
@@ -30,11 +38,6 @@ export default function DrawPiano({Data,Speed,options,drawSpeed}:DrawPianoProps)
         setWindowKeyWidth(window.innerWidth / 52);
         setWindowHeight(window.innerHeight);
     }
-
-    useEffect(()=>{
-        window.addEventListener('resize',handleResize);
-        console.log(options.backgroundImage);
-    },[options.backgroundImage])
 
     const renderPianoKeys = () =>{
         let To_Render = [];
@@ -93,7 +96,8 @@ export default function DrawPiano({Data,Speed,options,drawSpeed}:DrawPianoProps)
              BlackNumbers={blackKeysNumbers()} 
              KeysPositions={KeysPositions()} 
              intervalSpeed={Speed} 
-             options={options} />
+             options={options} 
+             Player={Player}/>
             <div className='piano_keys' style={{marginTop: windowHeight - 235}}>
             {renderPianoKeys()}
             </div>

@@ -6,9 +6,10 @@ import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
 import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
+import MidiPlayer from '../../Helpers/MidiPlayer';
+import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen';
 
 import BG from '../../Assets/BG.jpg';
-
 
 interface TracksProps{
     Width: number
@@ -19,30 +20,34 @@ interface TracksProps{
     KeysPositions: Array<any>,
     intervalSpeed: number,
     options: OptionsType,
+    Player: MidiPlayer
 }
 
 
-export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options}:TracksProps):ReactElement {
+export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null)
     const [blocks,setBlocks] = useState<Array<blockNote>>([]);
     const [timer,setTimer] = useState<number>(0);
     const [context,setContext] = useState<CanvasRenderingContext2D | null>();
     const [EffectLines,setEffectLines] = useState<DancingLines | null>(null);
+    const [loading,setLoading] = useState<boolean>(true);
+    const [finishedLoading,setFinishedLoading] = useState<boolean>(false)
 
     useEffect(()=>{
+        if(!loading){
         const Canvas = tracksRef.current
         setContext(Canvas?.getContext('2d'));
         setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,options.playSpeed * 2,false,true,true,options.speed / 60));
-        setTimeout(()=>{alert('Press Space to Play (after closing this window)')},50);
         const interval = setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
         return () => clearInterval(interval);
-
-    },[intervalSpeed,Width,options]);
+    }
+    },[intervalSpeed,Width,options,loading]);
     
     useEffect(()=>{
+        if(!Player.isPaused){
             const blocksToMap = [...blocks];
             let newBlocksToState:Array<blockNote> = [];
             context?.clearRect(0,0,Width,Height);
@@ -72,8 +77,15 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 return null;
             })
             setBlocks(newBlocksToState);
+        }else{
+            if(Player.isReseting){
+                context?.clearRect(0,0,Width,Height);
+                setBlocks([]);
+            }
+        }
              // eslint-disable-next-line react-hooks/exhaustive-deps
     },[timer])
+
     useEffect(() =>{
         let newblocks:Array<blockNote> = [...blocks]
         Data && Data.map(Event =>{
@@ -93,15 +105,28 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
          // eslint-disable-next-line react-hooks/exhaustive-deps
     },[Data,Speed,Width,BlackNumbers,KeysPositions])
 
+    useEffect(()=>{
+        const inter = setInterval(()=>{
+            if(Player.isReady){
+                setTimeout(()=>{setLoading(false)},2500);
+                setFinishedLoading(true)
+                clearInterval(inter)
+            }
+        },500)
+        return () => clearInterval(inter);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
     return (
         <div>
-            {options.watermark && <div className='Mark'>
+            {finishedLoading && <>{options.watermark && <div className='Mark'>
                 <h1>Piano-Blocks V. 0.1</h1>
                 <h2>Closed Beta Version</h2>
             </div>}
             <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', background: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize:'cover', backgroundPosition: 'centrer'}}></div>
             <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - 300).toString() + 'px' }}></div>
-            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas>
+            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas></>}
+            {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height} Finished={finishedLoading}/>}
         </div>
     )
 }

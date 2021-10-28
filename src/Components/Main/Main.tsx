@@ -7,6 +7,7 @@ import InputFile from '../Inputfile/InputFile';
 import DrawPiano from '../DrawPiano/DrawPiano';
 import Options from '../Optons/Options';
 import Footer from '../Footer/Footer';
+import PlayingManagement from '../PlayingManagement/PlayingManagement';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { checkExtension } from '../../Utils/smallFunctions';
@@ -105,11 +106,13 @@ export default function Main() {
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
     },[])
 
+
     return (
         <div style={{height:windowHeight, overflowY: Player? 'hidden': 'scroll'}} className='mainDiv'>
             {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} /> }
             {!Player && <Options handleOptionsChange={handleOptionsChange} options={options} />}
-            {Player &&<DrawPiano drawSpeed={options.playSpeed} Data={Events} Speed={options.speed} options={options}/>}
+            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options}/>}
+            {Player && <PlayingManagement Player={Player} onEvent={handleClick}/>}
             {!Player && <Footer />}
         </div>
     )

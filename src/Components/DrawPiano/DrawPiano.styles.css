@@ -15,6 +15,7 @@
     box-shadow: 0px 1px 4px black;
     border-radius: 2px;
     color:black;
+    z-index: 30;
     
 }
 
@@ -29,7 +30,7 @@
     box-shadow: 0px 1px 4px black;
     border-radius: 2px;
     color:white;
-    z-index: 2;
+    z-index: 31;
 }
 
 h1{

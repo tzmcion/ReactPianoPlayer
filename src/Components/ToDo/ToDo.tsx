@@ -9,6 +9,7 @@ export default function ToDo() {
 
     const [amount,setAmount] = useState<number>(1);
     const [click,setClick] = useState<boolean>(false);
+    const [checkbox,setScheckbox] = useState<string>('false');
 
     const onAmountChange = (e:any) =>{
         console.log(e.target.value);
@@ -18,10 +19,11 @@ export default function ToDo() {
 
     return (
         <div className='Donate'>
-            <h1>Fuu your money $$$$</h1>
             <h2>I want to donate: </h2>
-            <input type='number' value={amount} onChange={onAmountChange} />
+            <input type='number' value={amount} onChange={onAmountChange} disabled={click ? true: false} />
             <h2> PLN and make someone's day much better</h2>
+            <input type='checkbox' value={checkbox} onChange={(e)=>{setScheckbox(checkbox === 'false' ? 'checked': 'false')}} /> 
+            <h3 className='data_don'>I understand what a <a href="https://en.wikipedia.org/wiki/Donation">Donation</a> is and I accept a fact that I'm not receiving any goods from this payment</h3>
             <button onClick={()=>{setClick(true)}}>DONATE</button>
             {/* {click && <PayPalScriptProvider options={{ "client-id": "AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT", currency:'PLN',intent: "capture"}}>
                 <PayPalButtons className='Buttons_PP' createOrder={(data, actions) => {
@@ -44,7 +46,7 @@ export default function ToDo() {
                 }}
                 />
             </PayPalScriptProvider>} */}
-            {click && <PaypalExpressBtn env='production' paymentOptions={{"payer": {
+            {click && checkbox=='checked' && <PaypalExpressBtn env='production' paymentOptions={{"payer": {
         "payment_method": "paypal"
       },}} client={{sandbox: 'Ab27Gl7GlRY0swi_lmI7j-i4UGmbSrFmapjYUlbI5UQtJ71b0_YJ8_2GULzQDG7MKdJ-pc7Kr4YW_cOE',production:'AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT'}} currency={'PLN'} total={amount} />}
       {/* <form action="https://www.paypal.com/donate" method="post" target="_top">

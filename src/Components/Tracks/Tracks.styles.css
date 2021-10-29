@@ -8,8 +8,8 @@
 
 .coverPhoto{
     position: absolute;
-    filter: grayscale();
-    background-size: cover;
+    filter: saturate(0.5);
+    background-repeat: no-repeat;
     background-position: center;
     z-index: 50;
 }

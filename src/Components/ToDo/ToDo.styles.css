@@ -11,6 +11,25 @@
 
 .Donate{
     width:100%;
+    margin-top: 50px;
     text-align: center;
     overflow-y: scroll;
+}
+
+.Donate>h2{
+    font-size: 18px;
+}
+
+.Donate>h3{
+    font-size: 10px;
+}
+
+.Donate>button{
+    display: block;
+    margin: 10px auto;
+}
+
+.data_don{
+    display: inline;
+    font-size: 10px;
 }

@@ -47,6 +47,8 @@ export interface blockNote{
     Velocity:number,
     pos_y:number,
     pos_x:number,
-    height?:number
+    height?:number,
+    duration:number,
+    wasDetected:boolean
 }
 

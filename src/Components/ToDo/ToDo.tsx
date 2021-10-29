@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import './ToDo.styles.css';
 // @ts-ignore
 import PaypalExpressBtn from 'react-paypal-express-checkout';
@@ -24,7 +23,7 @@ export default function ToDo() {
             <input type='number' value={amount} onChange={onAmountChange} />
             <h2> PLN and make someone's day much better</h2>
             <button onClick={()=>{setClick(true)}}>DONATE</button>
-            {click && <PayPalScriptProvider options={{ "client-id": "AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT", currency:'PLN',intent: "capture"}}>
+            {/* {click && <PayPalScriptProvider options={{ "client-id": "AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT", currency:'PLN',intent: "capture"}}>
                 <PayPalButtons className='Buttons_PP' createOrder={(data, actions) => {
                     return actions.order.create({
                         purchase_units: [
@@ -44,10 +43,10 @@ export default function ToDo() {
                     console.log(error)
                 }}
                 />
-            </PayPalScriptProvider>}
-            {/* {click && <PaypalExpressBtn env='production' paymentOptions={{"payer": {
+            </PayPalScriptProvider>} */}
+            {click && <PaypalExpressBtn env='production' paymentOptions={{"payer": {
         "payment_method": "paypal"
-      },}} client={{sandbox: 'Ab27Gl7GlRY0swi_lmI7j-i4UGmbSrFmapjYUlbI5UQtJ71b0_YJ8_2GULzQDG7MKdJ-pc7Kr4YW_cOE',production:'AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT'}} currency={'PLN'} total={amount} />} */}
+      },}} client={{sandbox: 'Ab27Gl7GlRY0swi_lmI7j-i4UGmbSrFmapjYUlbI5UQtJ71b0_YJ8_2GULzQDG7MKdJ-pc7Kr4YW_cOE',production:'AeLMPfH9JtaiN1ohPSYGBv5MzcDhYPORstj0l1fki8-woB0Bg5bjMydZ3LsbeAm7UhssE_QW2RVmDtuT'}} currency={'PLN'} total={amount} />}
       {/* <form action="https://www.paypal.com/donate" method="post" target="_top">
 <input type="hidden" name="hosted_button_id" value="J6GQGKHC7H7SG" />
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />

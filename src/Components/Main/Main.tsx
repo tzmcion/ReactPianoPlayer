@@ -1,5 +1,4 @@
 import React,{useRef,ChangeEvent, useState,useEffect, useCallback} from 'react';
-import Soundfont from 'soundfont-player';
 import './Main.styles.css';
 
 import MidiPlayer from '../../Helpers/MidiPlayer';
@@ -22,26 +21,12 @@ export default function Main() {
 
     const handleMidiEvent = (Events:Array<noteEvent>,instrument?:any,ac?:AudioContext) =>{
         Events.length > 0 && setEvents(Events);
-        if(instrument && ac){
-        Events.map(event =>{
-            setTimeout(() => {instrument.play(event.NoteNumber,ac.currentTime,{gain:event.Velocity / 127 * (event.NoteNumber/10)}).stop(ac.currentTime + event.SoundDuration)}, ((window.innerHeight - 185) * 10)/(options.playSpeed * 10/options.speed));
-            return null;
-        })
-    }
     }
 
     const handleClick = useCallback(
         () => {
-            if(options.soundOn){
-            const ac = new AudioContext();
-            Player && Player.isReady && Soundfont.instrument(ac, 'acoustic_grand_piano',{ soundfont: 'MusyngKite' }).then((instrument) =>{
-                Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev,instrument,ac)});
-            })
-            }else{
                 Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev)});
-            }
         },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         [Player],
     )
 
@@ -95,7 +80,7 @@ export default function Main() {
                 }
             }
         })
-    },[handleClick])
+    },[handleClick,Player?.isPlaying, Player])
 
     useEffect(()=>{
         document.querySelector('.mainDiv')!.scrollTo(0,0);

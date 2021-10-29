@@ -1,12 +1,12 @@
-import React, { ReactElement, useState, useEffect} from 'react'
+import React, { ReactElement, useState, useEffect} from 'react';
+import soundFont from 'soundfont-player';
 import './DrawPiano.styles.css';
 
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import Tracks from '../Tracks/Tracks';
-import WhiteKey from './PianoKeys/WhiteKey';
-import BlackKey from './PianoKeys/BlackKey';
+
 
 interface DrawPianoProps{
     Data: Array<noteEvent> | undefined,
@@ -20,87 +20,56 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
-
-    useEffect(()=>{
-        window.addEventListener('resize',handleResize);
-        console.log(options.backgroundImage);
-    },[options.backgroundImage])
-
-    const drawWhitePianoKey = (pos_x:number,id:number) =>{
-        return <WhiteKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={Data} id={id} key={id} Delay={((windowHeight - 215) * 10)/(drawSpeed * 10/Speed)} />
-    }
-
-    const drawBlackPianoKey = (pos_x:number,id:number) =>{
-        return <BlackKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={Data} id={id} key={id} Delay={((windowHeight - 215) * 10)/(drawSpeed * 10/Speed)}/>
-    }
+    const [sound,setSound] = useState<any>();
 
     const handleResize = () =>{
         setWindowKeyWidth(window.innerWidth / 52);
         setWindowHeight(window.innerHeight);
     }
 
-    const renderPianoKeys = () =>{
-        let To_Render = [];
-        let counter_ids = 21;
+    const KeysPositions = (type:('black' | 'all')):Array<any> =>{
+        let Returning:Array<any> = [];
+        let counter_ids:number = 21;
         for(let x = 0; x < 52; x++){
-            To_Render.push(drawWhitePianoKey(WhiteKeyWidth * x,counter_ids))
+            type === 'all' && Returning.push({position: WhiteKeyWidth * x, noteNumber: counter_ids});
             const num = counter_ids % 12;
             if(num  === 1 - 1 || num === 3 - 1 || num === 6 - 1 || num ===8 - 1 || num ===10 - 1  ){
                 counter_ids++;
                 if(counter_ids < 109){
-                To_Render.push(drawBlackPianoKey(WhiteKeyWidth * x + WhiteKeyWidth / 1.4,counter_ids));
+                type ==='all' && Returning.push({position : WhiteKeyWidth * x + WhiteKeyWidth / 1.4, notenumber: counter_ids});
+                type === 'black' && Returning.push(counter_ids);
                 }
             }
             counter_ids++;
         }
-        return To_Render;
-    }
-    const blackKeysNumbers = () =>{
-        let to_count:Array<number> = [];
-        let counter_ids = 21;
-        for(let x = 0; x < 52; x++){
-            const num = counter_ids % 12;
-            if(num  === 1 - 1 || num === 3 - 1 || num === 6 - 1 || num ===8 - 1 || num ===10 - 1  ){
-                counter_ids++;
-                if(counter_ids < 109){
-                to_count.push(counter_ids)
-                }
-            }
-            counter_ids++;
-        }
-        return to_count;
+        return Returning;
     }
 
-    const KeysPositions = () =>{
-        let positions = [];
-        let counter_ids = 21;
-        for(let x = 0; x < 52; x++){
-            positions.push({position: WhiteKeyWidth * x, noteNumber: counter_ids})
-            const num = counter_ids % 12;
-            if(num  === 1 - 1 || num === 3 - 1 || num === 6 - 1 || num ===8 - 1 || num ===10 - 1  ){
-                counter_ids++;
-                if(counter_ids < 109){
-                positions.push({position : WhiteKeyWidth * x + WhiteKeyWidth / 1.4, notenumber: counter_ids});
-                }
-            }
-            counter_ids++;
+
+    useEffect(()=>{
+        window.addEventListener('resize',handleResize);
+        if(options.soundOn){
+            const ac = new AudioContext();
+            soundFont.instrument(ac, 'acoustic_grand_piano').then(function (piano) {
+                setSound({
+                    instrument:piano,
+                    ac:ac
+                })
+            })
         }
-        return positions;
-    }
+    },[options.soundOn])
 
     return (
         <div className='Piano' style={{height: windowHeight}}>
             <Tracks Width={WhiteKeyWidth * 52}
              Height={windowHeight-215} 
              Speed={drawSpeed} Data={Data!} 
-             BlackNumbers={blackKeysNumbers()} 
-             KeysPositions={KeysPositions()} 
+             BlackNumbers={KeysPositions('black')} 
+             KeysPositions={KeysPositions('all')} 
              intervalSpeed={Speed} 
              options={options} 
-             Player={Player}/>
-            <div className='piano_keys' style={{marginTop: windowHeight - 235}}>
-            {renderPianoKeys()}
-            </div>
+             Player={Player}
+             sound={sound}/>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
 import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen';
+import Piano from '../DrawPiano/PianoKeys/AllKeys';
 
 import BG from '../../Assets/BG.jpg';
 
@@ -20,11 +21,12 @@ interface TracksProps{
     KeysPositions: Array<any>,
     intervalSpeed: number,
     options: OptionsType,
-    Player: MidiPlayer
+    Player: MidiPlayer,
+    sound:any
 }
 
 
-export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player}:TracksProps):ReactElement {
+export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null)
     const [blocks,setBlocks] = useState<Array<blockNote>>([]);
@@ -32,7 +34,8 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
     const [context,setContext] = useState<CanvasRenderingContext2D | null>();
     const [EffectLines,setEffectLines] = useState<DancingLines | null>(null);
     const [loading,setLoading] = useState<boolean>(true);
-    const [finishedLoading,setFinishedLoading] = useState<boolean>(false)
+    const [finishedLoading,setFinishedLoading] = useState<boolean>(false);
+    const [keysNotes,setKeysNotes] = useState<Array<blockNote>>([]);
 
     useEffect(()=>{
         if(!loading){
@@ -49,6 +52,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
     useEffect(()=>{
         if(!Player.isPaused){
             const blocksToMap = [...blocks];
+            let notesToEvent:Array<blockNote> = [];
             let newBlocksToState:Array<blockNote> = [];
             context?.clearRect(0,0,Width,Height);
             EffectLines?.render();
@@ -57,6 +61,10 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 context!.shadowColor = block.color;
                 context!.shadowBlur = 8;
                 CanvasRoundRect(context!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
+                if(block.pos_y > Height && !block.wasDetected){
+                    block.wasDetected = true;
+                    notesToEvent.push(block);
+                }
                 if(block.pos_y - block.height! < Height){
                     newBlocksToState.push(block);
                 }
@@ -76,6 +84,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 }
                 return null;
             })
+            notesToEvent.length > 0 && setKeysNotes(notesToEvent);
             setBlocks(newBlocksToState);
         }else{
             if(Player.isReseting){
@@ -96,7 +105,9 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 NoteNumber: Event.NoteNumber,
                 pos_x: KeysPositions[Event.NoteNumber - 21].position,
                 pos_y: 0,
-                height: Event.Duration / 1000 / (intervalSpeed / Speed)
+                height: Event.Duration / 1000 / (intervalSpeed / Speed),
+                wasDetected: false,
+                duration:Event.Duration
             }
             newblocks.push(newBlock);
             return null;
@@ -125,7 +136,9 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
             </div>}
             <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', background: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize:'cover', backgroundPosition: 'centrer'}}></div>
             <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - 300).toString() + 'px' }}></div>
-            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas></>}
+            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas>
+            </>}
+            <Piano wh={Height + 215} WhiteKeyWidth={Width / 52} data={keysNotes} sound={sound} />
             {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height} Finished={finishedLoading}/>}
         </div>
     )

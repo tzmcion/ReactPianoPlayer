@@ -5,6 +5,7 @@ export interface Options{
     backgroundImage: string,
     speed:number,
     playSpeed:number,
-    watermark:boolean
+    watermark:boolean,
+    soundOn:boolean
 }
 

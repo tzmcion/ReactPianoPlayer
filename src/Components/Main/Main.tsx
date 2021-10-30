@@ -6,6 +6,7 @@ import InputFile from '../Inputfile/InputFile';
 import DrawPiano from '../DrawPiano/DrawPiano';
 import Options from '../Optons/Options';
 import Footer from '../Footer/Footer';
+import PlayingManagement from '../PlayingManagement/PlayingManagement';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { checkExtension } from '../../Utils/smallFunctions';
@@ -16,15 +17,15 @@ export default function Main() {
     const [Player,setPlayer] = useState<MidiPlayer>();
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
     const [Events,setEvents] = useState<Array<noteEvent>>();
-    const [options,setOptions] = useState<OptionsType>({Color:'#e5e4e2',RandomColors:false,IsEffects:false, backgroundImage: '',speed:35, playSpeed:10, watermark:true});
+    const [options,setOptions] = useState<OptionsType>({Color:'#e5e4e2',RandomColors:false,IsEffects:false, backgroundImage: '',speed:35, playSpeed:10, watermark:true,soundOn:true});
 
-    const handleMidiEvent = (Events:Array<noteEvent>) =>{
+    const handleMidiEvent = (Events:Array<noteEvent>,instrument?:any,ac?:AudioContext) =>{
         Events.length > 0 && setEvents(Events);
     }
 
     const handleClick = useCallback(
         () => {
-            Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev)});
+                Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev)});
         },
         [Player],
     )
@@ -62,6 +63,9 @@ export default function Main() {
             case 'watermark':
                 currentOptions.watermark = !options.watermark;
                 break;
+            case 'soundOn':
+                currentOptions.soundOn = !options.soundOn;
+                break;
             default:
                 break;
         }
@@ -71,24 +75,29 @@ export default function Main() {
     useEffect(()=>{
         document.addEventListener('keyup',(e)=>{
             if(e.key === ' ' || e.keyCode === 32){
+                if(!Player?.isPlaying){
                 handleClick();
+                }
             }
         })
-    },[handleClick])
+    },[handleClick,Player?.isPlaying, Player])
 
     useEffect(()=>{
         document.querySelector('.mainDiv')!.scrollTo(0,0);
     },[Player])
 
     useEffect(()=>{
+        document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
     },[])
+
 
     return (
         <div style={{height:windowHeight, overflowY: Player? 'hidden': 'scroll'}} className='mainDiv'>
             {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} /> }
             {!Player && <Options handleOptionsChange={handleOptionsChange} options={options} />}
-            {Player &&<DrawPiano drawSpeed={options.playSpeed} Data={Events} Speed={options.speed} options={options}/>}
+            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options}/>}
+            {Player && <PlayingManagement Player={Player} onEvent={handleClick}/>}
             {!Player && <Footer />}
         </div>
     )

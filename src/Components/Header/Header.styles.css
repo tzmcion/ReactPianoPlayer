@@ -11,7 +11,7 @@
 
 .HeaderData{
     position: relative;
-    width:1420px;
+    width:90%;
     height:100%;
     margin: 0px auto;
     display: flex;
@@ -62,4 +62,39 @@
     transition: 0.2s ease-in;
     color: rgb(1, 67, 121);
     transform: scale(1.2);
+}
+
+@media only screen and (max-width: 700px){
+    .Link{
+        margin-left: 5px;
+        font-size: 12px;
+    }
+    .Links{
+        margin-left: 5px;
+    }
+    .HeaderData{
+        width:98%
+    }
+    .Logo>h1{
+        margin-left: 2px;
+        font-size: 14px;
+    }
+
+    .Link:hover{
+        transform: scale(1.05);
+    }
+}
+
+@media only screen and (max-width: 420px){
+    .Logo>h1{
+        position: absolute;
+        visibility: hidden;
+    }
+    .Links{
+        margin-left: -10px;
+    }
+
+    .Logo{
+        border:none;
+    }
 }

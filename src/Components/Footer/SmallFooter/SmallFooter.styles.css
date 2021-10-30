@@ -70,3 +70,57 @@
 .AppName>h2>span{
     color: #5085f8;
 }
+
+@media only screen and (max-width: 960px){
+    .Tech{
+        width:30px;
+        margin: 5px;
+    }
+
+    #reactIcon{
+        width: 35px;
+        margin: -2.5px;
+    }
+
+    .AppName>h1{
+        font-size: 12px;
+    }
+
+    .AppName>h2{
+        font-size: 10px;
+        margin-bottom: 9px;
+    }
+
+    .LogoImg{
+        width: 35px;
+    }
+}
+
+@media only screen and (max-width: 650px){
+    .AppName>h1{
+        position: absolute;
+        visibility: hidden;
+    }
+    
+    .Tech{
+        width:20px;
+        margin: 5px;
+    }
+
+    #reactIcon{
+        width: 25px;
+        margin: -2.5px;
+    }
+
+}
+
+@media only screen and (max-width: 390px){
+    .AppName>h2{
+        position: absolute;
+        visibility: hidden;
+    }
+
+    .LogoImg{
+        margin-left: 10px;
+    }
+}

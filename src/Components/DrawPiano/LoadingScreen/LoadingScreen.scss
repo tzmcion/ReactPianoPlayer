@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+
+.LoadingScreen{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 100;
+    background: linear-gradient(90deg,rgb(195, 213, 241),rgb(243, 204, 243));
+    transition: 1s;
+    img{
+        display: block;
+        position: relative;
+        box-sizing: border-box;
+        margin: 50px auto;
+        width:150px;
+        padding: 5px;
+        top:100px;
+        animation: spin 3s linear infinite;
+        border-radius: 15px;
+        filter: drop-shadow(2px 2px 5px #222);
+    }
+    h2{
+        display: block;
+        text-align: center;
+        margin: 100px auto;
+        font-family: 'Irish Grover', cursive;
+        font-size: 32px;
+    }
+}
+
+@keyframes spin{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}

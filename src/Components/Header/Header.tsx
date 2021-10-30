@@ -10,13 +10,12 @@ export default function Header() {
             <div className='HeaderData'>
                 <div className='Logo'>
                     <img src={LogoPrototype} alt='Logo' className='LogoImage' />
-                    <h1>Piano Blocks V.0.1 Beta</h1>
+                    <h1>Piano Blocks Beta</h1>
                 </div>
                 <div className='Links'>
                     <Link to='/' className='Link'>Home</Link>
                     <Link to='/tutorial' className='Link'>Tutorial</Link>
-                    <Link to='/Todo' className='Link'>Code-clopedia</Link>
-                    <Link to='/Todo' className='Link'>About-Author</Link>
+                    <Link to='/Todo' className='Link'>Donate</Link>
                 </div>
             </div>
         </div>

@@ -108,9 +108,8 @@
     visibility: visible;
     border-radius: 10px;
     min-width: 100px !important;
-    text-align: center;
     margin-left: 70%;
-    margin-top: -6.3%;
+    margin-top: -8%;
     font-size: 10px;
     position: absolute;
     background-color: rgb(241, 240, 240);
@@ -142,4 +141,27 @@
 
 .unactive:hover{
     color : rgb(252, 125, 103);
+}
+
+@media only screen and (max-width: 740px){
+    .Footer_Display{
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Footer_Div{
+        width: 100%;
+    }
+
+    .email_info{
+        visibility: hidden;
+        position: absolute;
+
+    }
+
+    .Footer{
+        height: unset;
+    }
 }

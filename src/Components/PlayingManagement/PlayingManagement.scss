@@ -1,0 +1,50 @@
+$background : #001524;
+$buttons_color : #FF7D00;
+
+.Playing_main{
+    width:100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    height: 60px;
+    background-color: $background;
+    position: absolute;
+    z-index: 200;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    transition: 0.25s ease;
+    .icons{
+        height:100%;
+        display: flex;
+        box-sizing: border-box;
+        padding: 10px;
+        margin-left: 20px;
+        flex-direction: row;
+        align-items: center;
+        i{
+            font-size: 32px;
+            color:white;
+            margin:10px;
+        }
+        i:hover{
+            transition: 0.02s;
+            transform: scale(1.25);
+            text-shadow: 0px 0px 8px rgb(170, 40, 209);
+            cursor:pointer;
+        }
+    }
+    .Duration{
+        width:60%;
+        justify-self: flex-end;
+        height:20%;
+        border:2px solid black;
+        position: relative;
+        .Bar{
+            position: absolute;
+            height:100%;
+            background-color: red;
+        }
+    }
+}

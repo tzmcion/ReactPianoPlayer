@@ -41,7 +41,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
         if(!loading){
         const Canvas = tracksRef.current
         setContext(Canvas?.getContext('2d'));
-        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,options.playSpeed * 2,false,true,true,options.speed / 60));
+        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,options.playSpeed * 2,false,true,true,options.speed / 120));
         const interval = setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
@@ -78,8 +78,8 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                     context!.fillStyle = gradient;
                     context!.fillRect(block.pos_x + Width / 52 / 2 - 50, Height - 50,block.pos_x + Width / 52 / 2 +50, Height +50);
                     context!.closePath();
-                    for(let x =0; x < 3; x++){
-                    EffectLines?.AddEffect(block.pos_x,Height,`rgba(100,150,200`);
+                    for(let x =0; x < 4; x++){
+                        EffectLines?.AddEffect(block.pos_x,Height,`rgba(240,230,140`);
                     }
                 }
                 return null;

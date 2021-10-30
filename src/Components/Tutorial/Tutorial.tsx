@@ -56,7 +56,7 @@ export default function Tutorial() {
                     </div>
                 </div>
                 <h2 className='YT_tut'>Youtube Tutorial</h2>
-                <YouTube videoId="2g811Eo7K8U" className='Youtube' onReady={()=>{}} />
+                <YouTube videoId="scIpl3SacK0" className='Youtube' onReady={()=>{}} />
             </div>
             <Footer />
         </div>

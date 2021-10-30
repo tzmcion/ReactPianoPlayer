@@ -119,3 +119,87 @@
     font-size: 24px;
     font-family: 'Inconsolata', monospace;
 }
+
+@media only screen and (max-width: 1100px){
+    .Tutorial{
+        width:720px;
+    }
+    .ImageElement{
+        padding: 25px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+    }
+    .AudioIcon{
+        font-size: 16px;
+    }
+    .TextElement>h1{
+        margin-top: 10px;
+        font-size: 12px;
+    }
+    
+    .TextElement>h2{
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    .TextElement{
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 740px){
+    .Tutorial{
+        width:90%;
+    }
+    .TextElement{
+        padding: 5px;
+    }
+    .Youtube{
+        width:90%;
+        height: 300px;
+    }
+    .TutorialBlock{
+        flex-direction: column;
+    }
+    .element{
+        width:100%;
+        height: 50%;
+    }
+    .ImageElement{
+        height: 60%;
+        justify-self: center;
+    }
+    .Editor{
+        margin: 0 auto;
+        height: 100%;
+        width: auto;
+    }
+    .TextElement{
+        height: 40%;
+    }
+}
+
+@media only screen and (max-width: 360px){
+    .AudioIcon{
+        font-size: 12px;
+    }
+    .Youtube{
+        height: 200px;
+    }
+    .TextElement>h1{
+        margin-top: 5px;
+        font-size: 10px;
+    }
+    
+    .TextElement>h2{
+        margin-top: 5px;
+        font-size: 8px;
+    }
+    .ImageElement{
+        height: 50%;
+        justify-self: center;
+    }
+    .TextElement{
+        height: 50%;
+    }
+}

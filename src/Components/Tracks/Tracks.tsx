@@ -78,7 +78,7 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                     context!.fillStyle = gradient;
                     context!.fillRect(block.pos_x + Width / 52 / 2 - 50, Height - 50,block.pos_x + Width / 52 / 2 +50, Height +50);
                     context!.closePath();
-                    for(let x =0; x < 4; x++){
+                    for(let x =0; x < 2; x++){
                         EffectLines?.AddEffect(block.pos_x,Height,`rgba(240,230,140`);
                     }
                 }

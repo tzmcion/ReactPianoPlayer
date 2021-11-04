@@ -61,8 +61,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
 
     return (
         <div className='Piano' style={{height: windowHeight}}>
-            <Tracks Width={WhiteKeyWidth * 52}
-             Height={windowHeight-215} 
+            <Tracks
              Speed={drawSpeed} Data={Data!} 
              BlackNumbers={KeysPositions('black')} 
              KeysPositions={KeysPositions('all')} 

@@ -8,7 +8,7 @@ import { parseArrayBuffer } from 'midi-json-parser';
 //  midi-json-parser is npm library created by chrisguttandin
 //  Big thanks to Him!
 
-const ReadMidiFile = (file:any) =>{
+const ReadMidiFile = (file:any,type:'ref' | 'ArrayBuffer') =>{
 
     //Function Converting file from binarry form into ArrayBuffer
     function convertDataToArray64():Promise<ArrayBuffer | string> {
@@ -24,9 +24,8 @@ const ReadMidiFile = (file:any) =>{
             };
             reader.readAsArrayBuffer(file);
         });
-      }
-
-    // this promise returns json
+    }
+    if(type === 'ref'){
     return new Promise<Object>((resolve,reject) =>{
         convertDataToArray64().then(file=>{
             //checking if Error hasn't been returned
@@ -39,6 +38,14 @@ const ReadMidiFile = (file:any) =>{
             }
           })
     })
+    }else{
+        return new Promise<Object>((resolve,reject) =>{
+            //checking if Error hasn't been returned
+            parseArrayBuffer(file).then(json =>{
+                    resolve(json);
+            });
+        })
+    }
 }
 
 export default ReadMidiFile;

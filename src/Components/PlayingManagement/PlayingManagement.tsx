@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './PlayingManagement.scss';
 
 import MidiPlayer from '../../Helpers/MidiPlayer';
@@ -6,12 +7,12 @@ import LogoPrototype from '../../Assets/piano_icon.png'
 
 interface PlayingManagementProps{
     Player: MidiPlayer,
-    onEvent:Function
 }
 
-export default function PlayingManagement({Player,onEvent}:PlayingManagementProps):ReactElement {
+export default function PlayingManagement({Player}:PlayingManagementProps):ReactElement {
 
     const [opacity,setOpacity] = useState<number>(0);
+    const history = useHistory();
 
     useEffect(()=>{
         let something:any;
@@ -22,13 +23,15 @@ export default function PlayingManagement({Player,onEvent}:PlayingManagementProp
             },2000);
             setOpacity(1)
         });
-    },[])
 
-    const handleClick = () =>{
-        if(!Player?.isPlaying){
-            onEvent();
-        }
-    }
+        document.addEventListener('keyup',(event)=>{
+            if(event.key === ' '){
+                Player.PausePlay();
+            }
+        })
+
+        return () => {clearTimeout(something)}
+    },[])
 
     const handlePause = () =>{
         if(Player.isReady){
@@ -45,8 +48,8 @@ export default function PlayingManagement({Player,onEvent}:PlayingManagementProp
     return (
         <div className='Playing_main' style={{opacity:opacity}}>
             <div className='icons'>
-            <img src={LogoPrototype} alt='Logo' onClick={()=>{window.location.reload()}} title='Go back ?' className='IconGoBack LogoImg' />
-            <i className="fa fa-play-circle-o" aria-hidden="true" onClick={handleClick} title='Start Playing'></i>
+            <img src={LogoPrototype} alt='Logo' onClick={()=>{history.push('/')}} title='Go back ?' className='IconGoBack LogoImg' />
+            <i className="fa fa-play-circle-o" aria-hidden="true" onClick={handlePause} title='Start Playing'></i>
             <i className="fa fa-pause" aria-hidden="true" onClick={handlePause} title='Pause/Unpause'></i>
             <i className="fa fa-stop" aria-hidden="true" onClick={handleStop} title='Reset'></i>
             </div>

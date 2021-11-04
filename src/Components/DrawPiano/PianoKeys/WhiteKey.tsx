@@ -17,11 +17,12 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound}:WhiteKeyPro
     useEffect(()=>{
         Data?.map(event =>{
                 if(event.NoteNumber === id){
+                    if(event.wasDetected === true){
                         setBackgroundColor('#5085f8');
-                        setTimeout(()=>{setBackgroundColor('white')},event.duration / 1000 - 15);
-                        if(sound){
-                        sound.instrument.play(id).stop(sound.ac.currentTime + event.duration/1000);
-                        }
+                        sound && sound.instrument.play(id).stop(sound.ac.currentTime + event.duration/1000);
+                    }else{
+                        setBackgroundColor('white');
+                    }
                 }
             return null;
         })

@@ -1,39 +1,29 @@
-import React,{useRef,ChangeEvent, useState,useEffect, useCallback} from 'react';
+import React,{useRef,ChangeEvent, useState,useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import './Main.styles.css';
 
-import MidiPlayer from '../../Helpers/MidiPlayer';
 import InputFile from '../Inputfile/InputFile';
-import DrawPiano from '../DrawPiano/DrawPiano';
 import Options from '../Optons/Options';
 import Footer from '../Footer/Footer';
-import PlayingManagement from '../PlayingManagement/PlayingManagement';
+import PianoBlockDetailed from '../PianoBlockDetailed/PianoBlockDetailed';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
-import { noteEvent } from "../../Utils/TypesForMidi";
-import { checkExtension } from '../../Utils/smallFunctions';
+import { checkExtension, SaveAsBase64 } from '../../Utils/smallFunctions';
+import { DefaultOptions } from '../../Utils/Default';
 
 export default function Main() {
 
     const MidiFileRef = useRef<HTMLInputElement>(null);
-    const [Player,setPlayer] = useState<MidiPlayer>();
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
-    const [Events,setEvents] = useState<Array<noteEvent>>();
-    const [options,setOptions] = useState<OptionsType>({Color:'#e5e4e2',RandomColors:false,IsEffects:false, backgroundImage: '',speed:35, playSpeed:10, watermark:true,soundOn:true});
+    const [options,setOptions] = useState<OptionsType>(DefaultOptions);
+    const history = useHistory();
 
-    const handleMidiEvent = (Events:Array<noteEvent>,instrument?:any,ac?:AudioContext) =>{
-        Events.length > 0 && setEvents(Events);
-    }
-
-    const handleClick = useCallback(
-        () => {
-                Player && Player.isReady && Player.Play((ev:Array<noteEvent>)=>{handleMidiEvent(ev)});
-        },
-        [Player],
-    )
 
     const handleFileInput = () =>{
-        
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
-            setPlayer(new MidiPlayer(MidiFileRef))
+            localStorage.setItem('options',JSON.stringify(options))
+            SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
+                history.push('/Play');
+            });
         }else{
             alert('Error, Submited file is not MIDI file...');
         }
@@ -73,32 +63,16 @@ export default function Main() {
     }
 
     useEffect(()=>{
-        document.addEventListener('keyup',(e)=>{
-            if(e.key === ' ' || e.keyCode === 32){
-                if(!Player?.isPlaying){
-                handleClick();
-                }
-            }
-        })
-    },[handleClick,Player?.isPlaying, Player])
-
-    useEffect(()=>{
-        document.querySelector('.mainDiv')!.scrollTo(0,0);
-    },[Player])
-
-    useEffect(()=>{
         document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
     },[])
 
-
     return (
-        <div style={{height:windowHeight, overflowY: Player? 'hidden': 'scroll'}} className='mainDiv'>
-            {!Player && <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} /> }
-            {!Player && <Options handleOptionsChange={handleOptionsChange} options={options} />}
-            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options}/>}
-            {Player && <PlayingManagement Player={Player} onEvent={handleClick}/>}
-            {!Player && <Footer />}
+        <div style={{height:windowHeight}} className='mainDiv'>
+            <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} />
+            <Options handleOptionsChange={handleOptionsChange} options={options} />
+            <PianoBlockDetailed />
+            <Footer />
         </div>
     )
 }

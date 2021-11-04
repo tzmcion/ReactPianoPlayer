@@ -12,16 +12,28 @@ class MidiPlayer{
     private Midi: Array<noteEvent> | null
     private interval:any
     private timeStamps:number
+    private fileType: 'ref' | 'ArrayBuffer'
+    private onEvent: Function
+    private currentIndex:number
     public isPaused: boolean
     public timer:number
     public isPlaying:boolean
     public isReseting:boolean
     //Constructor
-    constructor(fileRef: React.RefObject<HTMLInputElement>,timeStamps?:number){
-        this.file = fileRef.current?.files![0];
+    constructor(fileInput: React.RefObject<HTMLInputElement> | ArrayBuffer, onEvent:Function ,timeStamps?:number){
+        if('current' in fileInput){
+            this.file = fileInput.current?.files![0];
+            this.fileType = 'ref'
+        }
+        else{
+            this.file = fileInput;
+            this.fileType = 'ArrayBuffer';
+        }
+        this.onEvent = onEvent;
         this.timeStamps = timeStamps ? timeStamps: 25;
         this.isPlaying = false;
         this.timer = 0;
+        this.currentIndex = 0;
         this.isReseting = false;
         this.Midi = null;
         this.interval = null;
@@ -31,7 +43,7 @@ class MidiPlayer{
     }
 
     public async GetMidiAsObject(){
-        ReadMidiFile(this.file).then(MidiObject =>{
+        ReadMidiFile(this.file,this.fileType).then(MidiObject =>{
             const MidiArr =  MidiObject as IMidiFile;
             this.convertToJSON(MidiArr).then(responde =>{
                 this.Midi = responde;
@@ -43,6 +55,7 @@ class MidiPlayer{
         return new Promise<Array<noteEvent>>(function(resolve){
             resolve(ConvertToNoteEventsJSON(MidiArr,500000,getConstantDataFromMidiFile(MidiArr)));
     })}
+
 
     public get isReady():boolean{
         if(this.Midi){
@@ -62,16 +75,29 @@ class MidiPlayer{
     }
 
     public Play(onEvent:Function):void{
-        this.isReseting = false;
-        this.isPlaying = true;
-        this.isPaused = false;
-        this.interval = null;
-        this.timer = 0;
         this.Midi && this.PlayMidiAsync(this.Midi,onEvent);
     }
 
     public PausePlay():void{
-        this.isPaused = !this.isPaused;
+        if(!this.isPlaying){
+            this.isReseting = false;
+            this.isPlaying = true;
+            this.isPaused = false;
+            this.interval = null;
+            this.timer = 0;
+            this.currentIndex = 0;
+            this.Midi && this.PlayMidiAsync(this.Midi,this.onEvent);
+        }else{
+        if(!this.interval){
+            this.isPaused = false;
+            this.Midi && this.PlayMidiAsync(this.Midi,this.onEvent);
+        }else{
+            clearInterval(this.interval);
+            this.interval = null;
+            this.isPaused = true;
+        }
+        }
+
     }
 
     public Restart():void{
@@ -84,16 +110,14 @@ class MidiPlayer{
 
     private PlayMidiAsync = async (noteEventsJSON:Array<noteEvent>,onEvent:Function) =>{
         const PlayFromNotesAsync = async () =>{
-            let currentIndex = 0;
             let Events:Array<noteEvent> = [];
             this.interval = setInterval(()=>{
-                if(!this.isPaused){
                 this.timer += this.timeStamps;
                 while(true){
                     try{
-                    if(noteEventsJSON[currentIndex].Delta / 1000 <= this.timer){
-                        Events.push(noteEventsJSON[currentIndex]);
-                        currentIndex+=1
+                    if(noteEventsJSON[this.currentIndex].Delta / 1000 <= this.timer){
+                        Events.push(noteEventsJSON[this.currentIndex]);
+                        this.currentIndex+=1
                     }else{
                         onEvent(Events);
                         Events = [];
@@ -104,7 +128,7 @@ class MidiPlayer{
                         onEvent(Events);
                         break;
                     }
-                }
+                
             }
             },this.timeStamps);
     }

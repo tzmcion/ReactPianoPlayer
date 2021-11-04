@@ -13,8 +13,6 @@ import Piano from '../DrawPiano/PianoKeys/AllKeys';
 import BG from '../../Assets/BG.jpg';
 
 interface TracksProps{
-    Width: number
-    Height:number
     Speed:number
     Data: Array<noteEvent>
     BlackNumbers: Array<number>
@@ -26,7 +24,7 @@ interface TracksProps{
 }
 
 
-export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
+export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null)
     const [blocks,setBlocks] = useState<Array<blockNote>>([]);
@@ -36,6 +34,8 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
     const [loading,setLoading] = useState<boolean>(true);
     const [finishedLoading,setFinishedLoading] = useState<boolean>(false);
     const [keysNotes,setKeysNotes] = useState<Array<blockNote>>([]);
+    const [Width,setWindowKeyWidth] = useState<number>(window.innerWidth);
+    const [Height,setWindowHeight] = useState<number>(window.innerHeight - 215);
 
     useEffect(()=>{
         if(!loading){
@@ -61,12 +61,16 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
                 context!.shadowColor = block.color;
                 context!.shadowBlur = 8;
                 CanvasRoundRect(context!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
-                if(block.pos_y > Height && !block.wasDetected){
-                    block.wasDetected = true;
-                    notesToEvent.push(block);
-                }
                 if(block.pos_y - block.height! < Height){
                     newBlocksToState.push(block);
+                    if(block.pos_y > Height && !block.wasDetected){
+                        block.wasDetected = true;
+                        notesToEvent.push(block);
+                    }
+                }
+                else{
+                    block.wasDetected = false;
+                    notesToEvent.push(block);
                 }
                 if(block.pos_y > Height && options.IsEffects){
                     const gradient = context!.createRadialGradient(block.pos_x + Width / 52 / 2, Height, 15, block.pos_x + Width / 52 / 2, Height, 45);
@@ -114,12 +118,13 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
         })
         setBlocks(newblocks);
          // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[Data,Speed,Width,BlackNumbers,KeysPositions])
+    },[Data,Speed])
 
     useEffect(()=>{
+        window.addEventListener('resize',handleResize);
         const inter = setInterval(()=>{
             if(Player.isReady){
-                setTimeout(()=>{setLoading(false)},2500);
+                setTimeout(()=>{loading && setLoading(false)},2500);
                 setFinishedLoading(true)
                 clearInterval(inter)
             }
@@ -127,6 +132,11 @@ export default function Tracks({Width,Height,Data,Speed, BlackNumbers, KeysPosit
         return () => clearInterval(inter);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
+
+    const handleResize = () =>{
+        setWindowKeyWidth(window.innerWidth);
+        setWindowHeight(window.innerHeight - 215);
+    }
 
     return (
         <div>

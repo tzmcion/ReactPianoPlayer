@@ -50,7 +50,35 @@ const checkExtension = (file:any,extension:string):boolean =>{
     return false;
 }
 
+const ReadFromLocalStorageBase64 = (storageName:string):ArrayBuffer =>{
+        const base64 = localStorage.getItem(storageName);   
+        const base64Parts = base64?.split(',');
+        const Content = base64Parts !== undefined ? base64Parts[1] : null;
+        if(Content){
+            const binary_string = window.atob(Content);
+            let bytes = new Uint8Array(binary_string.length);
+            for(let x = 0; x < binary_string.length; x++){
+                bytes[x] = binary_string.charCodeAt(x);
+            }
+            return bytes.buffer;
+        }
+        return new ArrayBuffer(1);
+    }
+const SaveAsBase64 = (element:any,storageName:string):Promise<boolean> => {
+        return new Promise<boolean>(resolve =>{
+            var file = element
+            var reader = new FileReader()
+            reader.onload = function(base64) {
+            if(typeof base64.target?.result == 'string')
+                localStorage.setItem(storageName,base64.target?.result);
+                resolve(true);
+            }
+            reader.readAsDataURL(file);
+        })
+}
+
 export {CreateEmptyArray as CreateMidiNoteEventsArray};
 export {getEmptyNoteEvent};
 export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin, RandomColorToAlphawithMin};
 export {checkExtension};
+export {ReadFromLocalStorageBase64, SaveAsBase64}

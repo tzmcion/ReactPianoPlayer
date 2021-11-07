@@ -4,7 +4,8 @@ import './Tracks.styles.css';
 import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
-import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
+import Effects from '../../Helpers/Effects/Effects';
+import {KeyGradient} from '../../Helpers/CanvasEffects';
 import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen';
@@ -26,65 +27,56 @@ interface TracksProps{
 
 export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
-    const tracksRef = useRef<HTMLCanvasElement>(null)
+    const tracksRef = useRef<HTMLCanvasElement>(null);
+    const EffectsRef = useRef<HTMLCanvasElement>(null);
     const [blocks,setBlocks] = useState<Array<blockNote>>([]);
     const [timer,setTimer] = useState<number>(0);
+    const [effects,setEffects] = useState<Effects>();
     const [context,setContext] = useState<CanvasRenderingContext2D | null>();
-    const [EffectLines,setEffectLines] = useState<DancingLines | null>(null);
     const [loading,setLoading] = useState<boolean>(true);
     const [finishedLoading,setFinishedLoading] = useState<boolean>(false);
     const [keysNotes,setKeysNotes] = useState<Array<blockNote>>([]);
     const [Width,setWindowKeyWidth] = useState<number>(window.innerWidth);
-    const [Height,setWindowHeight] = useState<number>(window.innerHeight - 215);
+    const [Height,setWindowHeight] = useState<number>(window.innerHeight);
 
     useEffect(()=>{
         if(!loading){
         const Canvas = tracksRef.current
+        const effectsCan = EffectsRef.current;
         setContext(Canvas?.getContext('2d'));
-        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,options.playSpeed * 2,false,true,true,options.speed / 120));
+        setEffects(new Effects(effectsCan!.getContext('2d')!,options,Width,Height - Height/5));
         const interval = setInterval(() =>{
             setTimer(prev => prev + 1)
         },intervalSpeed)
         return () => clearInterval(interval);
     }
-    },[intervalSpeed,Width,options,loading]);
+    },[intervalSpeed,Width,options,loading,Height]);
     
     useEffect(()=>{
         if(!Player.isPaused){
             const blocksToMap = [...blocks];
             let notesToEvent:Array<blockNote> = [];
             let newBlocksToState:Array<blockNote> = [];
-            context?.clearRect(0,0,Width,Height);
-            EffectLines?.render();
+            context?.clearRect(0,0,Width,Height - Height/5);
             blocksToMap.reverse().map(block =>{
                 block.pos_y += Speed;
                 context!.shadowColor = block.color;
                 context!.shadowBlur = 8;
                 CanvasRoundRect(context!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
-                if(block.pos_y - block.height! < Height){
+                if(block.pos_y - block.height! < Height - Height/5){
                     newBlocksToState.push(block);
-                    if(block.pos_y > Height && !block.wasDetected){
+                    if(block.pos_y > Height - Height/5 && !block.wasDetected){
                         block.wasDetected = true;
                         notesToEvent.push(block);
+                    }
+                    if(block.pos_y > Height - Height/5){
+                        KeyGradient(context!,block.pos_x,block.width,Height - Height/5);
+                        options.IsEffects && effects?.triggerNewEffects(timer,block.pos_x,block.width);
                     }
                 }
                 else{
                     block.wasDetected = false;
                     notesToEvent.push(block);
-                }
-                if(block.pos_y > Height && options.IsEffects){
-                    const gradient = context!.createRadialGradient(block.pos_x + Width / 52 / 2, Height, 15, block.pos_x + Width / 52 / 2, Height, 45);
-                    gradient.addColorStop(0, block.color);
-                    gradient.addColorStop(0.8, 'rgba(0,0,0,0.5)');
-                    gradient.addColorStop(1,'transparent')
-                    context!.beginPath();
-                    context!.shadowBlur = 0;
-                    context!.fillStyle = gradient;
-                    context!.fillRect(block.pos_x + Width / 52 / 2 - 50, Height - 50,block.pos_x + Width / 52 / 2 +50, Height +50);
-                    context!.closePath();
-                    for(let x =0; x < 2; x++){
-                        EffectLines?.AddEffect(block.pos_x,Height,`rgba(240,230,140`);
-                    }
                 }
                 return null;
             })
@@ -92,12 +84,12 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
             setBlocks(newBlocksToState);
         }else{
             if(Player.isReseting){
-                context?.clearRect(0,0,Width,Height);
+                context?.clearRect(0,0,Width,Height - Height/5);
                 setBlocks([]);
             }
         }
              // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[timer])
+    },[timer]);
 
     useEffect(() =>{
         let newblocks:Array<blockNote> = [...blocks]
@@ -133,10 +125,24 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
+    useEffect(()=>{
+        function renderEffects(){
+            effects?.renerEffects();
+            requestAnimationFrame(renderEffects);
+        }
+        let id:number = 0;
+        if(effects){
+            id = requestAnimationFrame(renderEffects);
+        }
+        return () => {cancelAnimationFrame(id)}
+        
+    },[effects])
+
     const handleResize = () =>{
         setWindowKeyWidth(window.innerWidth);
-        setWindowHeight(window.innerHeight - 215);
+        setWindowHeight(window.innerHeight);
     }
+
 
     return (
         <div>
@@ -144,12 +150,14 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
                 <h1>Piano-Blocks V. 0.1</h1>
                 <h2>Closed Beta Version</h2>
             </div>}
-            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', backgroundImage: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize: `${Width}px ${Height}px`}}></div>
-            <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - 300).toString() + 'px' }}></div>
-            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas>
+            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:(Height - Height/5).toString() + 'px', backgroundImage: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize: `${Width}px ${Height}px`}}></div>
+            <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - (Height/5)*2 ).toString() + 'px' ,height:Height/5}}></div>
+            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={(Height - Height/5).toString() + 'px'} className='Canvas'></canvas>
+            <canvas ref={EffectsRef} width={Width} height={Height - Height/5} className='Effects'></canvas>
             </>}
-            <Piano wh={Height + 215} WhiteKeyWidth={Width / 52} data={keysNotes} sound={sound} />
-            {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height} Finished={finishedLoading}/>}
+            <div className='redFancyLine' style={{marginTop:Height - Height/5}} />
+            <Piano wh={Height - Height/5} WhiteKeyWidth={Width / 52} height={Height / 5} data={keysNotes} sound={sound} />
+            {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height - Height/5} Finished={finishedLoading}/>}
         </div>
     )
 }

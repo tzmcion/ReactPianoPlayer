@@ -7,17 +7,18 @@ interface AllKeysProps{
     wh:number,
     WhiteKeyWidth:number,
     data: Array<blockNote>,
-    sound:any
+    sound:any,
+    height:number
 }
 
-export default function AllKeys({wh,WhiteKeyWidth,data,sound}:AllKeysProps):ReactElement {
+export default function AllKeys({wh,WhiteKeyWidth,data,sound,height}:AllKeysProps):ReactElement {
 
     const drawWhitePianoKey = (pos_x:number,id:number):ReactElement =>{
-        return <WhiteKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={data} id={id} key={id} sound={sound} />
+        return <WhiteKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={data} id={id} key={id} sound={sound}  height={height}/>
     }
 
     const drawBlackPianoKey = (pos_x:number,id:number):ReactElement =>{
-        return <BlackKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={data} id={id} key={id} sound={sound}/>
+        return <BlackKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={data} id={id} key={id} sound={sound} height={height}/>
     }
 
     const KeysPositions = (type:('black' | 'all' | 'piano')):Array<any> =>{
@@ -41,7 +42,7 @@ export default function AllKeys({wh,WhiteKeyWidth,data,sound}:AllKeysProps):Reac
     }
 
     return (
-        <div className='piano_keys' style={{marginTop: wh - 235}}>
+        <div className='piano_keys' style={{marginTop: wh,height:height}}>
             {KeysPositions('piano')}
         </div>
     )

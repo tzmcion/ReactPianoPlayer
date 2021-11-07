@@ -10,7 +10,7 @@ export default function Header() {
             <div className='HeaderData'>
                 <div className='Logo'>
                     <img src={LogoPrototype} alt='Logo' className='LogoImage' />
-                    <h1>Piano Blocks Beta</h1>
+                    <h1>Piano Blocks App</h1>
                 </div>
                 <div className='Links'>
                     <Link to='/' className='Link'>Home</Link>

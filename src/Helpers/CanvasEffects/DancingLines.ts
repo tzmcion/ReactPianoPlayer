@@ -17,10 +17,14 @@ class DancingLines{
     private allSameSpeed:boolean;
     private effect_height:number;
     private gravitation_force:number;
+    private height:number
     private Effects:Array<Effect>
-    constructor(ctx:CanvasRenderingContext2D, keyWidth:number, lifeTime:number,effect_width:number,effect_height:number,speed?:number,allSameSpeed?:boolean,lighten?:boolean,gravitation?:boolean,gravitationForce?:number ){
+    constructor(ctx:CanvasRenderingContext2D,height:number, keyWidth:number, lifeTime:number,effect_width:number,effect_height:number,speed?:number,allSameSpeed?:boolean,lighten?:boolean,gravitation?:boolean,gravitationForce?:number ){
         this.ctx = ctx;
+        this.ctx.shadowColor = 'rgb(200,150,100)';
+        this.ctx.shadowBlur = 4;
         this.key_width = keyWidth;
+        this.height = height;
         this.effect_width = effect_width;
         this.effect_height = effect_height;
         this.life_time = lifeTime;
@@ -35,7 +39,7 @@ class DancingLines{
         this.Rect_Floor_Alpha_ReturnNewAlpha = this.Rect_Floor_Alpha_ReturnNewAlpha.bind(this);
     }
 
-    public AddEffect(pos_x:number,pos_y:number, color:string):void{
+    public create(pos_x:number,pos_y:number, color:string):void{
         const NewEffect: Effect = {
             pos_x: pos_x + Math.random() * this.key_width / 2 + this.key_width / 4,
             pos_y: pos_y,
@@ -49,15 +53,14 @@ class DancingLines{
 
     public render():void{
         let newEffects: Array<Effect> = [];
+        this.ctx.clearRect(0,this.height/2,this.key_width * 52,this.height);
         this.Effects.map(Effect =>{
             Effect.alpha = this.Rect_Floor_Alpha_ReturnNewAlpha(Effect.pos_x,Effect.pos_y,Effect.color,Effect.alpha);
             Effect.pos_y -= Math.random() * Effect.velocity_y;
-            Effect.pos_x += Math.random() * 0.5 * Effect.velocity_x;
-            Effect.velocity_x > 0 ? Effect.velocity_x += Math.random() * 0.25: Effect.velocity_x-= Math.random() * 0.25
-            //
+            Effect.pos_x += Math.random() * Effect.velocity_x;
+            Effect.velocity_x > 0 ? Effect.velocity_x += Math.random() * 0.05: Effect.velocity_x-= Math.random() * 0.05
             if(this.gravitation)Effect.velocity_y -= this.gravitation_force / Effect.alpha;
-            //
-            Effect.alpha > 0 && newEffects.push(Effect);
+            Effect.alpha > 0 && Effect.pos_y < this.height && newEffects.push(Effect);
             return null;
         })
         this.Effects = newEffects;

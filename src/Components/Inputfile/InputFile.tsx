@@ -21,7 +21,7 @@ export default function InputFile({FileRef,onFileUpload}:InputFileProps):ReactEl
 
     return (
         <div className='FileInputDiv'>
-            <input type='file' id='file_Upload' className='FileInput' ref={FileRef} onInput={()=>{onFileUpload()}} />
+            <input type='file' id='file_Upload' className='FileInput' accept='.mid,.midi' ref={FileRef} onInput={()=>{onFileUpload()}} />
             <div className='Informations'>
                 <div className='flexInfo'>
                 <img src={MidiImage} className='MidiImage' alt='MidiFile' />

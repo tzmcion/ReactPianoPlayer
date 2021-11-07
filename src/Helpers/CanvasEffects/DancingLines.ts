@@ -53,7 +53,7 @@ class DancingLines{
 
     public render():void{
         let newEffects: Array<Effect> = [];
-        this.ctx.clearRect(0,this.height/2,this.key_width * 52,this.height);
+        this.ctx.clearRect(0,this.height,this.key_width * 52,this.height);
         this.Effects.map(Effect =>{
             Effect.alpha = this.Rect_Floor_Alpha_ReturnNewAlpha(Effect.pos_x,Effect.pos_y,Effect.color,Effect.alpha);
             Effect.pos_y -= Math.random() * Effect.velocity_y;

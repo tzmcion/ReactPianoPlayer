@@ -70,7 +70,7 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
                         notesToEvent.push(block);
                     }
                     if(block.pos_y > Height - Height/5){
-                        KeyGradient(context!,block.pos_x,block.width,Height - Height/5);
+                        //KeyGradient(context!,block.pos_x,block.width,Height - Height/5);
                         options.IsEffects && effects?.triggerNewEffects(timer,block.pos_x,block.width);
                     }
                 }

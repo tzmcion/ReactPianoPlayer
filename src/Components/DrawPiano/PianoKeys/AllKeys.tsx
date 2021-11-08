@@ -21,19 +21,16 @@ export default function AllKeys({wh,WhiteKeyWidth,data,sound,height}:AllKeysProp
         return <BlackKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} Data={data} id={id} key={id} sound={sound} height={height}/>
     }
 
-    const KeysPositions = (type:('black' | 'all' | 'piano')):Array<any> =>{
+    const KeysPositions = ():Array<any> =>{
         let Returning:Array<any> = [];
         let counter_ids:number = 21;
         for(let x = 0; x < 52; x++){
-            type === 'piano' && Returning.push(drawWhitePianoKey(WhiteKeyWidth * x,counter_ids));
-            type === 'all' && Returning.push({position: WhiteKeyWidth * x, noteNumber: counter_ids});
+            Returning.push(drawWhitePianoKey(WhiteKeyWidth * x,counter_ids));
             const num = counter_ids % 12;
             if(num  === 1 - 1 || num === 3 - 1 || num === 6 - 1 || num ===8 - 1 || num ===10 - 1  ){
                 counter_ids++;
                 if(counter_ids < 109){
-                type ==='all' && Returning.push({position : WhiteKeyWidth * x + WhiteKeyWidth / 1.4, notenumber: counter_ids});
-                type === 'piano' && Returning.push(drawBlackPianoKey(WhiteKeyWidth * x + WhiteKeyWidth / 1.4,counter_ids));
-                type === 'black' && Returning.push(counter_ids);
+                Returning.push(drawBlackPianoKey(WhiteKeyWidth * x + WhiteKeyWidth / 1.4,counter_ids));
                 }
             }
             counter_ids++;
@@ -43,7 +40,7 @@ export default function AllKeys({wh,WhiteKeyWidth,data,sound,height}:AllKeysProp
 
     return (
         <div className='piano_keys' style={{marginTop: wh,height:height}}>
-            {KeysPositions('piano')}
+            {KeysPositions()}
         </div>
     )
 }

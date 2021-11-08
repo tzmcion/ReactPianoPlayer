@@ -19,7 +19,7 @@ export default function Play() {
         const options = JSON.parse(localStorage.getItem('options')!);
         const file = ReadFromLocalStorageBase64('file');
         setOptions(options);
-        setPlayer(new MidiPlayer(file,handleMidiEvent,10));
+        setPlayer(new MidiPlayer(file,handleMidiEvent,25));
     }, []);
 
     const handleMidiEvent = (Events:Array<noteEvent>) =>{

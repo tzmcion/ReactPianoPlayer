@@ -119,7 +119,7 @@ class MidiPlayer{
                         Events.push(noteEventsJSON[this.currentIndex]);
                         this.currentIndex+=1
                     }else{
-                        onEvent(Events);
+                        Events.length > 0 && onEvent(Events);
                         Events = [];
                         break;
                     }

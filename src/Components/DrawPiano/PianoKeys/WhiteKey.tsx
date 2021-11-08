@@ -30,7 +30,7 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound,height}:Whit
     },[Data,id,sound])
 
     return (
-        <div className='whiteKey' style={{width:WhiteKeyWidth.toString() + 'px', height:height,left:pos_x.toString() + 'px', backgroundColor: backgroundColor, transform:`scale(${backgroundColor === 'white' ? '1': '0.95'})`}}>
+        <div id={id.toString()} className='whiteKey' style={{width:WhiteKeyWidth.toString() + 'px', height:height,left:pos_x.toString() + 'px'}}>
         </div>
     )
 }

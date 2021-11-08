@@ -29,7 +29,7 @@ export default function BlackKey({WhiteKeyWidth,pos_x,Data, id,sound,height}:Whi
     },[Data,id,sound])
 
     return (
-        <div className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',height:height / 1.6,left:pos_x.toString() + 'px',backgroundColor: backgroundColor,transform:`rotateX(${backgroundColor === 'black' ? '0deg': '-25deg'})`}}>
+        <div id={id.toString()} className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',height:height / 1.6,left:pos_x.toString() + 'px'}}>
         </div>
     )
 }

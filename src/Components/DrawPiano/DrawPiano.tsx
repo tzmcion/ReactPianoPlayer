@@ -5,7 +5,9 @@ import './DrawPiano.styles.css';
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
+import { blockNote } from '../../Utils/TypesForMidi';
 import Tracks from '../Tracks/Tracks';
+import Piano from '../DrawPiano/PianoKeys/AllKeys';
 
 
 interface DrawPianoProps{
@@ -20,6 +22,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
+    const [keysNotes,setKeysNotes] = useState<Array<blockNote>>([]);
     const [sound,setSound] = useState<any>();
 
     const handleResize = () =>{
@@ -68,7 +71,9 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
              intervalSpeed={Speed} 
              options={options} 
              Player={Player}
-             sound={sound}/>
+             sound={sound}
+             setKeysNotes={(notes:any)=>{setKeysNotes(notes)}}/>
+             <Piano wh={window.innerHeight - window.innerHeight/5} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} data={keysNotes} sound={sound} />
         </div>
     )
 }

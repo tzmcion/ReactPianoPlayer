@@ -15,22 +15,22 @@
     border-bottom: none;
     position: absolute;
     box-shadow: 0 4px 3px -3px black;
+    background-color: white;
     border-radius: 5px;
     z-index: 30;
     border-top-left-radius: 1px;
     border-top-right-radius: 1px;
-    transition: 0.03s;
 }
 
 .blackKey{
     border:1px solid black;
+    background-color: black;
     position: absolute;
     box-shadow: 0px 1px 4px black;
     border-radius: 5px;
     border-top-left-radius: 1px;
     border-top-right-radius: 1px;
     z-index: 31;
-    transition: 0.03s;
 }
 
 .redFancyLine{
@@ -41,4 +41,8 @@
     background-color: rgb(44, 1, 1);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.699);
     z-index: 35;
+}
+
+.red{
+    background-color: rgb(3, 83, 50);
 }

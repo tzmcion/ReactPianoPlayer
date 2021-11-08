@@ -40,7 +40,7 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
         if(!loading){
         const Canvas = tracksRef.current
         const Effects = EffectsRef.current
-        setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,sound,setKeysNotes));
+        setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,sound,Player));
     }
     },[intervalSpeed,Width,options,loading,Height]);
 
@@ -49,7 +49,7 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
         if(blocks){
             if(!blocks.isInterval){
                 blocks.run();
-                interval = setInterval(blocks.render,intervalSpeed);
+                interval = setInterval(()=>{blocks.render(Player.isPaused,Player.isReseting)},intervalSpeed);
             }
         }
         return () => {clearInterval(interval)}

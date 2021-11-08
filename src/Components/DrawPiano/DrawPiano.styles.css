@@ -44,5 +44,6 @@
 }
 
 .red{
-    background-color: rgb(3, 83, 50);
+    background-color: rgb(1, 170, 100);
+    transform: scale(0.95);
 }

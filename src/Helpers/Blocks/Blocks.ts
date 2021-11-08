@@ -17,13 +17,15 @@ export default class Blocks{
     private KeysPositions: Array<any>
     private blocks:Array<blockNote>
     private Effects:Effects
+    private player:any
 
     public isInterval:boolean
 
 
-    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,sound:any,k?:Function){
+    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,sound:any,Player:any){
         this.ctx=ctx;
         this.Width=width;
+        this.player = Player;
         this.Effects = new Effects(ctxEffects,options,width,height);
         this.Height=height;
         this.sound = sound
@@ -55,7 +57,8 @@ export default class Blocks{
         })
     }
 
-    public render():void{
+    public render(paused:boolean,reseting:boolean):void{
+        if(!paused){
         this.Effects.renerEffects();
         let newBlocksToState:Array<blockNote> = [];
         this.ctx.clearRect(0,0,this.Width,this.Height);
@@ -81,6 +84,10 @@ export default class Blocks{
                 return null;
             })
         this.blocks = newBlocksToState;
+        }
+        if(reseting){
+            this.blocks = [];
+        }
     }
 
     public run():void{

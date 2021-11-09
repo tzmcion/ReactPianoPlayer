@@ -74,7 +74,6 @@ export default class Blocks{
                     if(block.pos_y > this.Height && !block.wasDetected){
                         block.wasDetected = true;
                         onblocks.push(block);
-                        this.sound && this.sound.instrument.play(block.NoteNumber).stop(this.sound.ac.currentTime + block.duration /1000);
                     }
                     if(block.pos_y > this.Height){
                         KeyGradient(this.ctx!,block.pos_x,block.width,this.Height);

@@ -30,7 +30,7 @@
     border-radius: 5px;
     border-top-left-radius: 1px;
     border-top-right-radius: 1px;
-    z-index: 31;
+    z-index: 33;
 }
 
 .redFancyLine{
@@ -44,6 +44,6 @@
 }
 
 .red{
-    background-color: rgb(17, 211, 49);
+    background-color: #11d331;
     transform: scale(0.92);
 }

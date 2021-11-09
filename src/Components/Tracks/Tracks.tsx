@@ -7,6 +7,7 @@ import Blocks from '../../Helpers/Blocks/Blocks';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen';
 import Piano from '../DrawPiano/PianoKeys/AllKeys';
+import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 
 import BG from '../../Assets/BG.jpg';
 
@@ -26,25 +27,55 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
 
     const tracksRef = useRef<HTMLCanvasElement>(null);
     const EffectsRef = useRef<HTMLCanvasElement>(null);
+    const PianoRef = useRef<HTMLCanvasElement>(null);
+    const PianoWhiteRef = useRef<HTMLCanvasElement>(null);
+    const [pianoCtx,setPianoCtx] = useState<CanvasRenderingContext2D>();
+    const [pianoWhiteCtx,setPianoWhiteCtx] = useState<CanvasRenderingContext2D>();
     const [blocks,setBlocks] = useState<Blocks>();
     const [loading,setLoading] = useState<boolean>(true);
     const [finishedLoading,setFinishedLoading] = useState<boolean>(false);
-    const [keysNotes,setKeysNotes] = useState<Array<blockNote>>([]);
-    const [space,detectSpace] = useState<number>(0);
     const [Width,setWindowKeyWidth] = useState<number>(window.innerWidth);
     const [Height,setWindowHeight] = useState<number>(window.innerHeight);
 
     useEffect(()=>{
+        setPianoCtx(PianoRef.current?.getContext('2d')!);
+        setPianoWhiteCtx(PianoWhiteRef.current?.getContext('2d')!);
         if(!loading){
         const Canvas = tracksRef.current
         const Effects = EffectsRef.current
-        setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,sound,(e:any)=>{setKeysNotes(e)}));
+        setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,sound,(e:any)=>{drawPianoKeys(e)}));
         }
     },[intervalSpeed,Width,options,loading,Height]);
 
     const animate = () =>{
         blocks?.render();
         return requestAnimationFrame(animate)
+    }
+
+    const drawPianoKeys = (arr:Array<blockNote>) =>{
+        arr.map(element =>{
+            if(pianoCtx){
+                const pos_x = KeysPositions[element.NoteNumber - 21].position;
+                const pos_y = 0;
+                const width = BlackNumbers.includes(element.NoteNumber) ? Width / 52 / 1.8 : Width / 52;
+                const height = BlackNumbers.includes(element.NoteNumber) ? Height/5 / 1.6 : Height/5;
+                if(element.wasDetected){
+                    if(BlackNumbers.includes(element.NoteNumber)){
+                        CanvasRoundRect(pianoCtx!,'#11d331',pos_x,pos_y,width+2,height+2,5);
+                    }else{
+                        CanvasRoundRect(pianoWhiteCtx!,'#11d331',pos_x,pos_y,width+0.5,height+1,5);
+                    }
+                }
+                else{
+                    if(BlackNumbers.includes(element.NoteNumber)){
+                        pianoCtx?.clearRect(pos_x -1,pos_y -2,width +6,height +6);
+                    }else{
+                        pianoWhiteCtx?.clearRect(pos_x-0.2,pos_y,width+1.5,height+3);
+                    }
+                }
+            }
+            return null;
+        })
     }
 
     useEffect(() => {
@@ -99,7 +130,9 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
             <canvas ref={EffectsRef} width={Width} height={Height - Height/5} className='Effects'></canvas>
             </>}
             <div className='redFancyLine' style={{marginTop:Height - Height/5}} />
-            <Piano wh={window.innerHeight - window.innerHeight/5} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} data={keysNotes} sound={sound} />
+            <Piano wh={window.innerHeight - window.innerHeight/5} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} data={[]} sound={sound} />
+            <canvas ref={PianoRef} width={Width} height={Height/5 + 5} style={{position:'absolute',zIndex:34,marginTop:window.innerHeight - window.innerHeight/5}} />
+            <canvas ref={PianoWhiteRef} width={Width} height={Height/5 + 5} style={{position:'absolute',zIndex:32,marginTop:window.innerHeight - window.innerHeight/5}} />
             {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height - Height/5} Finished={finishedLoading}/>}
         </div>
     )

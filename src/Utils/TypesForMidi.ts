@@ -48,6 +48,7 @@ export interface blockNote{
     pos_y:number,
     pos_x:number,
     height?:number,
+    creationTime:number
     duration:number,
     wasDetected:boolean
 }

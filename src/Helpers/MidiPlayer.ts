@@ -40,6 +40,7 @@ class MidiPlayer{
         this.isPaused = false;
         this.convertToJSON = this.convertToJSON.bind(this);
         this.GetMidiAsObject = this.GetMidiAsObject.bind(this);
+        this.simulateEvent = this.simulateEvent.bind(this);
     }
 
     public async GetMidiAsObject(){
@@ -74,8 +75,22 @@ class MidiPlayer{
         return 1;
     }
 
-    public Play(onEvent:Function):void{
-        this.Midi && this.PlayMidiAsync(this.Midi,onEvent);
+    private simulateEvent(x:number):void{
+        this.onEvent([{
+            Delta: 1200000,
+            Duration: 150000,
+            NoteNumber: x,
+            SoundDuration: 4200000,
+            Velocity: 100
+        }])
+    }
+
+    public generateRandomNotes(){
+        for(let x = 21; x < 109; x++){
+            setTimeout(()=>{
+                this.simulateEvent(x);
+            },(x-21)*25)
+        }
     }
 
     public PausePlay():void{

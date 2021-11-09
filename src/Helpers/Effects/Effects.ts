@@ -14,7 +14,7 @@ class Effects{
         this.width = width;
         this.height = height;
         ctx.globalCompositeOperation = 'lighter';
-        this.Effect = new DancingLines(ctx,height,width/52,110,1,4,12,false,false,true,0.08);
+        this.Effect = new DancingLines(ctx,height,width/52,100,2,6,10,true,true,false,0.1);
     }
 
     renerEffects():void{
@@ -23,7 +23,7 @@ class Effects{
 
     triggerNewEffects(timer:number,pos_x:number,block_width:number):void{
         if(timer % Math.floor(100 /this.options.speed) === 0){
-        for(let x = 0; x  <2; x++){
+        for(let x = 0; x  <3; x++){
             this.Effect.create(pos_x,this.height,'rgba(200,150,100');
         }
     }

@@ -70,6 +70,7 @@ export default function Main() {
     return (
         <div style={{height:windowHeight}} className='mainDiv'>
             <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} />
+            <h2 style={{textAlign:'center',fontSize:'18px'}}> * Currently pause buttons are not working, Sorry ! * </h2>
             <Options handleOptionsChange={handleOptionsChange} options={options} />
             <PianoBlockDetailed />
             <Footer />

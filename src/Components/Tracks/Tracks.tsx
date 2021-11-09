@@ -2,14 +2,11 @@ import React,{ReactElement, useRef, useEffect, useState} from 'react';
 import './Tracks.styles.css';
 
 import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
-import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
-import Effects from '../../Helpers/Effects/Effects';
 import Blocks from '../../Helpers/Blocks/Blocks';
-import {KeyGradient} from '../../Helpers/CanvasEffects';
-import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen';
+import Piano from '../DrawPiano/PianoKeys/AllKeys';
 
 import BG from '../../Assets/BG.jpg';
 
@@ -22,17 +19,18 @@ interface TracksProps{
     options: OptionsType,
     Player: MidiPlayer,
     sound:any,
-    setKeysNotes:Function
 }
 
 
-export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,setKeysNotes,sound}:TracksProps):ReactElement {
+export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null);
     const EffectsRef = useRef<HTMLCanvasElement>(null);
     const [blocks,setBlocks] = useState<Blocks>();
     const [loading,setLoading] = useState<boolean>(true);
     const [finishedLoading,setFinishedLoading] = useState<boolean>(false);
+    const [keysNotes,setKeysNotes] = useState<Array<blockNote>>([]);
+    const [space,detectSpace] = useState<number>(0);
     const [Width,setWindowKeyWidth] = useState<number>(window.innerWidth);
     const [Height,setWindowHeight] = useState<number>(window.innerHeight);
 
@@ -40,25 +38,35 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
         if(!loading){
         const Canvas = tracksRef.current
         const Effects = EffectsRef.current
-        setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,sound,Player));
-    }
+        setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,sound,(e:any)=>{setKeysNotes(e)}));
+        }
     },[intervalSpeed,Width,options,loading,Height]);
+
+    const animate = () =>{
+        blocks?.render();
+        return requestAnimationFrame(animate)
+    }
 
     useEffect(() => {
         let interval:any = 0;
         if(blocks){
             if(!blocks.isInterval){
                 blocks.run();
-                interval = setInterval(()=>{blocks.render(Player.isPaused,Player.isReseting)},intervalSpeed);
+                interval = animate();
             }
         }
-        return () => {clearInterval(interval)}
+        Player.isReady && Player.generateRandomNotes()
+        return () => {cancelAnimationFrame(interval)}
     }, [blocks])
 
 
     useEffect(() =>{
         blocks?.add(Data);
     },[Data])
+
+    useEffect(()=>{
+        blocks?.setPauseRestart(Player.isPaused,Player.isReseting);
+    })
 
     useEffect(()=>{
         window.addEventListener('resize',handleResize);
@@ -78,6 +86,7 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
     }
 
 
+
     return (
         <div>
             {finishedLoading && <>{options.watermark && <div className='Mark'>
@@ -90,6 +99,7 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
             <canvas ref={EffectsRef} width={Width} height={Height - Height/5} className='Effects'></canvas>
             </>}
             <div className='redFancyLine' style={{marginTop:Height - Height/5}} />
+            <Piano wh={window.innerHeight - window.innerHeight/5} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} data={keysNotes} sound={sound} />
             {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height - Height/5} Finished={finishedLoading}/>}
         </div>
     )

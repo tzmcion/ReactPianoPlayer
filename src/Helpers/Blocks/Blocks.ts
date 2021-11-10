@@ -13,59 +13,55 @@ export default class Blocks{
     private BlackNumbers: Array<number>
     private intervalSpeed:number
     private Speed:number
-    private sound:any
     private KeysPositions: Array<any>
     private blocks:Array<blockNote>
     private Effects:Effects
     private requestToAdd:Array<noteEvent>
     private onBlocks:Function
-    private onetimesub:boolean
-    public paused:boolean
-    private restarting:boolean
+    private positions_to_render_line:Array<number>
 
     public isInterval:boolean
 
 
-    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,sound:any,onBlock:Function){
+    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function){
         this.ctx=ctx;
         this.Width=width;
         this.Effects = new Effects(ctxEffects,options,width,height);
         this.Height=height;
-        this.sound = sound
         this.options = options;
         this.BlackNumbers = BlackNumbers;
         this.intervalSpeed = intervalSpeed;
         this.Speed = Speed;
         this.KeysPositions = KeysPositions;
         this.blocks = [];
-        this.onetimesub = false;
         this.isInterval = false;
         this.onBlocks = onBlock;
         this.requestToAdd = [];
-        this.paused = false;
-        this.restarting = false;
+        this.positions_to_render_line = [];
+        this.RenderOctaveLines();
         this.render = this.render.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.Paused = this.Paused.bind(this);
     }
 
     public add(Data:Array<noteEvent>):void{
         this.requestToAdd = Data;
     }
-
-    public get isPaused():boolean{
-        return this.paused
-    }
-
     public render():void{
-        if(!this.paused){
-        this.Effects.renerEffects();
         this.ctx.clearRect(0,0,this.Width,this.Height);
+        this.Effects.renerEffects();
+        this.options.OctaveLines && this.positions_to_render_line.map(position =>{
+            this.ctx.beginPath();
+            this.ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            this.ctx.fillRect(position,0,1,this.Height);
+        })
         this.handleAdd();
         let onblocks:Array<any> = [];
         let newBlocksToState:Array<blockNote> = [];
         const currentTime = Date.now();
         this.blocks.reverse().map(block =>{
-                block.pos_y = this.Speed/20 * (currentTime -  block.creationTime);
+                block.pos_y = this.Speed/20 * (currentTime - (block.creationTime + block.pauseTime!));
+                block.playingTime = currentTime - (block.creationTime + block.pauseTime!);
                 this.ctx!.shadowColor = block.color;
                 this.ctx!.shadowBlur = 8;
                 CanvasRoundRect(this.ctx!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
@@ -86,23 +82,49 @@ export default class Blocks{
                 return null;
             })
         this.blocks = newBlocksToState;
-        this.onetimesub = true;
         onblocks.length > 0 && this.onBlocks(onblocks);
         
-        }else{
-            let newBlocksToState:Array<blockNote> = [];
-            const ct = Date.now();
-            this.blocks.map(block =>{
-                if(this.onetimesub){
-                    block.creationTime -= block.pos_y / (this.Speed/20)
-                }
-                block.creationTime += ct - block.creationTime;  
-                newBlocksToState.push(block);
-            })
-            this.blocks = newBlocksToState;
-            this.onetimesub = false;
-        }
     }
+
+    public run():void{
+        this.isInterval = true;
+     }
+ 
+    public Paused():void{
+         this.Effects.renerEffects();
+         let newB:Array<blockNote> = []
+         this.blocks.map(e =>{
+             e.pauseTime = Date.now() - e.creationTime - e.playingTime!;
+             newB.push(e);
+         })
+         this.blocks = newB;
+    }
+    public Reset():void{
+         this.ctx.clearRect(0,0,this.Width,this.Height);
+         this.blocks = [];
+    }
+
+    public Update(height:number,width:number,KeysPositions:Array<any>,ctx:CanvasRenderingContext2D):void{
+        this.ctx.clearRect(0,0,this.Width,this.Height);
+        this.Height = height;
+        this.Width = width * 3;
+        this.KeysPositions = KeysPositions;
+        this.ctx = ctx;
+        this.RedoAllBlocks();
+        this.RenderOctaveLines();
+    }
+
+    private RedoAllBlocks(){
+        let newBlocks:Array<blockNote> = [];
+        this.blocks.map(block =>{
+            block.pos_x = this.KeysPositions[block.NoteNumber - 21].position;
+            block.height = block.duration / 1000 / (this.intervalSpeed / this.Speed)
+            block.width = this.BlackNumbers.includes(block.NoteNumber) ? this.Width / 52 / 1.8 : this.Width / 52
+            newBlocks.push(block);
+        })
+        this.blocks = newBlocks;
+    }
+    
 
     private handleAdd():void{
         this.requestToAdd.length > 0 && this.requestToAdd.map(Event =>{
@@ -116,7 +138,9 @@ export default class Blocks{
                 height: Event.Duration / 1000 / (this.intervalSpeed / this.Speed),
                 wasDetected: false,
                 duration:Event.Duration,
-                creationTime: Date.now()
+                creationTime: Date.now(),
+                pauseTime:0,
+                playingTime:0
             }
             this.blocks.push(newBlock);
             return null;
@@ -124,12 +148,15 @@ export default class Blocks{
         this.requestToAdd = [];
     }
 
-    public run():void{
-       this.isInterval = true;
-    }
+    protected RenderOctaveLines(){
+        for(let x = 3; x < 88; x++){
+            if((x-3) % 12 === 0){
+                this.positions_to_render_line.push(this.KeysPositions[x].position)
+            }
+            if((x-8) % 12 === 0){
+                this.positions_to_render_line.push(this.KeysPositions[x].position)
+            }
 
-    public setPauseRestart(isPaused:boolean,isRestarting:boolean):void{
-        this.paused = isPaused;
-        this.restarting = isRestarting
+        }
     }
 }

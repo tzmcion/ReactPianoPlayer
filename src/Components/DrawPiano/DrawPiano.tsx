@@ -31,12 +31,12 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
         let Returning:Array<any> = [];
         let counter_ids:number = 21;
         for(let x = 0; x < 52; x++){
-            type === 'all' && Returning.push({position: WhiteKeyWidth * x, noteNumber: counter_ids});
+            type === 'all' && Returning.push({position: WhiteKeyWidth * x, noteNumber: counter_ids,width:WhiteKeyWidth});
             const num = counter_ids % 12;
             if(num  === 1 - 1 || num === 3 - 1 || num === 6 - 1 || num ===8 - 1 || num ===10 - 1  ){
                 counter_ids++;
                 if(counter_ids < 109){
-                type ==='all' && Returning.push({position : WhiteKeyWidth * x + WhiteKeyWidth / 1.4, notenumber: counter_ids});
+                type ==='all' && Returning.push({position : WhiteKeyWidth * x + WhiteKeyWidth / 1.4, notenumber: counter_ids,width:WhiteKeyWidth/1.8});
                 type === 'black' && Returning.push(counter_ids);
                 }
             }
@@ -57,7 +57,9 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
              sound={sound}/>
         }else{
             return <TracksAnimationFrame
-             Speed={drawSpeed} Data={Data!} 
+             Speed={drawSpeed} Data={Data!}
+             Width={WhiteKeyWidth*52}
+             Height={windowHeight}
              BlackNumbers={KeysPositions('black')} 
              KeysPositions={KeysPositions('all')} 
              intervalSpeed={Speed} 

@@ -61,6 +61,9 @@ export default function Main() {
                     currentOptions.renderMethod = event.target.value;
                 }
                 break;
+            case 'KeyPressColor':
+                options.KeyPressColor = event.target.value;
+                break;
             default:
                 break;
         }
@@ -75,7 +78,7 @@ export default function Main() {
     return (
         <div style={{height:windowHeight}} className='mainDiv'>
             <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} />
-            <h2 style={{textAlign:'center',fontSize:'18px'}}> * Currently pause buttons are not working in AnimationFrame method, Sorry ! * </h2>
+            <h2 style={{fontSize:'18px', textAlign:'center'}}>Currently Resizing During Playing is not working, sorry :C (but you can still resize before clicking 'Play' Button :) )</h2>
             <Options handleOptionsChange={handleOptionsChange} options={options} />
             <PianoBlockDetailed />
             <Footer />

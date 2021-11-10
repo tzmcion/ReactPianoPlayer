@@ -6,7 +6,7 @@ class Effects{
     private options:OptionsType
     private width:number
     private height:number
-    private Effect: {render:Function,create(pos_x:number,pos_y:number,color:string):void}
+    private Effect: {render:Function,create(pos_x:number,pos_y:number,color:string):void,clear:Function}
 
     constructor(ctx:CanvasRenderingContext2D,options:OptionsType,width:number,height:number){
         this.ctx = ctx;
@@ -18,17 +18,20 @@ class Effects{
         this.Effect = new Fountain(ctx,width,height,width/52);
     }
 
-    renerEffects():void{
+    public renerEffects():void{
         this.Effect.render();
     }
 
-    triggerNewEffects(timer:number,pos_x:number,block_width:number):void{
+    public triggerNewEffects(timer:number,pos_x:number,block_width:number):void{
         if(timer % Math.floor(100 /this.options.speed) === 0){
-        for(let x = 0; x  <3; x++){
             this.Effect.create(pos_x,this.height,'rgba(200,150,100');
-        }
+    }}
+
+    public clearAllEffects():void{
+        this.Effect.clear();
     }
-    }
+
+    
 }
 
 export default Effects;

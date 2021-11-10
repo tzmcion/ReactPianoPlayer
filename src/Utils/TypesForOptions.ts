@@ -1,5 +1,6 @@
 export interface Options{
     Color:string,
+    KeyPressColor:string,
     RandomColors:boolean,
     IsEffects:boolean,
     backgroundImage: string,
@@ -7,6 +8,7 @@ export interface Options{
     playSpeed:number,
     watermark:boolean,
     soundOn:boolean,
+    OctaveLines:boolean
     renderMethod:'Interval' | 'animationFrame'
 }
 

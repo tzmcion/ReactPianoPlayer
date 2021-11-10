@@ -12,7 +12,7 @@ interface WhiteKeyProps{
 
 export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound,height}:WhiteKeyProps):ReactElement {
 
-    const [backgroundColor,setBackgroundColor] = useState<string>('white');
+    const [backgroundColor,setBackgroundColor] = useState<string>('#fffff0');
     
 
     useEffect(()=>{
@@ -22,7 +22,7 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound,height}:Whit
                         setBackgroundColor('#5085f8');
                         sound && sound.instrument.play(id).stop(sound.ac.currentTime + event.duration/1000);
                     }else{
-                        setBackgroundColor('white');
+                        setBackgroundColor('#fffff0');
                     }
                 }
             return null;

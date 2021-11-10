@@ -19,11 +19,13 @@ interface TracksProps{
     intervalSpeed: number,
     options: OptionsType,
     Player: MidiPlayer,
+    Width:number,
+    Height:number
     sound:any,
 }
 
 
-export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
+export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null);
     const EffectsRef = useRef<HTMLCanvasElement>(null);
@@ -34,8 +36,6 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
     const [blocks,setBlocks] = useState<Blocks>();
     const [loading,setLoading] = useState<boolean>(true);
     const [finishedLoading,setFinishedLoading] = useState<boolean>(false);
-    const [Width,setWindowKeyWidth] = useState<number>(window.innerWidth);
-    const [Height,setWindowHeight] = useState<number>(window.innerHeight);
 
     useEffect(()=>{
         setPianoCtx(PianoRef.current?.getContext('2d')!);
@@ -43,12 +43,20 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
         if(!loading){
         const Canvas = tracksRef.current
         const Effects = EffectsRef.current
-        setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,sound,(e:any)=>{drawPianoKeys(e)}));
+        blocks && blocks.Update(Width,Height,KeysPositions,Canvas?.getContext('2d')!);
+        !blocks && setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,(e:any)=>{drawPianoKeys(e)}));
         }
     },[intervalSpeed,Width,options,loading,Height]);
 
     const animate = () =>{
-        blocks?.render();
+        if(!Player.isPaused){
+            blocks?.render();
+        }else if(Player.isReseting){
+            blocks?.Reset();   
+        }
+        else{
+            blocks?.Paused();
+        }
         return requestAnimationFrame(animate)
     }
 
@@ -61,9 +69,9 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
                 const height = BlackNumbers.includes(element.NoteNumber) ? Height/5 / 1.6 : Height/5;
                 if(element.wasDetected){
                     if(BlackNumbers.includes(element.NoteNumber)){
-                        CanvasRoundRect(pianoCtx!,'#11d331',pos_x,pos_y,width+2,height+2,5);
+                        CanvasRoundRect(pianoCtx!,options.KeyPressColor,pos_x,pos_y,width+2,height+2,5);
                     }else{
-                        CanvasRoundRect(pianoWhiteCtx!,'#11d331',pos_x,pos_y,width+0.5,height+1,5);
+                        CanvasRoundRect(pianoWhiteCtx!,options.KeyPressColor,pos_x,pos_y,width+0.5,height+1,5);
                     }
                     sound && sound.instrument.play(element.NoteNumber).stop(sound.ac.currentTime + element.duration/1000);
                 }
@@ -87,7 +95,6 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
                 interval = animate();
             }
         }
-        Player.isReady && Player.generateRandomNotes()
         return () => {cancelAnimationFrame(interval)}
     }, [blocks])
 
@@ -97,11 +104,6 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
     },[Data])
 
     useEffect(()=>{
-        blocks?.setPauseRestart(Player.isPaused,Player.isReseting);
-    })
-
-    useEffect(()=>{
-        window.addEventListener('resize',handleResize);
         const inter = setInterval(()=>{
             if(Player.isReady){
                 setTimeout(()=>{loading && setLoading(false)},2500);
@@ -111,13 +113,6 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
         },500)
         return () => clearInterval(inter);
     },[])
-
-    const handleResize = () =>{
-        setWindowKeyWidth(window.innerWidth);
-        setWindowHeight(window.innerHeight);
-    }
-
-
 
     return (
         <div>

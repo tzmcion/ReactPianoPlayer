@@ -15,7 +15,7 @@
     border-bottom: none;
     position: absolute;
     box-shadow: 0 4px 3px -3px black;
-    background-color: white;
+    background-color: rgb(255, 255, 240);
     border-radius: 5px;
     z-index: 30;
     border-top-left-radius: 1px;

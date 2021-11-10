@@ -42,7 +42,7 @@ export default class fountain{
         this.effects = newEffects;
         this.ctx.beginPath();
         this.ctx.rect(0, 0, this.width, this.height);
-        this.ctx.fillStyle = 'rgba(0,0,0,0.1)';
+        this.ctx.fillStyle = 'rgba(0,0,0,0.15)';
         this.ctx.fill();
     }
 
@@ -51,17 +51,22 @@ export default class fountain{
             pos_x: pos_x + Math.random() * this.key_width / 2 + this.key_width / 4,
             pos_y: pos_y,
             color: color,
-            velocity_y: Math.round(Math.random() * (15-2) + 5),
+            velocity_y: Math.round(Math.random() * (this.height/100) + 5),
             velocity_x: Math.random() > 0.5 ? 1 : -1,
             alpha:1
         }
         this.effects.push(NewEffect);
     }
 
+    public clear(){
+        this.ctx.fillStyle = 'rgba(0,0,0,1)';
+        this.effects = [];
+    }
+
     private Rect_Floor_Alpha_ReturnNewAlpha(pos_x:number,pos_y:number, color:string, alpha:number){
         this.ctx.beginPath();
         this.ctx.fillStyle = '#d4f1f9';
-        this.ctx.arc(pos_x,pos_y,Math.random() * 3 + 1,0,Math.PI*2);
+        this.ctx.arc(pos_x,pos_y,Math.random() * 2 + 1,0,Math.PI*2);
         this.ctx.fill();
         return alpha - 1/100;
     }

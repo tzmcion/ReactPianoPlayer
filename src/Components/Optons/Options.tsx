@@ -18,7 +18,10 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
             <div className='container'>
             <div className='mainOptions'>
                 <OptionCard onChange={handleOptionsChange} name='color' type='color' title='Color' value={options.Color}>
-                    Choose The Color Of Your Piano Blocks !. It's important, they don't look good with everything. Default color is platinum
+                    Choose The Color Of Your Piano Blocks !. It's important, they don't look good with everything. Default color is nice
+                </OptionCard>
+                <OptionCard onChange={handleOptionsChange} name='KeyPressColor' type='color' title='Key Pressing Color' value={options.KeyPressColor}>
+                    Choose the color to which piano key changes when block reaches it !
                 </OptionCard>
                 <OptionCard onChange={handleOptionsChange} name='RandomColors' title='Random Color' type='checkbox' value={options.RandomColors} >
                     Switching This On Will Make every block different color. Remember that those random colors are lightend. This option automatically ignores chosen color

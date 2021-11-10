@@ -5,7 +5,7 @@ import './DrawPiano.styles.css';
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
-import Tracks from '../Tracks/Tracks';
+import {TracksInterval, TracksAnimationFrame} from '../Tracks';
 
 
 interface DrawPianoProps{
@@ -45,6 +45,28 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
         return Returning;
     }
 
+    const RenderTracks = ():ReactElement =>{
+        if(options.renderMethod === 'Interval'){
+            return <TracksInterval
+             Speed={drawSpeed} Data={Data!} 
+             BlackNumbers={KeysPositions('black')} 
+             KeysPositions={KeysPositions('all')} 
+             intervalSpeed={Speed} 
+             options={options} 
+             Player={Player}
+             sound={sound}/>
+        }else{
+            return <TracksAnimationFrame
+             Speed={drawSpeed} Data={Data!} 
+             BlackNumbers={KeysPositions('black')} 
+             KeysPositions={KeysPositions('all')} 
+             intervalSpeed={Speed} 
+             options={options} 
+             Player={Player}
+             sound={sound}/>
+        }
+    }
+
 
     useEffect(()=>{
         window.addEventListener('resize',handleResize);
@@ -61,14 +83,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
 
     return (
         <div className='Piano' style={{height: windowHeight}}>
-            <Tracks
-             Speed={drawSpeed} Data={Data!} 
-             BlackNumbers={KeysPositions('black')} 
-             KeysPositions={KeysPositions('all')} 
-             intervalSpeed={Speed} 
-             options={options} 
-             Player={Player}
-             sound={sound}/>
+            {RenderTracks()}
         </div>
     )
 }

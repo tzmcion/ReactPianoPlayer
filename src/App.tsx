@@ -1,9 +1,9 @@
 import React from 'react';
-import Main from './Components/Main/Main';
-import Tutorial from './Components/Tutorial/Tutorial';
+import Main from './Pages/Main/Main';
+import Tutorial from './Pages/Tutorial/Tutorial';
 import Header from './Components/Header/Header';
-import Todo from './Components/ToDo/ToDo';
-import Play from './Components/Play/Play';
+import Todo from './Pages/ToDo/ToDo';
+import Play from './Pages/Play/Play';
 import {Switch, Route} from 'react-router-dom';
 import './App.css';
 

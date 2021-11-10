@@ -29,16 +29,20 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
                 <OptionCardImage name='Image' title="Background Image" type='Image' value={options.Color} onChange={handleOptionsChange}>
                     Choose Background Of your track, to be precise, upload it, or it will be default image (which looks bad by the way)
                 </OptionCardImage>
-                <OptionCardList name='speed' Important title="Render Speed" values={['10','15','20','30','35','40','45','50','75','100']} value={options.speed} onChange={handleOptionsChange}>
+                <OptionCardList name='speed' title="Render Speed" values={['10','15','20','30','35','40','45','50','75','100']} value={options.speed} onChange={handleOptionsChange}>
                     Choose The Speed Of your Render. Remember, The higher render speed is, the more lags may happen, and everything will be faster
                 </OptionCardList>
-                <OptionCardList name='playSpeed' Important title="Playing Speed" values={['5','10','15','20','25','30','40','50', '60']} value={options.playSpeed} onChange={handleOptionsChange}>
+                <OptionCardList name='playSpeed' title="Playing Speed" values={['5','10','15','20','25','30','40','50', '60']} value={options.playSpeed} onChange={handleOptionsChange}>
                     Choose How fast The keys will fall. Remember, this is also affected by rendering speed ! The fastest scenario is lowest value in rendering speed and highest here
                 </OptionCardList>
-                <OptionCard Important onChange={handleOptionsChange} name='watermark' title='Watermark' type='checkbox' value={options.watermark} >
+                <OptionCard onChange={handleOptionsChange} name='watermark' title='Watermark' type='checkbox' value={options.watermark} >
                     Choose If you want to have watermark in your piano blocks 
                 </OptionCard>
-                <OptionCard Important onChange={handleOptionsChange} name='soundOn' title='Music' type='checkbox' value={options.soundOn}>Choose if you want Piano Blocks App to play music with video</OptionCard>
+                <OptionCard onChange={handleOptionsChange} name='soundOn' title='Music' type='checkbox' value={options.soundOn}>Choose if you want Piano Blocks App to play music with video</OptionCard>
+                <OptionCardList name='renderMethod' Important title="Render Method" values={['Interval','animationFrame']} value={options.renderMethod} onChange={handleOptionsChange}>
+                    Choose your render Method. Interval happends every choosen period of time (you can choose it in Render Speed option). AnimationFrame is a method which 
+                    renders async, which means your website decides whn it is best to render for the best performance. For better computers, Interval method is much better.
+                </OptionCardList>
             </div>
             </div>
         </div>

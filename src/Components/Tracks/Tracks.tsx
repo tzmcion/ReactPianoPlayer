@@ -65,6 +65,7 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
                     }else{
                         CanvasRoundRect(pianoWhiteCtx!,'#11d331',pos_x,pos_y,width+0.5,height+1,5);
                     }
+                    sound && sound.instrument.play(element.NoteNumber).stop(sound.ac.currentTime + element.duration/1000);
                 }
                 else{
                     if(BlackNumbers.includes(element.NoteNumber)){

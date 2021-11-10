@@ -6,6 +6,7 @@ export interface Options{
     speed:number,
     playSpeed:number,
     watermark:boolean,
-    soundOn:boolean
+    soundOn:boolean,
+    renderMethod:'Interval' | 'animationFrame'
 }
 

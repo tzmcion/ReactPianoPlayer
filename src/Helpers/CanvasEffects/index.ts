@@ -1,4 +1,5 @@
 import DancingLines from "./DancingLines";
+import Fountain from './fountain';
 
 const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:number,height:number) =>{
     const radius:number = 50;
@@ -16,4 +17,4 @@ const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:numbe
 }
 
 
-export {DancingLines, KeyGradient};
+export {DancingLines,Fountain, KeyGradient};

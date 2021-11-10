@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 
-import DrawPiano from '../DrawPiano/DrawPiano';
-import PlayingManagement from '../PlayingManagement/PlayingManagement';
+import DrawPiano from '../../Components/DrawPiano/DrawPiano';
+import PlayingManagement from '../../Components/PlayingManagement/PlayingManagement';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import { DefaultOptions } from '../../Utils/Default';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';

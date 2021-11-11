@@ -1,9 +1,9 @@
-import React,{ReactElement, useState} from 'react'
+import React,{ReactElement} from 'react'
 import './PianoBlockDetailed.styles.scss'
 
 export default function PianoBlockDetailed():ReactElement {
 
-    const [dropdown,setDropdown] = useState<boolean>(false);
+    //const [dropdown,setDropdown] = useState<boolean>(false);
 
     return (
         <div className='PianoBlockDetailed'>

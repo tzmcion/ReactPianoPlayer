@@ -20,7 +20,7 @@ class MidiPlayer{
     public isPlaying:boolean
     public isReseting:boolean
     //Constructor
-    constructor(fileInput: React.RefObject<HTMLInputElement> | ArrayBuffer, onEvent:Function ,timeStamps?:number){
+    constructor(fileInput: React.RefObject<HTMLInputElement> | ArrayBuffer | Array<noteEvent>, onEvent:Function ,timeStamps?:number){
         if('current' in fileInput){
             this.file = fileInput.current?.files![0];
             this.fileType = 'ref'
@@ -44,12 +44,18 @@ class MidiPlayer{
     }
 
     public async GetMidiAsObject(){
-        ReadMidiFile(this.file,this.fileType).then(MidiObject =>{
-            const MidiArr =  MidiObject as IMidiFile;
-            this.convertToJSON(MidiArr).then(responde =>{
-                this.Midi = responde;
+        if(this.file[0]){
+        if('SoundDuration' in this.file[0]){
+            this.Midi = this.file;
+        }}
+        else{
+            ReadMidiFile(this.file,this.fileType).then(MidiObject =>{
+                const MidiArr =  MidiObject as IMidiFile;
+                this.convertToJSON(MidiArr).then(responde =>{
+                    this.Midi = responde;
+                })
             })
-        })
+        }
     }
 
     private convertToJSON = async (MidiArr:IMidiFile) =>{ 
@@ -124,6 +130,7 @@ class MidiPlayer{
     }
 
     private PlayMidiAsync = async (noteEventsJSON:Array<noteEvent>,onEvent:Function) =>{
+        console.log(this.Midi![0]);
         const PlayFromNotesAsync = async () =>{
             let Events:Array<noteEvent> = [];
             this.interval = setInterval(()=>{

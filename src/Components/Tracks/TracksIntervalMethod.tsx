@@ -48,7 +48,7 @@ export default function TracksIntervalMethod({Data,Speed, BlackNumbers, KeysPosi
         },intervalSpeed)
         return () => clearInterval(interval);
     }
-    },[intervalSpeed,Width,options,loading]);
+    },[intervalSpeed,Width,options,loading,Height]);
     
     useEffect(()=>{
         if(!Player.isPaused){

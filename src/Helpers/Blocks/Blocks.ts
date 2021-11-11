@@ -54,6 +54,7 @@ export default class Blocks{
             this.ctx.beginPath();
             this.ctx.fillStyle = 'rgba(255,255,255,0.15)';
             this.ctx.fillRect(position,0,1,this.Height);
+            return null;
         })
         this.handleAdd();
         let onblocks:Array<any> = [];
@@ -96,6 +97,7 @@ export default class Blocks{
          this.blocks.map(e =>{
              e.pauseTime = Date.now() - e.creationTime - e.playingTime!;
              newB.push(e);
+             return null;
          })
          this.blocks = newB;
     }
@@ -121,6 +123,7 @@ export default class Blocks{
             block.height = block.duration / 1000 / (this.intervalSpeed / this.Speed)
             block.width = this.BlackNumbers.includes(block.NoteNumber) ? this.Width / 52 / 1.8 : this.Width / 52
             newBlocks.push(block);
+            return null;
         })
         this.blocks = newBlocks;
     }
@@ -135,7 +138,7 @@ export default class Blocks{
                 NoteNumber: Event.NoteNumber,
                 pos_x: this.KeysPositions[Event.NoteNumber - 21].position,
                 pos_y: 0,
-                height: Event.Duration / 1000 / (this.intervalSpeed / this.Speed),
+                height: Event.Duration / 1000 / (22 / this.Speed),
                 wasDetected: false,
                 duration:Event.Duration,
                 creationTime: Date.now(),

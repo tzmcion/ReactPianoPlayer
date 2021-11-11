@@ -32,7 +32,7 @@ export default function PlayingManagement({Player}:PlayingManagementProps):React
             }
         })
         return () => {clearTimeout(something);document.removeEventListener('mousemove',mouseMoveListenr)}
-    },[])
+    },[Player])
 
     const handlePause = () =>{
         if(Player.isReady){

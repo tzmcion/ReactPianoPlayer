@@ -1,5 +1,5 @@
 import { Options as OptionsType } from "../../Utils/TypesForOptions";
-import {DancingLines,Fountain} from '../CanvasEffects';
+import {Fountain} from '../CanvasEffects';
 
 class Effects{
     private ctx:CanvasRenderingContext2D

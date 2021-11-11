@@ -46,6 +46,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
         blocks && blocks.Update(Width,Height,KeysPositions,Canvas?.getContext('2d')!);
         !blocks && setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,(e:any)=>{drawPianoKeys(e)}));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[intervalSpeed,Width,options,loading,Height]);
 
     const animate = () =>{
@@ -96,11 +97,13 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
             }
         }
         return () => {cancelAnimationFrame(interval)}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blocks])
 
 
     useEffect(() =>{
         blocks?.add(Data);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[Data])
 
     useEffect(()=>{
@@ -112,6 +115,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
             }
         },500)
         return () => clearInterval(inter);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return (

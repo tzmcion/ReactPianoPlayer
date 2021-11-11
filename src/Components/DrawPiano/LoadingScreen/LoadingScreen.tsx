@@ -28,7 +28,8 @@ export default function LoadingScreen({width,height,onLoaded,Finished}:LoadingSc
         if(Gear){
             setisReady(true)
         }
-    }, [Gear,isReady])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isReady])
 
     return (
         <div className='LoadingScreen' style={{width:width,height:height,left:opacity.toString() + '%'}}>

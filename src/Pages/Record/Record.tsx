@@ -3,6 +3,8 @@ import { noteEvent } from '../../Utils/TypesForMidi';
 import { useHistory } from 'react-router-dom';
 import './Record.styles.scss';
 
+
+import Footer from '../../Components/Footer/Footer';
 import statelessRecord from './statelessRecord';
 
 interface Devices{
@@ -16,6 +18,7 @@ export default function Record():ReactElement {
     const history = useHistory();
     const [devices,setDevices] = useState<Array<Devices>>([]);
     const [events,setEvents] = useState<Array<any>>([]);
+    const [height,windowHeight] = useState<number>(window.innerHeight);
 
     useEffect(()=>{
         window.navigator.requestMIDIAccess().then((midiAccess) => {
@@ -90,13 +93,16 @@ export default function Record():ReactElement {
     }
 
     return (
-        <div className='Record'>
+        <div className='Record' style={{height:height}}>
+            <div className="content">
             {renderDevices()}
             <button onClick={()=>{record.current.startStop(events);}}>Rec</button>
-            <div className='Events'>
+            <div className='Events' style={{height:window.innerHeight /2 }}>
                 {renderEvents()}
             </div>
             <button onClick={()=>{history.push('/PlayRecorded')}}>Play Recorded</button>
+            <Footer />
+            </div>
         </div>
     )
 }

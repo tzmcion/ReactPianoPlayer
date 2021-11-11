@@ -1,6 +1,9 @@
 .Record{
-    margin-top: 60px;
     width:100%;
+    overflow: auto;
+    .content{
+        margin-top: 50px;
+    }
     button{
         display: block;
         margin: 10px auto;
@@ -14,7 +17,6 @@
     padding: 10px;
     margin: 10px auto;
     overflow:auto;
-    height:500px;
     border: 5px solid black;
     border-radius: 4px;
 }

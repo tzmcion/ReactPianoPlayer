@@ -4,6 +4,10 @@
     top: 0px;
 }
 
+h1{
+    text-align: center;
+}
+
 body{
     cursor: context-menu;
     overflow: hidden;

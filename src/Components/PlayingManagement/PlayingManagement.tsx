@@ -14,24 +14,25 @@ export default function PlayingManagement({Player}:PlayingManagementProps):React
     const [opacity,setOpacity] = useState<number>(0);
     const history = useHistory();
 
-    useEffect(()=>{
-        let something:any;
-        document.addEventListener('mousemove',()=>{
-            something && clearTimeout(something);
+    const mouseMoveListenr = (something:any) =>{
+        something && clearTimeout(something);
             something = setTimeout(()=>{
                 setOpacity(0);
             },2000);
             setOpacity(1)
-        });
+        return something
+    }
 
+    useEffect(()=>{
+        let something:any;
+        document.addEventListener('mousemove',()=>{something = mouseMoveListenr(something)});
         document.addEventListener('keyup',(event)=>{
             if(event.key === ' '){
                 Player.PausePlay();
             }
         })
-
-        return () => {clearTimeout(something)}
-    },[])
+        return () => {clearTimeout(something);document.removeEventListener('mousemove',mouseMoveListenr)}
+    },[Player])
 
     const handlePause = () =>{
         if(Player.isReady){

@@ -8,7 +8,7 @@ interface CardProps{
     title?:string;
     children:JSX.Element | string;
     values: Array<string>;
-    value: number | boolean
+    value: number | boolean | string
 }
 
 export default function OptionCard({onChange,name,Important,title,children,values,value}:CardProps):ReactElement {

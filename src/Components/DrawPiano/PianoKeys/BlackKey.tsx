@@ -6,10 +6,11 @@ interface WhiteKeyProps{
     pos_x:number,
     Data: Array<blockNote> | undefined,
     id: number,
-    sound:any
+    sound:any,
+    height:number
 }
 
-export default function BlackKey({WhiteKeyWidth,pos_x,Data, id,sound}:WhiteKeyProps):ReactElement {
+export default function BlackKey({WhiteKeyWidth,pos_x,Data, id,sound,height}:WhiteKeyProps):ReactElement {
 
     const [backgroundColor,setBackgroundColor] = useState<string>('black');
 
@@ -28,7 +29,7 @@ export default function BlackKey({WhiteKeyWidth,pos_x,Data, id,sound}:WhiteKeyPr
     },[Data,id,sound])
 
     return (
-        <div className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',left:pos_x.toString() + 'px',backgroundColor: backgroundColor,transform:`rotateX(${backgroundColor === 'black' ? '0deg': '-25deg'})`}}>
+        <div id={id.toString()} className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',height:height / 1.6,left:pos_x.toString() + 'px',background:backgroundColor}}>
         </div>
     )
 }

@@ -2,8 +2,13 @@
 
 .Canvas{
     position: absolute;
-    z-index: 150;
+    z-index: 151;
     /* filter: blur(2px); */
+}
+
+.Effects{
+    position: absolute;
+    z-index: 149;
 }
 
 .coverPhoto{
@@ -15,10 +20,9 @@
 }
 
 .Summer{
-    z-index: 50;
+    z-index: 152;
     position: absolute;
-    height:300px;
-    background: linear-gradient(180deg,transparent,black);
+    background: linear-gradient(180deg,transparent,rgba(0, 0, 0, 0.171));
 }
 
 .Mark{

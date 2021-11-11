@@ -6,12 +6,13 @@ interface WhiteKeyProps{
     pos_x:number,
     Data: undefined | Array<blockNote>,
     id:number,
-    sound:any
+    sound:any,
+    height:number
 }
 
-export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound}:WhiteKeyProps):ReactElement {
+export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound,height}:WhiteKeyProps):ReactElement {
 
-    const [backgroundColor,setBackgroundColor] = useState<string>('white');
+    const [backgroundColor,setBackgroundColor] = useState<string>('#fffff0');
     
 
     useEffect(()=>{
@@ -21,7 +22,7 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound}:WhiteKeyPro
                         setBackgroundColor('#5085f8');
                         sound && sound.instrument.play(id).stop(sound.ac.currentTime + event.duration/1000);
                     }else{
-                        setBackgroundColor('white');
+                        setBackgroundColor('#fffff0');
                     }
                 }
             return null;
@@ -29,7 +30,7 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound}:WhiteKeyPro
     },[Data,id,sound])
 
     return (
-        <div className='whiteKey' style={{width:WhiteKeyWidth.toString() + 'px', left:pos_x.toString() + 'px', backgroundColor: backgroundColor, transform:`rotateX(${backgroundColor === 'white' ? '0deg': '25deg'})`}}>
+        <div id={id.toString()} className='whiteKey' style={{width:WhiteKeyWidth.toString() + 'px', height:height,left:pos_x.toString() + 'px',background:backgroundColor}}>
         </div>
     )
 }

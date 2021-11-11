@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 
-import DrawPiano from '../DrawPiano/DrawPiano';
-import PlayingManagement from '../PlayingManagement/PlayingManagement';
+import DrawPiano from '../../Components/DrawPiano/DrawPiano';
+import PlayingManagement from '../../Components/PlayingManagement/PlayingManagement';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import { DefaultOptions } from '../../Utils/Default';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
@@ -19,7 +19,7 @@ export default function Play() {
         const options = JSON.parse(localStorage.getItem('options')!);
         const file = ReadFromLocalStorageBase64('file');
         setOptions(options);
-        setPlayer(new MidiPlayer(file,handleMidiEvent,10));
+        setPlayer(new MidiPlayer(file,handleMidiEvent,25));
     }, []);
 
     const handleMidiEvent = (Events:Array<noteEvent>) =>{

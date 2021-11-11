@@ -5,7 +5,7 @@ import Tutorial_uno from '../../Assets/Editor.png'
 import Tutorial_duo from '../../Assets/Tutorial_duo.png';
 import Tutorial_trio from '../../Assets/Tutorial_trio.png';
 import YouTube from 'react-youtube';
-import Footer from '../Footer/Footer';
+import Footer from '../../Components/Footer/Footer';
 
 export default function Tutorial() {
 

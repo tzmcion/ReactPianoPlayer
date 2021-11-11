@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './ToDo.styles.css';
 
-import Footer from '../Footer/Footer';
+import Footer from '../../Components/Footer/Footer';
 
 export default function ToDo() {
 

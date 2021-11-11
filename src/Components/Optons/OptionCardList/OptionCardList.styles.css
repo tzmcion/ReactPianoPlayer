@@ -17,6 +17,8 @@
     width:80%;
     margin: 10px auto;
     height: 75px;
+    max-height: 75px;
+    overflow:auto;
     font-size: 12px;
     color:white;
     font-weight: 400;

@@ -2,13 +2,12 @@ import React,{ReactElement, useRef, useEffect, useState} from 'react';
 import './Tracks.styles.css';
 
 import { noteEvent, blockNote } from '../../Utils/TypesForMidi';
-import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
-import DancingLines from '../../Helpers/CanvasEffects/DancingLines';
-import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
+import Blocks from '../../Helpers/Blocks/Blocks';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen';
 import Piano from '../DrawPiano/PianoKeys/AllKeys';
+import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 
 import BG from '../../Assets/BG.jpg';
 
@@ -20,108 +19,94 @@ interface TracksProps{
     intervalSpeed: number,
     options: OptionsType,
     Player: MidiPlayer,
-    sound:any
+    Width:number,
+    Height:number
+    sound:any,
 }
 
 
-export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
+export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
-    const tracksRef = useRef<HTMLCanvasElement>(null)
-    const [blocks,setBlocks] = useState<Array<blockNote>>([]);
-    const [timer,setTimer] = useState<number>(0);
-    const [context,setContext] = useState<CanvasRenderingContext2D | null>();
-    const [EffectLines,setEffectLines] = useState<DancingLines | null>(null);
+    const tracksRef = useRef<HTMLCanvasElement>(null);
+    const EffectsRef = useRef<HTMLCanvasElement>(null);
+    const PianoRef = useRef<HTMLCanvasElement>(null);
+    const PianoWhiteRef = useRef<HTMLCanvasElement>(null);
+    const [pianoCtx,setPianoCtx] = useState<CanvasRenderingContext2D>();
+    const [pianoWhiteCtx,setPianoWhiteCtx] = useState<CanvasRenderingContext2D>();
+    const [blocks,setBlocks] = useState<Blocks>();
     const [loading,setLoading] = useState<boolean>(true);
     const [finishedLoading,setFinishedLoading] = useState<boolean>(false);
-    const [keysNotes,setKeysNotes] = useState<Array<blockNote>>([]);
-    const [Width,setWindowKeyWidth] = useState<number>(window.innerWidth);
-    const [Height,setWindowHeight] = useState<number>(window.innerHeight - 215);
 
     useEffect(()=>{
+        setPianoCtx(PianoRef.current?.getContext('2d')!);
+        setPianoWhiteCtx(PianoWhiteRef.current?.getContext('2d')!);
         if(!loading){
         const Canvas = tracksRef.current
-        setContext(Canvas?.getContext('2d'));
-        setEffectLines(new DancingLines(Canvas?.getContext('2d')!,Width/52,90,2,7,options.playSpeed * 2,false,true,true,options.speed / 120));
-        const interval = setInterval(() =>{
-            setTimer(prev => prev + 1)
-        },intervalSpeed)
-        return () => clearInterval(interval);
-    }
-    },[intervalSpeed,Width,options,loading]);
-    
-    useEffect(()=>{
+        const Effects = EffectsRef.current
+        blocks && blocks.Update(Width,Height,KeysPositions,Canvas?.getContext('2d')!);
+        !blocks && setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,(e:any)=>{drawPianoKeys(e)}));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[intervalSpeed,Width,options,loading,Height]);
+
+    const animate = () =>{
         if(!Player.isPaused){
-            const blocksToMap = [...blocks];
-            let notesToEvent:Array<blockNote> = [];
-            let newBlocksToState:Array<blockNote> = [];
-            context?.clearRect(0,0,Width,Height);
-            EffectLines?.render();
-            blocksToMap.reverse().map(block =>{
-                block.pos_y += Speed;
-                context!.shadowColor = block.color;
-                context!.shadowBlur = 8;
-                CanvasRoundRect(context!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
-                if(block.pos_y - block.height! < Height){
-                    newBlocksToState.push(block);
-                    if(block.pos_y > Height && !block.wasDetected){
-                        block.wasDetected = true;
-                        notesToEvent.push(block);
+            blocks?.render();
+        }else if(Player.isReseting){
+            blocks?.Reset();   
+        }
+        else{
+            blocks?.Paused();
+        }
+        return requestAnimationFrame(animate)
+    }
+
+    const drawPianoKeys = (arr:Array<blockNote>) =>{
+        arr.map(element =>{
+            if(pianoCtx){
+                const pos_x = KeysPositions[element.NoteNumber - 21].position;
+                const pos_y = 0;
+                const width = BlackNumbers.includes(element.NoteNumber) ? Width / 52 / 1.8 : Width / 52;
+                const height = BlackNumbers.includes(element.NoteNumber) ? Height/5 / 1.6 : Height/5;
+                if(element.wasDetected){
+                    if(BlackNumbers.includes(element.NoteNumber)){
+                        CanvasRoundRect(pianoCtx!,options.KeyPressColor,pos_x,pos_y,width+2,height+2,5);
+                    }else{
+                        CanvasRoundRect(pianoWhiteCtx!,options.KeyPressColor,pos_x,pos_y,width+0.5,height+1,5);
                     }
+                    sound && sound.instrument.play(element.NoteNumber).stop(sound.ac.currentTime + element.duration/1000);
                 }
                 else{
-                    block.wasDetected = false;
-                    notesToEvent.push(block);
-                }
-                if(block.pos_y > Height && options.IsEffects){
-                    const gradient = context!.createRadialGradient(block.pos_x + Width / 52 / 2, Height, 15, block.pos_x + Width / 52 / 2, Height, 45);
-                    gradient.addColorStop(0, block.color);
-                    gradient.addColorStop(0.8, 'rgba(0,0,0,0.5)');
-                    gradient.addColorStop(1,'transparent')
-                    context!.beginPath();
-                    context!.shadowBlur = 0;
-                    context!.fillStyle = gradient;
-                    context!.fillRect(block.pos_x + Width / 52 / 2 - 50, Height - 50,block.pos_x + Width / 52 / 2 +50, Height +50);
-                    context!.closePath();
-                    for(let x =0; x < 2; x++){
-                        EffectLines?.AddEffect(block.pos_x,Height,`rgba(240,230,140`);
+                    if(BlackNumbers.includes(element.NoteNumber)){
+                        pianoCtx?.clearRect(pos_x -1,pos_y -2,width +6,height +6);
+                    }else{
+                        pianoWhiteCtx?.clearRect(pos_x-0.2,pos_y,width+1.5,height+3);
                     }
                 }
-                return null;
-            })
-            notesToEvent.length > 0 && setKeysNotes(notesToEvent);
-            setBlocks(newBlocksToState);
-        }else{
-            if(Player.isReseting){
-                context?.clearRect(0,0,Width,Height);
-                setBlocks([]);
             }
-        }
-             // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[timer])
-
-    useEffect(() =>{
-        let newblocks:Array<blockNote> = [...blocks]
-        Data && Data.map(Event =>{
-            const newBlock:blockNote = {
-                color: options.RandomColors ? RandomColorRGBwithMin(200,200,200) : options.Color,
-                width: BlackNumbers.includes(Event.NoteNumber) ? Width / 52 / 1.8 : Width / 52,
-                Velocity: Event.Velocity,
-                NoteNumber: Event.NoteNumber,
-                pos_x: KeysPositions[Event.NoteNumber - 21].position,
-                pos_y: 0,
-                height: Event.Duration / 1000 / (intervalSpeed / Speed),
-                wasDetected: false,
-                duration:Event.Duration
-            }
-            newblocks.push(newBlock);
             return null;
         })
-        setBlocks(newblocks);
-         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[Data,Speed])
+    }
+
+    useEffect(() => {
+        let interval:any = 0;
+        if(blocks){
+            if(!blocks.isInterval){
+                blocks.run();
+                interval = animate();
+            }
+        }
+        return () => {cancelAnimationFrame(interval)}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [blocks])
+
+
+    useEffect(() =>{
+        blocks?.add(Data);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[Data])
 
     useEffect(()=>{
-        window.addEventListener('resize',handleResize);
         const inter = setInterval(()=>{
             if(Player.isReady){
                 setTimeout(()=>{loading && setLoading(false)},2500);
@@ -133,23 +118,22 @@ export default function Tracks({Data,Speed, BlackNumbers, KeysPositions,interval
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
-    const handleResize = () =>{
-        setWindowKeyWidth(window.innerWidth);
-        setWindowHeight(window.innerHeight - 215);
-    }
-
     return (
         <div>
             {finishedLoading && <>{options.watermark && <div className='Mark'>
                 <h1>Piano-Blocks V. 0.1</h1>
                 <h2>Closed Beta Version</h2>
             </div>}
-            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:Height.toString() + 'px', backgroundImage: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize: `${Width}px ${Height}px`}}></div>
-            <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - 300).toString() + 'px' }}></div>
-            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={Height.toString() + 'px'} className='Canvas'></canvas>
+            <div className='coverPhoto' style={{width:Width.toString() + 'px', height:(Height - Height/5).toString() + 'px', backgroundImage: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize: `${Width}px ${Height}px`}}></div>
+            <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - (Height/5)*2 ).toString() + 'px' ,height:Height/5}}></div>
+            <canvas ref={tracksRef} width={Width.toString() + 'px'} height={(Height - Height/5).toString() + 'px'} className='Canvas'></canvas>
+            <canvas ref={EffectsRef} width={Width} height={Height - Height/5} className='Effects'></canvas>
             </>}
-            <Piano wh={Height + 215} WhiteKeyWidth={Width / 52} data={keysNotes} sound={sound} />
-            {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height} Finished={finishedLoading}/>}
+            <div className='redFancyLine' style={{marginTop:Height - Height/5}} />
+            <Piano wh={window.innerHeight - window.innerHeight/5} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} data={[]} sound={sound} />
+            <canvas ref={PianoRef} width={Width} height={Height/5 + 5} style={{position:'absolute',zIndex:34,marginTop:window.innerHeight - window.innerHeight/5}} />
+            <canvas ref={PianoWhiteRef} width={Width} height={Height/5 + 5} style={{position:'absolute',zIndex:32,marginTop:window.innerHeight - window.innerHeight/5}} />
+            {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height - Height/5} Finished={finishedLoading}/>}
         </div>
     )
 }

@@ -63,7 +63,7 @@ export default function OptionCard({onChange,name,type,Important,title,children,
                     <h3 className='descriptionImage'>{children}</h3>
                     {!image &&<div className='inputImageDiv'>
                         <h1>Insert Image</h1>
-                            <input className={`ImageInput`} ref={Myvalue} type='file' name={name} onChange={handleChange} />
+                            <input className={`ImageInput`} accept='.jpg,.png,.gif' ref={Myvalue} type='file' name={name} onChange={handleChange} />
                     </div>}
                     {image && <img src={image} alt='your' className='inputImage' />}
                 </div>

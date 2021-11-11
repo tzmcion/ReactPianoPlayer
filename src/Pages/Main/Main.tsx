@@ -2,10 +2,10 @@ import React,{useRef,ChangeEvent, useState,useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import './Main.styles.css';
 
-import InputFile from '../Inputfile/InputFile';
-import Options from '../Optons/Options';
-import Footer from '../Footer/Footer';
-import PianoBlockDetailed from '../PianoBlockDetailed/PianoBlockDetailed';
+import InputFile from '../../Components/Inputfile/InputFile';
+import Options from '../../Components/Optons/Options';
+import Footer from '../../Components/Footer/Footer';
+import PianoBlockDetailed from '../../Components/PianoBlockDetailed/PianoBlockDetailed';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { checkExtension, SaveAsBase64 } from '../../Utils/smallFunctions';
 import { DefaultOptions } from '../../Utils/Default';
@@ -56,6 +56,14 @@ export default function Main() {
             case 'soundOn':
                 currentOptions.soundOn = !options.soundOn;
                 break;
+            case 'renderMethod':
+                if(event.target.value === 'Interval' || event.target.value === 'animationFrame'){
+                    currentOptions.renderMethod = event.target.value;
+                }
+                break;
+            case 'KeyPressColor':
+                options.KeyPressColor = event.target.value;
+                break;
             default:
                 break;
         }
@@ -70,6 +78,7 @@ export default function Main() {
     return (
         <div style={{height:windowHeight}} className='mainDiv'>
             <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} />
+            <h2 style={{fontSize:'18px', textAlign:'center'}}>Currently Resizing During Playing is not working, sorry :C (but you can still resize before clicking 'Play' Button :) )</h2>
             <Options handleOptionsChange={handleOptionsChange} options={options} />
             <PianoBlockDetailed />
             <Footer />

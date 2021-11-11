@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,300&display=swap');
+
+.Record{
+    width:100%;
+    overflow: auto;
+    font-family: 'Nunito', sans-serif;
+    .content{
+        width:80%;
+        margin:70px auto;
+        img{
+            width:50px;
+            display: block;
+        }
+        h2{
+            text-align: center;
+            font-size: 18px;
+        }
+        .devices{
+            width:40%;
+            display: block;
+            margin: 5px auto;
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.548);
+            border-radius: 2px;
+            .device{
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 5px;
+                h1{
+                    font-size: 16px;
+                }
+                .dot{
+                    position: absolute;
+                    left:15px;
+                    width:0px;
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+        h3{
+            text-align: center;
+            margin: 15px auto;
+            font-size: 24px;
+            font-weight: 800;
+            width: 60%;
+            padding: 10px;
+            border: 2px dashed rgba(0, 0, 0, 0.178);
+            border-radius: 5px;
+        }
+    }
+    .rec{
+        padding: 5px 15px 5px 15px;
+        background-color: rgb(231, 90, 90);
+        border-radius: 3px;
+        font-size: 18px;
+        transition: 0.1s;
+    }
+    .rec:hover{
+        background-color: rgb(240, 65, 65);
+        color:rgb(68, 49, 49);
+        transform: scale(1.05);
+    }
+    .play{
+        padding: 5px 15px 5px 15px;
+        background-color: rgb(70, 243, 70);
+        border-radius: 3px;
+        font-size: 18px;
+        transition: 0.1s;
+    }
+    .play:hover{
+        background-color: rgb(46, 197, 46);
+        color:rgb(28, 80, 28);
+        transform: scale(1.05);
+    }
+    button{
+        outline: none;
+        border: none;
+        cursor: pointer;
+        display: block;
+        margin: 15px auto;
+        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.466);
+    }
+    .Event{
+        padding: 5px;
+        text-align: center;
+        background-color: rgb(155, 155, 155);
+        margin-top: 10px;
+        box-shadow: 0px 0px 5px black;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        h3{
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            border:2px solid transparent
+        }
+        .title_ev{
+            font-size: 24px;
+        }
+        .delta{
+            color: rgb(73, 14, 38);
+        }
+        .noteNumber{
+            color: rgb(49, 14, 73);
+        }
+        .duration{
+            color: rgb(73, 47, 14);
+        }
+    }
+    h5{
+        display: block;
+        margin: 50px auto;
+        text-align: center;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.63);
+    }
+}
+
+.Events{
+    width:60%;
+    padding: 10px;
+    margin: 10px auto;
+    overflow:auto;
+    box-shadow: 0px 0px 4px black;
+    border-radius: 4px;
+}
+

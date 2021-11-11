@@ -64,17 +64,24 @@ const ReadFromLocalStorageBase64 = (storageName:string):ArrayBuffer =>{
         }
         return new ArrayBuffer(1);
     }
-const SaveAsBase64 = (element:any,storageName:string):Promise<boolean> => {
-        return new Promise<boolean>(resolve =>{
-            var file = element
-            var reader = new FileReader()
-            reader.onload = function(base64) {
-            if(typeof base64.target?.result == 'string')
-                localStorage.setItem(storageName,base64.target?.result);
+const SaveAsBase64 = (element:any,storageName:string,json?:boolean):Promise<boolean> => {
+        if(json){
+            return new Promise<boolean>(resolve =>{
+                localStorage.setItem(storageName,JSON.stringify(element));
                 resolve(true);
-            }
-            reader.readAsDataURL(file);
-        })
+            })
+        }else{
+            return new Promise<boolean>(resolve =>{
+                var file = element
+                var reader = new FileReader()
+                reader.onload = function(base64) {
+                if(typeof base64.target?.result == 'string')
+                    localStorage.setItem(storageName,base64.target?.result);
+                    resolve(true);
+                }
+                reader.readAsDataURL(file);
+            })
+    }
 }
 
 export {CreateEmptyArray as CreateMidiNoteEventsArray};

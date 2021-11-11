@@ -14,6 +14,7 @@ export default function Header() {
                 </div>
                 <div className='Links'>
                     <Link to='/' className='Link'>Home</Link>
+                    <Link to='/Record' className='Link'>Record</Link>
                     <Link to='/tutorial' className='Link'>Tutorial</Link>
                     <Link to='/Todo' className='Link'>Donate</Link>
                 </div>

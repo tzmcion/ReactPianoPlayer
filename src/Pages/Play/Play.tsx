@@ -8,8 +8,11 @@ import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { ReadFromLocalStorageBase64 } from '../../Utils/smallFunctions';
 
+interface p{
+    ac:any
+}
 
-export default function Play() {
+export default function Play({ac}:p) {
 
     const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [Player,setPlayer] = useState<MidiPlayer>();
@@ -28,8 +31,8 @@ export default function Play() {
 
     return (
         <div style={{overflow:'hidden'}}>
-            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options}/>}
-            {Player && <PlayingManagement Player={Player} />}
+            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} ac={ac} Speed={options.speed} options={options}/>}
+            {Player && <PlayingManagement Player={Player} onStart={()=>{}} />}
         </div>
     )
 }

@@ -7,9 +7,10 @@ import LogoPrototype from '../../Assets/piano_icon.png'
 
 interface PlayingManagementProps{
     Player: MidiPlayer,
+    onStart:Function
 }
 
-export default function PlayingManagement({Player}:PlayingManagementProps):ReactElement {
+export default function PlayingManagement({Player,onStart}:PlayingManagementProps):ReactElement {
 
     const [opacity,setOpacity] = useState<number>(0);
     const history = useHistory();

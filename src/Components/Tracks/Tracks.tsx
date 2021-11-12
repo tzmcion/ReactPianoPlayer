@@ -74,7 +74,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
                     }else{
                         CanvasRoundRect(pianoWhiteCtx!,options.KeyPressColor,pos_x,pos_y,width+0.5,height+1,5);
                     }
-                    sound && sound.instrument.play(element.NoteNumber).stop(sound.ac.currentTime + element.duration/1000);
+                    options.soundOn && sound && sound.instrument.play(element.NoteNumber).stop(sound.ac.currentTime + element.duration/1000);
                 }
                 else{
                     if(BlackNumbers.includes(element.NoteNumber)){
@@ -115,6 +115,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
             }
         },500)
         return () => clearInterval(inter);
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 

@@ -13,10 +13,11 @@ interface DrawPianoProps{
     Speed: number,
     options: OptionsType,
     drawSpeed: number,
-    Player: MidiPlayer
+    Player: MidiPlayer,
+    ac:any
 }
 
-export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPianoProps):ReactElement {
+export default function DrawPiano({Data,Speed,options,drawSpeed,Player,ac}:DrawPianoProps):ReactElement {
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
@@ -72,8 +73,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
 
     useEffect(()=>{
         window.addEventListener('resize',handleResize);
-        if(options.soundOn){
-            const ac = new AudioContext();
+        if(options.soundOn && ac){
             soundFont.instrument(ac, 'acoustic_grand_piano').then(function (piano) {
                 setSound({
                     instrument:piano,
@@ -81,11 +81,12 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
                 })
             })
         }
-    },[options.soundOn])
+    },[options.soundOn,ac])
 
     return (
         <div className='Piano' style={{height: windowHeight}}>
-            {RenderTracks()}
+            {sound && RenderTracks()}
+            {!sound && <div style={{width:window.innerWidth, height:window.innerHeight,background:'white'}}><h2 style={{fontSize:64,margin:'100px'}}>Sound Loading</h2></div>}
         </div>
     )
 }

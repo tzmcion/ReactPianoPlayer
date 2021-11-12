@@ -13,8 +13,6 @@ class Effects{
         this.options = options;
         this.width = width;
         this.height = height;
-        //ctx.globalCompositeOperation = 'lighter';
-        //this.Effect = new DancingLines(ctx,height,width/52,100,2,6,10,true,true,false,0.1);
         this.Effect = new Fountain(ctx,width,height,width/52);
     }
 

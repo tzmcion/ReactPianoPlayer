@@ -42,7 +42,9 @@ export default class statelessRecord{
                     Duration:duration * 1000,
                     Velocity:100
                 }
-                return event;
+                if(event.NoteNumber >= 21 && event.NoteNumber <= 108){
+                    return event;
+                }
             }
         }
     }

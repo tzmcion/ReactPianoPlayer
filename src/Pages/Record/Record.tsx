@@ -19,6 +19,7 @@ export default function Record():ReactElement {
     const history = useHistory();
     const [devices,setDevices] = useState<Array<Devices>>([]);
     const [events,setEvents] = useState<Array<noteEvent>>([]);
+    const [recording,setRecording] = useState<boolean>(false);
     const [height,windowHeight] = useState<number>(window.innerHeight);
 
     useEffect(()=>{
@@ -84,7 +85,7 @@ export default function Record():ReactElement {
     const renderDevices = () =>{
         if(devices.length > 0)
             return devices.map(device =>{
-                return <div className='device'><i className="fa fa-circle dot" aria-hidden="true"></i><img src={Piano} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
+                return <div className='device'><i className={`fa fa-circle dot ${recording?'blink':''}`} aria-hidden="true"></i><img src={Piano} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
             })
         return <h1>No device Connected</h1>
     }
@@ -94,9 +95,9 @@ export default function Record():ReactElement {
         return events.map((event:noteEvent,index) =>{
             return <div key={index} className='Event'>
                 <h3 className='title_ev'>Event: </h3>
-                <h3 className='delta'>Delta - {event.Delta}</h3>
-                <h3 className='noteNumber'>Key - {event.NoteNumber}</h3>
-                <h3 className='duration'>Duration - {event.Duration}</h3>
+                <h3 className='delta'>Delta - {event.Delta}μs</h3>
+                <h3 className='noteNumber'>Key id - {event.NoteNumber}</h3>
+                <h3 className='duration'>Duration - {event.Duration}μs</h3>
             </div>
         })
         }else{
@@ -114,8 +115,8 @@ export default function Record():ReactElement {
                     {renderDevices()}
                 </div>
             <div className='buttons'>
-            <button className='rec' onClick={()=>{record.current.startStop(events);}}>Rec</button>
-            <button className='play' onClick={()=>{history.push('/PlayRecorded')}}>Play Recorded</button>
+            <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording)}}>Rec</button>
+            <button className='play' onClick={()=>{history.push('/')}}>Play Recorded</button>
             </div>
             <div className='Events' style={{height:window.innerHeight /2 }}>
                 {renderEvents()}

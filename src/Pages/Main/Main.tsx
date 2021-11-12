@@ -78,7 +78,7 @@ export default function Main() {
     return (
         <div style={{height:windowHeight}} className='mainDiv'>
             <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} />
-            {localStorage.getItem('fileJson') && <div onClick={()=>{history.push('/PlayRecorded')}} className='play_recorded'>
+            {localStorage.getItem('fileJson') && <div onClick={()=>{localStorage.setItem('options',JSON.stringify(options)); history.push('/PlayRecorded')}} className='play_recorded'>
                 <h3>Play Recorded</h3>
             </div>}
             <h2 style={{fontSize:'18px', textAlign:'center'}}>Currently Resizing During Playing is not working, sorry :C (but you can still resize before clicking 'Play' Button :) )</h2>

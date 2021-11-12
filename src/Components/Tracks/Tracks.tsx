@@ -109,11 +109,9 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
     useEffect(()=>{
         const inter = setInterval(()=>{
             if(Player.isReady){
-                if(options.soundOn && sound){
                 setTimeout(()=>{loading && setLoading(false)},2500);
                 setFinishedLoading(true)
                 clearInterval(inter)
-                }
             }
         },500)
         return () => clearInterval(inter);

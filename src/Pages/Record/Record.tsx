@@ -62,19 +62,12 @@ export default function Record():ReactElement {
         const command = data[0];
         const noteNumber = data[1];
         const velocity = (midiEvent.data.length > 2) ? midiEvent.data[2] : null;
-        let event:any;
         switch(command){
             case 144:
-                event = record.current.add(command,noteNumber,velocity);
-                if(event){
-                    setEvents(prev => [...prev,event]);
-                }
+                record.current.add(command,noteNumber,velocity);
                 break;
             case 128:
-                event = record.current.add(command,noteNumber,velocity);
-                if(event){
-                    setEvents(prev => [...prev,event]);
-                }
+                record.current.add(command,noteNumber,velocity);
                 break;
             default:
                 break;
@@ -84,8 +77,8 @@ export default function Record():ReactElement {
 
     const renderDevices = () =>{
         if(devices.length > 0)
-            return devices.map(device =>{
-                return <div className='device'><i className={`fa fa-circle dot ${recording?'blink':''}`} aria-hidden="true"></i><img src={Piano} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
+            return devices.map((device,index) =>{
+                return <div className='device' key={index}><i className={`fa fa-circle dot ${recording?'blink':''}`} aria-hidden="true"></i><img src={Piano} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
             })
         return <h1>No device Connected</h1>
     }
@@ -100,8 +93,12 @@ export default function Record():ReactElement {
                 <h3 className='duration'>Duration - {event.Duration}μs</h3>
             </div>
         })
-        }else{
-            return <h5>Midi events will be displayed here</h5>
+    }else{
+            if(recording)
+                return <h5>Recording</h5>
+            else{
+                return <h5>Not Recording</h5>
+            }
         }
     }
 
@@ -115,7 +112,7 @@ export default function Record():ReactElement {
                     {renderDevices()}
                 </div>
             <div className='buttons'>
-            <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording)}}>Rec</button>
+            <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
             <button className='play' onClick={()=>{history.push('/')}}>Play Recorded</button>
             </div>
             <div className='Events' style={{height:window.innerHeight /2 }}>

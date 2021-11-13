@@ -13,11 +13,12 @@ interface PlayingManagementProps{
 export default function PlayingManagement({Player,onStart}:PlayingManagementProps):ReactElement {
 
     const [opacity,setOpacity] = useState<number>(0);
+    const something = React.useRef<any>();
     const history = useHistory();
 
-    const mouseMoveListenr = (something:any) =>{
-        something && clearTimeout(something);
-            something = setTimeout(()=>{
+    const mouseMoveListenr = () =>{
+        something.current && clearTimeout(something.current);
+            something.current = setTimeout(()=>{
                 setOpacity(0);
             },2000);
             setOpacity(1)
@@ -25,14 +26,13 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
     }
 
     useEffect(()=>{
-        let something:any;
-        document.addEventListener('mousemove',()=>{something = mouseMoveListenr(something)});
+        document.addEventListener('mousemove',mouseMoveListenr);
         document.addEventListener('keyup',(event)=>{
             if(event.key === ' '){
                 Player.PausePlay();
             }
         })
-        return () => {clearTimeout(something);document.removeEventListener('mousemove',mouseMoveListenr)}
+        return () => {clearTimeout(something.current);document.removeEventListener('mousemove',mouseMoveListenr)}
     },[Player])
 
     const handlePause = () =>{

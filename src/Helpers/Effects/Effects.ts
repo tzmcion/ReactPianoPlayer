@@ -17,7 +17,7 @@ class Effects{
     }
 
     public renerEffects():void{
-        this.Effect.render();
+        this.options.IsEffects && this.Effect.render();
     }
 
     public triggerNewEffects(timer:number,pos_x:number,block_width:number):void{

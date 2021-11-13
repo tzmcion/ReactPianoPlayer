@@ -9,6 +9,13 @@
     height: 50px;
 }
 
+.beta{
+    font-size: 12px;
+    margin-left: 2px;
+    color:rgb(165, 26, 26);
+    text-transform: lowercase;
+}
+
 .HeaderData{
     position: relative;
     width:90%;
@@ -21,7 +28,7 @@
 .Logo{
     display: flex;
     align-items: center;
-    height: 80%;
+    height: 90%;
     border-right: 1.5px dashed black;
     box-sizing: border-box;
     padding: 5px;
@@ -36,7 +43,9 @@
 }
 
 .LogoImage{
-    width:35px;
+    width:55px;
+    padding: 5px;
+    transform: rotate(270deg);
 }
 
 .Links{

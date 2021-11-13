@@ -4,6 +4,7 @@ import Tutorial from './Pages/Tutorial/Tutorial';
 import Header from './Components/Header/Header';
 import Todo from './Pages/ToDo/ToDo';
 import Play from './Pages/Play/Play';
+import Options from './Pages/Options/Options';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';
 import {Switch, Route} from 'react-router-dom';
@@ -32,6 +33,7 @@ function App() {
       <Route path='/Todo' exact component={Todo} />
       <Route path='/Play' exact component={() => <Play ac={ac}/>} />
       <Route path='/Record' exact component={Record} />
+      <Route path='/Options' exact component={Options} />
       <Route path='/PlayRecorded' exact component={() =><PlayRecorded ac={ac} />} />
       <Route path='/' exact component={Main} />
     </Switch>

@@ -31,6 +31,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
     const EffectsRef = useRef<HTMLCanvasElement>(null);
     const PianoRef = useRef<HTMLCanvasElement>(null);
     const PianoWhiteRef = useRef<HTMLCanvasElement>(null);
+    const requestRef = React.useRef<number>(0);
     const [pianoCtx,setPianoCtx] = useState<CanvasRenderingContext2D>();
     const [pianoWhiteCtx,setPianoWhiteCtx] = useState<CanvasRenderingContext2D>();
     const [blocks,setBlocks] = useState<Blocks>();
@@ -41,10 +42,9 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
         setPianoCtx(PianoRef.current?.getContext('2d')!);
         setPianoWhiteCtx(PianoWhiteRef.current?.getContext('2d')!);
         if(!loading){
-        const Canvas = tracksRef.current
-        const Effects = EffectsRef.current
-        blocks && blocks.Update(Width,Height,KeysPositions,Canvas?.getContext('2d')!);
-        !blocks && setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,(e:any)=>{drawPianoKeys(e)}));
+            const Canvas = tracksRef.current
+            const Effects = EffectsRef.current
+            setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,(e:any)=>{drawPianoKeys(e)},blocks ? blocks.getBlocks: []));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[intervalSpeed,Width,options,loading,Height]);
@@ -58,7 +58,8 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
         else{
             blocks?.Paused();
         }
-        return requestAnimationFrame(animate)
+        requestRef.current =  requestAnimationFrame(animate)
+        
     }
 
     const drawPianoKeys = (arr:Array<blockNote>) =>{
@@ -89,14 +90,13 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
     }
 
     useEffect(() => {
-        let interval:any = 0;
         if(blocks){
             if(!blocks.isInterval){
                 blocks.run();
-                interval = animate();
+                animate();
             }
         }
-        return () => {cancelAnimationFrame(interval)}
+        return () => {cancelAnimationFrame(requestRef.current)}
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blocks])
 

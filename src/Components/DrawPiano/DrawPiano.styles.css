@@ -47,3 +47,24 @@
     background-color: #11d331;
     transform: scale(0.92);
 }
+
+.loading_sound{
+    position: absolute;
+    z-index: 555;
+    background: linear-gradient(180deg,black,rgb(5, 5, 63));
+}
+
+.loading_sound>h2{
+    display: block;
+    text-align: center;
+    font-size: 64px;
+    margin: 10px auto;
+    padding-top: 100px;
+    color:white;
+}
+
+.loading_sound>h3{
+    color:white;
+    font-size: 32px;
+    text-align: center;
+}

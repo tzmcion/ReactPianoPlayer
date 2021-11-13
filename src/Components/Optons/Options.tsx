@@ -1,4 +1,5 @@
 import React, {ReactElement} from 'react';
+import {Link} from 'react-router-dom';
 import './Options.styles.css';
 
 import OptionCard from './OptionCard/OptionCard';
@@ -46,6 +47,7 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
                     Choose your render Method. Interval happends every choosen period of time (you can choose it in Render Speed option). AnimationFrame is a method which 
                     renders async, which means your website decides whn it is best to render for the best performance. For better computers, Interval method is much better.
                 </OptionCardList>
+                <Link to='/options' className='Advanced_options'>Advanced options</Link>
             </div>
             </div>
         </div>

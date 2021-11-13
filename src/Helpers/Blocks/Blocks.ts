@@ -23,7 +23,7 @@ export default class Blocks{
     public isInterval:boolean
 
 
-    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function){
+    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function,default_arr?:Array<blockNote>){
         this.ctx=ctx;
         this.Width=width;
         this.Effects = new Effects(ctxEffects,options,width,height);
@@ -33,7 +33,7 @@ export default class Blocks{
         this.intervalSpeed = intervalSpeed;
         this.Speed = Speed;
         this.KeysPositions = KeysPositions;
-        this.blocks = [];
+        this.blocks = default_arr ? default_arr : [];
         this.isInterval = false;
         this.onBlocks = onBlock;
         this.requestToAdd = [];
@@ -89,7 +89,11 @@ export default class Blocks{
 
     public run():void{
         this.isInterval = true;
-     }
+    }
+
+    public get getBlocks():Array<blockNote>{
+        return this.blocks
+    }
  
     public Paused():void{
          this.Effects.renerEffects();

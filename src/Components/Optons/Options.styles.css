@@ -21,6 +21,28 @@
     border-radius: 4px;
 }
 
+.Advanced_options{
+    align-self: center;
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    width:200px;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: 0.2s;
+    background-color: #283845;
+    color:white;
+    text-decoration: none;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.Advanced_options:hover{
+    transform: scale(1.1);
+    color:rgb(223, 130, 223);
+}
+
 @media only screen and (max-width: 1600px){
     .container{
         width:1500px;

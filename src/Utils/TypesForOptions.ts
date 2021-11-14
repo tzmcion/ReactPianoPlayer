@@ -9,6 +9,7 @@ export interface Options{
     watermark:boolean,
     soundOn:boolean,
     OctaveLines:boolean
-    renderMethod:'Interval' | 'animationFrame'
+    renderMethod:'Interval' | 'animationFrame',
+    Effect:'fountain' | 'dancingLines'
 }
 

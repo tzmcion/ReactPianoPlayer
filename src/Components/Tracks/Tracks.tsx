@@ -29,6 +29,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
 
     const tracksRef = useRef<HTMLCanvasElement>(null);
     const EffectsRef = useRef<HTMLCanvasElement>(null);
+    const GradeintRef = useRef<HTMLCanvasElement>(null);
     const PianoRef = useRef<HTMLCanvasElement>(null);
     const PianoWhiteRef = useRef<HTMLCanvasElement>(null);
     const requestRef = React.useRef<number>(0);
@@ -44,7 +45,8 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
         if(!loading){
             const Canvas = tracksRef.current
             const Effects = EffectsRef.current
-            setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,(e:any)=>{drawPianoKeys(e)},blocks ? blocks.getBlocks: []));
+            const Gradient = GradeintRef.current
+            setBlocks(new Blocks(Canvas?.getContext('2d')!,Effects?.getContext('2d')!,Gradient?.getContext('2d')!,Width,Height - Height/5,options,BlackNumbers,intervalSpeed,Speed,KeysPositions,(e:any)=>{drawPianoKeys(e)},blocks ? blocks.getBlocks: []));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[intervalSpeed,Width,options,loading,Height]);
@@ -129,6 +131,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
             <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - (Height/5)*2 ).toString() + 'px' ,height:Height/5}}></div>
             <canvas ref={tracksRef} width={Width.toString() + 'px'} height={(Height - Height/5).toString() + 'px'} className='Canvas'></canvas>
             <canvas ref={EffectsRef} width={Width} height={Height - Height/5} className='Effects'></canvas>
+            <canvas ref={GradeintRef} width={Width} height={Height - Height/5 + 50} className='Gradient'></canvas>
             </>}
             <div className='redFancyLine' style={{marginTop:Height - Height/5}} />
             <Piano wh={window.innerHeight - window.innerHeight/5} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} data={[]} sound={sound} />

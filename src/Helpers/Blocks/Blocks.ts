@@ -1,12 +1,15 @@
 import { blockNote,noteEvent } from "../../Utils/TypesForMidi"
 import {Options} from '../../Utils/TypesForOptions'
 import Effects from "../Effects/Effects";
-import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
+import { RandomColorHex } from '../../Utils/smallFunctions';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { KeyGradient } from "../CanvasEffects";
 
+
 export default class Blocks{
     private ctx:CanvasRenderingContext2D
+    private ctxEffects:CanvasRenderingContext2D
+    private gradientCtx:CanvasRenderingContext2D
     private Width:number
     private Height:number
     private options: Options
@@ -23,8 +26,11 @@ export default class Blocks{
     public isInterval:boolean
 
 
-    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function,default_arr?:Array<blockNote>){
+    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,gradientCtx:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function,default_arr?:Array<blockNote>){
         this.ctx=ctx;
+        this.ctxEffects = ctxEffects
+        this.gradientCtx = gradientCtx
+        this.gradientCtx.globalCompositeOperation = 'lighter'
         this.Width=width;
         this.Effects = new Effects(ctxEffects,options,width,height);
         this.Height=height;
@@ -49,6 +55,7 @@ export default class Blocks{
     }
     public render():void{
         this.ctx.clearRect(0,0,this.Width,this.Height);
+        this.gradientCtx.clearRect(0,this.Height-100,this.Width,this.Height + 100)
         this.Effects.renerEffects();
         this.options.OctaveLines && this.positions_to_render_line.map(position =>{
             this.ctx.beginPath();
@@ -73,7 +80,7 @@ export default class Blocks{
                         onblocks.push(block);
                     }
                     if(block.pos_y > this.Height){
-                        KeyGradient(this.ctx!,block.pos_x,block.width,this.Height);
+                        KeyGradient(this.gradientCtx!,block.pos_x,block.width,this.Height - 2,block.color);
                         this.options.IsEffects && this.Effects.triggerNewEffects(0,block.pos_x,block.width);
                     }
                 }else{
@@ -108,6 +115,7 @@ export default class Blocks{
     public Reset():void{
          this.ctx.clearRect(0,0,this.Width,this.Height);
          this.blocks = [];
+         this.Effects.clearAllEffects();
     }
 
     public Update(height:number,width:number,KeysPositions:Array<any>,ctx:CanvasRenderingContext2D):void{
@@ -136,7 +144,7 @@ export default class Blocks{
     private handleAdd():void{
         this.requestToAdd.length > 0 && this.requestToAdd.map(Event =>{
             const newBlock:blockNote = {
-                color: this.options.RandomColors ? RandomColorRGBwithMin(200,200,200) : this.options.Color,
+                color: this.options.RandomColors ? RandomColorHex() : this.options.Color,
                 width: this.BlackNumbers.includes(Event.NoteNumber) ? this.Width / 52 / 1.8 : this.Width / 52,
                 Velocity: Event.Velocity,
                 NoteNumber: Event.NoteNumber,

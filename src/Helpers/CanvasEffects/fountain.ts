@@ -65,7 +65,7 @@ export default class fountain{
 
     private Rect_Floor_Alpha_ReturnNewAlpha(pos_x:number,pos_y:number, color:string, alpha:number){
         this.ctx.beginPath();
-        this.ctx.fillStyle = '#d4f1f9';
+        this.ctx.fillStyle = color + ',1)';
         this.ctx.arc(pos_x,pos_y,Math.random() * 2 + 0.2,0,Math.PI*2);
         this.ctx.fill();
         return alpha - 1/100;

@@ -11,6 +11,11 @@
     z-index: 149;
 }
 
+.Gradient{
+    position: absolute;
+    z-index: 152;
+}
+
 .coverPhoto{
     position: absolute;
     filter: saturate(0.5);

@@ -86,8 +86,9 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player,ac}:DrawP
 
     return (
         <div className='Piano' style={{height: windowHeight}}>
-            {sound && RenderTracks()}
-            {!sound && <div style={{width:window.innerWidth, height:window.innerHeight}} className='loading_sound'><h2>Sound Loading</h2><h3>If sound is not loading try clicking anywhere on the screen</h3></div>}
+            {sound && options.soundOn && RenderTracks()}
+            {!sound && options.soundOn && <div style={{width:window.innerWidth, height:window.innerHeight}} className='loading_sound'><h2>Sound Loading</h2><h3>If sound is not loading try clicking anywhere on the screen</h3></div>}
+            {!options.soundOn && RenderTracks()}
         </div>
     )
 }

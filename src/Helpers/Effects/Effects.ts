@@ -40,6 +40,8 @@ class Effects{
 
     public clearAllEffects():void{
         this.Effect.clear();
+        this.Effect.render();
+        //a
     }
 
     

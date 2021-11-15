@@ -36,7 +36,7 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
                 <OptionCardList name='speed' title="Render Speed" values={['10','15','20','30','35','40','45','50','75','100']} value={options.speed} onChange={handleOptionsChange}>
                     Choose The Speed Of your Render. Remember, The higher render speed is, the more lags may happen, and everything will be faster
                 </OptionCardList>
-                <OptionCardList name='playSpeed' title="Playing Speed" values={['5','10','15','20','25','30','40','50', '60']} value={options.playSpeed} onChange={handleOptionsChange}>
+                <OptionCardList name='playSpeed' title="Playing Speed" values={['2','3','4','5','10','15','20','25','30','40','50', '60']} value={options.playSpeed} onChange={handleOptionsChange}>
                     Choose How fast The keys will fall. Remember, this is also affected by rendering speed ! The fastest scenario is lowest value in rendering speed and highest here
                 </OptionCardList>
                 <OptionCard onChange={handleOptionsChange} name='watermark' title='Watermark' type='checkbox' value={options.watermark} >

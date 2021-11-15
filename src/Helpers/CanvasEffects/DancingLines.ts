@@ -71,6 +71,7 @@ class DancingLines{
 
     public clear(){
         this.Effects = [];
+        this.ctx.clearRect(0,0,this.key_width * 52,this.height);
     }
 
     private Rect_Floor_Alpha_ReturnNewAlpha(pos_x:number,pos_y:number, color:string, alpha:number){

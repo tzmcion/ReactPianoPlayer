@@ -25,6 +25,9 @@ export default class fountain{
         this.key_width = key_width;
         this.effect_height = 6;
         this.effect_width = 2;
+        this.ctx.globalCompositeOperation = 'source-over';
+        this.ctx.shadowBlur = 0;
+        this.ctx.clearRect(0,0,width,height);
         this.effects = [];
     }
 
@@ -40,9 +43,9 @@ export default class fountain{
             return null;
         })
         this.effects = newEffects;
+        this.ctx.fillStyle = 'rgba(0,0,0,0.1)';
         this.ctx.beginPath();
         this.ctx.rect(0, 0, this.width, this.height);
-        this.ctx.fillStyle = 'rgba(0,0,0,0.1)';
         this.ctx.fill();
     }
 

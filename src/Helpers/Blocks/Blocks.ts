@@ -53,6 +53,7 @@ export default class Blocks{
     public add(Data:Array<noteEvent>):void{
         this.requestToAdd = Data;
     }
+
     public render():void{
         this.ctx.clearRect(0,0,this.Width,this.Height);
         this.gradientCtx.clearRect(0,this.Height-100,this.Width,this.Height + 100)
@@ -72,7 +73,7 @@ export default class Blocks{
                 block.playingTime = currentTime - (block.creationTime + block.pauseTime!);
                 this.ctx!.shadowColor = block.color;
                 this.ctx!.shadowBlur = 8;
-                CanvasRoundRect(this.ctx!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,5);
+                CanvasRoundRect(this.ctx!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,this.options.blockRadius);
                 if(block.pos_y - block.height! < this.Height){
                     newBlocksToState.push(block);
                     if(block.pos_y > this.Height && !block.wasDetected){
@@ -91,7 +92,6 @@ export default class Blocks{
             })
         this.blocks = newBlocksToState;
         onblocks.length > 0 && this.onBlocks(onblocks);
-        
     }
 
     public run():void{

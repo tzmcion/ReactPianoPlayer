@@ -8,6 +8,7 @@ export interface Options{
     playSpeed:number,
     watermark:boolean,
     soundOn:boolean,
+    blockRadius:number,
     OctaveLines:boolean
     renderMethod:'Interval' | 'animationFrame',
     Effect:'fountain' | 'dancingLines'

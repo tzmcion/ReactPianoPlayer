@@ -9,6 +9,12 @@ export interface Options{
     watermark:boolean,
     soundOn:boolean,
     blockRadius:number,
+    blockShadowRadius:number,
+    ShadowColor:string,
+    randomEffectColors:boolean,
+    EffectsBlockColor:boolean,
+    EffectsKeyColor:boolean,
+    EffectsColor:string
     OctaveLines:boolean
     renderMethod:'Interval' | 'animationFrame',
     Effect:'fountain' | 'dancingLines'

@@ -30,7 +30,7 @@ export default class Blocks{
         this.ctx=ctx;
         this.ctxEffects = ctxEffects
         this.gradientCtx = gradientCtx
-        this.gradientCtx.globalCompositeOperation = 'lighter'
+        this.gradientCtx.globalCompositeOperation = 'source-over'
         this.Width=width;
         this.Effects = new Effects(ctxEffects,options,width,height);
         this.Height=height;
@@ -68,12 +68,13 @@ export default class Blocks{
         let onblocks:Array<any> = [];
         let newBlocksToState:Array<blockNote> = [];
         const currentTime = Date.now();
-        this.blocks.reverse().map(block =>{
+        this.blocks.map(block =>{
                 block.pos_y = this.Speed/20 * (currentTime - (block.creationTime + block.pauseTime!));
                 block.playingTime = currentTime - (block.creationTime + block.pauseTime!);
-                this.ctx!.shadowColor = block.color;
-                this.ctx!.shadowBlur = 8;
-                CanvasRoundRect(this.ctx!,block.color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,this.options.blockRadius);
+                this.ctx!.shadowColor = this.options.ShadowColor;
+                this.ctx!.shadowBlur = this.options.blockShadowRadius;
+                const color = this.options.RandomColors ? block.color: this.options.Color;
+                CanvasRoundRect(this.ctx!,color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,this.options.blockRadius);
                 if(block.pos_y - block.height! < this.Height){
                     newBlocksToState.push(block);
                     if(block.pos_y > this.Height && !block.wasDetected){

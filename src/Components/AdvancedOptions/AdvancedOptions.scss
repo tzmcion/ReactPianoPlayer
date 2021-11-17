@@ -7,7 +7,20 @@
         text-align: center;
     }
     .SingleOption{
-        width:15%;
+        width:30%;
+        height:150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.473);
+        margin-left: 15px;
+        h3{
+            text-align: center;
+            font-size: 14px;
+        }
     }
     .options{
         width:100%;
@@ -25,11 +38,40 @@
         text-align: center;
     }
     .SingleOption{
-        width:15%;
+        width:30%;
+        height:150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.473);
+        margin-left: 15px;
+        h3{
+            text-align: center;
+            font-size: 14px;
+        }
     }
     .options{
         width:100%;
         display: flex;
         flex-direction: row;
+    }
+}
+
+input[type='number']{
+        width: 40px;
+} 
+
+@media only screen and (max-width: 600px){
+    .options{
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .SingleOption{
+        margin-top: 10px;
     }
 }

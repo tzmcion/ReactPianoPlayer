@@ -176,6 +176,24 @@ export default function Options() {
                     setTrigger(prev => prev + 1);
                 }
                 break;
+            case 'shadowColor':
+                currentOptions.ShadowColor = event.target.value;
+                break;
+            case 'blockShadowColor':
+                currentOptions.blockShadowRadius = parseInt(event.target.value);
+                break;
+            case 'EffectsBlockColor':
+                currentOptions.EffectsBlockColor = !currentOptions.EffectsBlockColor
+                break;
+            case 'EffectsKeyColor':
+                currentOptions.EffectsKeyColor = !currentOptions.EffectsKeyColor;
+                break;
+            case 'randomEffectsColor':
+                currentOptions.randomEffectColors = !currentOptions.randomEffectColors;
+                break;
+            case 'EffectsColor':
+                currentOptions.EffectsColor = event.target.value;
+                break;
             default:
                 break;
         }
@@ -184,17 +202,19 @@ export default function Options() {
     }
 
     return (
-        <div className='Options_Container'>
+        <div className='Options_Container' style={{height: window.innerHeight - 60}}>
             <div className='data'>
                 <AdvancedOptions className='AdvancedOptions' onChange={handleChange} defaultValues={DefaultOptions}/>
             </div>
             <div className='Previev'>
+                <div className='container_pp'>
                 <canvas ref={EffectsCanvas} width={width} height={300} className='EffectsPreviev CanvasPreviev'/>
                 <canvas ref={BlocksCanvas} width={width} height={300} className='BlocksPreviev CanvasPreviev'/>
                 <canvas ref={GradientCanvas} width={width} height={300} style={{top:-10}} className='GradientPreviev CanvasPreviev'/>
                 <canvas ref={PianoBlackCanvas} width={width} height={100 + 5} style={{position:'absolute',zIndex:34,top:200}} className='PianoBlackPreviev PianoPreviev' />
                 <canvas ref={PianoWhiteCanvas} width={width} height={100 + 5} style={{position:'absolute',zIndex:32,top:200}} className='PianoWhitePreview PianoPreviev' />
                 <AllKeys wh={200} WhiteKeyWidth={width/52} data={[]} sound={null} height={100} />
+                </div>
             </div>
         </div>
     )

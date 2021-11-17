@@ -4,10 +4,11 @@ interface props{
     defaultValue:string,
     name:string,
     onChange:Function,
-    children: string
+    children: string,
+    disabled?:boolean
 }
 
-export default function ColorOption({children,defaultValue,name,onChange}:props):ReactElement {
+export default function ColorOption({children,defaultValue,name,onChange,disabled}:props):ReactElement {
 
     const [value,setValue] = useState<string>(defaultValue);
 
@@ -19,7 +20,7 @@ export default function ColorOption({children,defaultValue,name,onChange}:props)
     return (
         <div className='ColorOption SingleOption'>
             <h3>{children}</h3>
-            <input type='color' onChange={onTrigger} name={name} value={value} />
+            <input type='color' disabled={disabled} onChange={onTrigger} name={name} value={value} />
         </div>
     )
 }

@@ -5,7 +5,6 @@ import './Main.styles.css';
 import InputFile from '../../Components/Inputfile/InputFile';
 import Options from '../../Components/Optons/Options';
 import Footer from '../../Components/Footer/Footer';
-import PianoBlockDetailed from '../../Components/PianoBlockDetailed/PianoBlockDetailed';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { checkExtension, SaveAsBase64 } from '../../Utils/smallFunctions';
 import { DefaultOptions } from '../../Utils/Default';
@@ -77,12 +76,11 @@ export default function Main() {
 
     return (
         <div style={{height:windowHeight}} className='mainDiv'>
-            <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} />
+            <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} options={options}/>
             {localStorage.getItem('fileJson') && <div onClick={()=>{localStorage.setItem('options',JSON.stringify(options)); history.push('/PlayRecorded')}} className='play_recorded'>
                 <h3>Play Recorded</h3>
             </div>}
             <Options handleOptionsChange={handleOptionsChange} options={options} />
-            <PianoBlockDetailed />
             <Footer />
         </div>
     )

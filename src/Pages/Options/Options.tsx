@@ -1,4 +1,5 @@
 import React,{useEffect,useState,useRef,ChangeEvent} from 'react'
+import { useHistory } from 'react-router-dom';
 import './Options.scss';
 
 import AdvancedOptions from '../../Components/AdvancedOptions/AdvancedOptions';
@@ -16,6 +17,7 @@ export default function Options() {
     const GradientCanvas = useRef<HTMLCanvasElement>(null);
     const PianoBlackCanvas = useRef<HTMLCanvasElement>(null);
     const PianoWhiteCanvas = useRef<HTMLCanvasElement>(null);
+    const history = useHistory();
     const requestRef = React.useRef<number>(0);
     const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [trigger,setTrigger] = useState<number>(0);
@@ -198,11 +200,12 @@ export default function Options() {
                 break;
         }
         setOptions(currentOptions);
-        localStorage.setItem('options',JSON.stringify(currentOptions));
+        
     }
 
     return (
         <div className='Options_Container' style={{height: window.innerHeight - 60}}>
+            <button className='goBack' onClick={()=>{localStorage.setItem('options',JSON.stringify(options)); history.push('/');}}> Save and Go back</button>
             <div className='data'>
                 <AdvancedOptions className='AdvancedOptions' onChange={handleChange} defaultValues={DefaultOptions}/>
             </div>

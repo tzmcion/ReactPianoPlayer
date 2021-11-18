@@ -24,8 +24,10 @@
     margin: 1.5%;
     margin-bottom: 5%;
     box-shadow: 0px 1px 5px black;
-    border-radius: 8px;
-    background-color: #283845;
+    border-radius: 0px;
+    background-color: white;
+    color:black;
+    box-shadow: 0px 0px 4px black;
 }
 
 .OptionCard{
@@ -35,7 +37,7 @@
     height:200px;
     width:350px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 4px;
     transition: 0.2s;
 }
 
@@ -67,6 +69,11 @@
     background: linear-gradient(transparent,transparent);
 }
 
+.CardData:hover{
+    transition: 0.25s ease;
+    box-shadow: 0px 0px 5px rgb(77, 2, 39);
+}
+
 @keyframes rotate {
     0%{
         transform: translateX(-50%) rotate(0deg);
@@ -78,7 +85,7 @@
 
 .OptionName{
     margin: 5px;
-    color:white;
+    color:black;
     font-size: 24px;
     font-weight: 600;
     font-family: 'IM Fell English SC', serif;
@@ -88,11 +95,30 @@
     width:80%;
     margin: 10px auto;
     height: 75px;
+    max-height: 75px;
+    overflow:auto;
     font-size: 12px;
-    color:white;
     font-weight: 400;
     text-align: center;
 }
+
+.description::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    background-color: #33135C;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.596);
+}
+
+.description::-webkit-scrollbar-track{
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+.description::-webkit-scrollbar{
+    width:10px;
+    border-radius: 4px;
+    padding: 4px;
+}
+
 
 .input{
     display: block;
@@ -130,7 +156,7 @@
     height: 100%;
     top:0;
     left: 0px;
-    background-color: rgb(250, 206, 85);
+    background-color: rgb(155, 9, 9);
     position: absolute;
 }
 

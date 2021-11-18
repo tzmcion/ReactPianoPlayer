@@ -34,6 +34,13 @@
             z-index: 35;
         }
     }
+
+    .goBack{
+        position: absolute;
+        top:50px;
+        left:5%;
+        padding: 20px;
+    }
 }
 
 @media only screen and (max-width: 1200px){

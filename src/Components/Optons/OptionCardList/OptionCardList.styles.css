@@ -1,18 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
-.CardData:hover{
-    transition: 0.25s ease;
-    box-shadow: 0px 2px 5px rgb(77, 2, 39);
-}
-
-.OptionName{
-    margin: 5px;
-    color:white;
-    font-size: 24px;
-    font-weight: 600;
-    font-family: 'IM Fell English SC', serif;
-}
-
 .description{
     width:80%;
     margin: 10px auto;
@@ -20,7 +7,6 @@
     max-height: 75px;
     overflow:auto;
     font-size: 12px;
-    color:white;
     font-weight: 400;
     text-align: center;
 }

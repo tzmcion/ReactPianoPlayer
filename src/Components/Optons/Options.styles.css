@@ -21,21 +21,13 @@
     border-radius: 4px;
 }
 
+.Advanced_h1{
+    margin-top: 21% !important;
+}
+
 .Advanced_options{
-    align-self: center;
-    display: inline-block;
-    position: relative;
-    padding: 10px;
-    text-align: center;
-    width:200px;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: 0.2s;
-    background-color: #283845;
-    color:white;
-    text-decoration: none;
-    transition: 0.2s;
-    cursor: pointer;
+    text-decoration: underline;
+    color: -webkit-link;
 }
 
 .Advanced_options:hover{
@@ -75,8 +67,16 @@
 
 @media only screen and (max-width: 960px){
     .container{
-        width:100%;
+        width:95%;
         padding: 10px;
+    }
+}
 
+@media only screen and (max-width: 740px){
+    .Advanced_h1{
+        margin-top: 22% !important;
+    }
+    .Advanced_h1>a{
+        font-size: 28px;
     }
 }

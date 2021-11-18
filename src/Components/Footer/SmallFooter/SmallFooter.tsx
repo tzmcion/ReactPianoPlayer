@@ -23,7 +23,7 @@ export default function SmallFooter() {
             <div className='data'>
                 <div className='AppName'>
                     <img src={Logo} className='LogoImg' alt='Logo' onClick={iconClick} />
-                    <h1> Piano Blocks App v0.2 beta version </h1>
+                    <h1> Piano Blocks App v0.3 beta version </h1>
                     <h2> Created By <span>Tymoteusz Apriasz</span></h2>
                 </div>
                 <div className='Technologies'>

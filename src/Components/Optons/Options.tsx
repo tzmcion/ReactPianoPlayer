@@ -50,7 +50,7 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
                 <div className='OptionCard'>
                     <div className='CardData'>
                         <h1 className='OptionName Advanced_h1'>
-                            <Link to='/options' className='Advanced_options'>Advanced options</Link>
+                            <Link to='/options' className='Advanced_options'>Advanced options<span id='mini'>Beta</span></Link>
                         </h1>
                     </div>
                 </div>

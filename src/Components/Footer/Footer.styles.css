@@ -4,12 +4,12 @@
     z-index: 10;
     margin: 40px auto;
     height:200px;
-    border-top: 2px dashed rgba(0, 0, 0, 0.507);
+    border-top: 2px dashed rgba(0, 0, 0, 0.808);
 }
 
 .BeforeFooter{
     width:100%;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(165, 165, 165);
 }
 
 .Footer_Display{

@@ -6,7 +6,6 @@ import { Options } from "../../Utils/TypesForOptions";
 interface Ball{
     x:number,
     y:number,
-    color:string,
     speed:number
     size:number;
 }
@@ -29,7 +28,7 @@ export default class DrawInCanvas{
         this.CreateBalls(50);
     }
 
-    public render():void{
+    public render(color:string):void{
         if(this.Canvas && this.Canvas.current){
         if(this.Canvas.current!.width !== window.innerWidth){
         this.Canvas.current!.width = window.innerWidth;
@@ -42,7 +41,7 @@ export default class DrawInCanvas{
             if(ball.y > 550){ball.y = -1 *(ball.size*3); ball.x = Math.random() * window.innerWidth};
             this.ctx.beginPath();
             this.ctx.shadowColor = this.options.ShadowColor;
-            CanvasRoundRect(this.ctx,this.options.Color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3),4,true);
+            CanvasRoundRect(this.ctx,color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3),this.options.blockRadius,true);
             return ball;
         })
     };
@@ -53,7 +52,6 @@ export default class DrawInCanvas{
             const ball:Ball = {
                 x: window.innerWidth/quantity * x,
                 y: Math.random() * window.innerHeight,
-                color: this.options.Color,
                 speed: Math.random() * 10 + 2,
                 size: Math.random() > 0.5 ? window.innerWidth / 52 / 1.5: window.innerWidth/52/1.6 / 1.5
             }

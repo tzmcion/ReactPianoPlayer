@@ -19,13 +19,12 @@ export default function InputFile({FileRef,onFileUpload,options}:InputFileProps)
 
     useEffect(()=>{
         setBlocks(new DrawInCanvas(Canvas,options,blocks?.Blocks));
-    },[options])
+    },[])
 
     const render = () =>{
-        blocks?.render();
+        blocks?.render(options.Color);
         animationId.current = requestAnimationFrame(render)
     }
-
     useEffect(() => {
         if(blocks){
             animationId.current = requestAnimationFrame(render);

@@ -23,7 +23,6 @@ export default function Record():ReactElement {
     const [height,windowHeight] = useState<number>(window.innerHeight);
 
     useEffect(()=>{
-        document.body.style.backgroundColor = 'white';
         window.navigator.requestMIDIAccess().then((midiAccess) => {
             console.log("MIDI Ready!");
             for (var input of midiAccess.inputs.values()){

@@ -22,11 +22,14 @@ export default class Blocks{
     private requestToAdd:Array<noteEvent>
     private onBlocks:Function
     private positions_to_render_line:Array<number>
+    private KeysWaiting: Array<{time:number,name:string}>
+    private onKeyClick: Function
+    private specialColor:string| null | undefined
 
     public isInterval:boolean
 
 
-    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,gradientCtx:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function,default_arr?:Array<blockNote>){
+    constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,gradientCtx:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function,default_arr?:Array<blockNote>,onKeyClick?:Function,specialColor?:string){
         this.ctx=ctx;
         this.ctxEffects = ctxEffects
         this.gradientCtx = gradientCtx
@@ -44,6 +47,9 @@ export default class Blocks{
         this.onBlocks = onBlock;
         this.requestToAdd = [];
         this.positions_to_render_line = [];
+        this.KeysWaiting = [];
+        this.onKeyClick = onKeyClick ? onKeyClick : () =>{};
+        this.specialColor = specialColor;
         this.RenderOctaveLines();
         this.render = this.render.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
@@ -55,6 +61,7 @@ export default class Blocks{
     }
 
     public render():void{
+        if(this.ctx){
         this.ctx.clearRect(0,0,this.Width,this.Height);
         this.gradientCtx.clearRect(0,this.Height-100,this.Width,this.Height + 100)
         this.Effects.renerEffects();
@@ -73,17 +80,29 @@ export default class Blocks{
                 block.playingTime = currentTime - (block.creationTime + block.pauseTime!);
                 this.ctx!.shadowColor = this.options.ShadowColor;
                 this.ctx!.shadowBlur = this.options.blockShadowRadius;
-                const color = this.options.RandomColors ? block.color: this.options.Color;
+                let color = block.color;
+                if(color[0] !== '#'){
+                    color = '#' + block.color;
+                }
                 CanvasRoundRect(this.ctx!,color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,this.options.blockRadius);
                 if(block.pos_y - block.height! < this.Height){
                     newBlocksToState.push(block);
                     if(block.pos_y > this.Height && !block.wasDetected){
                         block.wasDetected = true;
                         onblocks.push(block);
-                    }
+                }
                     if(block.pos_y > this.Height){
                         KeyGradient(this.gradientCtx!,block.pos_x,block.width,this.Height - 2,block.color);
                         this.options.IsEffects && this.Effects.triggerNewEffects(0,block.pos_x,block.width);
+                        if(this.specialColor){
+                            if(block.color === this.specialColor){
+                                if(this.KeysWaiting.length > 0){
+                                    const delta = Date.now() -  this.KeysWaiting[0].time;
+                                    this.onKeyClick(delta);
+                                    this.KeysWaiting = [];
+                                }
+                            }
+                        }
                     }
                 }else{
                     block.wasDetected = false;
@@ -93,6 +112,7 @@ export default class Blocks{
             })
         this.blocks = newBlocksToState;
         onblocks.length > 0 && this.onBlocks(onblocks);
+        }
     }
 
     public run():void{
@@ -101,6 +121,10 @@ export default class Blocks{
 
     public get getBlocks():Array<blockNote>{
         return this.blocks
+    }
+
+    public addKey(data:{name:string,time:number}){
+        this.KeysWaiting.push(data);
     }
  
     public Paused():void{
@@ -143,9 +167,17 @@ export default class Blocks{
     
 
     private handleAdd():void{
-        this.requestToAdd.length > 0 && this.requestToAdd.map(Event =>{
+        if(this.requestToAdd.length > 0){
+        let color = this.options.RandomColors ? RandomColorHex() : this.options.Color
+        if(typeof this.specialColor == 'string'){
+            if(Math.random() > 0.9){
+                color = this.specialColor;
+                console.log(color);
+            }
+        }
+        this.requestToAdd.map(Event =>{
             const newBlock:blockNote = {
-                color: this.options.RandomColors ? RandomColorHex() : this.options.Color,
+                color: color,
                 width: this.BlackNumbers.includes(Event.NoteNumber) ? this.Width / 52 / 1.8 : this.Width / 52,
                 Velocity: Event.Velocity,
                 NoteNumber: Event.NoteNumber,
@@ -162,6 +194,7 @@ export default class Blocks{
             return null;
         })
         this.requestToAdd = [];
+    }
     }
 
     protected RenderOctaveLines(){

@@ -21,7 +21,11 @@ export default function Main() {
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
             localStorage.setItem('options',JSON.stringify(options))
             SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
-                history.push('/Play');
+                if(options.GameMode){
+                    history.push('/GameMode');
+                }else{
+                    history.push('/Play');
+                }
             });
         }else{
             alert('Error, Submited file is not MIDI file...');
@@ -61,7 +65,10 @@ export default function Main() {
                 }
                 break;
             case 'KeyPressColor':
-                options.KeyPressColor = event.target.value;
+                currentOptions.KeyPressColor = event.target.value;
+                break;
+            case 'gameMode':
+                currentOptions.GameMode = !options.GameMode;
                 break;
             default:
                 break;
@@ -75,7 +82,7 @@ export default function Main() {
     },[])
 
     return (
-        <div style={{height:windowHeight}} className='mainDiv'>
+        <div style={{height:windowHeight, paddingBottom:200}} className='mainDiv'>
             <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} options={options}/>
             {localStorage.getItem('fileJson') && <div onClick={()=>{localStorage.setItem('options',JSON.stringify(options)); history.push('/PlayRecorded')}} className='play_recorded'>
                 <h3>Play Recorded</h3>

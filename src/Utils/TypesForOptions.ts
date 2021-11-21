@@ -14,8 +14,9 @@ export interface Options{
     randomEffectColors:boolean,
     EffectsBlockColor:boolean,
     EffectsKeyColor:boolean,
-    EffectsColor:string
-    OctaveLines:boolean
+    EffectsColor:string,
+    OctaveLines:boolean,
+    GameMode:boolean
     renderMethod:'Interval' | 'animationFrame',
     Effect:'fountain' | 'dancingLines'
 }

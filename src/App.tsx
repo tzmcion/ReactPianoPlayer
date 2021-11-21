@@ -7,6 +7,7 @@ import Play from './Pages/Play/Play';
 import Options from './Pages/Options/Options';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';
+import GameMode from './Pages/GameMode/GameMode';
 import {Switch, Route} from 'react-router-dom';
 import './App.css';
 
@@ -17,6 +18,7 @@ function App() {
   useEffect(()=>{
     window.addEventListener('click',ac_add)
     window.addEventListener('drop',ac_add)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const ac_add = () =>{
@@ -35,6 +37,7 @@ function App() {
       <Route path='/Record' exact component={Record} />
       <Route path='/Options' exact component={Options} />
       <Route path='/PlayRecorded' exact component={() =><PlayRecorded ac={ac} />} />
+      <Route path='/GameMode' exact component={() =><GameMode ac={ac} />} />
       <Route path='/' exact component={Main} />
     </Switch>
     </div>

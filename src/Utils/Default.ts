@@ -19,7 +19,8 @@ const data:Options = {
     EffectsBlockColor: false,
     randomEffectColors:false,
     EffectsKeyColor:false,
-    EffectsColor: '#ffffff'
+    EffectsColor: '#ffffff',
+    GameMode:false
 }
 
 const DefaultOptions:Options = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);

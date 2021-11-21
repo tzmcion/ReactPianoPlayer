@@ -5,6 +5,7 @@ import './Options.styles.css';
 import OptionCard from './OptionCard/OptionCard';
 import OptionCardImage from './OptionCardImage/OptionCardImage';
 import OptionCardList from './OptionCardList/OptionCardList';
+import OptionGameMode from './OptionGameMode/OptionGameMode';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 
 interface OptionsProps{
@@ -54,6 +55,7 @@ export default function Options({handleOptionsChange,options}:OptionsProps):Reac
                         </h1>
                     </div>
                 </div>
+                {/* <OptionGameMode value={false} onChange={handleOptionsChange} name='gameMode' /> */}
             </div>
         </div>
     </div>

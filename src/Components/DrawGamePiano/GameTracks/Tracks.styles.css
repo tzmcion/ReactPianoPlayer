@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
+
+.Canvas{
+    position: absolute;
+    z-index: 151;
+    /* filter: blur(2px); */
+}
+
+.Effects{
+    position: absolute;
+    z-index: 149;
+}
+
+.Gradient{
+    position: absolute;
+    z-index: 152;
+}
+
+.coverPhoto{
+    position: absolute;
+    filter: saturate(0.5);
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 50;
+}
+
+.Summer{
+    z-index: 152;
+    position: absolute;
+    background: linear-gradient(180deg,transparent,rgba(0, 0, 0, 0.171));
+}
+
+.Mark{
+    position: absolute;
+    top: 0px;
+    right:10px;
+    color: white;
+    z-index: 51;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.Mark>h1{
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.Mark>h2{
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}

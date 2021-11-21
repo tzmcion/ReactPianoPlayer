@@ -18,7 +18,7 @@ export default function Tutorial() {
     },[height])
 
     return (
-        <div className='mainTutorial' style={{height:height}}>
+        <div className='mainTutorial' style={{height:height,paddingBottom:200, backgroundColor:'white'}}>
             <div className='Tutorial'>
                 <div className='Tutorial_Head'>
                     <h1>Quick Guide In Piano Blocks App</h1>

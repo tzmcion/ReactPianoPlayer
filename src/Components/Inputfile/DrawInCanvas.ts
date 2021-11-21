@@ -1,5 +1,4 @@
 import { RefObject } from "react"
-import {RandomColorRGBwithMin} from '../../Utils/smallFunctions';
 import {CanvasRoundRect} from '../../Utils/CanvasFuntions';
 import { Options } from "../../Utils/TypesForOptions";
 
@@ -29,6 +28,7 @@ export default class DrawInCanvas{
     }
 
     public render(color:string):void{
+    if(this.Canvas && this.ctx){
         if(this.Canvas && this.Canvas.current){
         if(this.Canvas.current!.width !== window.innerWidth){
         this.Canvas.current!.width = window.innerWidth;
@@ -45,6 +45,7 @@ export default class DrawInCanvas{
             return ball;
         })
     };
+    }
 
     private CreateBalls(quantity:number):void{
         this.ctx.shadowBlur = 4;

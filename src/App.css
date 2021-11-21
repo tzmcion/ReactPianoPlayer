@@ -2,7 +2,6 @@
     width:100%;
     position: absolute;
     top: 0px;
-    background-color: #616161;
 }
 
 h1{
@@ -12,4 +11,5 @@ h1{
 body{
     cursor: context-menu;
     overflow: hidden;
+    background-color: #616161;
 }

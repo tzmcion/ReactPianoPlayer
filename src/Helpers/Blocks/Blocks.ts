@@ -92,9 +92,8 @@ export default class Blocks{
                         if(this.specialColor){
                             if(block.color === this.specialColor){
                                 if(this.KeysWaiting.length > 0 && block.detectTime && !block.timeWasTaken){
-                                    const delta = block.detectTime -  this.KeysWaiting[0].time;
+                                    const delta =Math.abs(block.detectTime -  this.KeysWaiting[0].time);
                                     this.onKeyClick(delta);
-                                    
                                     GameActiontaken = true;
                                     block.timeWasTaken = true;
                                 }

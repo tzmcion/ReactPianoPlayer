@@ -27,14 +27,14 @@ class BorderAnimation{
         this.ctx.clearRect(0,0,this.width,this.height);
         const gradient = this.ctx.createLinearGradient(this.width / 2,this.height - 300,this.width / 2,this.height)
         gradient.addColorStop(0, 'transparent');
-        gradient.addColorStop(0.5, this.color + ',' + (Math.abs(this.blocks.delta) - 2).toString() + ')');
-        gradient.addColorStop(1, this.color + ',' + Math.abs(this.blocks.delta).toString() + ')');
+        gradient.addColorStop(0.5, this.color + ',' + ((Math.abs(this.blocks.delta) - 2) > 1 ? 1 : Math.abs(this.blocks.delta) - 2).toString() + ')');
+        gradient.addColorStop(1, this.color + ',' + (Math.abs(this.blocks.delta) > 1 ? 1: Math.abs(this.blocks.delta)).toString() + ')');
         this.ctx.fillStyle = gradient;
         this.ctx.rect(0,this.height - 300,this.width,this.height);
         this.ctx.fill();
 
         //Math
-        this.blocks.delta = 1 / ((Date.now() -  this.blocks.startTime) / 25);
+        this.blocks.delta = 1 / ((Date.now() -  this.blocks.startTime) / 100);
 
     }
 
@@ -54,7 +54,7 @@ class BorderAnimation{
         if(color === 'black'){
             this.color = 'rgba(1,0,0';
         }
-        this.blocks.startTime = Delta;
+        this.blocks.startTime = Date.now();
     }
 }
 
@@ -86,27 +86,29 @@ export default function Border({width,height}:Props) {
     }, [animation])
 
     useEffect(() => {
-        if(data - lastScore === 100){
+        if(lastScore - data !== 0){
+        if(Math.abs(lastScore - data) % 1000 === 0){
+            animation && animation.add(Date.now(),'black');
+            setLastScore(data);
+        }
+        else if(Math.abs(lastScore - data) % 100 === 0){
             animation && animation.add(Date.now(),'green');
             setLastScore(data);
-        }else if(data - lastScore === 50){
+        }else if(Math.abs(lastScore - data) % 50 === 0){
             //good
             animation && animation.add(Date.now(),'yellow');
             setLastScore(data);
-        }else if(data - lastScore === 20){
+        }else if(Math.abs(lastScore - data) % 20 === 0){
             //ok
             animation && animation.add(Date.now(),'orange');
             setLastScore(data);
-        }else if(data - lastScore === 10){
+        }else if(Math.abs(lastScore - data) % 10 === 0){
             //meh
             animation && animation.add(Date.now(),'red');
             setLastScore(data);
         }
-         if(data - lastScore === -10){
-            animation && animation.add(Date.now(),'black');
-            setLastScore(data);
-        }
-        console.log(data);
+        console.log(lastScore -  data);
+    }
     }, [data,animation,lastScore])
 
     return (

@@ -75,6 +75,7 @@ export default class Blocks{
         let onblocks:Array<any> = [];
         let newBlocksToState:Array<blockNote> = [];
         const currentTime = Date.now();
+        let GameActiontaken = false;
         this.blocks.map(block =>{
                 block.pos_y = this.Speed/20 * (currentTime - (block.creationTime + block.pauseTime!));
                 block.playingTime = currentTime - (block.creationTime + block.pauseTime!);
@@ -87,22 +88,27 @@ export default class Blocks{
                 CanvasRoundRect(this.ctx!,color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,this.options.blockRadius);
                 if(block.pos_y - block.height! < this.Height){
                     newBlocksToState.push(block);
+                    if(block.pos_y > this.Height){
+                        if(this.specialColor){
+                            if(block.color === this.specialColor){
+                                if(this.KeysWaiting.length > 0 && block.detectTime && !block.timeWasTaken){
+                                    const delta = block.detectTime -  this.KeysWaiting[0].time;
+                                    this.onKeyClick(delta);
+                                    
+                                    GameActiontaken = true;
+                                    block.timeWasTaken = true;
+                                }
+                            }
+                        }
+                    }
                     if(block.pos_y > this.Height && !block.wasDetected){
                         block.wasDetected = true;
+                        block.detectTime = Date.now();
                         onblocks.push(block);
                 }
                     if(block.pos_y > this.Height){
                         KeyGradient(this.gradientCtx!,block.pos_x,block.width,this.Height - 2,block.color);
                         this.options.IsEffects && this.Effects.triggerNewEffects(0,block.pos_x,block.width);
-                        if(this.specialColor){
-                            if(block.color === this.specialColor){
-                                if(this.KeysWaiting.length > 0){
-                                    const delta = Date.now() -  this.KeysWaiting[0].time;
-                                    this.onKeyClick(delta);
-                                    this.KeysWaiting = [];
-                                }
-                            }
-                        }
                     }
                 }else{
                     block.wasDetected = false;
@@ -112,7 +118,11 @@ export default class Blocks{
             })
         this.blocks = newBlocksToState;
         onblocks.length > 0 && this.onBlocks(onblocks);
+        if(GameActiontaken){
+            this.KeysWaiting = [];
         }
+        }
+        
     }
 
     public run():void{
@@ -170,7 +180,7 @@ export default class Blocks{
         if(this.requestToAdd.length > 0){
         let color = this.options.RandomColors ? RandomColorHex() : this.options.Color
         if(typeof this.specialColor == 'string'){
-            if(Math.random() > 0.9){
+            if(Math.random() > 0.6){
                 color = this.specialColor;
                 console.log(color);
             }
@@ -188,7 +198,8 @@ export default class Blocks{
                 duration:Event.Duration,
                 creationTime: Date.now(),
                 pauseTime:0,
-                playingTime:0
+                playingTime:0,
+                timeWasTaken:false
             }
             this.blocks.push(newBlock);
             return null;

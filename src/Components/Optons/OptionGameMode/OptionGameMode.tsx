@@ -15,7 +15,7 @@ export default function OptionGameMode({name,value,onChange}:props):ReactElement
         <div className='GameModeCard'>
             <div className='inner'>
                 <h1>Game Mode</h1>
-                <h2>Play rythmic Game, score the highest possible score, and fell like a real pianist !</h2>
+                <h2>Play rythmic Game, score the highest possible score, and fell like a real pianist ! Press keys D or K to play exactly the ryth. Keys are not binded</h2>
                 <input type="checkbox" name='gameMode' value={Myvalue} checked={Myvalue ? true:false} onChange={(e)=>{onChange(e); setValue(!Myvalue)}} />
             </div>
         </div>

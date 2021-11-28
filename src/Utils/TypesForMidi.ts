@@ -52,6 +52,8 @@ export interface blockNote{
     pauseTime?:number,
     playingTime?:number,
     duration:number,
+    detectTime?:number,
+    timeWasTaken?:boolean,
     wasDetected:boolean
 }
 

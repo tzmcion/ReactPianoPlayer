@@ -56,7 +56,21 @@ export default function GameTracks({Data,Speed,Width,Height, BlackNumbers, KeysP
     },[intervalSpeed,Width,options,loading,Height]);
 
     const increment = (delta:number) =>{
-        dispatch({type:'perfect'});
+        if(delta < 400 && delta > 200){
+            dispatch({type:'meh'});
+        }
+        if(delta < 200 && delta > 100){
+            dispatch({type:'ok'});
+        }
+        if(delta < 100 && delta > 50){
+            dispatch({type:'good'});
+        }
+        if(delta < 50){
+            dispatch({type:'perfect'});
+        }
+        if(delta > 400){
+            dispatch({type:'cheat'});
+        }
     }
 
     const animate = () =>{
@@ -137,7 +151,7 @@ export default function GameTracks({Data,Speed,Width,Height, BlackNumbers, KeysP
     },[blocks])
 
     const keyPressListeners = (event:any) =>{
-        if(event.key === 'g' || event.key === 'G'){
+        if(event.key === 'd' || event.key === 'k'){
             if(blocks){
                 blocks.addKey({name:event.key,time:Date.now()})
             }

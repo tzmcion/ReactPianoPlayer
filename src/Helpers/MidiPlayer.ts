@@ -43,6 +43,21 @@ class MidiPlayer{
         this.simulateEvent = this.simulateEvent.bind(this);
     }
 
+    public static async NoteEvents_From_ArrayBuffer(file:ArrayBuffer):Promise<Array<noteEvent>>{
+        const convertToJSON = async (MidiArr:IMidiFile) =>{ 
+            return new Promise<Array<noteEvent>>(function(resolve){
+                resolve(ConvertToNoteEventsJSON(MidiArr,500000,getConstantDataFromMidiFile(MidiArr)));
+        })}
+        return new Promise(resolve =>{
+            ReadMidiFile(file,'ArrayBuffer').then(MidiObject =>{
+                const MidiArr =  MidiObject as IMidiFile;
+                convertToJSON(MidiArr).then(responde =>{
+                    resolve(responde);
+                })
+            })
+        })
+    }
+
     public async GetMidiAsObject(){
         if(this.file[0]){
         if('SoundDuration' in this.file[0]){

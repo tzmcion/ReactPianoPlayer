@@ -5,6 +5,9 @@ import './Record.styles.scss';
 
 import Footer from '../../Components/Footer/Footer';
 import statelessRecord from './statelessRecord';
+import ConvertToPDF from './ConvertToPdf/ConvertToPdf';
+import MidiPlayer from '../../Helpers/MidiPlayer';
+import { ReadFromLocalStorageBase64 } from '../../Utils/smallFunctions';
 
 import Piano from '../../Assets/piano.png'
 
@@ -16,6 +19,8 @@ interface Devices{
 export default function Record():ReactElement {
 
     const record = useRef(new statelessRecord());
+    const Canvas = useRef<HTMLCanvasElement>(null);
+    const Convert = useRef<ConvertToPDF>();
     const history = useHistory();
     const [devices,setDevices] = useState<Array<Devices>>([]);
     const [events,setEvents] = useState<Array<noteEvent>>([]);
@@ -55,6 +60,13 @@ export default function Record():ReactElement {
         }).catch((error) => {
             console.log("Error accessing MIDI devices: " + error);
         });
+        //Convertion
+        const file = ReadFromLocalStorageBase64('file');
+        if(file){
+            MidiPlayer.NoteEvents_From_ArrayBuffer(file).then(f =>{
+                Convert.current = new ConvertToPDF(f,Canvas.current?.getContext('2d')!);
+            })
+        }
     },[])
 
     const onMidiEvent = (midiEvent:any,name:string) =>{
@@ -119,6 +131,7 @@ export default function Record():ReactElement {
                 {renderEvents()}
             </div>
             </div>
+            <canvas ref={Canvas} width={595} height={842} className='Canvas' />
             <Footer />
         </div>
     )

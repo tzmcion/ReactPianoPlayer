@@ -63,13 +63,19 @@ export default class ConvertToPDF{
         for(let x = 0; x < 8; x++){
             this.draw_Lines(x);
         }
-         this.ctx.beginPath();
+        this.ctx.beginPath();
+        //Drawing 4|4 and Title
         this.ctx.fillStyle = '#000'
         this.ctx.font = 'bold 20px sans-serif';
         this.ctx.fillText('4',this.calculate_percent(Drawing_Start_Position - 1.5,'vertical'),this.calculate_percent(Positions[0] + 1.8,'horizontal'));
         this.ctx.fillText('4',this.calculate_percent(Drawing_Start_Position - 1.5,'vertical'),this.calculate_percent(Positions[0] + 4,'horizontal'));
         this.ctx.fillText('4',this.calculate_percent(Drawing_Start_Position - 1.5,'vertical'),this.calculate_percent(Positions[1] + 1.8,'horizontal'));
         this.ctx.fillText('4',this.calculate_percent(Drawing_Start_Position - 1.5,'vertical'),this.calculate_percent(Positions[1] + 4,'horizontal'));
+        this.ctx.font = 'bold 24px serif';
+        this.ctx.fillText('Sheet Music',this.calculate_percent(40,'vertical'),this.calculate_percent(5,'horizontal'));
+        this.ctx.font = 'normal 16px serif';
+        this.ctx.fillText('bpm=60',this.calculate_percent(10,'vertical'),this.calculate_percent(8,'horizontal'));
+        //Reading File and Drawing Notes
         if(this.File){
             if(this.File[0]){
                 this.subbDelta = this.File[0].Delta;
@@ -85,6 +91,10 @@ export default class ConvertToPDF{
                 })
             }
         }
+        // for(let x = 0; x < 32; x++){
+        //     const data = this.Calculate_note_number_and_hash(50 + x);
+        //     this.drawNote(data.SheetMusicNumber,x * 200,data.hash,2);
+        // }
     }
 
     //Private Functions
@@ -123,12 +133,12 @@ export default class ConvertToPDF{
 
     private drawNote(noteNumber:number,/** miliseconds */ delta:number,hash:boolean,set_type:number ):void{
         const note_vertical_position =  Math.floor(delta / 62.5) === 0 ? 1 : Math.floor(delta / 62.5);
-        const note_line = Math.floor(Math.floor(note_vertical_position / 64) * 2);
+        const note_line = Math.floor(Math.floor(note_vertical_position / 50) * 2);
         const type = set_type
         if(noteNumber < 45){
             //48 -- mid C3
             const decimNumber = 21 - noteNumber;
-            let pos_x = this.calculate_percent(Drawing_Start_Position + (note_vertical_position - ((Math.floor(note_vertical_position /64))) * 64) * 100 /32 * Bar_Width / 100,'vertical');
+            let pos_x = this.calculate_percent(Drawing_Start_Position + (note_vertical_position - ((Math.floor(note_vertical_position /50))) * 50) * 100 /26 * Bar_Width / 100,'vertical');
             const notePosition = this.calculate_percent(Positions[note_line + 1],'horizontal') + this.calculate_percent(11 + (decimNumber) / 2,'horizontal'); //6.5 procentow
             if(decimNumber > -13){
                 for(let x = decimNumber +1; x > -13; x--){
@@ -150,7 +160,7 @@ export default class ConvertToPDF{
         if(noteNumber >= 45){
             //72 -- mid c5
             const decimNumber = 45 - noteNumber;
-            let pos_x = this.calculate_percent(Drawing_Start_Position + (note_vertical_position - ((Math.floor(note_vertical_position /64))) * 64) * 100 /32 * Bar_Width / 100,'vertical');
+            let pos_x = this.calculate_percent(Drawing_Start_Position + (note_vertical_position - ((Math.floor(note_vertical_position /50))) * 50) * 100 /26 * Bar_Width / 100,'vertical');
             const notePosition = this.calculate_percent(Positions[note_line],'horizontal') + this.calculate_percent(5 + decimNumber / 2,'horizontal'); //7.5 procentow
             if(decimNumber > -1){
                 for(let x = decimNumber; x > -2; x--){
@@ -174,6 +184,8 @@ export default class ConvertToPDF{
             }
         }
     }
+
+
 
     //Drawing Functions
 
@@ -300,19 +312,26 @@ export default class ConvertToPDF{
         const width = this.calculate_percent(96,'vertical');
         this.ctx.beginPath();
         //Drawing Keys
-        pos % 2 === 0 && this.ctx.drawImage(this.violinKey,pos_x,this.calculate_percent(Positions[pos] - 1,'horizontal'),40,40);
-        pos % 2 === 1 && this.ctx.drawImage(this.bassKey,pos_x + 10,this.calculate_percent(Positions[pos] + 1,'horizontal'),24,24);
+        pos % 2 === 0 && this.ctx.drawImage(this.violinKey,pos_x - 5,this.calculate_percent(Positions[pos] -1.5 ,'horizontal'),50,60);
+        pos % 2 === 1 && this.ctx.drawImage(this.bassKey,pos_x + 10,this.calculate_percent(Positions[pos],'horizontal'),26,26);
         //Drawing Break Lines
-        this.ctx.lineWidth = 1;
-        this.ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeStyle = 'rgba(0,0,0,0.5)';
         this.ctx.moveTo(pos_x + 45,this.calculate_percent(Positions[pos] - 0.5,'horizontal'));
         this.ctx.lineTo(pos_x + 45, this.calculate_percent(Positions[pos] + 4.5,'horizontal'));
-        this.ctx.moveTo(this.calculate_percent(0.5 + Drawing_Start_Position +  Bar_Width,'vertical'),this.calculate_percent(Positions[pos] - 0.5,'horizontal'));
-        this.ctx.lineTo(this.calculate_percent(0.5 + Drawing_Start_Position +  Bar_Width,'vertical'),this.calculate_percent(Positions[pos] + 4.5,'horizontal'));
-        this.ctx.moveTo(this.calculate_percent(0.5 + Drawing_Start_Position +  Bar_Width * 2,'vertical'),this.calculate_percent(Positions[pos] - 0.5,'horizontal'));
-        this.ctx.lineTo(this.calculate_percent(0.5 + Drawing_Start_Position +  Bar_Width * 2,'vertical'),this.calculate_percent(Positions[pos] + 4.5,'horizontal'));
         this.ctx.stroke();
         this.ctx.closePath();
+        //Draw Bars
+        this.ctx.beginPath();
+        const bar_one_pos_x = this.calculate_percent(Drawing_Start_Position + 25 * 100 /25 * Bar_Width / 100,'vertical')
+        this.ctx.moveTo(bar_one_pos_x,this.calculate_percent(Positions[pos] - 0.5,'horizontal'));
+        this.ctx.lineTo(bar_one_pos_x,this.calculate_percent(Positions[pos] + 4.5,'horizontal'));
+        const bar_two_pos_x = this.calculate_percent(Drawing_Start_Position + (25.3 * 2) * 100 /25 * Bar_Width / 100,'vertical');
+        this.ctx.moveTo(bar_two_pos_x,this.calculate_percent(Positions[pos] - 0.5,'horizontal'));
+        this.ctx.lineTo(bar_two_pos_x,this.calculate_percent(Positions[pos] + 4.5,'horizontal'));
+        this.ctx.stroke();
+        //
+        this.ctx.lineWidth = 1;
         this.ctx.beginPath();
         this.ctx.strokeStyle = '#000';
         for(let x = 0; x < 5; x++){

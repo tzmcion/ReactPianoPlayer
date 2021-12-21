@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { MouseEvent, ReactElement, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './PlayingManagement.scss';
 
@@ -13,38 +13,42 @@ interface PlayingManagementProps{
 export default function PlayingManagement({Player,onStart}:PlayingManagementProps):ReactElement {
 
     const [opacity,setOpacity] = useState<number>(0);
-    const something = React.useRef<any>();
     const history = useHistory();
 
-    const mouseMoveListenr = () =>{
-        something.current && clearTimeout(something.current);
-            something.current = setTimeout(()=>{
-                setOpacity(0);
-            },2000);
-            setOpacity(1)
-        return something
-    }
-
     useEffect(()=>{
-        document.addEventListener('mousemove',mouseMoveListenr);
+        let dada:any = 0;
+        const move = () =>{
+            clearTimeout(dada);
+            dada = setTimeout(()=>{
+                setOpacity(0);
+            },1500);
+            setOpacity(1)
+        }
+        document.addEventListener('mousemove',move);
         document.addEventListener('keyup',(event)=>{
             if(event.key === ' '){
                 Player.PausePlay();
             }
         })
-        return () => {clearTimeout(something.current);document.removeEventListener('mousemove',mouseMoveListenr)}
+        return () => {clearTimeout(dada);document.removeEventListener('mousemove',move)}
     },[Player])
 
-    const handlePause = () =>{
+    const handlePause = ():void =>{
         if(Player.isReady){
             Player.PausePlay();
         }
     }
 
-    const handleStop = () =>{
+    const handleStop = ():void =>{
         if(Player.isReady){
             Player.Restart();
         }
+    }
+
+    const onDurClick = (ev:MouseEvent):void =>{
+        const target_data = ev.currentTarget.getBoundingClientRect()
+        const percent = Math.floor((ev.clientX - target_data.x) *100 /target_data.width);
+        Player.MoveTo(percent);
     }
 
     return (
@@ -56,7 +60,7 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
             <i className="fa fa-stop" aria-hidden="true" onClick={handleStop} title='Reset'></i>
             </div>
             <h3 className='Timer'>{Math.floor(Player.timer / 1000)}/{Math.floor(Player.MidiLength / 1000)} (seconds)</h3>
-            <div className='Duration'>
+            <div className='Duration' onClick={onDurClick}>
                 <div className='Bar' style={{width: (Player.timer / Player.MidiLength * 100).toString() + '%'}} />
             </div>
         </div>

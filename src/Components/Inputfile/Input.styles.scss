@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico&family=Quattrocento+Sans&display=swap');
+
+.FileInputDiv{
+    width:50%;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    z-index: 3;
+    transition: 0.5s;
+    .background_rotated{
+        position: absolute;
+        z-index: -1;
+        overflow: hidden;
+        right:-15%;
+        top:-100px;
+        height:130%;
+        width:85%;
+        background: linear-gradient(90deg,transparent ,#060606 0.5%);
+        transform: rotate(-15deg);
+        .backgroundCanvas{
+            transform: rotate(15deg);
+            position: absolute;
+            top:0;
+            right:0;
+        }
+    }
+    .FileInput_Data{
+        width:66%;
+        height:100%;
+        margin-left: 34%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-family: 'Quattrocento Sans', sans-serif;
+        color:white;
+        .Midi_Icon{
+            width:100px;
+            height:100px;
+        }
+        .Input_Text{
+            display: block;
+        }
+        h2{
+            font-size: 24px;
+        }
+        h3{
+            font-size: 16px;
+            margin-top: -10px;
+        }
+        .Input_Configure_Bt{
+            position: relative;
+            overflow: hidden;
+            color: #44C1F8;
+            background-color: #F8F0EF;
+            border-radius: 8px;
+            border:none;
+            font-family: 'Quantico', sans-serif;
+            font-weight: 400;
+            font-size: 20px;
+            text-align: center;
+            width:160px;
+            padding: 2px 0px 2px 0px;
+            cursor: pointer;
+            outline: none;
+        }
+        .Input_Configure_Bt::before{
+            content: '';
+            position: absolute;
+            border-radius: 8px;
+            width:30px;
+            height:200%;
+            top:-30%;
+            transform: rotate(-20deg);
+            background-color: #383636;
+            left:-25%;
+        }
+        .Input_Configure_Bt:hover::before{
+            animation: background_slid 0.6s ease;
+        }
+    }
+    .FileInput{
+        position: absolute;
+        right:-15%;
+        top:-25%;
+        height:155%;
+        width:85%;
+        transform: rotate(-15deg);
+        cursor:pointer
+    }
+}
+
+.Fade{
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes background_slid{
+    0%{
+        left:-10%;
+    }
+    100%{
+        left:110%;
+    }
+}

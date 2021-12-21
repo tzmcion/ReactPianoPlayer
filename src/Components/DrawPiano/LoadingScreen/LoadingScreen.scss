@@ -5,7 +5,7 @@
     top:0;
     left:0;
     z-index: 100;
-    background: linear-gradient(90deg,rgb(195, 213, 241),rgb(243, 204, 243));
+    background: white;
     transition: 1s;
     img{
         display: block;
@@ -15,9 +15,7 @@
         width:150px;
         padding: 5px;
         top:100px;
-        animation: spin 3s linear infinite;
         border-radius: 15px;
-        filter: drop-shadow(2px 2px 5px #222);
     }
     h2{
         display: block;

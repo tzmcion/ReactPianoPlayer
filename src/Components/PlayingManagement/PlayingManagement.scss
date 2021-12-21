@@ -6,7 +6,7 @@ $buttons_color : #FF7D00;
     left: 5%;
     padding-left: 50px;
     padding-right: 50px;
-    height: 60px;
+    height: 54px;
     background-color: $background;
     position: absolute;
     z-index: 200;
@@ -57,6 +57,7 @@ $buttons_color : #FF7D00;
         border:2px solid rgb(0, 0, 0);
         border-radius: 5px;
         position: relative;
+        cursor:pointer;
         .Bar{
             position: absolute;
             opacity: 0.9;

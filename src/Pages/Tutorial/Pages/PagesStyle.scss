@@ -1,0 +1,462 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
+
+.Basic{
+    width:90%;
+    margin:0px auto;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.Pg-Header{
+    margin: 0;
+    padding-bottom: 5px;
+    color:#44C1F8;
+    font-size: 42px;
+    width:100%;
+    text-align: left;
+}
+
+.Pg-Sm-Header{
+    color:#F8F0EF;
+    padding-top: 10px;
+    margin-top: 25px;
+    border-top: 1px solid #f8f0ef77;
+    font-weight: 300;
+    font-size: 24px;
+    margin: 0;
+}
+
+.Pg-Paragraph{
+    color:white;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
+.Pg-Links{
+    padding-left: 10px;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0;
+    margin-top: 15px;
+}
+
+.Pg-Video-Demo{
+    display: block;
+    position: absolute;
+    top:-590px;
+    margin: 0px auto;
+    border-radius: 10px;
+    opacity: 0.6;
+    min-width: 1420px;
+}
+
+
+.Pg-Video-Container{
+    background-color: #44c2f827;
+    box-shadow: 0px 1px 4px #a4e1fc8f;
+    height: 180px;
+    width:100%;
+    margin: 20px 0px 25px 0px;
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
+}
+
+.Pg-Links-Container{
+    margin-top: 10px;
+    padding-left: 50px;
+    .Pg-Link-Element{
+        cursor:pointer;
+        color:rgba(255, 255, 255, 0.505);
+        margin:3px;
+        width:fit-content;
+        transition: 0.15s;
+        list-style: none; /* Remove default bullets */
+    }
+    .Pg-Link-Element:hover{
+        color:rgb(87, 182, 245);
+    }
+
+    .Pg-Link-Element::before{
+        content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+        color: white; /* Change the color */
+        font-weight: bold; /* If you want it to be bold */
+        display: inline-block; /* Needed to add space between the bullet and the text */
+        width: 1em; /* Also needed for space (tweak if needed) */
+        margin-left: -1em; /* Also needed for space (tweak if needed) */
+    }
+}
+
+.flex-2{
+    width: 100%;
+    height: 300px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 80px;
+    .data-r{
+        width:50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        .Pg-Link-Element{
+            color:rgb(115, 193, 245);
+            transition: 0.15s;
+            cursor:pointer;
+        }
+        .Pg-Link-Element:hover{
+            color:rgb(11, 138, 223);
+        }
+    }
+    .data-l{
+        width:50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .data-video-cnt{
+        width:90%;
+        height:80%;
+        overflow: hidden;
+        border-radius: 5px;
+        .data-video{
+            width:100%;
+            height: auto;
+            opacity: 0.7;
+        }
+    }
+    .shadow-ala{
+        box-shadow: 0px 0px 8px rgba(248, 240, 203, 0.452);
+    }
+}
+
+.Pg-Link-Element-duo{
+    color:rgb(115, 193, 245);
+    transition: 0.15s;
+    cursor:pointer;
+}
+.Pg-Link-Element-duo:hover{
+    color:rgb(11, 138, 223);
+}
+
+.Pg-Xs-Header{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.Pg-Images{
+    width:100%;
+    margin:10px auto;
+}
+
+.Pg-Image{
+    padding: 0;
+    display: block;
+    width:96%;
+    margin-left: 4px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 8px white;
+    opacity: 0.8;
+}
+
+.Pg-Flex-Img-Container{
+    width:30%;
+    height:100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.Pg-Flex-Text-Container{
+    width:50%;
+    margin-left: 20px;
+    height:100%;
+    display: flex;
+}
+
+.Pg-For-Devs{
+    height:180px;
+    width:60%;
+    background-color: rgba(253, 125, 125, 0.096);
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 40px;
+    .Pg-For-Devs-Header{
+        position: absolute;
+        color:rgb(240, 124, 124);
+        margin:0;
+        margin-left: 25px;
+        padding-top: 8px;
+        font-size: 24px;
+        font-weight: 400;
+    }
+}
+
+.flex-5{
+    width:30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.image_for-nerds{
+    border-radius: 8px;
+    opacity: 0.7;
+    display: block;
+    margin: 0px auto;
+}
+
+.Pg-Link-a{
+    color:rgb(119, 119, 243);
+    text-decoration: none;
+    transition: 0.19s;
+    cursor: pointer;
+}
+
+.Pg-Link-a:hover{
+    color:rgb(47, 125, 243); 
+}
+
+.Pg-Container-Flex-50{
+    width:50%;
+    height:100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Pg-Container-Flex-40{
+    width:40%;
+    height:100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Pg-Container-Flex-60{
+    width:60%;
+    height:100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Pg-Container-Flex{
+    height:250px;
+    width:100%;
+    display: flex;
+    flex-direction: row;
+}
+.Pg-Container-Video-Demo{
+    width:40%;
+    box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.151);
+    margin: 10ox auto;
+    border-radius: 20%;
+}
+
+.Pg-Container-Flex-img{
+    height:150%;
+    margin-top: -40px;
+    transform: rotate(90deg);
+}
+
+.Pg-Blocks-Conf{
+    color: #44c1f8
+}
+
+.Pg-Effects-Conf{
+    color: #7b6d8d;
+}
+
+.Pg-EffectsConf-Conf{
+    color:#f95738
+}
+
+.Pg-Others-Conf{
+    color:#59cd90;
+}
+
+.Pg-Conf-Header{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.Pg-Conf-Element{
+    font-weight: 400;
+    font-size: 16px;
+    list-style: none;
+}
+
+.Pg-Conf-Element::before{
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: rgb(116, 116, 116); /* Change the color */
+    font-weight: bold; /* If you want it to be bold */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+.Pg-Blocks-Col{
+    color:#44c1f8;
+}
+.Pg-Effects-Col{
+    color:#7b6d8d;
+}
+
+.Pg-Config-Header-Other{
+    color:#59cd90;
+    text-shadow: 0px 0px 8px #59cd90;
+}
+
+
+
+.Pg-Effects-Conf-Col{
+    color:#f95738;
+    margin-bottom: 30px;
+}
+
+.Pg-Others-Col{
+    color:#59cd90;
+}
+
+.Pg-Bg-Blocks{
+    background-color: #44c2f80c;
+}
+
+.Pg-Bg-Effects{
+    background-color: #7b6d8d13;
+}
+
+.Pg-Bg-Others{
+    background-color: #59cd8f17;
+}
+
+.Pg-Config-4-Description{
+    height:200px;
+    width:95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 4px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.Pg-Config-20{
+    width:20%;
+    height:100%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    .Img-Conf{
+        object-fit: cover;
+        width: 90%;
+        height:80%;
+        border-radius: 5px;
+        box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.76);
+        opacity: 0.9;
+    }
+}
+
+.Pg-Config-40{
+    width:30%;
+    margin-right: 5%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    .Pg-Paragraph{
+        width:100%;
+        height:80%;
+        text-align: center;
+        font-size: 20px;
+        color:white;
+        font-weight: 300;
+    }
+    .Pg-Config-Header{
+        width:100%;
+        height:20%;
+        font-size: 24px;
+        color:#44c1f8;
+        font-weight: 400;
+        text-align: center;
+        text-shadow: 0px 0px 8px #44c1f8;
+    }
+    .Pg-Config-Header-Ef{
+        width:100%;
+        height:20%;
+        font-size: 24px;
+        color:#7b6d8d;
+        font-weight: 400;
+        text-align: center;
+        text-shadow: 0px 0px 8px #7b6d8d;
+    }
+}
+
+.Pg-Config-Vid-40{
+    width:40%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .Pg-Config-Vid{
+        width:90%;
+        height:80%;
+        object-fit: fill;
+        border-radius: 4px;
+        box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.849)
+    }
+}
+
+.Pg-Youtube{
+    margin-top: 20px;
+    border-radius: 5px;
+
+}
+
+.Pg-Flex-Dip{
+    display: flex;
+    flex-direction: row;
+    height:500px;
+    overflow: hidden;
+    .Pg-Flex-30{
+        width:40%;
+        height:70%;
+        padding-top:1%;
+        justify-content: flex-end;
+        text-align: left;
+    }
+    .Pg-Flex-70{
+        width:40%;
+        height:100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        .Pg-Flex-70-img{
+            border-radius: 5px;
+            box-shadow: 0px 0px 6px white;
+            width:60%;
+            height: 90%;
+            object-fit: cover;
+        }
+    }
+}
+
+.Pg-Info-Red{
+    color:rgb(245, 148, 148);
+}
+
+.Pg-S-Ty{
+    font-size: 18px;
+    color:rgb(253, 228, 87);
+}

@@ -55,13 +55,31 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
         if(!Player.isPaused){
             blocks?.render();
         }else if(Player.isReseting){
-            blocks?.Reset();   
+            blocks?.Reset(); 
+            pianoCtx?.clearRect(0,0,PianoRef.current!.width,PianoRef.current!.height);
+            pianoWhiteCtx?.clearRect(0,0,PianoWhiteRef.current!.width,PianoWhiteRef.current!.height);
+        }
+        else if(Player.isMoved){
+            let sp = Speed
+            if(Speed < 5){
+                if(Speed >= 4){
+                    sp *= 2
+                }else if(Speed >= 3){
+                    sp *= 4
+                }else{
+                    sp *= 16;
+                }
+            }
+            const toBlocks =  Player.getBackwardsBlocks((sp * 1000));
+            blocks?.forcibly_add_blocks(toBlocks);
+            pianoCtx?.clearRect(0,0,PianoRef.current!.width,PianoRef.current!.height);
+            pianoWhiteCtx?.clearRect(0,0,PianoWhiteRef.current!.width,PianoWhiteRef.current!.height);
+            Player.PausePlay();
         }
         else{
             blocks?.Paused();
         }
-        requestRef.current =  requestAnimationFrame(animate)
-        
+        requestRef.current =  requestAnimationFrame(animate);
     }
 
     const drawPianoKeys = (arr:Array<blockNote>) =>{
@@ -74,8 +92,14 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
                 if(element.wasDetected){
                     if(BlackNumbers.includes(element.NoteNumber)){
                         CanvasRoundRect(pianoCtx!,options.KeyPressColor,pos_x,pos_y,width+2,height+2,5);
+                        DrawShadow(pianoCtx!,pos_x + 1,pos_y,height+1,(width+2)/5,true);
                     }else{
                         CanvasRoundRect(pianoWhiteCtx!,options.KeyPressColor,pos_x,pos_y,width+0.5,height+1,5);
+                        DrawShadow(pianoWhiteCtx!,pos_x,pos_y,height+1,(width+0.5)/4);
+                        if(element.NoteNumber -1 >=21){
+                            if(BlackNumbers.includes(element.NoteNumber - 1)){
+                                DrawShadow(pianoWhiteCtx!,pos_x + width/4,pos_y,Height/5 / 1.6 + 1,(width+0.5)/3.5);
+                        }}
                     }
                     options.soundOn && sound && sound.instrument.play(element.NoteNumber).stop(sound.ac.currentTime + element.duration/1000);
                 }
@@ -120,6 +144,20 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
+
+    const DrawShadow = (ctx:CanvasRenderingContext2D,x:number,y:number,height:number,width:number,lighter?:boolean) =>{
+        const gradient = ctx.createLinearGradient(x,y,x+ Math.cos(0) * width,y+ Math.sin(0)*height);
+        gradient.addColorStop(1,'transparent');
+        gradient.addColorStop(0,lighter? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.85)');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        ctx.lineTo(x,y+height);
+        ctx.lineTo(x + width,y+height);
+        ctx.lineTo(x + width,y);
+        ctx.lineTo(x,y);
+        ctx.fill();
+    }
 
     return (
         <div>

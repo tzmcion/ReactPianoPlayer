@@ -5,8 +5,9 @@ import { Options } from "../../Utils/TypesForOptions";
 interface Ball{
     x:number,
     y:number,
-    speed:number
-    size:number;
+    speed:number,
+    size:number,
+    start_time:number
 }
 
 export default class DrawInCanvas{
@@ -19,26 +20,26 @@ export default class DrawInCanvas{
         this.ctx = CanvasRef.current?.getContext('2d')!;
         this.Canvas = CanvasRef;
         this.options = options
-        this.Canvas.current!.width = window.innerWidth;
-        this.Canvas.current!.height = window.innerHeight;
+        this.Canvas.current!.width = window.innerWidth / 2;
+        this.Canvas.current!.height = window.innerHeight + 300;
         this.balls = defaultValue ? defaultValue : [];
         this.CreateBalls = this.CreateBalls.bind(this);
         this.render = this.render.bind(this);
-        this.CreateBalls(50);
+        this.CreateBalls(100);
     }
 
     public render(color:string):void{
     if(this.Canvas && this.ctx){
         if(this.Canvas && this.Canvas.current){
         if(this.Canvas.current!.width !== window.innerWidth){
-        this.Canvas.current!.width = window.innerWidth;
-        this.Canvas.current!.height = window.innerHeight;
+            this.Canvas.current!.width = window.innerWidth / 2;
+            this.Canvas.current!.height = window.innerHeight + 300;
         }
     }
         this.ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
         this.balls = this.balls.map(ball =>{
-            ball.y += ball.speed;
-            if(ball.y > 550){ball.y = -1 *(ball.size*3); ball.x = Math.random() * window.innerWidth};
+            ball.y = (Date.now() - ball.start_time) / ball.speed;
+            if(ball.y > this.Canvas.current!.height){ball.x = Math.random() * window.innerWidth;ball.start_time = Date.now() + 500};
             this.ctx.beginPath();
             this.ctx.shadowColor = this.options.ShadowColor;
             CanvasRoundRect(this.ctx,color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3),this.options.blockRadius,true);
@@ -53,8 +54,9 @@ export default class DrawInCanvas{
             const ball:Ball = {
                 x: window.innerWidth/quantity * x,
                 y: Math.random() * window.innerHeight,
-                speed: Math.random() * 10 + 2,
-                size: Math.random() > 0.5 ? window.innerWidth / 52 / 1.5: window.innerWidth/52/1.6 / 1.5
+                speed: Math.random() * 2 + 2,
+                size: (Math.random() > 0.5 ? window.innerWidth / 52 / 1.5: window.innerWidth/52/1.6 / 1.5),
+                start_time: Date.now() - Math.floor(Math.random() * 4000)
             }
             this.balls.push(ball);
         }

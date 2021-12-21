@@ -16,8 +16,10 @@ export interface Options{
     EffectsKeyColor:boolean,
     EffectsColor:string,
     OctaveLines:boolean,
-    GameMode:boolean
+    GameMode:boolean,
     renderMethod:'Interval' | 'animationFrame',
-    Effect:'fountain' | 'dancingLines'
+    Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks',
+    ThinerBlockColor:string,
+    GradientColor:string
 }
 

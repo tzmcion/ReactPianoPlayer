@@ -1,3 +1,5 @@
+import { decToHex} from "hex2dec";
+
 interface Effect{
     pos_x: number,
     pos_y: number,
@@ -21,8 +23,7 @@ class DancingLines{
     private Effects:Array<Effect>
     constructor(ctx:CanvasRenderingContext2D,height:number, keyWidth:number, lifeTime:number,effect_width:number,effect_height:number,speed?:number,allSameSpeed?:boolean,lighten?:boolean,gravitation?:boolean,gravitationForce?:number ){
         this.ctx = ctx;
-        this.ctx.shadowColor = 'rgb(200,150,100)';
-        this.ctx.globalCompositeOperation = 'lighter'
+        this.ctx.globalCompositeOperation = 'screen'
         this.ctx.shadowBlur = 4;
         this.key_width = keyWidth;
         this.height = height;
@@ -34,16 +35,13 @@ class DancingLines{
         this.allSameSpeed = allSameSpeed === undefined ? false: allSameSpeed;
         this.gravitation_force = gravitationForce === undefined? 0.15 : gravitationForce
         this.Effects = [];
-        if(lighten){
-            ctx.globalCompositeOperation = 'screen';
-        }
         this.Rect_Floor_Alpha_ReturnNewAlpha = this.Rect_Floor_Alpha_ReturnNewAlpha.bind(this);
     }
 
     public create(pos_x:number,pos_y:number, color:string):void{
         for(let x =0; x < 3; x++){
         const NewEffect: Effect = {
-            pos_x: pos_x + Math.random() * this.key_width / 2 + this.key_width / 4,
+            pos_x: pos_x + this.key_width / (1.5 + Math.random()),
             pos_y: pos_y,
             color: color,
             velocity_y: Math.round(this.allSameSpeed ? this.speed : Math.random() * (this.speed-2) + 2),
@@ -75,8 +73,8 @@ class DancingLines{
     }
 
     private Rect_Floor_Alpha_ReturnNewAlpha(pos_x:number,pos_y:number, color:string, alpha:number){
-        this.ctx.fillStyle = color;
-        this.ctx.shadowColor = color;
+        this.ctx.shadowColor = color + decToHex((alpha*1000).toString())?.slice(2);
+        this.ctx.fillStyle = color + decToHex((alpha*1000).toString())?.slice(2);
         this.ctx.fillRect(Math.floor(pos_x),Math.floor(pos_y),Math.floor(this.effect_width),Math.floor(this.effect_height));
         return alpha - 1/this.life_time;
     }

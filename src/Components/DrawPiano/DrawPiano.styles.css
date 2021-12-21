@@ -51,20 +51,26 @@
 .loading_sound{
     position: absolute;
     z-index: 555;
-    background: linear-gradient(180deg,black,rgb(5, 5, 63));
+    background-color: white;
+}
+
+.loading_sound>img{
+    display: block;
+    margin: 100px auto;
+    transform: scale(1.5);
 }
 
 .loading_sound>h2{
     display: block;
     text-align: center;
     font-size: 64px;
-    margin: 10px auto;
-    padding-top: 100px;
-    color:white;
+    margin: 0px auto;
+    padding-top: 10px;
+    color:black;
 }
 
 .loading_sound>h3{
-    color:white;
+    color:black;
     font-size: 32px;
     text-align: center;
 }

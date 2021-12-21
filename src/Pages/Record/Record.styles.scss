@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
 
 .Record{
     width:100%;
-    overflow: auto;
-    font-family: 'Nunito', sans-serif;
-    background-color: white;
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #101010;
+    color: #BFDBF7;
     .content{
-        width:80%;
+        width:100%;
+        display: flex;
+        flex-direction: row;
         margin:70px auto;
         img{
             width:35px;
@@ -17,17 +20,23 @@
             font-size: 18px;
         }
         .devices{
-            width:40%;
+            width:50%;
             display: block;
+            overflow-y: auto;
+            height:30vh;
             margin: 5px auto;
-            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.548);
+            box-shadow: 0px 0px 8px #BFDBF7;
             border-radius: 2px;
+            background-color: #011018;
             .device{
                 position: relative;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;
                 align-items: center;
+                box-shadow: 0px 0px 6px #2ec52ebb;
+                margin: 10px auto;
+                width:95%;
                 padding: 5px;
                 h1{
                     font-size: 16px;
@@ -72,17 +81,18 @@
         transition: 0.1s;
     }
     .play:hover{
-        background-color: rgb(46, 197, 46);
+        background-color: #2ec52e;
         color:rgb(28, 80, 28);
         transform: scale(1.05);
     }
     button{
+        
         outline: none;
         border: none;
         cursor: pointer;
         display: block;
         margin: 15px auto;
-        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.466);
+        box-shadow: 0px 0px 6px #ffffff75
     }
     .Event{
         padding: 5px;
@@ -125,6 +135,9 @@
         margin:10px auto;
         position: relative;
         display: block;
+        z-index: 1;
+        opacity: 0.8;
+        background-color: white;
     }
 }
 
@@ -143,7 +156,7 @@
 
 @keyframes blink{
     0%{
-        color:black;
+        color:#BFDBF7;
     }
     10%{
         color:red
@@ -152,9 +165,45 @@
         color:red
     }
     60%{
-        color:black;
+        color:#BFDBF7;
     }
     100%{
-        color:black;
+        color:#BFDBF7;
     }
+}
+
+#textDevices{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+#backgroundRot{
+    position: absolute;
+    left:51%;
+    background-color: black;
+    transform: rotate(-15deg);
+    height:150%;
+    width:100%;
+    top:-35%;
+    z-index: 0;
+}
+
+#Record_Title{
+    font-size: 48px;
+}
+
+#Record_Description{
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.flex-50{
+    height:100%;
+    width:50%;
+}
+
+.Pg-Container-Flex{
+    width:100%;
+    display: flex;
+    flex-direction: row;
 }

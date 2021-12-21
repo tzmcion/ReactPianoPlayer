@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300;400&family=Poppins:wght@300&display=swap');
+
+.Header{
+    width:100%;
+    height:80px;
+    background: linear-gradient(black 20%,transparent);
+    text-transform: uppercase;
+    position: fixed;
+    z-index: 10;
+    .HeaderData{
+        height:100%;
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-left: 60px;
+        .Logo{
+            height:100%;
+            display: flex;
+            align-items: center;
+            h1{
+                font-weight: 300;
+                font-family: 'Overpass Mono', monospace;
+                font-weight: 100;
+                font-size: 24px;
+                color:white;
+                margin:0
+            }
+            .Logo_Link{
+                text-decoration: none;
+            }
+        }
+        .Links{
+            height:100%;
+            display:flex;
+            align-items: center;
+            margin-right: 158px;
+            .Link{
+                color:white;
+                margin-left: 20px;
+                text-decoration: none;
+                font-size: 16px;
+                font-family: 'Poppins', sans-serif;
+            }
+            .Link:hover{
+                transition: 0.1s;
+                color:#BFDBF7;
+                transform: scale(1.05);
+            }
+        }
+    }
+}

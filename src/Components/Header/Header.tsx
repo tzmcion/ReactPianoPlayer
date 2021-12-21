@@ -1,24 +1,22 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './Header.styles.css';
-
-import LogoPrototype from '../../Assets/piano_icon.png'
+import './Header.styles.scss';
 
 export default function Header() {
     return (
-        <div className='Header'>
+        <nav className='Header'>
             <div className='HeaderData'>
                 <div className='Logo'>
-                    <img src={LogoPrototype} alt='Logo' className='LogoImage' />
+                    <Link to='/' className='Logo_Link'>
                     <h1>Piano Blocks App</h1>
+                    </Link>
                 </div>
                 <div className='Links'>
-                    <Link to='/' className='Link'>Home</Link>
-                    <Link to='/Record' className='Link'>Record<span className='beta'>*beta</span></Link>
-                    <Link to='/tutorial' className='Link'>Tutorial</Link>
+                    <Link to='/Record' className='Link'>Record</Link>
+                    <Link to='/tutorial' className='Link'>DOCS</Link>
                     <Link to='/Todo' className='Link'>Donate</Link>
                 </div>
             </div>
-        </div>
+        </nav>
     )
 }

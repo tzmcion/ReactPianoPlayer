@@ -1,5 +1,5 @@
 import { Options as OptionsType } from "../../Utils/TypesForOptions";
-import {Fountain, DancingLines} from '../CanvasEffects';
+import {Fountain, DancingLines, HexagonEffect, StickyBalls, Firework} from '../CanvasEffects';
 
 import hexAlpha from "hex-alpha";
 
@@ -20,7 +20,16 @@ class Effects{
                 this.Effect = new Fountain(ctx,width,height,width/52);
                 break;
             case 'dancingLines':
-                this.Effect = new DancingLines(ctx,height,width/52,100,1,5);
+                this.Effect = new DancingLines(ctx,height,width/52,200,1,6,10);
+                break;
+            case 'hexagon':
+                this.Effect = new HexagonEffect(ctx,width,height,width/52);
+                break;
+            case 'stickyBalls':
+                this.Effect = new StickyBalls(ctx,width,height,width/52);
+                break;
+            case 'fireworks':
+                this.Effect = new Firework(ctx,width,height,width/52);
                 break;
             default:
                 this.Effect = new Fountain(ctx,width,height,width/52);
@@ -33,7 +42,7 @@ class Effects{
     }
 
     public triggerNewEffects(timer:number,pos_x:number,block_width:number):void{
-        if(timer % Math.floor(100 /this.options.speed) === 0){
+        
             let color:string;
             if(this.options.EffectsBlockColor){
                 color = hexAlpha(this.options.Color,100)
@@ -45,7 +54,7 @@ class Effects{
                 color = this.options.EffectsColor;
             }
             this.Effect.create(pos_x,this.height,color);
-    }}
+    }
 
     public clearAllEffects():void{
         this.Effect.clear();

@@ -25,6 +25,10 @@ export default function Play({ac}:p) {
         setPlayer(new MidiPlayer(file,handleMidiEvent,25));
     }, []);
 
+    useEffect(() => {
+        Player?.Restart();
+    }, [Player])
+
     const handleMidiEvent = (Events:Array<noteEvent>) =>{
         Events.length > 0 && setEvents(Events);
     }

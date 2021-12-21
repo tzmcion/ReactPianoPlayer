@@ -7,6 +7,7 @@ import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import {TracksInterval, TracksAnimationFrame} from '../Tracks';
 
+import Gear from '../../Assets/Rhombus.gif';
 
 interface DrawPianoProps{
     Data: Array<noteEvent> | undefined,
@@ -87,7 +88,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player,ac}:DrawP
     return (
         <div className='Piano' style={{height: windowHeight}}>
             {sound && options.soundOn && RenderTracks()}
-            {!sound && options.soundOn && <div style={{width:window.innerWidth, height:window.innerHeight}} className='loading_sound'><h2>Sound Loading</h2><h3>If sound is not loading try clicking anywhere on the screen</h3></div>}
+            {!sound && options.soundOn && <div style={{width:window.innerWidth, height:window.innerHeight}} className='loading_sound'><img src={Gear} alt='Loading' /><h2>Sound Loading</h2><h3>If sound is not loading try clicking anywhere on the screen</h3></div>}
             {!options.soundOn && RenderTracks()}
         </div>
     )

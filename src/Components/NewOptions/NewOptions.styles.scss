@@ -6,15 +6,15 @@
     height:100%;
     z-index: 2;
     top:0%;
-    left:65%;
+    left:68.5%;
     transition: 1s ease;
     display: flex;
     justify-content: center;
     .background_options{
         background-color: #060606;
-        top:-55%;
-        height:160%;
-        width:105%;
+        top:-65%;
+        height:200%;
+        width:110%;
         position: absolute;
         transform: rotate(-15deg);
         z-index: 1;
@@ -148,6 +148,12 @@
     }
     100%{
         margin-Top: 0px;
+    }
+}
+
+@media only screen and (max-width: 1380px) {
+    .Options_Main{
+        left:73%;
     }
 }
 

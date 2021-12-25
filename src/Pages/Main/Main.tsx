@@ -128,29 +128,35 @@ export default function Main() {
         })
     }
 
+    const onConfClick = ():void =>{
+        setTimeout(()=>{
+            setIsConfiguring(true);
+        },500);
+    }
+
     return (
-        <div style={{height:windowHeight, paddingBottom:200}} className='mainDiv'>
+        <div style={{height:windowHeight}} className='mainDiv'>
             <div className='mainHead'>
-            <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} onConfClick={()=>{setIsConfiguring(true)}} options={options} isConfOn={isConfiguring}/>
-            <div className='Main_data'>
-                <img src={Logo} className='Logo' alt='Logo' />
-                <h1 className='Main_data_Text Title'>Web midi player/visualizer/recorder for piano</h1>
-                <h3 className='Main_data_Text Description'>
-                Piano Blocks App is a web midi player/visualizer. 
-                It main purpose is to visualize and play midis recorded by pianists.
+                <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} onConfClick={onConfClick} options={options} isConfOn={isConfiguring}/>
+                <div className='Main_data'>
+                    <img src={Logo} className='Logo' alt='Logo' />
+                    <h1 className='Main_data_Text Title'>Web midi player/visualizer/recorder for piano</h1>
+                    <h3 className='Main_data_Text Description'>
+                    Piano Blocks App is a web midi player/visualizer. 
+                    It main purpose is to visualize and play midis recorded by pianists.
 
-                You can start imidiatelly by draging your midi file,
-                or you can change options to decide, how app will display blocks for you.
+                    You can start imidiatelly by draging your midi file,
+                    or you can change options to decide, how app will display blocks for you.
 
-                Be aware that this project is still at it's childhood. 
-                It may be bugged in various places, it can look ugly somewhere,
-                it can be user unfriendly/UI may be bad.
-                <br /><br />
-                Enjoy using Piano Blocks !
-                </h3>
+                    Be aware that this project is still at it's childhood. 
+                    It may be bugged in various places, it can look ugly somewhere,
+                    it can be user unfriendly/UI may be bad.
+                    <br /><br />
+                    Enjoy using Piano Blocks !
+                    </h3>
+                </div>
             </div>
             <button className='Demo_Bt' onClick={PlayDemoMidi}>Play demo song</button>
-            </div>
             <NewOptions isOpened={isConfiguring} handleOptionsChange={handleOptionsChange} options={options} onGoBack={()=>{setIsConfiguring(false)}} />
         </div>
     )

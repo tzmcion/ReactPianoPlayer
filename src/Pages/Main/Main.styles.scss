@@ -3,6 +3,7 @@
 .mainDiv{
     overflow-x: hidden;
     overflow-y: auto;
+    box-sizing: border-box;
     .mainHead{
         width:100%;
         height:100%;
@@ -66,5 +67,91 @@
         opacity: 1;
         outline: none;
         border:none
+    }
+}
+
+@media only screen and (max-width: 1380px) {
+    .mainDiv{
+        .Main_data{
+            width:70%;
+            height:100vh;
+            .Title{
+                font-size: 22px;
+            }
+            .Description{
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1060px) {
+    .mainDiv{
+        .Main_data{
+            width:70%;
+            .Title{
+                font-size: 18px;
+            }
+            .Description{
+                font-size: 12px;
+            }
+            .Logo{
+                width:100px;
+                height:100px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .mainDiv{
+        padding-bottom: 0px !important;
+        .mainHead{
+            width:100%;
+            height:100%;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+            overflow-y: hidden;
+            .Main_data{
+                margin-top: 60px;
+                height:45%;
+                .Main_data_Text{
+                    margin-left: 0% !important;
+                }
+                .Logo{
+                    margin-left: 0% !important;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .mainDiv{
+        .mainHead{
+            .Main_data{
+                width:100%;
+                height:45%;
+                margin-top: 50px;
+                .Main_data_Text{
+                    width:90%;
+                }
+                .Title{
+                    font-size: 11px;
+                    width:100%;
+                }
+                .Description{
+                    font-size: 10px;
+                    max-height: 100px;
+                    overflow-y: auto;
+                }
+                .Logo{
+                    width:80px;
+                    height:80px;
+                }
+            }
+        }
     }
 }

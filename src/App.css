@@ -2,6 +2,8 @@
     width:100%;
     position: absolute;
     top: 0px;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 h1{

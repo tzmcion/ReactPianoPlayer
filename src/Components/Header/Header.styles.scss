@@ -49,3 +49,64 @@
         }
     }
 }
+
+@media only screen and (max-width: 1060px) {
+    .Header{
+        .HeaderData{
+            margin-left: 20px;
+            .Logo{
+                h1{
+                    font-size: 16px;
+                }
+            }
+            .Links{
+                margin-right: 50px;
+                .Link{
+                    font-size: 12px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .Header{
+        .HeaderData{
+            margin-left: 15px;
+            .Logo{
+                h1{
+                    font-size: 14px;
+                }
+            }
+            .Links{
+                margin-right: 50px;
+                .Link{
+                    font-size: 11px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .Header{
+        .HeaderData{
+            margin-left: 15px;
+            .Logo{
+                h1{
+                    margin-top: -12px;
+                    font-size: 12px;
+                }
+            }
+            .Links{
+                margin-right: 30px;
+                .Link{
+                    font-size: 9px;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

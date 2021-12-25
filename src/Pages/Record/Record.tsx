@@ -25,6 +25,7 @@ export default function Record():ReactElement {
     const height = useRef<number>(window.innerHeight);
 
     useEffect(()=>{
+        if('requestMIDIAcces' in window.navigator){
         window.navigator.requestMIDIAccess().then((midiAccess) => {
             console.log("MIDI Ready!");
             for (var input of midiAccess.inputs.values()){
@@ -57,6 +58,7 @@ export default function Record():ReactElement {
         }).catch((error) => {
             console.log("Error accessing MIDI devices: " + error);
         });
+    }
         //Convertion
     },[])
 

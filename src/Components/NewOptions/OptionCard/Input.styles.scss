@@ -96,3 +96,9 @@ input[type="color"]::-webkit-color-swatch {
     border:none;
     outline: none;
 }
+@media only screen and (max-width: 550px) {
+    .numberInput{
+        height:12%;
+        width: 50%;
+    }
+}

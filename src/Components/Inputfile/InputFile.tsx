@@ -42,8 +42,8 @@ export default function InputFile({FileRef,onFileUpload,options,onConfClick,isCo
     }, [blocks])
 
     const onConfigureClick = () => {
-        setFade(true);
-        setTimeout(onConfClick,500);
+        window.innerWidth > 920 && setFade(true);
+        onConfClick();
     }
 
     useEffect(() => {
@@ -56,11 +56,11 @@ export default function InputFile({FileRef,onFileUpload,options,onConfClick,isCo
         <div className={`FileInputDiv ${fade ? 'Fade' : ''}`}>
             <input type='file' id='file_Upload' className='FileInput' accept='.mid,.midi' ref={FileRef} onInput={()=>{onFileUpload()}}   />
             <div className='background_rotated'>
-                <canvas className='backgroundCanvas' height={window.innerHeight + 300} width={window.innerWidth / 2} ref={Canvas}/>
+                <canvas className='backgroundCanvas' height={window.innerHeight + 300} width={window.innerWidth > 920 ? window.innerWidth / 2 : window.innerWidth} ref={Canvas}/>
             </div>
             <div className='FileInput_Data'>
                 <img src={MidiImage} alt='midi_icon' className='Midi_Icon'  />
-                <h2 className='Input_Text'>Drag Your MIDI file here to start visualizing !</h2>
+                <h2 className='Input_Text'>Drag Your MIDI file here to start visualizing!</h2>
                 <h3 className='Input_Text'>Or click here to choose file!</h3>
                 <button className='Input_Configure_Bt' onClick={onConfigureClick}>Configure</button>
             </div>

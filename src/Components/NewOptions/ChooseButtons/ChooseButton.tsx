@@ -47,7 +47,7 @@ export default function ChooseButton({onClick,name,title,textColor}:ChooseButton
         arr.map((letter,index) =>{
             pos.push({
                 transition:'0s',
-                pos: '-50%'
+                pos: '-150%'
             });
             return null;
         });
@@ -64,7 +64,7 @@ export default function ChooseButton({onClick,name,title,textColor}:ChooseButton
                     }else{
                     pos.push({
                         transition:'0s',
-                        pos: '-50%'
+                        pos: '-150%'
                     });
                     }
                     return null;

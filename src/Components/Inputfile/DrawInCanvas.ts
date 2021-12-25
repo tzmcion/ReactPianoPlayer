@@ -31,8 +31,8 @@ export default class DrawInCanvas{
     public render(color:string):void{
     if(this.Canvas && this.ctx){
         if(this.Canvas && this.Canvas.current){
-        if(this.Canvas.current!.width !== window.innerWidth){
-            this.Canvas.current!.width = window.innerWidth / 2;
+        if(this.Canvas.current!.width !== window.innerWidth || this.Canvas.current!.height !== window.innerHeight + 300){
+            this.Canvas.current!.width = window.innerWidth > 920 ? window.innerWidth / 2 : window.innerWidth;
             this.Canvas.current!.height = window.innerHeight + 300;
         }
     }

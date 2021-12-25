@@ -31,3 +31,59 @@
     font-weight: 600;
     font-size: 18px;
 }
+
+@media only screen and (max-width: 860px) {
+    .options_button{
+        margin-top: 15px;
+        width:auto;
+        height:40px;
+        border-radius: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .single_letter{
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .options_button{
+        margin-top: 15px;
+        width:auto;
+        height:40px;
+        border-radius: 6px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .single_letter{
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .options_button{
+        margin-top: 2px;
+        width:auto;
+        height:30px;
+        border-radius: 4px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .single_letter{
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .options_button{
+        margin-top: 2px;
+        width:auto;
+        height:20px;
+        border-radius: 4px;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    .single_letter{
+        font-size: 8px;
+    }
+}

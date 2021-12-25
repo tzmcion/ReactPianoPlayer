@@ -41,3 +41,35 @@
         text-shadow: 0px 0px 4px #F95738 !important;
     }
 }
+
+// @media only screen and (max-width: 920px) {
+//     .OptionCard{
+//         height:150px;
+//         width:280px;
+//         .Card_Title{
+//             margin:0;
+//             margin-top: 8px;
+//             margin-bottom: 4px;
+//             font-size: 18px;
+//         }
+//         .Card_Description{
+//             font-size: 12px !important; 
+//         }
+//     }
+// }
+
+@media only screen and (max-width: 550px) {
+    .OptionCard{
+        height:150px;
+        width:280px;
+        .Card_Title{
+            margin:0;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        .Card_Description{
+            font-size: 11px !important; 
+        }
+    }
+}

@@ -15,7 +15,7 @@ export default function Header() {
                     <Link to='/' className='Link'>Home</Link>
                     <Link to='/Record' className='Link'>Record</Link>
                     <Link to='/tutorial' className='Link'>DOCS</Link>
-                    <Link to='/Todo' className='Link'>Donate</Link>
+                    <Link to='/info' className='Link'>Info&Support</Link>
                 </div>
             </div>
         </nav>

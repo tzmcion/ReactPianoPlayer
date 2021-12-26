@@ -42,7 +42,7 @@ export default class DrawInCanvas{
             if(ball.y > this.Canvas.current!.height){ball.x = Math.random() * window.innerWidth;ball.start_time = Date.now() + 500};
             this.ctx.beginPath();
             this.ctx.shadowColor = this.options.ShadowColor;
-            CanvasRoundRect(this.ctx,color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3),this.options.blockRadius,true);
+            CanvasRoundRect(this.ctx,color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3.7),this.options.blockRadius,true);
             return ball;
         })
     };
@@ -55,7 +55,7 @@ export default class DrawInCanvas{
                 x: window.innerWidth/quantity * x,
                 y: Math.random() * window.innerHeight,
                 speed: Math.random() * 2 + 2,
-                size: (Math.random() > 0.5 ? window.innerWidth / 52 / 1.5: window.innerWidth/52/1.6 / 1.5),
+                size: (Math.random() > 0.5 ? window.innerWidth < 1200 ? 1200  / 52 / 1.5 : window.innerWidth  / 52 / 1.5 : window.innerWidth < 1200 ? 1200/52 /1.6 / 1.5 :   window.innerWidth/52 /1.6 / 1.5),
                 start_time: Date.now() - Math.floor(Math.random() * 4000)
             }
             this.balls.push(ball);

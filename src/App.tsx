@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import Main from './Pages/Main/Main';
 import Tutorial from './Pages/Tutorial/Tutorial';
 import Header from './Components/Header/Header';
-import Todo from './Pages/ToDo/ToDo';
+import Info from './Pages/ToDo/ToDo';
 import Play from './Pages/Play/Play';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';
@@ -46,7 +46,7 @@ function App() {
       {allowed && <Header />}
       {allowed && <Switch>
         <Route path='/tutorial' exact component={Tutorial} />
-        <Route path='/Todo' exact component={Todo} />
+        <Route path='/Info' exact component={Info} />
         <Route path='/Play' exact component={() => <Play ac={ac}/>} />
         <Route path='/Record' exact component={Record} />
         <Route path='/PlayRecorded' exact component={() =><PlayRecorded ac={ac} />} />

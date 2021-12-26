@@ -25,7 +25,7 @@ export default function Record():ReactElement {
     const height = useRef<number>(window.innerHeight);
 
     useEffect(()=>{
-        if('requestMIDIAcces' in window.navigator){
+        if('requestMIDIAccess' in window.navigator){
         window.navigator.requestMIDIAccess().then((midiAccess) => {
             console.log("MIDI Ready!");
             for (var input of midiAccess.inputs.values()){
@@ -58,6 +58,12 @@ export default function Record():ReactElement {
         }).catch((error) => {
             console.log("Error accessing MIDI devices: " + error);
         });
+    }else{
+        const device = {
+            name:'Your broswer does not support MIDI :c',
+            id:0
+        }
+        setDevices([device])
     }
         //Convertion
     },[])
@@ -91,6 +97,12 @@ export default function Record():ReactElement {
         }
     }
 
+    const PlayRecoDed_onClick = ():void =>{
+        if(localStorage.getItem('fileJson')){
+            history.push('/PlayRecorded');
+        }
+    }
+
 
     const renderDevices = () =>{
         if(devices.length > 0)
@@ -109,7 +121,7 @@ export default function Record():ReactElement {
                 <h3 id='Record_Description'>Welcome to the Record page! Here you can record your playing and then use PianoBlocksApp to visualize it. It's super simple. Click "Rec" button, then play, then click it again, and click "Play Recorded"</h3>
                 <div className='buttons'>
                     <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
-                    <button className='play' onClick={()=>{history.push('/PlayRecorded')}}>Play Recorded</button>
+                    <button className='play' onClick={PlayRecoDed_onClick}>Play Recorded</button>
                 </div>
                 <h2 id='textDevices'>Connected MIDI devices :</h2>
                 <div className='devices'>

@@ -59,6 +59,13 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
         handleOptionsChange(ev);
+        const Simulate_event = {
+            target:{
+                name:'IsEffectsTrue',
+                value:true
+            }
+        }
+        handleOptionsChange(Simulate_event);
     }
 
     return (

@@ -162,8 +162,8 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
     return (
         <div>
             {finishedLoading && <>{options.watermark && <div className='Mark'>
-                <h1>Piano-Blocks V. 0.1</h1>
-                <h2>Closed Beta Version</h2>
+                <h1>Piano Blocks App</h1>
+                <h2>&#169; Tymoteusz Apriasz</h2>
             </div>}
             <div className='coverPhoto' style={{width:Width.toString() + 'px', height:(Height - Height/5).toString() + 'px', backgroundImage: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize: `${Width}px ${Height}px`}}></div>
             <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - (Height/5)*2 ).toString() + 'px' ,height:Height/5}}></div>

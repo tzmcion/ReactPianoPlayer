@@ -102,6 +102,9 @@ export default function Main() {
             case 'EffectsColor':
                 currentOptions.EffectsColor = event.target.value;
                 break;
+            case 'IsEffectsTrue':
+                currentOptions.IsEffects = true;
+                break;
             default:
                 break;
         }

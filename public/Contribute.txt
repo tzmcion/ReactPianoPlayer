@@ -1,0 +1,9 @@
+Midi Icon ::    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+Piano Icon ::   <div>Icons made by <a href="" title="mangsaabguru">mangsaabguru</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+SoundFont Player :: https://www.npmjs.com/package/soundfont-player
+Midi-Json-Parser :: https://www.npmjs.com/package/midi-json-parser
+rgb-hex :: https://www.npmjs.com/package/rgb-hex
+hex2dec :: https://www.npmjs.com/package/hex2dec
+Dancing_Cactus :: https://tenor.com/view/cactus-cool-shades-animated-dancing-gif-17528497
+Sad_Cactus :: https://tenor.com/view/hug-yay-squeeze-bear-hug-hug-tight-gif-15085080
+

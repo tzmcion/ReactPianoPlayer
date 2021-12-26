@@ -1,11 +1,11 @@
 import { Options } from "./TypesForOptions";
 
 const data:Options = {
-    Color:'#C2450f',
+    Color:'#8EF971',
     OctaveLines:true,
-    KeyPressColor:'#2891d2',
+    KeyPressColor:'#128251',
     RandomColors:false,
-    IsEffects:true,
+    IsEffects:false,
     backgroundImage: '',
     speed:35,
     playSpeed:5,
@@ -14,15 +14,15 @@ const data:Options = {
     renderMethod:'animationFrame',
     Effect:'fountain',
     blockRadius:10,
-    ShadowColor:'#C2450f',
+    ShadowColor:'#000',
     blockShadowRadius:6,
     EffectsBlockColor: false,
     randomEffectColors:false,
     EffectsKeyColor:false,
     EffectsColor: '#ffffff',
     GameMode:false,
-    ThinerBlockColor:'#C2450f',
-    GradientColor:'#C2450f'
+    ThinerBlockColor:'#FB1378',
+    GradientColor:'#128251'
 }
 
 const DefaultOptions:Options = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);

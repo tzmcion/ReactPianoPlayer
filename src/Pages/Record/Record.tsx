@@ -22,7 +22,7 @@ export default function Record():ReactElement {
     const [devices,setDevices] = useState<Array<Devices>>([]);
     const [events,setEvents] = useState<Array<noteEvent>>([]);
     const [recording,setRecording] = useState<boolean>(false);
-    const height = useRef<number>(window.innerHeight);
+    const [height,setHeight] = useState<number>(window.innerHeight)
 
     useEffect(()=>{
         if('requestMIDIAccess' in window.navigator){
@@ -112,26 +112,37 @@ export default function Record():ReactElement {
         return <h1>No device Connected</h1>
     }
 
+    const handleResize = () =>{
+        setHeight(window.innerHeight);
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize',handleResize);
+        return () => {
+            window.removeEventListener('resize',handleResize);
+        }
+    }, [])
+
     return (
-        <div className='Record' style={{height:height.current}}>
+        <div className='Record' style={{height:height}}>
             <div id='backgroundRot' />
             <div className="content">
-            <div className='flex-50'>
-                <h1 id='Record_Title'>Record / Play</h1>
-                <h3 id='Record_Description'>Welcome to the Record page! Here you can record your playing and then use PianoBlocksApp to visualize it. It's super simple. Click "Rec" button, then play, then click it again, and click "Play Recorded"</h3>
-                <div className='buttons'>
-                    <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
-                    <button className='play' onClick={PlayRecoDed_onClick}>Play Recorded</button>
+                <div className='flex-50'>
+                    <h1 id='Record_Title'>Record / Play</h1>
+                    <h3 id='Record_Description'>Welcome to the Record page! Here you can record your playing and then use PianoBlocksApp to visualize it. It's super simple. Click "Rec" button, then play, then click it again, and click "Play Recorded"</h3>
+                    <div className='buttons'>
+                        <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
+                        <button className='play' onClick={PlayRecoDed_onClick}>Play Recorded</button>
+                    </div>
+                    <h2 id='textDevices'>Connected MIDI devices :</h2>
+                    <div className='devices'>
+                        {renderDevices()}
+                    </div>
                 </div>
-                <h2 id='textDevices'>Connected MIDI devices :</h2>
-                <div className='devices'>
-                    {renderDevices()}
+                <div className='flex-50'>
+                    <canvas ref={Canvas} width={595} height={842} className='Canvas Canvas_Rec' />
                 </div>
-            </div>
-            <div className='flex-50'>
-                <canvas ref={Canvas} width={595} height={842} className='Canvas' />
-            </div>
-            </div>
+                </div>
         </div>
     )
 }

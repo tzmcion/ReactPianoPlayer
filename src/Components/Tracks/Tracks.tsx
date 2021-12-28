@@ -59,26 +59,33 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
             pianoCtx?.clearRect(0,0,PianoRef.current!.width,PianoRef.current!.height);
             pianoWhiteCtx?.clearRect(0,0,PianoWhiteRef.current!.width,PianoWhiteRef.current!.height);
         }
-        else if(Player.isMoved){
-            let sp = Speed
-            if(Speed < 5){
-                if(Speed >= 4){
-                    sp *= 2
-                }else if(Speed >= 3){
-                    sp *= 4
-                }else{
-                    sp *= 16;
-                }
-            }
-            const toBlocks =  Player.getBackwardsBlocks((sp * 1000));
-            blocks?.forcibly_add_blocks(toBlocks);
-            pianoCtx?.clearRect(0,0,PianoRef.current!.width,PianoRef.current!.height);
-            pianoWhiteCtx?.clearRect(0,0,PianoWhiteRef.current!.width,PianoWhiteRef.current!.height);
-            Player.PausePlay();
-        }
         else{
             blocks?.Paused();
         }
+        if(Player){
+            if(blocks){
+                if(Player.isMoved){
+                    let sp = Speed
+                    if(Speed < 5){
+                        if(Speed >= 4){
+                            sp *= 2
+                        }else if(Speed >= 3){
+                            sp *= 4
+                        }else{
+                            sp *= 16;
+                        }
+                    }
+                    const toBlocks =  Player.getBackwardsBlocks((sp * 1000));
+                    blocks?.forcibly_add_blocks(toBlocks);
+                    pianoCtx?.clearRect(0,0,PianoRef.current!.width,PianoRef.current!.height);
+                    pianoWhiteCtx?.clearRect(0,0,PianoWhiteRef.current!.width,PianoWhiteRef.current!.height);
+                    Player.PausePlay();
+                    blocks?.render();
+                    Player.isMoved = false;
+                }
+            }
+        }
+
         requestRef.current =  requestAnimationFrame(animate);
     }
 
@@ -166,7 +173,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
                 <h2>&#169; Tymoteusz Apriasz</h2>
             </div>}
             <div className='coverPhoto' style={{width:Width.toString() + 'px', height:(Height - Height/5).toString() + 'px', backgroundImage: options.backgroundImage? `url(${options.backgroundImage})` : `url(${BG})`, backgroundSize: `${Width}px ${Height}px`}}></div>
-            <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - (Height/5)*2 ).toString() + 'px' ,height:Height/5}}></div>
+            <div className='Summer' style={{width:Width.toString() + 'px', marginTop:(Height - (Height/6)*2.2 ).toString() + 'px' ,height:Height/6}}></div>
             <canvas ref={tracksRef} width={Width.toString() + 'px'} height={(Height - Height/5).toString() + 'px'} className='Canvas'></canvas>
             <canvas ref={EffectsRef} width={Width} height={Height - Height/5} className='Effects'></canvas>
             <canvas ref={GradeintRef} width={Width} height={Height - Height/5 + 50} className='Gradient'></canvas>

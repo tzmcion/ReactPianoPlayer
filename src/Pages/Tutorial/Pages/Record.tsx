@@ -8,7 +8,7 @@ export default function Record() {
         <div className='Basic'>
             <h1 className='Pg-Header Pg-Text'>Recording</h1>
             <h3 className='Pg-Sm-Header Pg-Text'>How to record in Piano Blocks App</h3>
-            <div className='Pg-Container-Flex'>
+            <div className='Pg-Container-Flex_b'>
                 <div className='Pg-Container-Flex-40' >
                     <p className="Pg-Paragraph" style={{width:'fit-content'}}>
                         When you enter a Record page, you'r gona see buttos Rec, play Recorded, and a rectangle with a list of connected devices.
@@ -25,7 +25,7 @@ export default function Record() {
                 </div>
             </div>
             <h3 className='Pg-Sm-Header Pg-Text'>Sheet music of your recording</h3>
-            <div className='Pg-Container-Flex'>
+            <div className='Pg-Container-Flex_b'>
                 <div className='Pg-Container-Flex-40' >
                     <p className="Pg-Paragraph" style={{width:'fit-content'}}>
                         *BETA*. If you record your playing through this website, you can instantly get prototype of sheet music.

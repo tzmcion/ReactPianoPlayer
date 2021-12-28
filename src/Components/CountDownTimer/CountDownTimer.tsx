@@ -1,7 +1,11 @@
-import React,{useEffect,useState} from 'react';
+import React,{ReactElement, useEffect,useState} from 'react';
 import './Timer.scss';
 
-export default function CountDownTimer() {
+interface CountDown_Props{
+    onEnd:Function
+}
+
+export default function CountDownTimer({onEnd}:CountDown_Props):ReactElement {
 
     const [time,setTime] = useState<any>(Date.now());
     const [data,setData] = useState<any>({
@@ -32,6 +36,9 @@ export default function CountDownTimer() {
             minutes:minutes,
             seconds:seconds
         })
+        if(distance <= 0){
+            onEnd();
+        }
     }, [time])
 
     return (

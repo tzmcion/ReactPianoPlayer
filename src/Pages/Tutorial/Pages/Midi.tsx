@@ -39,12 +39,12 @@ export default function Midi({on_change_id}:BasicProps):ReactElement {
             </p>
             <div className='Pg-For-Devs'>
                 <h2 className='Pg-For-Devs-Header'>* For Nerds</h2>
-                <div className="flex-2" style={{margin:0,height:'100%'}}>
-                    <div className='flex-5' style={{justifyContent:'center',alignItems:'center', width:'70%'}}>
+                <div className="flex-2 flex-res" style={{margin:0,height:'100%'}}>
+                    <div className='flex-5 w-70' style={{justifyContent:'center',alignItems:'center'}}>
                     <p className="Pg-Paragraph" style={{width:'80%',marginTop:'50px',fontSize:'12px'}}>
                         This is how this website reads MIDI files. With typescript it creates an object with this interface before playing.
                         Thanks to that preparation, it can aquire reasonable performance during playing. By doing that, it reduces the initial
-                        array of midi events, and makes it even 4 times smaller (as it completely reduces events like onKeyPress,onKeyRelease,onPedalPress,onPedalRelease 
+                        array of midi events, and makes it even 4 times smaller (as it completely reduces events like onKeyPress, onKeyRelease, onPedalPress, onPedalRelease 
                         to one object). Thanks to that, during playing, app needs to analyze 4 times less data.
                     </p>
                     </div>

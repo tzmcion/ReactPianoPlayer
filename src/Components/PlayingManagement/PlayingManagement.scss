@@ -1,4 +1,6 @@
-$background : #001524f3;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
+
+$background : hsla(205, 100%, 7%, 0.953);
 $buttons_color : #FF7D00;
 
 .Playing_main{
@@ -46,12 +48,14 @@ $buttons_color : #FF7D00;
         }
     }
     .Timer{
+        font-family: 'Quicksand', sans-serif;
         display: block;
-        font-size: 16px;
-        color:rgba(212, 212, 212, 0.795);
+        width:50px;
+        height:50px;
+        font-weight: 700;
     }
     .Duration{
-        width:60%;
+        width:75%;
         justify-self: flex-end;
         height:30%;
         border:2px solid rgb(0, 0, 0);
@@ -64,6 +68,26 @@ $buttons_color : #FF7D00;
             height:100%;
             background: linear-gradient(90deg,rgb(66, 20, 151),rgb(143, 11, 136));
             transition: 0.1s linear;
+        }
+    }
+}
+
+@media only screen and (max-width:900px) {
+    .Playing_main{
+        .icons{
+            padding-left: 2px;
+            margin-left: 0px;
+            i{
+                font-size: 22px;
+                margin: 4px;
+            }
+            .IconGoBack{
+                width:28px;
+                margin-right: 4px;
+            }
+        }
+        .Duration{
+            width:60%;
         }
     }
 }

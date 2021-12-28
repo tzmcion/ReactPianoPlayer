@@ -51,9 +51,6 @@
                 transition: 0.4s;
             }
         }
-        .SingleLink:hover{
-            // background-color: rgba(128, 128, 128, 0.377);
-        }
     }
     .Component{
         padding-top: 80px;
@@ -61,6 +58,88 @@
         position: relative;
         z-index: 2;
         overflow-y:auto;
+    }
+    .Component::-webkit-scrollbar {
+        width: 10px;
+        }
+        .Component::-webkit-scrollbar-track {
+        background: #f1f1f105;
+        border-radius: 9px;
+        }
+        .Component::-webkit-scrollbar-thumb {
+        background: rgba(136, 136, 136, 0.24);
+        border-radius: 9px;
+        }
+        .Component::-webkit-scrollbar-thumb:hover {
+        background: rgba(85, 85, 85, 0.712);
+        } 
+}
+
+@media only screen and (max-width:1000px) {
+    .InsideNavigator{
+        .Links{
+            padding-left: 20px;
+            .SingleLink{
+                width:98%;
+                .SingleLinkText{
+                    font-size: 14px;
+                    width:90%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:900px) {
+    .InsideNavigator{
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .Links{
+            width:98%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            height:100px;
+            padding-left: 10px;
+            padding-right: 10px;
+            .SingleLink{
+                width:fit-content;
+            }
+        }
+        .Component{
+            box-shadow: 0px -2px 6px black;
+            width:100%;
+            z-index: 4;
+        }
+    }
+}
+
+@media only screen and (max-width:550px) {
+    .InsideNavigator{
+        .Links{
+            width:98%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            height:auto;
+            margin-bottom: 0px;
+            .SingleLink{
+                height:fit-content;
+                min-height: 28px;
+                margin: 2px;
+                .SingleLinkText{
+                    height:fit-content;
+                }
+            }
+        }
+        .Component{
+            width:100%;
+        }
     }
 }
 

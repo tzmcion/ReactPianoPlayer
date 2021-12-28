@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 
 import OptionCard from '../OptionCard/OptionCard';
+import OptionCardImage from '../OptionCard/OptionCardImage';
 import EffectChoose from '../OptionCard/EffectChoose/EffectChoose';
 
 import Fountain from '../OptionCard/EffectChoose/Previews/fountain.mp4';
@@ -104,6 +105,10 @@ function Options_Other({isOpened,onGoBack,options,handleOptionsChange}:OptionsPr
                     <OptionCard onChange={handleOptionsChange} name='playSpeed' type='number' title='Speed' textColor='speed' value={options.playSpeed.toString()} >
                         Choose How fast will the blocks fall. Remember, blocks are also higher/taller with more speed
                     </OptionCard>
+                    <OptionCardImage onChange={handleOptionsChange} name='playSpeed' type='number' title='Background Image' textColor='speed' value={options.playSpeed.toString()} >
+                        Choose Background. Carefoul ! You can't easily switch back to default image
+                    </OptionCardImage>
+                    
             </div>
         </div>
         

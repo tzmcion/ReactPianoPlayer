@@ -108,7 +108,11 @@ export default function Main() {
             default:
                 break;
         }
-        localStorage.setItem('options',JSON.stringify(currentOptions))
+        try{
+            localStorage.setItem('options',JSON.stringify(currentOptions))
+        }catch{
+            alert('this File is probably to big man')
+        }
         setOptions(currentOptions);
     }
 

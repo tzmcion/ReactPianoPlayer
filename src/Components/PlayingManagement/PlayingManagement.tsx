@@ -1,5 +1,7 @@
 import React, { MouseEvent, ReactElement, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import './PlayingManagement.scss';
 
 import MidiPlayer from '../../Helpers/MidiPlayer';
@@ -59,7 +61,20 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
             <i className="fa fa-pause" aria-hidden="true" onClick={handlePause} title='Pause/Unpause'></i>
             <i className="fa fa-stop" aria-hidden="true" onClick={handleStop} title='Reset'></i>
             </div>
-            <h3 className='Timer'>{Math.floor(Player.timer / 1000)}/{Math.floor(Player.MidiLength / 1000)} (seconds)</h3>
+            {/* <h3 className='Timer'>{Math.floor(Player.timer / 1000)}/{Math.floor(Player.MidiLength / 1000)} (seconds)</h3> */}
+            <CircularProgressbar 
+                className='Timer' 
+                value={Player.timer / 1000} 
+                maxValue={Player.MidiLength / 1000} 
+                text={`${Math.floor(Player.timer / 1000)}s`}
+                styles={buildStyles({
+                    rotation:0.75,
+                    textSize:'26px',
+                    textColor:'white',
+                    pathColor:'#ec3a49',
+                    trailColor:'#ec3a492d',
+                    strokeLinecap: 10              
+                    })} />;
             <div className='Duration' onClick={onDurClick}>
                 <div className='Bar' style={{width: (Player.timer / Player.MidiLength * 100).toString() + '%'}} />
             </div>

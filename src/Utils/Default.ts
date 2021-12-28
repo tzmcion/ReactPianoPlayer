@@ -133,3 +133,4 @@ if(!('Color' in DefaultOptions)){
 }
 
 export {DefaultOptions};
+export {data};

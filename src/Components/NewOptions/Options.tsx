@@ -4,6 +4,7 @@ import './NewOptions.styles.scss';
 import ChooseButton from './ChooseButtons/ChooseButton';
 
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
+import { restoreDefaults } from '../../Utils/smallFunctions';
 
 import {
     Options_Blocks as OptionsBlocks,
@@ -33,6 +34,7 @@ export default function Options({isOpened,onGoBack,options,handleOptionsChange}:
             <div className='Options_Data'>
             <div className='breakline_options' />
                 <h2>Configure Visuals</h2>
+                <button className='Restore' onClick={()=>restoreDefaults()}>Restore Defaults </button>
                 {table === 'blocks' &&  <OptionsBlocks isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
                 {table === 'effects' &&  <OptionsEffect isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
                 {table === 'Effects Adv' &&  <OptionsEffectsAdv isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}

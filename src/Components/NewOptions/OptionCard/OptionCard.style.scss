@@ -42,21 +42,46 @@
     }
 }
 
-// @media only screen and (max-width: 920px) {
-//     .OptionCard{
-//         height:150px;
-//         width:280px;
-//         .Card_Title{
-//             margin:0;
-//             margin-top: 8px;
-//             margin-bottom: 4px;
-//             font-size: 18px;
-//         }
-//         .Card_Description{
-//             font-size: 12px !important; 
-//         }
-//     }
-// }
+.inputImageDiv{
+    position: relative;
+    width:80%;
+    height:45px;
+    margin: 0px auto;
+    overflow:hidden;
+    border-radius: 5px;
+    border:2px dashed black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputImage{
+    display: block;
+    position: relative;
+    width:80%;
+    margin: 0px auto;
+    height:50px;
+    border-radius: 10px;
+}
+
+.ImageInput{
+    position: absolute;
+    height:200%;
+    width:100%;
+    top:-50px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.inputImageDiv{
+    h1{
+    font-size: 12px;
+    font-family: 'IM Fell English SC';
+    color:black;
+    font-weight: 100;
+    }
+}
+
 
 @media only screen and (max-width: 550px) {
     .OptionCard{

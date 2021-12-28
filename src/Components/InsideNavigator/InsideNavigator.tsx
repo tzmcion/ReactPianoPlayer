@@ -46,10 +46,10 @@ export default function InsideNavigator({elements,width,height,proportion,setId,
 
     return (
         <div className='InsideNavigator' style={{width:width,height:height}}>
-            <div className='Links' style={{width:width / nav_proportion.current}}>
+            <div className='Links' style={width > 900 ?  {width:width / nav_proportion.current} : {}}>
                 {RenderLinks()}
             </div>
-            <div className='Component' style={{width:width / nav_proportion.current * (nav_proportion.current - 1)}}>
+            <div className='Component' style={width > 900 ? {width:width / nav_proportion.current * (nav_proportion.current - 1)} : {}}>
                 {elements[component_id].component}
             </div>
         </div>

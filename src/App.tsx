@@ -13,7 +13,7 @@ import './App.css';
 function App() {
 
   const [ac,setAc] = useState<any>(null);
-  const [allowed,setIsallowed] = useState<boolean>(true);
+  const [allowed,setIsallowed] = useState<boolean>(false);
 
   useEffect(()=>{
     window.addEventListener('click',ac_add)

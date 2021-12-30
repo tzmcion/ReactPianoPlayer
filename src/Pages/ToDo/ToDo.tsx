@@ -33,12 +33,6 @@ export default function ToDo() {
                         </div>
                         <h3 className='data_don'>I understand what a <a href="https://en.wikipedia.org/wiki/Donation">Donation</a> is and I accept a fact that I'm not receiving any goods from this payment</h3> 
                         {checkbox === 'checked' && <a href='https://www.buymeacoffee.com/tymekapriasz' target='_blank' rel='noreferrer' style={{textAlign:'left',paddingBottom:15,display:'block'}}>Buy Me a Coffe</a>}
-                        {checkbox ==='checked' &&
-                        <form action="https://www.paypal.com/donate" method="post" target="_top">
-                            <input type="hidden" name="hosted_button_id" value="TLEW452UQRPFG" />
-                            <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-                            <img alt="" src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" />
-                        </form>}
                     </div>
                 </div>
             </div>

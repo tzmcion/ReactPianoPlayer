@@ -13,9 +13,9 @@ export default function Record() {
                     <p className="Pg-Paragraph" style={{width:'fit-content'}}>
                         When you enter a Record page, you'r gona see buttos Rec, play Recorded, and a rectangle with a list of connected devices.
                         If you've connected your device through USB, and you still don't see your device, try connecting to https <span className='Pg-Link-Element-duo' onClick={()=>{window.location.replace('https://pianoblocksapp.com')}}>here, </span> 
-                         Or try to install Drivers. App is recording every device that is connected and displayed there. Click record, the dot(s) will start blinking, then clikc it again to stop recording.
+                        Or try to install Drivers. App is recording every device that is connected and displayed there. Click record, the dot(s) will start blinking, then clikc it again to stop recording.
                         To play recorded clikc button Play Recorded. To configure visuals, go to main page, then come back :).
-                        Remember, don't use this option on cheap or old computers, it won't work properly
+                        Remember, don't use this option on cheaper or old computers, it won't work properly.
                     </p>
                 </div>
                 <div className='Pg-Container-Flex-60'>

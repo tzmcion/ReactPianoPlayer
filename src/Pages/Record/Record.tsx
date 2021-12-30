@@ -128,8 +128,20 @@ export default function Record():ReactElement {
             <div id='backgroundRot' />
             <div className="content">
                 <div className='flex-50'>
-                    <h1 id='Record_Title'>Record / Play</h1>
-                    <h3 id='Record_Description'>Welcome to the Record page! Here you can record your playing and then use PianoBlocksApp to visualize it. It's super simple. Click "Rec" button, then play, then click it again, and click "Play Recorded"</h3>
+                    <h1 id='Record_Title'>Record</h1>
+                    <h3 id='Record_Description'>
+                        Record Midi through this app.
+                        <br />
+                        You can configure visuals through configure button on 'Home' page,
+                        then come back here and click 'Play recorded' with different settings.
+                        <br /><br />
+                        <strong>Note!</strong> You can not (yet) download your recorded Midi
+                        <br /><br />
+                        <strong>Note!</strong> Sheet music is only demonstrative. You can base sheet music created in professional software on it, but don't use it in any "more advanced" way.
+                        <br /><br />
+                        <strong className='Caps'>Remember to stop recording!</strong>
+
+                    </h3>
                     <div className='buttons'>
                         <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
                         <button className='play' onClick={PlayRecoDed_onClick}>Play Recorded</button>

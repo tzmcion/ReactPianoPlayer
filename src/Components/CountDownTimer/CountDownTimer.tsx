@@ -39,7 +39,7 @@ export default function CountDownTimer({onEnd}:CountDown_Props):ReactElement {
         if(distance <= 0){
             onEnd();
         }
-    }, [time])
+    }, [time,onEnd])
 
     return (
         <div className='Timer_Main'>

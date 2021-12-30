@@ -77,7 +77,7 @@
                                                     return null;
                                                 })
                                                 waitingNotes.map(element =>{    //waiting notes are pushed to final notes NOTE--They are not sorted yet
-                                                    if(element.Velocity && element.Delta > 0){
+                                                    if(element.Velocity && element.Delta >= 0){
                                                     finalNotes.push(element);   
                                                     }
                                                     return null;

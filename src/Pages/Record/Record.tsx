@@ -3,8 +3,8 @@ import { noteEvent } from '../../Utils/TypesForMidi';
 import { useHistory } from 'react-router-dom';
 import './Record.styles.scss';
 
-import Footer from '../../Components/Footer/Footer';
 import statelessRecord from './statelessRecord';
+import ConvertToPDF from './ConvertToPdf/ConvertToPdf';
 
 import Piano from '../../Assets/piano.png'
 
@@ -16,12 +16,16 @@ interface Devices{
 export default function Record():ReactElement {
 
     const record = useRef(new statelessRecord());
+    const Canvas = useRef<HTMLCanvasElement>(null);
+    const Convert = useRef<ConvertToPDF>();
     const history = useHistory();
     const [devices,setDevices] = useState<Array<Devices>>([]);
     const [events,setEvents] = useState<Array<noteEvent>>([]);
-    const [height,windowHeight] = useState<number>(window.innerHeight);
+    const [recording,setRecording] = useState<boolean>(false);
+    const [height,setHeight] = useState<number>(window.innerHeight)
 
     useEffect(()=>{
+        if('requestMIDIAccess' in window.navigator){
         window.navigator.requestMIDIAccess().then((midiAccess) => {
             console.log("MIDI Ready!");
             for (var input of midiAccess.inputs.values()){
@@ -54,74 +58,91 @@ export default function Record():ReactElement {
         }).catch((error) => {
             console.log("Error accessing MIDI devices: " + error);
         });
+    }else{
+        const device = {
+            name:'Your broswer does not support MIDI :c',
+            id:0
+        }
+        setDevices([device])
+    }
+        //Convertion
     },[])
+
+    useEffect(() => {
+        let file:any;
+        try{
+            file = JSON.parse(localStorage.getItem('fileJson')!);
+        }catch{
+            console.log('Error reading File');
+        }
+        if(file){
+            Convert.current = new ConvertToPDF(file,Canvas.current?.getContext('2d')!);
+        }else{
+            ConvertToPDF.DrawEmptySheet(Canvas.current?.getContext('2d')!);
+        }
+    }, [recording])
 
     const onMidiEvent = (midiEvent:any,name:string) =>{
         const data= midiEvent.data;
-        const command = data[0];
-        const noteNumber = data[1];
         const velocity = (midiEvent.data.length > 2) ? midiEvent.data[2] : null;
-        let event:any;
-        switch(command){
+        switch(data[0]){
             case 144:
-                event = record.current.add(command,noteNumber,velocity);
-                if(event){
-                    setEvents(prev => [...prev,event]);
-                }
+                record.current.add(data[0],data[1],velocity);
                 break;
             case 128:
-                event = record.current.add(command,noteNumber,velocity);
-                if(event){
-                    setEvents(prev => [...prev,event]);
-                }
+                record.current.add(data[0],data[1],velocity);
                 break;
             default:
                 break;
         }
     }
 
+    const PlayRecoDed_onClick = ():void =>{
+        if(localStorage.getItem('fileJson')){
+            history.push('/PlayRecorded');
+        }
+    }
+
 
     const renderDevices = () =>{
         if(devices.length > 0)
-            return devices.map(device =>{
-                return <div className='device'><i className="fa fa-circle dot" aria-hidden="true"></i><img src={Piano} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
+            return devices.map((device,index) =>{
+                return <div className='device' key={index}><i className={`fa fa-circle dot ${recording?'blink':''}`} aria-hidden="true"></i><img src={Piano} alt='piano'/><h1 key={device.id}>{device.name}</h1></div>
             })
         return <h1>No device Connected</h1>
     }
 
-    const renderEvents = () =>{
-        if(events.length > 0){
-        return events.map((event:noteEvent,index) =>{
-            return <div key={index} className='Event'>
-                <h3 className='title_ev'>Event: </h3>
-                <h3 className='delta'>Delta - {event.Delta}</h3>
-                <h3 className='noteNumber'>Key - {event.NoteNumber}</h3>
-                <h3 className='duration'>Duration - {event.Duration}</h3>
-            </div>
-        })
-        }else{
-            return <h5>Midi events will be displayed here</h5>
-        }
+    const handleResize = () =>{
+        setHeight(window.innerHeight);
     }
+
+    useEffect(() => {
+        window.addEventListener('resize',handleResize);
+        return () => {
+            window.removeEventListener('resize',handleResize);
+        }
+    }, [])
 
     return (
         <div className='Record' style={{height:height}}>
+            <div id='backgroundRot' />
             <div className="content">
-            <h3>Welcome to the Record page! Here you can record your playing and then use PianoBlocksApp to visualize it.
-                It's super simple. Click "Rec" button, then play, then click it again, and click "Play Recorded"</h3>
-                <h2>Connected Midi Devices:</h2>
-                <div className='devices'>
-                    {renderDevices()}
+                <div className='flex-50'>
+                    <h1 id='Record_Title'>Record / Play</h1>
+                    <h3 id='Record_Description'>Welcome to the Record page! Here you can record your playing and then use PianoBlocksApp to visualize it. It's super simple. Click "Rec" button, then play, then click it again, and click "Play Recorded"</h3>
+                    <div className='buttons'>
+                        <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
+                        <button className='play' onClick={PlayRecoDed_onClick}>Play Recorded</button>
+                    </div>
+                    <h2 id='textDevices'>Connected MIDI devices :</h2>
+                    <div className='devices'>
+                        {renderDevices()}
+                    </div>
                 </div>
-            <div className='buttons'>
-            <button className='rec' onClick={()=>{record.current.startStop(events);}}>Rec</button>
-            <button className='play' onClick={()=>{history.push('/PlayRecorded')}}>Play Recorded</button>
-            </div>
-            <div className='Events' style={{height:window.innerHeight /2 }}>
-                {renderEvents()}
-            </div>
-            </div>
-            <Footer />
+                <div className='flex-50'>
+                    <canvas ref={Canvas} width={595} height={842} className='Canvas Canvas_Rec' />
+                </div>
+                </div>
         </div>
     )
 }

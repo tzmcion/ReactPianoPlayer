@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+//Color
+
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+    display: block;
+    border-radius: 5px;
+    margin: 10px auto;
+	width:50%;
+    height:15%;
+    cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.7);
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+    border-radius: 5px;
+}
+
+//Checkbox
+
+.checkboxInput{
+    width:25px;
+    height:25px;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    margin: 10px auto;
+    box-shadow: 0px 0px 7px rgb(248, 28, 28);
+}
+
+.checkboxInput:checked, .Randocheckbox:active{
+    box-shadow: 0px 0px 7px rgb(33, 182, 33);
+}
+
+.checkboxInput::after{
+    content: '';
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0px;
+    background-color: rgb(230, 63, 63);
+    position: absolute;
+}
+
+.checkboxInput:hover::after{
+    content: '';
+    transition: 0.2s;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0px;
+    background-color: rgb(155, 9, 9);
+    position: absolute;
+}
+
+.checkboxInput:checked::after, .checkboxInput:active::after{
+    content: '';
+    transition: 0.2s;
+    width: 100%;
+    height: 100%;
+    top:0px;
+    left: 0px;
+    background-color: rgb(63, 221, 63);
+    position: absolute;
+}
+
+//Number
+
+.numberInput{
+    height:15%;
+    margin: 10px auto;
+    display: block;
+    outline: none;
+    border: none;
+    -moz-appearance: textfield;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.582);
+
+}
+
+.numberInput::-webkit-inner-spin-button{
+    opacity:0;
+    -webkit-appearance: none; 
+}
+
+.numberInput:focus-visible{
+    border:none;
+    outline: none;
+}
+@media only screen and (max-width: 550px) {
+    .numberInput{
+        height:12%;
+        width: 50%;
+    }
+}

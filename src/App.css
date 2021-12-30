@@ -2,13 +2,39 @@
     width:100%;
     position: absolute;
     top: 0px;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 h1{
     text-align: center;
 }
 
+.CheckPassword{
+    width:100vw;
+    height:100vh;
+    background-color: #101010;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.CheckPassword>input{
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.CheckPassword>h3{
+    color:white;
+}
+
+.CheckPassword>h1{
+    color:white;
+}
+
 body{
     cursor: context-menu;
     overflow: hidden;
+    background-color: #101010;
 }

@@ -1,6 +1,8 @@
 import { noteEvent } from "./TypesForMidi";
 import rgbHex from 'rgb-hex';
 
+import {data} from './Default';
+
 
 const getEmptyNoteEvent = (noteNumber:number): noteEvent => {
     return{
@@ -25,7 +27,7 @@ const RandomColor = (r?:number,g?:number,b?:number):string=>{
 }
 
 const RandomColorRGBwithMin = (r?:number,g?:number,b?:number):string =>{
-    return `rgb(${r === undefined? Math.random() * 255 : Math.random() * (255 -r) + r},${g === undefined ? Math.random() * 255: Math.random() * (255 -g ) + g},${b === undefined ? Math.random() * 255 : Math.random() * (255 -b) + b})`;
+    return `rgb(${r === undefined? Math.random() * 254 : Math.random() * (254 -r) + r},${g === undefined ? Math.random() * 254: Math.random() * (254 -g ) + g},${b === undefined ? Math.random() * 254 : Math.random() * (254 -b) + b})`;
 }
 
 const RandomColorToAlhpa = (r?:number,g?:number,b?:number):string=>{
@@ -84,8 +86,14 @@ const SaveAsBase64 = (element:any,storageName:string,json?:boolean):Promise<bool
     }
 }
 
+const restoreDefaults = ():void =>{
+    localStorage.setItem('options',JSON.stringify(data));
+    window.location.reload();
+}
+
 export {CreateEmptyArray as CreateMidiNoteEventsArray};
 export {getEmptyNoteEvent};
 export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin, RandomColorToAlphawithMin};
 export {checkExtension};
+export {restoreDefaults};
 export {ReadFromLocalStorageBase64, SaveAsBase64}

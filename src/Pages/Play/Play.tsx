@@ -8,8 +8,11 @@ import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { ReadFromLocalStorageBase64 } from '../../Utils/smallFunctions';
 
+interface p{
+    ac:any
+}
 
-export default function Play() {
+export default function Play({ac}:p) {
 
     const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [Player,setPlayer] = useState<MidiPlayer>();
@@ -22,14 +25,18 @@ export default function Play() {
         setPlayer(new MidiPlayer(file,handleMidiEvent,25));
     }, []);
 
+    useEffect(() => {
+        Player?.Restart();
+    }, [Player])
+
     const handleMidiEvent = (Events:Array<noteEvent>) =>{
         Events.length > 0 && setEvents(Events);
     }
 
     return (
         <div style={{overflow:'hidden'}}>
-            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options}/>}
-            {Player && <PlayingManagement Player={Player} />}
+            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} ac={ac} Speed={options.speed} options={options}/>}
+            {Player && <PlayingManagement Player={Player} onStart={()=>{}} />}
         </div>
     )
 }

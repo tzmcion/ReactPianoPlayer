@@ -8,7 +8,18 @@ export interface Options{
     playSpeed:number,
     watermark:boolean,
     soundOn:boolean,
-    OctaveLines:boolean
-    renderMethod:'Interval' | 'animationFrame'
+    blockRadius:number,
+    blockShadowRadius:number,
+    ShadowColor:string,
+    randomEffectColors:boolean,
+    EffectsBlockColor:boolean,
+    EffectsKeyColor:boolean,
+    EffectsColor:string,
+    OctaveLines:boolean,
+    GameMode:boolean,
+    renderMethod:'Interval' | 'animationFrame',
+    Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks',
+    ThinerBlockColor:string,
+    GradientColor:string
 }
 

@@ -1,7 +1,7 @@
 import React,{ReactElement,useState,useEffect} from 'react'
 import './LoadingScreen.scss';
 
-import Gear from '../../../Assets/gear.png';
+import Gear from '../../../Assets/Rhombus.gif';
 
 interface LoadingScreenProps{
     width:number,

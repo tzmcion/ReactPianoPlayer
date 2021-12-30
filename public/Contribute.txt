@@ -1,0 +1,27 @@
+Midi Icon ::    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+Piano Icon ::   <div>Icons made by <a href="" title="mangsaabguru">mangsaabguru</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+SoundFont Player :: https://www.npmjs.com/package/soundfont-player
+Midi-Json-Parser :: https://www.npmjs.com/package/midi-json-parser
+rgb-hex :: https://www.npmjs.com/package/rgb-hex
+hex2dec :: https://www.npmjs.com/package/hex2dec
+circular_progress_bar :: https://www.npmjs.com/package/react-circular-progressbar
+Dancing_Cactus :: https://tenor.com/view/cactus-cool-shades-animated-dancing-gif-17528497
+Sad_Cactus :: https://tenor.com/view/hug-yay-squeeze-bear-hug-hug-tight-gif-15085080
+default_background :: https://unsplash.com/photos/zXwG_60Yo0Q
+Midi_Data_Image :: https://www.npmjs.com/package/midi-parser-js
+
+---------------------------
+Website Designed in Figma  :: https://www.figma.com/
+Writen using Vs Code :: https://code.visualstudio.com/
+Hosted on Heroku :: https://www.heroku.com/
+DNS delivered by Cloudflare :: https://www.cloudflare.com/
+
+Technologies used ::
+
+- React
+- Typescript
+- HTML
+- SCSS (Sass)
+- Redux
+- Npm library
+

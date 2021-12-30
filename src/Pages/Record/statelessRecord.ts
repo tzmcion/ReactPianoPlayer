@@ -21,6 +21,7 @@ export default class statelessRecord{
         this.startTime = 0;
         this.isRecording = false;
         this.add = this.add.bind(this);
+        this.startStop = this.startStop.bind(this);
     }
 
     public add(command:number,noteNumber:number,velocity:number):noteEvent | void{
@@ -42,7 +43,7 @@ export default class statelessRecord{
                     Duration:duration * 1000,
                     Velocity:100
                 }
-                return event;
+                this.eventList = [...this.eventList,event];
             }
         }
     }
@@ -50,11 +51,11 @@ export default class statelessRecord{
     public startStop(events:Array<noteEvent>):void{
         this.startTime = Date.now();
         this.isRecording = !this.isRecording;
-        events.length > 0 && localStorage.setItem('options',JSON.stringify(DefaultOptions));
-        events.length > 0 && SaveAsBase64(events.sort((a,b)=> a.Delta - b.Delta),'fileJson',true).then(e =>{
+        console.log(this.eventList);
+        this.eventList.length > 0 && localStorage.setItem('options',JSON.stringify(DefaultOptions));
+        this.eventList.length > 0 && SaveAsBase64(this.eventList.sort((a,b)=> a.Delta - b.Delta),'fileJson',true).then(e =>{
             console.log('file saved to localStorage !')
         });
-        this.eventList = [];
     }
 
     public reset():void{

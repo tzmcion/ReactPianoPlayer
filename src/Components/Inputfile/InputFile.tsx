@@ -1,35 +1,69 @@
-import React, {ReactElement, useRef, useEffect} from 'react';
-import './InputFile.styles.css';
+import React, {ReactElement, useRef, useEffect,useState} from 'react';
+import './Input.styles.scss';
 
 import MidiImage from '../../Assets/midi.png';
 import DrawInCanvas from './DrawInCanvas';
+import { Options } from '../../Utils/TypesForOptions';
 
 interface InputFileProps{
     FileRef: React.RefObject<HTMLInputElement>,
     onFileUpload: Function,
+    options:Options,
+    onConfClick:Function,
+    isConfOn:boolean
 }
 
-export default function InputFile({FileRef,onFileUpload}:InputFileProps):ReactElement {
+export default function InputFile({FileRef,onFileUpload,options,onConfClick,isConfOn}:InputFileProps):ReactElement {
 
     const Canvas = useRef<HTMLCanvasElement>(null);
+    const animationId = useRef<number>(0);
+    const [blocks,setBlocks] = useState<DrawInCanvas>();
+    const [fade,setFade] = useState<boolean>(false);
 
     useEffect(()=>{
-        const Drawing = new DrawInCanvas(Canvas);
-        const interval = setInterval(Drawing.render,45);
-        return () => clearInterval(interval);
-    })
+        !blocks && setBlocks(new DrawInCanvas(Canvas,options));
+    },[blocks,Canvas,options])
+
+    const render = () =>{
+        if(Canvas.current){
+            blocks?.render(options.Color);
+            animationId.current = requestAnimationFrame(render);
+        }
+    }
+
+    useEffect(() => {
+        if(blocks){
+            animationId.current = requestAnimationFrame(render);
+        }
+        return () => {
+            cancelAnimationFrame(animationId.current);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [blocks])
+
+    const onConfigureClick = () => {
+        window.innerWidth > 920 && setFade(true);
+        onConfClick();
+    }
+
+    useEffect(() => {
+        if(!isConfOn){
+            setTimeout(()=>{setFade(false)},250);
+        }
+    }, [isConfOn])
 
     return (
-        <div className='FileInputDiv'>
-            <input type='file' id='file_Upload' className='FileInput' accept='.mid,.midi' ref={FileRef} onInput={()=>{onFileUpload()}} />
-            <div className='Informations'>
-                <div className='flexInfo'>
-                <img src={MidiImage} className='MidiImage' alt='MidiFile' />
-                <h1>Drag Your MIDI File here !</h1>
-                </div>
-                <h2>Or Click Here To Choose File!</h2>
-                </div>
-            <canvas className='backgroundCanvas' ref={Canvas}/>
+        <div className={`FileInputDiv ${fade ? 'Fade' : ''}`}>
+            <input type='file' id='file_Upload' className='FileInput' accept='.mid,.midi' ref={FileRef} onInput={()=>{onFileUpload()}}   />
+            <div className='background_rotated'>
+                <canvas className='backgroundCanvas' height={window.innerHeight + 300} width={window.innerWidth > 920 ? window.innerWidth / 2 : window.innerWidth} ref={Canvas}/>
+            </div>
+            <div className='FileInput_Data'>
+                <img src={MidiImage} alt='midi_icon' className='Midi_Icon'  />
+                <h2 className='Input_Text'>Drag Your MIDI file here to start visualizing!</h2>
+                <h3 className='Input_Text'>Or click here to choose file!</h3>
+                <button className='Input_Configure_Bt' onClick={onConfigureClick}>Configure</button>
+            </div>
         </div>
     )
 }

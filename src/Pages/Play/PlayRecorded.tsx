@@ -7,8 +7,11 @@ import { DefaultOptions } from '../../Utils/Default';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { noteEvent } from "../../Utils/TypesForMidi";
 
+interface p{
+    ac:any
+}
 
-export default function PlayRecorded() {
+export default function PlayRecorded({ac}:p) {
 
     const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [Player,setPlayer] = useState<MidiPlayer>();
@@ -27,8 +30,8 @@ export default function PlayRecorded() {
 
     return (
         <div style={{overflow:'hidden'}}>
-            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options}/>}
-            {Player && <PlayingManagement Player={Player} />}
+            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} ac={ac} options={options}/>}
+            {Player && <PlayingManagement Player={Player} onStart={()=>{}} />}
         </div>
     )
 }

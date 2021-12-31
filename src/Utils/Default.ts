@@ -25,7 +25,7 @@ const data:Options = {
     GradientColor:'#128251'
 }
 
-const DefaultOptions:Options = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);
+let DefaultOptions:Options = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);
 
 if(!('GradientColor' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
@@ -131,6 +131,8 @@ if(!('Color' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();
 }
+
+DefaultOptions = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);
 
 export {DefaultOptions};
 export {data};

@@ -55,7 +55,14 @@ export default function Main() {
                 currentOptions.IsEffects = !options.IsEffects;
                 break;
             case 'Image':
-                currentOptions.backgroundImage = event.target.value;
+                try{
+                    let sss = options;
+                    sss.backgroundImage = event.target.value
+                    localStorage.setItem('options',JSON.stringify(sss))
+                }catch{
+                    alert('this File is probably to big man')
+                    currentOptions.backgroundImage = '';
+                }
                 break;
             case 'speed':
                 currentOptions.speed = parseInt(event.target.value);
@@ -125,6 +132,7 @@ export default function Main() {
     const PlayDemoMidi = async () =>{
         await fetch(Midi).then(r => r.blob()).then(r =>{
             SaveAsBase64(r,'file').then(e =>{
+                localStorage.setItem('options',JSON.stringify(options));
                 if(options.GameMode){
                     history.push('/GameMode');
                 }else{

@@ -23,7 +23,6 @@ export default function Main() {
 
     const handleFileInput = () =>{
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
-            localStorage.setItem('options',JSON.stringify(options))
             SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
                 if(options.GameMode){
                     history.push('/GameMode');
@@ -109,21 +108,22 @@ export default function Main() {
                 break;
         }
         try{
-            localStorage.setItem('options',JSON.stringify(currentOptions))
+            localStorage.setItem('options',JSON.stringify(currentOptions));
+            setOptions(currentOptions);
         }catch{
             alert('this File is probably to big man')
         }
-        setOptions(currentOptions);
     }
 
     useEffect(()=>{
         document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
+        localStorage.setItem('options',JSON.stringify(options));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const PlayDemoMidi = async () =>{
         await fetch(Midi).then(r => r.blob()).then(r =>{
-            localStorage.setItem('options',JSON.stringify(options))
             SaveAsBase64(r,'file').then(e =>{
                 if(options.GameMode){
                     history.push('/GameMode');

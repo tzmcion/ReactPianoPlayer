@@ -13,7 +13,6 @@ import './App.css';
 function App() {
 
   const [ac,setAc] = useState<any>(null);
-  const [allowed,setIsallowed] = useState<boolean>(false);
 
   useEffect(()=>{
     window.addEventListener('click',ac_add)
@@ -29,20 +28,15 @@ function App() {
 
   return (
     <div className='main'>
-      {!allowed && <div className='CheckPassword'>
-        <h1>Piano Blocks App</h1>
-        <h3>Final adjustments ... Start 30 Dec 20:00</h3>
-        <CountDownTimer onEnd={()=>{setIsallowed(true)}} />
-      </div>}
-      {allowed && <Header />}
-      {allowed && <Switch>
+      <Header />
+      <Switch>
         <Route path='/tutorial' exact component={Tutorial} />
         <Route path='/Info' exact component={Info} />
         <Route path='/Play' exact component={() => <Play ac={ac}/>} />
         <Route path='/Record' exact component={Record} />
         <Route path='/PlayRecorded' exact component={() =><PlayRecorded ac={ac} />} />
         <Route path='/' exact component={Main} />
-      </Switch>}
+      </Switch>
     </div>
   );
 }

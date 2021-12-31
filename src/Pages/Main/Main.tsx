@@ -24,6 +24,7 @@ export default function Main() {
     const handleFileInput = () =>{
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
             SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
+                localStorage.setItem('options',JSON.stringify(options));
                 if(options.GameMode){
                     history.push('/GameMode');
                 }else{
@@ -118,9 +119,6 @@ export default function Main() {
     useEffect(()=>{
         document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
-        if(!localStorage.getItem('options')){
-            localStorage.setItem('options',JSON.stringify(options));
-        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 

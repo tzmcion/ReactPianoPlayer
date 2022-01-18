@@ -22,6 +22,6 @@ Technologies used ::
 - Typescript
 - HTML
 - SCSS (Sass)
-- Redux
+- Redux [only a little]
 - Npm library
 

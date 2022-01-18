@@ -20,12 +20,12 @@ export default function Basic({on_change_id}:BasicProps):ReactElement {
                 </video>
             </div>
             <p className='Pg-Paragraph Pg-Text'>
-                Piano Blocks App is a web application created by Tymoteusz Apriasz. It is an open-source project which serves pianists with visualizng their playing.
-                Application uses midi files to display recorded playing in a falling blocks. It reads a midi file, and calculates the time of a block creation.
-                The created block starts falling onto the virtual-piano, which is displayed on the bottom part of a monitor.
-                It takes around 5 seconds for block to fall on default settings. When block reaches piano, it releases sound, and simulates real-time Piano playing.
+                PBA is a web app created by Tymoteusz Apriasz. It is an open-source project which serves amateurs and professionals various ways to master their pieces. 
+                This app uses Midi to "play" piano pieces visually on the computer screen. It reads a midi file, which is a big message that describes what exacly pianist did with piano
+                to play a piece. With information provided by Midi, it can show exactly what went wrong, or what may have been done better (of course, pianist has to think by himself, 
+                this is not THAT advanced app...). That Midi data is displayed as 'Falling blocks', like in various youtube tutorials.
             </p>
-            <h4 className='Pg-Links Pg-Text'>Click here to learn about:</h4>
+            <h4 className='Pg-Links Pg-Text'>Click here to read about:</h4>
                 <ul className='Pg-Links-Container'>
                     <li className='Pg-Link-Element' onClick={()=>{on_change_id(1)}}>Midi</li>
                     <li className='Pg-Link-Element' onClick={()=>{on_change_id(2)}}>Recording</li>
@@ -38,9 +38,9 @@ export default function Basic({on_change_id}:BasicProps):ReactElement {
                 <div className='data-r'>
                 <div className='data-video-cnt' style={{display:'flex',alignItems:'center', overflowY:'auto'}}>
                     <p className='Pg-Paragraph Pg-Text'>
-                        To Play any Midi file just drag it to the field, or click on it to choose a file. To configure your visualization, click 'Configure' Button. For advanced Configuration go to
+                        Just drag Midi to the special black field on 'Home' page, or click on that field to choose Midi manually. Read about configuration in 
                         <span className='Pg-Link-Element' onClick={()=>{on_change_id(3)}}> Configuration</span> page.
-                        Please, avoid using broken midi files (by broken midi file I mean any txt file saved with a .MID extension. It will only crish the app :c )  IF loading continues for too long, it means that your file is
+                        Please, avoid using broken midi files (by broken midi file I mean any txt file saved with a .MID extension. It will only crush the app :c )  IF loading continues for too long, it means that your file is
                         old, and uses different saving method. Currently, as I didn't worked with a lot of them, this app does not support them. Sorry !
                     </p>
                 </div>
@@ -56,10 +56,10 @@ export default function Basic({on_change_id}:BasicProps):ReactElement {
             <h3 className='Pg-Sm-Header Pg-Text'>How to find Piano Blocks App usefull ?</h3>
             <p className='Pg-Paragraph Pg-Text'>
                 It's super simple! There are many midi files hidden in the depths of internet. If you ever find a song that you want to play or learn on piano,
-                You can just find a midi file of it, and use it to visualize with this App. With that, you can see which piano keys you should actually click, or find
-                (Believe me, in some songs it's obvious, but in some it is pretty hard). Of course, the other reason is that not everyone knows sheet music, and this app can 
+                You can just find a midi file of it, and use it to visualize with this App. With that, you can see which piano keys you should click.
+                As not everyone knows sheet music, this app can 
                 show you how you should play the song. Besides that if there are some unclear things in sheet music, you can also help yourself with this app. Besides that, you
-                can easily create midi tutorials (however, please record your own music from professional device, it just won't sound good with this default free sounds).
+                can easily create midi tutorials (however, please record sound from professional device, it just won't sound good with this default free sounds).
                 There are many more reasons to use Piano Blocks App, you just have to find them, (and you probably have to play piano too :P)
             </p>
             <h3 className='Pg-Sm-Header Pg-Text'>License and pricing</h3>

@@ -23,8 +23,8 @@ export default function Main() {
 
     const handleFileInput = () =>{
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
-            localStorage.setItem('options',JSON.stringify(options))
             SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
+                localStorage.setItem('options',JSON.stringify(options));
                 if(options.GameMode){
                     history.push('/GameMode');
                 }else{
@@ -55,7 +55,14 @@ export default function Main() {
                 currentOptions.IsEffects = !options.IsEffects;
                 break;
             case 'Image':
-                currentOptions.backgroundImage = event.target.value;
+                try{
+                    let sss = options;
+                    sss.backgroundImage = event.target.value
+                    localStorage.setItem('options',JSON.stringify(sss))
+                }catch{
+                    alert('this File is probably to big man')
+                    currentOptions.backgroundImage = '';
+                }
                 break;
             case 'speed':
                 currentOptions.speed = parseInt(event.target.value);
@@ -105,26 +112,30 @@ export default function Main() {
             case 'IsEffectsTrue':
                 currentOptions.IsEffects = true;
                 break;
+            case 'gradientBlocks':
+                currentOptions.GradientBlocks = !currentOptions.GradientBlocks;
+                break;
             default:
                 break;
         }
         try{
-            localStorage.setItem('options',JSON.stringify(currentOptions))
+            localStorage.setItem('options',JSON.stringify(currentOptions));
+            setOptions(currentOptions);
         }catch{
             alert('this File is probably to big man')
         }
-        setOptions(currentOptions);
     }
 
     useEffect(()=>{
         document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const PlayDemoMidi = async () =>{
         await fetch(Midi).then(r => r.blob()).then(r =>{
-            localStorage.setItem('options',JSON.stringify(options))
             SaveAsBase64(r,'file').then(e =>{
+                localStorage.setItem('options',JSON.stringify(options));
                 if(options.GameMode){
                     history.push('/GameMode');
                 }else{
@@ -150,16 +161,17 @@ export default function Main() {
                     <h1 className='Main_data_Text Title'>Web midi player/visualizer/recorder for piano</h1>
                     <h3 className='Main_data_Text Description'>
                     Piano Blocks App is a web midi player/visualizer. 
-                    It main purpose is to visualize and play midis recorded by pianists.
-
-                    You can start imidiatelly by draging your midi file,
-                    or you can change options to decide, how app will display blocks for you.
-
-                    Be aware that this project is still at it's childhood. 
-                    It may be bugged in various places, it can look ugly somewhere,
-                    it can be user unfriendly/UI may be bad.
                     <br /><br />
-                    Enjoy using Piano Blocks !
+                    Start immediately by draging your midi file, or click to input it mannualy.
+                    Configure app with 'Configure' Button.
+                    <br /><br />
+                    If You need any help, go to 'DOCS' page.
+                    <br />
+                    If You need to record first, go to 'RECORD' page.
+                    <br />
+                    If You enjoy using this app, go to 'INFO&SUPPORT' page.
+                    <br /><br />
+                    Enjoy using PBA !
                     </h3>
                 </div>
             </div>

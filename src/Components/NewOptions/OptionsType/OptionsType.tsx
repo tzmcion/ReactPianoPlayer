@@ -47,6 +47,9 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='blockRadius' type='number' title='Block antyaliasing radius' value={options.blockRadius.toString()} >
                         Choose the antyaliasing range. Blocks will have rounded corners. more value, more rounded.
                     </OptionCard>
+                    <OptionCard onChange={handleOptionsChange} name='gradientBlocks' type='checkbox' title='GradientBlocks' value={options.GradientBlocks} >
+                        Choose if you want to have yout blocks with gradient Colors (options to choose cols soon)
+                    </OptionCard>
             </div>
         </div>
         

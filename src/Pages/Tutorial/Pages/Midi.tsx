@@ -19,22 +19,22 @@ export default function Midi({on_change_id}:BasicProps):ReactElement {
                 </div>
                 <div className='Pg-Flex-Text-Container'>
                     <p className="Pg-Paragraph">
-                        Basically, Midi File is a set of commands saved into a File. Those commands are MIDI events. Let's say you'r playing and 
+                        Basically, Midi File is a set of commands saved in a File. Those commands are MIDI events. Let's say you are playing and 
                         recording MIDI. Every time, you press a key, or pedal, or do any other action that affects sound, your device sends MIDI event.
-                        Those events are divided onto more than 20 types (only for Piano), but 99% of time you'll only use 2 of them, which are onKeyPress and onKeyUp.
-                        So, when you press a key your device sends a midi event, when you release a key same, etc.
+                        Those events are divided onto more than 20 types (only for Piano), but 90% of time you'll only use 2 of them, which are onKeyPress and onKeyUp.
+                        So, when you press a key, your device sends a midi event, when you release a key same, etc.
                     </p>
                 </div>
             </div>
             <p className="Pg-Paragraph">
-                So, summing up, Midi File is a grouop of informations about what were you doing during the recording. Midi only has COMMANDS.
+                So, summing up, Midi File is a group of informations about what were you doing during recording. Midis only have COMMANDS.
             </p>
             <h2 className="Pg-Sm-Header">How those set of commands can be of a use ?</h2>
             <p className="Pg-Paragraph">
-                They are really usefull in digital world. They have all the data necesarry to recreate the exact sound of a device, but more to that, they 
+                They are really usefull in digital world. They have all the data necessary to recreate the exact sound of a device, but more to that, they 
                 give the possibility to change a sound, to fix some gaps, to mark a mistakes. They make it much easier to edit the sound than in a normal
                 audio file like .mp3. Besides that Midi files are much smaller than normal audio files, and they have many more possibilities. The only problem
-                is that they need a good software to read them and make use from them. We can call they the central part of music developement. The finall part is obviously your
+                is that they need a good (and probably difficult to learn) software to read them and make use from them. We can call they the central part of music developement. The finall part is obviously your
                 song saved in audio formats like .mp3, .Wav etc.
             </p>
             <div className='Pg-For-Devs'>
@@ -58,12 +58,12 @@ export default function Midi({on_change_id}:BasicProps):ReactElement {
                 The easiest way is to connect your device with computer using USB, then go to <span className='Pg-Link-Element-duo' onClick={()=>{on_change_id(2)}}>Record</span> Page.
                 <br /><br />
                 <b>Altough</b>, If your computer has bad parameters, this website may not record your playing properly. If it has, please, download
-                a midi recorded software. The mostly work the same. With recorded and exported Midi file you can go back to this page and see your playstyle.
+                a midi recording software. With recorded and exported Midi file you can go back to this page and see your playstyle.
                 <br /><br />
                 <b>IMPORTANT</b> If after a while of waiting website still does not see your device you may 
                 <ul>
                     <li>Have your device switched off ;)</li>
-                    <li>Need to install device drivers on your own</li>
+                    <li>Need to install device drivers on your computer</li>
                     <li>Connect to https version of this website (simply click <span className='Pg-Link-Element-duo' onClick={()=>{window.location.replace('https://pianoblocksapp.com')}}>here</span>)</li>
                 </ul> 
             </p>

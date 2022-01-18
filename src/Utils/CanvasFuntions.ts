@@ -1,4 +1,4 @@
-const CanvasRoundRect = (ctx:CanvasRenderingContext2D,color:string,x:number, y:number, w:number, h:number, r:number,stroke?:boolean):void => {
+const CanvasRoundRect = (ctx:CanvasRenderingContext2D,color:string | CanvasGradient,x:number, y:number, w:number, h:number, r:number,stroke?:boolean):void => {
   if (w < 2 * r) r = w / 2;
   if (h < 2 * r) r = h / 2;
   ctx.beginPath();

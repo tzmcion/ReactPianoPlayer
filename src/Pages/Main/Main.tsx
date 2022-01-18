@@ -112,6 +112,9 @@ export default function Main() {
             case 'IsEffectsTrue':
                 currentOptions.IsEffects = true;
                 break;
+            case 'gradientBlocks':
+                currentOptions.GradientBlocks = !currentOptions.GradientBlocks;
+                break;
             default:
                 break;
         }

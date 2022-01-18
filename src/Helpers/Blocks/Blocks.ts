@@ -14,13 +14,13 @@ export default class Blocks{
     private Height:number
     private options: Options
     private BlackNumbers: Array<number>
-    private intervalSpeed:number
     private Speed:number
     private KeysPositions: Array<any>
     private blocks:Array<blockNote>
     private Effects:Effects
     private requestToAdd:Array<noteEvent>
     private onBlocks:Function
+    private gradientBg:CanvasGradient
     private positions_to_render_line:Array<number>
     private KeysWaiting: Array<{time:number,name:string}>
     private onKeyClick: Function
@@ -39,7 +39,6 @@ export default class Blocks{
         this.Height=height;
         this.options = options;
         this.BlackNumbers = BlackNumbers;
-        this.intervalSpeed = intervalSpeed;
         this.Speed = Speed;
         this.KeysPositions = KeysPositions;
         this.blocks = default_arr ? default_arr : [];
@@ -54,6 +53,10 @@ export default class Blocks{
         this.render = this.render.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.Paused = this.Paused.bind(this);
+        this.gradientBg = this.ctx.createLinearGradient(0,0, this.Width * Math.cos(90 / 180 * Math.PI),this.Height * Math.sin(90 / 180 * Math.PI));
+        this.gradientBg.addColorStop(0,'#5433FF');
+        this.gradientBg.addColorStop(0.5,'#20BDFF');
+        this.gradientBg.addColorStop(1,'#A5FECB');
     }
 
     public add(Data:Array<noteEvent>):void{
@@ -85,7 +88,8 @@ export default class Blocks{
                 if(color[0] !== '#'){
                     color = '#' + block.color;
                 }
-                CanvasRoundRect(this.ctx!,color,block.pos_x,block.pos_y - block.height!,block.width,block.height!,this.options.blockRadius);
+                const renderColor = this.options.GradientBlocks ? this.gradientBg : color;
+                CanvasRoundRect(this.ctx!,renderColor,block.pos_x,block.pos_y - block.height!,block.width,block.height!,this.options.blockRadius);
                 if(block.pos_y - block.height! < this.Height){
                     newBlocksToState.push(block);
                     if(block.pos_y > this.Height){

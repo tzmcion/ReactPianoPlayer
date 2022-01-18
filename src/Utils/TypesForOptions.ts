@@ -20,6 +20,7 @@ export interface Options{
     renderMethod:'Interval' | 'animationFrame',
     Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks',
     ThinerBlockColor:string,
-    GradientColor:string
+    GradientColor:string,
+    GradientBlocks:boolean
 }
 

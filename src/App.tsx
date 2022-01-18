@@ -7,7 +7,6 @@ import Play from './Pages/Play/Play';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';
 import {Switch, Route} from 'react-router-dom';
-import CountDownTimer from './Components/CountDownTimer/CountDownTimer';
 import './App.css';
 
 function App() {

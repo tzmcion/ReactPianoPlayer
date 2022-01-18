@@ -3,7 +3,7 @@ import { Options } from "./TypesForOptions";
 const data:Options = {
     Color:'#8EF971',
     OctaveLines:true,
-    KeyPressColor:'#128251',
+    KeyPressColor:'#84E3F0',
     RandomColors:false,
     IsEffects:false,
     backgroundImage: '',
@@ -22,7 +22,8 @@ const data:Options = {
     EffectsColor: '#ffffff',
     GameMode:false,
     ThinerBlockColor:'#FB1378',
-    GradientColor:'#128251'
+    GradientColor:'#128251',
+    GradientBlocks:false
 }
 
 let DefaultOptions:Options = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);
@@ -128,6 +129,10 @@ if(!('OctaveLines' in DefaultOptions)){
 }
 
 if(!('Color' in DefaultOptions)){
+    localStorage.setItem('options',JSON.stringify(data));
+    window.location.reload();
+}
+if(!('GradientBlocks' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();
 }

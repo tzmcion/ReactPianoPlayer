@@ -36,7 +36,7 @@ export default function Main() {
         }
     }
 
-    const handleOptionsChange = (event:ChangeEvent<HTMLInputElement>) =>{
+    const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
         let currentOptions = options;
         switch(event.target.name){
             case 'color':
@@ -114,6 +114,9 @@ export default function Main() {
                 break;
             case 'gradientBlocks':
                 currentOptions.GradientBlocks = !currentOptions.GradientBlocks;
+                break;
+            case 'gradientBlocksColor':
+                currentOptions.GradientBlocksColor = event.target.value;
                 break;
             default:
                 break;

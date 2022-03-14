@@ -21,6 +21,7 @@ export interface Options{
     Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks',
     ThinerBlockColor:string,
     GradientColor:string,
-    GradientBlocks:boolean
+    GradientBlocks:boolean,
+    GradientBlocksColor:Array<string>
 }
 

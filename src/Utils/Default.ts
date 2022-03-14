@@ -23,7 +23,8 @@ const data:Options = {
     GameMode:false,
     ThinerBlockColor:'#FB1378',
     GradientColor:'#128251',
-    GradientBlocks:false
+    GradientBlocks:false,
+    GradientBlocksColor:['#224455','#aa2244']
 }
 
 let DefaultOptions:Options = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);
@@ -133,6 +134,10 @@ if(!('Color' in DefaultOptions)){
     window.location.reload();
 }
 if(!('GradientBlocks' in DefaultOptions)){
+    localStorage.setItem('options',JSON.stringify(data));
+    window.location.reload();
+}
+if(!('GradientBlocksColor' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();
 }

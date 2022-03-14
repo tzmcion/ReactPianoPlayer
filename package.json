@@ -64,7 +64,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
+  "Dependencies": {
     "@types/hex-rgba": "^1.0.1",
     "@types/hex2dec": "^1.1.2",
     "@types/react-router-dom": "^5.3.3"

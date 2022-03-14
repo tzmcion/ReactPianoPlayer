@@ -14,8 +14,8 @@
     "@types/node": "^12.20.28",
     "@types/react": "^17.0.27",
     "@types/react-dom": "^17.0.9",
+    "@types/react-router-dom": "^5.3.1",
     "@types/webmidi": "^2.0.6",
-    "@types/react-router-dom": "^5.3.3",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
@@ -37,7 +37,6 @@
     "rgb-hex": "^4.0.0",
     "sass": "^1.43.4",
     "soundfont-player": "^0.12.0",
-    "types": "file:../../../../../react-router-dom",
     "typescript": "^4.4.3",
     "web-vitals": "^1.1.2"
   },
@@ -68,6 +67,6 @@
   "devDependencies": {
     "@types/hex-rgba": "^1.0.1",
     "@types/hex2dec": "^1.1.2",
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.1"
   }
 }

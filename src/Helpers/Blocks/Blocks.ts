@@ -53,10 +53,7 @@ export default class Blocks{
         this.render = this.render.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.Paused = this.Paused.bind(this);
-        this.gradientBg = this.ctx.createLinearGradient(0,0, this.Width * Math.cos(90 / 180 * Math.PI),this.Height * Math.sin(90 / 180 * Math.PI));
-        this.gradientBg.addColorStop(0,'#5433FF');
-        this.gradientBg.addColorStop(0.5,'#20BDFF');
-        this.gradientBg.addColorStop(1,'#A5FECB');
+        this.gradientBg = this.generateGradient();
     }
 
     public add(Data:Array<noteEvent>):void{
@@ -129,7 +126,6 @@ export default class Blocks{
     }
 
     public forcibly_add_blocks(data:{ time:number ,data:Array<noteEvent> }):void {
-        
         let color = this.options.RandomColors ? RandomColorHex() : this.options.Color
         if(typeof this.specialColor == 'string'){
             if(Math.random() > 0.6){
@@ -187,7 +183,16 @@ export default class Blocks{
          this.ctx.clearRect(0,0,this.Width,this.Height);
          this.blocks = [];
          this.Effects.clearAllEffects();
-    } 
+    }
+
+    private generateGradient():CanvasGradient {
+        const gradient = this.ctx.createLinearGradient(0,0, this.Width * Math.cos(90 / 180 * Math.PI),this.Height * Math.sin(90 / 180 * Math.PI));
+        const step = 1 / this.options.GradientBlocksColor.length;
+        let current_step = 0;
+        console.log(this.options.GradientBlocksColor)
+        this.options.GradientBlocksColor.forEach(color =>{gradient.addColorStop(current_step,color); current_step+=step});
+        return gradient;
+    }
 
     private handleAdd():void{
         if(this.requestToAdd.length > 0){

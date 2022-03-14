@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect,ChangeEvent} from 'react';
 
 import OptionCard from '../OptionCard/OptionCard';
 import OptionCardImage from '../OptionCard/OptionCardImage';
 import EffectChoose from '../OptionCard/EffectChoose/EffectChoose';
+import AddCard from '../OptionCard/addCard/addCard'; 
 
 import Fountain from '../OptionCard/EffectChoose/Previews/fountain.mp4';
 import DancingLines from '../OptionCard/EffectChoose/Previews/DancingLines.mp4';
@@ -48,7 +49,7 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                         Choose the antyaliasing range. Blocks will have rounded corners. more value, more rounded.
                     </OptionCard>
                     <OptionCard onChange={handleOptionsChange} name='gradientBlocks' type='checkbox' title='GradientBlocks' value={options.GradientBlocks} >
-                        Choose if you want to have yout blocks with gradient Colors (options to choose cols soon)
+                        Choose if you want to have yout blocks with gradient Colors (change colors in effects.conf)
                     </OptionCard>
             </div>
         </div>
@@ -119,24 +120,66 @@ function Options_Other({isOpened,onGoBack,options,handleOptionsChange}:OptionsPr
 }
 
 function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
+
+    const [colors,setColors] = useState<Array<String>>(options.GradientBlocksColor);
+
+    const handleColorChange = (event:ChangeEvent<HTMLInputElement>):void => {
+        const colorindex = parseInt(event.target.name.split('-')[1])-1;
+        const newColors:Array<string> = [];
+        colors.map((col,index) => {
+            if(index === colorindex){newColors.push(event.target.value)}else{newColors.push(col as string)};
+        })
+        const fakeEvent = {
+            target: {
+                name: 'gradientBlocksColor',
+                value: newColors
+            }
+        }
+        setColors(newColors);
+        console.log(colorindex);
+        handleOptionsChange(fakeEvent);
+    }
+
+    const handleColorAdd = ():void =>{
+        const newColors = [...colors];
+        newColors.push('#123456');
+        const fakeEvent = {
+            target: {
+                name: 'gradientBlocksColor',
+                value: newColors
+            }
+        }
+        setColors(newColors);
+        handleOptionsChange(fakeEvent);
+    }
+
+    const handleColorDelete = ():void =>{
+        const newColors = [...colors];
+        newColors.pop();
+        const fakeEvent = {
+            target: {
+                name: 'gradientBlocksColor',
+                value: newColors
+            }
+        }
+        setColors(newColors);
+        handleOptionsChange(fakeEvent);
+    }
+
+    const renderCards = ():Array<React.ReactElement> | Array<void> => {
+        return colors.map((color,index) =>{
+            return <OptionCard onChange={handleColorChange} name={`Color-${index + 1}`} type='color' title={`Gradient Color #${index}`} value={color as string} key={index}>Choose step color</OptionCard>
+        })
+    }
+
     return (
         <div className='options_Cards'>
             <div className='Cards_Container'>
-                    <OptionCard onChange={handleOptionsChange} name='IsEffects' type='checkbox' title='Effects on/off' textColor='background' value={options.IsEffects} >
-                        Choose if you want PBA with no effects at all (Green - Effects On / Red - Effects Off);
-                    </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='EffectsBlockColor' type='checkbox' title="Effects color same as block" textColor='background' value={options.EffectsBlockColor} >
-                        Choose if you want effects color same as blocks color
-                    </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='EffectsKeyColor' type='checkbox' title="Effects color same as key" textColor='background' value={options.EffectsKeyColor} >
-                        Choose if you want effects color same as key press kolor
-                    </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='randomEffectsColor' type='checkbox' title='Random Effects Color' textColor='background' value={options.randomEffectColors} >
-                        Choose if you want effects color to be random
-                    </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='EffectsColor' type='color' title='Color of Effects' textColor='background' value={options.EffectsColor} >
-                        Choose the color of your effects. NOT EVERY EFFECT TYPE WILL HAVE YOUR COLORS!!!
-                    </OptionCard>
+                    {renderCards()}
+                    <div style={{display:'flex',justifyContent: 'space-evenly',flexDirection: 'column'}}>
+                    <AddCard type='delete' onClick={handleColorDelete} />
+                    <AddCard type='add' onClick={handleColorAdd} />
+                    </div>
             </div>
         </div>
         

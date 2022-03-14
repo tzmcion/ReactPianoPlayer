@@ -15,6 +15,7 @@ export default class DrawInCanvas{
     private Canvas:RefObject<HTMLCanvasElement>
     private balls:Array<Ball>
     private options:Options
+    private gradient:CanvasGradient
 
     constructor(CanvasRef:RefObject<HTMLCanvasElement>,options:Options,defaultValue?:Array<Ball>){
         this.ctx = CanvasRef.current?.getContext('2d')!;
@@ -26,6 +27,11 @@ export default class DrawInCanvas{
         this.CreateBalls = this.CreateBalls.bind(this);
         this.render = this.render.bind(this);
         this.CreateBalls(100);
+        this.gradient = this.ctx.createLinearGradient(0,0, this.Canvas.current!.width * Math.cos(90 / 180 * Math.PI),this.Canvas.current!.height  * Math.sin(90 / 180 * Math.PI));
+        const step = 1 / this.options.GradientBlocksColor.length;
+        let current_step = 0;
+        console.log(this.options.GradientBlocksColor)
+        this.options.GradientBlocksColor.forEach(color =>{this.gradient.addColorStop(current_step,color); current_step+=step});
     }
 
     public render(color:string):void{
@@ -42,7 +48,7 @@ export default class DrawInCanvas{
             if(ball.y > this.Canvas.current!.height){ball.x = Math.random() * window.innerWidth;ball.start_time = Date.now() + 500};
             this.ctx.beginPath();
             this.ctx.shadowColor = this.options.ShadowColor;
-            CanvasRoundRect(this.ctx,color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3.7),this.options.blockRadius,true);
+            CanvasRoundRect(this.ctx,this.options.GradientBlocks ? this.gradient:color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3.7),this.options.blockRadius,true);
             return ball;
         })
     };

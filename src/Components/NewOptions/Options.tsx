@@ -10,20 +10,22 @@ import {
     Options_Blocks as OptionsBlocks,
     Options_Effects as OptionsEffect,
     Options_Other as OptionsOther,
-    Options_Effects_Adv as OptionsEffectsAdv} from './OptionsType/OptionsType';
+    Options_Effects_Adv as OptionsEffectsAdv,
+    Options_Presets as OptionsPresets} from './OptionsType/OptionsType';
 
 interface OptionsProps{
     isOpened:boolean,
     onGoBack:Function,
     handleOptionsChange:Function,
+    reloadOptions:Function
     options:OptionsType
 }
 
-export default function Options({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps):ReactElement {
+export default function Options({isOpened,onGoBack,options,handleOptionsChange,reloadOptions}:OptionsProps):ReactElement {
 
-    const [table,setTable] = useState<'blocks' | 'effects' | 'other' | 'Effects Adv'>('blocks');
+    const [table,setTable] = useState<'blocks' | 'effects' | 'other' | 'Effects Adv' | 'presets'>('blocks');
 
-    const change_table = (name:'blocks' | 'effects' | 'other' | 'Effects Adv'):void =>{
+    const change_table = (name:'blocks' | 'effects' | 'other' | 'Effects Adv' | 'presets'):void =>{
         setTable(name);
     }
 
@@ -39,11 +41,13 @@ export default function Options({isOpened,onGoBack,options,handleOptionsChange}:
                 {table === 'effects' &&  <OptionsEffect isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
                 {table === 'Effects Adv' &&  <OptionsEffectsAdv isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
                 {table === 'other' &&  <OptionsOther isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
+                {table === 'presets' && <OptionsPresets reloadOptions={reloadOptions} />}
                 <div className='options_buttons'>
                     <ChooseButton onClick={change_table} name='blocks' title='blocks' textColor='#44C1F8' />
                     <ChooseButton onClick={change_table} name='effects' title='effects' textColor='#7B6D8D' />
                     <ChooseButton onClick={change_table} name='Effects Adv' title='Effects.conf' textColor='#F95738' />
                     <ChooseButton onClick={change_table} name='other' title='other' textColor='#59CD90' />
+                    <ChooseButton onClick={change_table} name='presets' title='presets' textColor='#FFD700' />
                 </div>
             </div>
             <div className="Bt">

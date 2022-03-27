@@ -152,6 +152,44 @@
     padding: 2px;
 }
 
+.button_save_presets{
+    position: absolute;
+    border-radius: 10px;
+    cursor: pointer;
+    top:30px;
+    outline:none;
+    border-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
+    right:0px;
+}
+
+.button_import_presets{
+    position: absolute;
+    height:100px;
+    top:-50px;
+    right:0px;
+    cursor: pointer;
+}
+
+.import_preset_div{
+    position: absolute;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    top:60px;
+    right:0px;
+    height:21px;
+    width:133.8px;
+    overflow: hidden;
+    background-color: gold;
+    border-radius:10px;
+    h4{
+        position: relative;
+        font-size:13px;
+        margin:0;
+        padding:0;
+    }
+}
+
 @keyframes Enter{
     0%{
         margin-Top: -50%;

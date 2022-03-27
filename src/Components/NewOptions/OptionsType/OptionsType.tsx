@@ -1,17 +1,30 @@
-import React,{useState,useEffect,ChangeEvent} from 'react';
-
+import React,{useState,ChangeEvent} from 'react';
 import OptionCard from '../OptionCard/OptionCard';
 import OptionCardImage from '../OptionCard/OptionCardImage';
 import EffectChoose from '../OptionCard/EffectChoose/EffectChoose';
-import AddCard from '../OptionCard/addCard/addCard'; 
+import AddCard from '../OptionCard/addCard/addCard';
+import PresetCard from '../OptionCard/presetCard/presetCard';
 
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+//Videos
 import Fountain from '../OptionCard/EffectChoose/Previews/fountain.mp4';
 import DancingLines from '../OptionCard/EffectChoose/Previews/DancingLines.mp4';
 import Hexagon from '../OptionCard/EffectChoose/Previews/Sparks.mp4'
 import Balls from '../OptionCard/EffectChoose/Previews/balls.mp4'
 import Fireworks from '../OptionCard/EffectChoose/Previews/Fireworks.mp4'
 
+//Helpers or types
 import { Options as OptionType } from '../../../Utils/TypesForOptions';
+import {checkExtension, read_as_text} from '../../../Utils/smallFunctions';
+
+//json presets
+import presets from '../OptionCard/presets.json';
+
+//|||||||||||||||||||||||||
+//||||||| BLOCKS ||||||||||
+//|||||||||||||||||||||||||
 
 interface OptionsProps{
     isOpened:boolean,
@@ -57,6 +70,10 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
     )
 }
 
+//|||||||||||||||||||||||||
+//|||||| EFFECTS ||||||||||
+//|||||||||||||||||||||||||
+
 function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
     const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks'>(options.Effect);
@@ -96,6 +113,10 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
     )
 }
 
+//|||||||||||||||||||||||||
+//|||||||| OTHER ||||||||||
+//|||||||||||||||||||||||||
+
 function Options_Other({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
     return (
         <div className='options_Cards'>
@@ -119,6 +140,10 @@ function Options_Other({isOpened,onGoBack,options,handleOptionsChange}:OptionsPr
     )
 }
 
+//||||||||||||||||||||||||||||
+//|||||| EFFECTS.CONF ||||||||
+//||||||||||||||||||||||||||||
+
 function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
     const [colors,setColors] = useState<Array<String>>(options.GradientBlocksColor);
@@ -128,6 +153,7 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
         const newColors:Array<string> = [];
         colors.map((col,index) => {
             if(index === colorindex){newColors.push(event.target.value)}else{newColors.push(col as string)};
+            return null;
         })
         const fakeEvent = {
             target: {
@@ -186,4 +212,118 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
     )
 }
 
-export {Options_Blocks, Options_Effects, Options_Other, Options_Effects_Adv}
+//|||||||||||||||||||||||||
+//|||||| PRESETS ||||||||||
+//|||||||||||||||||||||||||
+
+interface options_presets{
+    reloadOptions:Function
+}
+
+function Options_Presets({reloadOptions}:options_presets):React.ReactElement {
+
+    const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+        props,
+        ref,
+      ) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+      });
+    
+      const [open, setOpen] = React.useState<boolean>(false);
+      const [chooseOpen,setChooseOpen] = React.useState<boolean>(false);
+    
+      const handleClick = () => {
+        setOpen(true);
+      };
+
+      const handleCardClick = ():void =>{
+          setChooseOpen(true);
+      }
+
+      const handleCardClose = (event?: React.SyntheticEvent | Event, reason?: string):any =>{
+        if (reason === 'clickaway') {
+            return;
+          }
+      
+          setChooseOpen(false);
+      }
+    
+      const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
+    const import_ref = React.useRef<HTMLInputElement>(null);
+
+    const renderPresets = ():Array<React.ReactElement> => {
+        return presets.map((preset,index) =>
+            <PresetCard color={preset.color} title={preset.name} onClick={handleCardClick} json={JSON.stringify(preset.data)} key={index} updateOptions={reloadOptions}>{preset.description}</PresetCard>
+        )
+    }
+
+    const save_Presets = async () =>{
+        const current_preset = localStorage.getItem('options');
+        if(current_preset){
+        const blob = new Blob([current_preset],{type:'application/json'})
+        const href = await URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = 'PBA_saved_preset.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        }
+    }
+
+    const import_Preset = async () =>{
+        try{ 
+            const file = import_ref.current?.files![0];
+            if(checkExtension(file,'.json')){
+                read_as_text(file).then(text =>{
+                    localStorage.setItem('options',text);
+                    handleClick();
+                    reloadOptions();
+                })
+            }
+            else{
+                prompt('This is not a valid file...');
+            }
+        }
+        catch{}
+    }
+
+    return <div className="options_Cards">
+        <div className="Cards_Container">
+            {renderPresets()}
+        </div>
+        <button className="button_save_presets" onClick={save_Presets}>Save current Preset</button>
+        <div className="import_preset_div">
+            <h4>Import Preset</h4>
+            <input type='file' className="button_import_presets" onChange={import_Preset} ref={import_ref}/>
+        </div>
+        <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'center',}} open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                Preset imported succesfully.
+            </Alert>
+        </Snackbar>
+        <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'center',}} open={chooseOpen} autoHideDuration={6000} onClose={handleCardClose}>
+            <Alert onClose={handleCardClose} severity="info" sx={{ width: '100%' }}>
+                Preset changed succesfully.
+            </Alert>
+        </Snackbar>
+    </div>
+}
+
+//|||||||||||||||||||||||||
+//|||||| EXPORTS ||||||||||
+//|||||||||||||||||||||||||
+
+export {
+     Options_Blocks,
+     Options_Effects,
+     Options_Other,
+     Options_Effects_Adv,
+     Options_Presets}

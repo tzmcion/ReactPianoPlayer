@@ -24,7 +24,7 @@ export default function Main() {
     const handleFileInput = () =>{
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
             SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
-                localStorage.setItem('options',JSON.stringify(options));
+                
                 if(options.GameMode){
                     history.push('/GameMode');
                 }else{
@@ -129,6 +129,11 @@ export default function Main() {
         }
     }
 
+    const reloadOptions = ():void =>{
+        const opt = localStorage.getItem('options');
+        opt && setOptions(JSON.parse(opt));
+    }
+
     useEffect(()=>{
         document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
@@ -138,12 +143,7 @@ export default function Main() {
     const PlayDemoMidi = async () =>{
         await fetch(Midi).then(r => r.blob()).then(r =>{
             SaveAsBase64(r,'file').then(e =>{
-                localStorage.setItem('options',JSON.stringify(options));
-                if(options.GameMode){
-                    history.push('/GameMode');
-                }else{
-                    history.push('/Play');
-                }
+                history.push('/Play');
             });
             
         })
@@ -179,7 +179,7 @@ export default function Main() {
                 </div>
             </div>
             <button className='Demo_Bt' onClick={PlayDemoMidi}>Play demo song</button>
-            <NewOptions isOpened={isConfiguring} handleOptionsChange={handleOptionsChange} options={options} onGoBack={()=>{setIsConfiguring(false)}} />
+            <NewOptions isOpened={isConfiguring} handleOptionsChange={handleOptionsChange} reloadOptions={reloadOptions} options={options} onGoBack={()=>{setIsConfiguring(false)}} />
         </div>
     )
 }

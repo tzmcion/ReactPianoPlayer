@@ -24,12 +24,8 @@ export default function Main() {
     const handleFileInput = () =>{
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
             SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
-                
-                if(options.GameMode){
-                    history.push('/GameMode');
-                }else{
-                    history.push('/Play');
-                }
+                localStorage.setItem('options',JSON.stringify(options));
+                history.push('/Play');
             });
         }else{
             alert('Error, Submited file is not MIDI file...');
@@ -141,6 +137,7 @@ export default function Main() {
     },[]);
 
     const PlayDemoMidi = async () =>{
+        localStorage.setItem('options',JSON.stringify(options));
         await fetch(Midi).then(r => r.blob()).then(r =>{
             SaveAsBase64(r,'file').then(e =>{
                 history.push('/Play');

@@ -70,5 +70,8 @@
   "Dependencies": {
     "@types/hex-rgba": "^1.0.1",
     "@types/hex2dec": "^1.1.2"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

@@ -4,7 +4,7 @@ PianoBlocksApp is a web application made for hobbists/enthusiasts of playing pia
 
 <b> Link to latest version https://react-piano-player-63qjc9wca-tzmcion.vercel.app/ </b>
 ###### Github version is not always up-to-date.
-### Last Release 19/01/2021
+### Last Update 5/05/2023
 
 ## Description
 
@@ -50,9 +50,15 @@ git pull https://github.com/tzmcion/ReactPianoPlayer
 npm i 
 ```
 
+Or git clone
+
+```
+git clone https://github.com/tzmcion/ReactPianoPlayer
+```
+
 ## Note !
 
-* In Official version on https://pianoblocksapp.com/ you can find Donation page, but I deleted it here 
+* In Official version you can find Donation page, but I deleted it here 
 * Some dependencies in `package.lock` are not used
 * Please report every issue and bug 
 * If you'd like to work on this app, I will explain how every file works to you with pleasure, just write :)

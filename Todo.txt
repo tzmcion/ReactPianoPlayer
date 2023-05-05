@@ -1,4 +1,0 @@
--- Checkboxes switch each other off On effects.conf
--- Screen Loaders !! They are ultra ugly
--- Webworkers / WebSockets
--- Responsive !!

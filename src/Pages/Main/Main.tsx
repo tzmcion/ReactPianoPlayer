@@ -87,7 +87,7 @@ export default function Main() {
                 currentOptions.blockRadius = parseInt(event.target.value);
                 break;
             case 'Effect':
-                if(event.target.value === 'fountain' || event.target.value === 'dancingLines' || event.target.value === 'hexagon' || event.target.value === 'stickyBalls' || event.target.value === 'fireworks'){
+                if(event.target.value === 'fountain' || event.target.value === 'dancingLines' || event.target.value === 'hexagon' || event.target.value === 'stickyBalls' || event.target.value === 'fireworks' || event.target.value === 'sparks'){
                     currentOptions.Effect = event.target.value;}
                 break;
             case 'shadowColor':

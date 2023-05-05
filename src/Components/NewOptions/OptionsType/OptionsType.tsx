@@ -11,9 +11,10 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 //Videos
 import Fountain from '../OptionCard/EffectChoose/Previews/fountain.mp4';
 import DancingLines from '../OptionCard/EffectChoose/Previews/DancingLines.mp4';
-import Hexagon from '../OptionCard/EffectChoose/Previews/Sparks.mp4'
-import Balls from '../OptionCard/EffectChoose/Previews/balls.mp4'
-import Fireworks from '../OptionCard/EffectChoose/Previews/Fireworks.mp4'
+import Hexagon from '../OptionCard/EffectChoose/Previews/Sparks.mp4';
+import Balls from '../OptionCard/EffectChoose/Previews/balls.mp4';
+import Fireworks from '../OptionCard/EffectChoose/Previews/Fireworks.mp4';
+import Snow from '../OptionCard/EffectChoose/Previews/Snow.mp4'
 
 //Helpers or types
 import { Options as OptionType } from '../../../Utils/TypesForOptions';
@@ -76,7 +77,7 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
 
 function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
-    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks'>(options.Effect);
+    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks'>(options.Effect);
 
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
@@ -107,6 +108,9 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
                 </EffectChoose>
                 <EffectChoose onChange={onChange} name='Effect' type='number' title='Tornado Fireworks' textColor='effects' src={Fireworks} current={effect} value={'fireworks'} >
                         Those Fancy bubbles spark like fireworks and they move a little like tornado
+                </EffectChoose>
+                <EffectChoose onChange={onChange} name='Effect' type='number' title='Snow, Snow, SNOW' textColor='effects' src={Snow} current={effect} value={'sparks'} >
+                        This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
                 </EffectChoose>
             </div>
         </div>

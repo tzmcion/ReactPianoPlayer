@@ -13,7 +13,7 @@ Midi_Data_Image :: https://www.npmjs.com/package/midi-parser-js
 ---------------------------
 Website Designed in Figma  :: https://www.figma.com/
 Writen using Vs Code :: https://code.visualstudio.com/
-Hosted on Heroku :: https://www.heroku.com/
+Hosted on Vercel :: https://vercel.com/
 DNS delivered by Cloudflare :: https://www.cloudflare.com/
 
 Technologies used ::

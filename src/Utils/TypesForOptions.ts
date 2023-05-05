@@ -18,7 +18,7 @@ export interface Options{
     OctaveLines:boolean,
     GameMode:boolean,
     renderMethod:'Interval' | 'animationFrame',
-    Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks',
+    Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks',
     ThinerBlockColor:string,
     GradientColor:string,
     GradientBlocks:boolean,

@@ -3,6 +3,7 @@ import Fountain from './fountain';
 import HexagonEffect from "./HexagonEffect";
 import StickyBalls from "./StickyBalls";
 import Firework from "./Fireworks";
+import Sparks from "./Sparks";
 
 import hexToRgba from "hex-rgba";
 
@@ -22,4 +23,4 @@ const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:numbe
 }
 
 
-export {DancingLines,Fountain,HexagonEffect,StickyBalls,Firework,KeyGradient};
+export {DancingLines,Fountain,HexagonEffect,StickyBalls,Firework,Sparks,KeyGradient};

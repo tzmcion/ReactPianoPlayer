@@ -56,8 +56,8 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
             blocks?.render();
         }else if(Player.isReseting){
             blocks?.Reset(); 
-            pianoCtx?.clearRect(0,0,PianoRef.current!.width,PianoRef.current!.height);
-            pianoWhiteCtx?.clearRect(0,0,PianoWhiteRef.current!.width,PianoWhiteRef.current!.height);
+            PianoRef.current && pianoCtx?.clearRect(0,0,PianoRef.current!.width,PianoRef.current!.height);
+            PianoWhiteRef.current && pianoWhiteCtx?.clearRect(0,0,PianoWhiteRef.current!.width,PianoWhiteRef.current!.height);
         }
         else{
             blocks?.Paused();

@@ -56,7 +56,7 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
             currentOptions.blockRadius = parseInt(event.target.value);
             break;
         case 'Effect':
-            if(event.target.value === 'fountain' || event.target.value === 'dancingLines' || event.target.value === 'hexagon' || event.target.value === 'stickyBalls' || event.target.value === 'fireworks' || event.target.value === 'sparks'){
+            if(event.target.value === 'fountain' || event.target.value === 'dancingLines' || event.target.value === 'hexagon' || event.target.value === 'stickyBalls' || event.target.value === 'fireworks' || event.target.value === 'sparks' || event.target.value === 'None'){
                 currentOptions.Effect = event.target.value;}
             break;
         case 'shadowColor':

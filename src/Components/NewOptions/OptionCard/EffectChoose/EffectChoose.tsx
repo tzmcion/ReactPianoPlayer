@@ -8,7 +8,7 @@ interface OptionCardProps{
     Important?:boolean;
     title?:string;
     current:string;
-    children:JSX.Element | string;
+    children: JSX.Element | string;
     value: string|boolean,
     src:any
     textColor?: 'effects' | 'blocks' | 'speed' | 'background'
@@ -43,9 +43,11 @@ export default function EffectChoose({type,name,onChange,value,children,title,te
             <h1 className={`Card_Title ${textColor ? textColor : ''}`} >{title}</h1>
             <h2 className='Card_Description'>{children}</h2>
             <h3 className='Click_To'>Click to choose</h3>
-            <video width="300" height="170" autoPlay muted loop className={`video ${!hovered ? 'hidd' : ''}`}>
-                <source src={src} type="video/mp4" />
-            </video>
+            {type !== "None" &&
+                <video width="300" height="170" autoPlay muted loop className={`video ${!hovered ? 'hidd' : ''}`}>
+                    <source src={src} type="video/mp4" />
+                </video>
+            }
         </div>
     )
 }

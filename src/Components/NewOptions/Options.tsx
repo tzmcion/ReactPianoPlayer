@@ -45,7 +45,7 @@ export default function Options({isOpened,onGoBack,options,handleOptionsChange,r
                 <div className='options_buttons'>
                     <ChooseButton onClick={change_table} name='blocks' title='blocks' textColor='#44C1F8' />
                     <ChooseButton onClick={change_table} name='effects' title='effects' textColor='#7B6D8D' />
-                    <ChooseButton onClick={change_table} name='Effects Adv' title='Effects.conf' textColor='#F95738' />
+                    <ChooseButton onClick={change_table} name='Effects Adv' title='Gradients' textColor='#F95738' />
                     <ChooseButton onClick={change_table} name='other' title='other' textColor='#59CD90' />
                     <ChooseButton onClick={change_table} name='presets' title='presets' textColor='#FFD700' />
                 </div>

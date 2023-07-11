@@ -1,5 +1,5 @@
 import { Options as OptionsType } from "../../Utils/TypesForOptions";
-import {Fountain, DancingLines, HexagonEffect, StickyBalls, Firework,Sparks} from '../CanvasEffects';
+import {Fountain, DancingLines, HexagonEffect, StickyBalls, Firework,Sparks, EmptyEffect} from '../CanvasEffects';
 
 import hexAlpha from "hex-alpha";
 
@@ -20,7 +20,7 @@ class Effects{
                 this.Effect = new Fountain(ctx,width,height,width/52);
                 break;
             case 'dancingLines':
-                this.Effect = new DancingLines(ctx,height,width/52,200,1,6,10);
+                this.Effect = new DancingLines(ctx,height,width/52,200,1,6,12);
                 break;
             case 'hexagon':
                 this.Effect = new HexagonEffect(ctx,width,height,width/52);
@@ -35,7 +35,7 @@ class Effects{
                 this.Effect = new Sparks(ctx,width,height,width/52);
                 break;
             default:
-                this.Effect = new Fountain(ctx,width,height,width/52);
+                this.Effect = new EmptyEffect();
                 break;
         }
     }

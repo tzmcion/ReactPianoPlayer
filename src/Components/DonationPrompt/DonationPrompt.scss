@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico&family=Quattrocento+Sans&display=swap');
+
+.DonationPrompt{
+    position: absolute;
+    width:400px;
+    height:600px;
+    left:50%;
+    transform: translateX(-50%)  translateY(-50%);
+    background-color: #060606;
+    background: linear-gradient(#060606,#262626,#060606);
+    border-radius: 15px;
+    box-shadow: 0px 0px 1px 8px rgb(77, 77, 77);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    top:50%;
+    animation: enter 0.7s ease;
+    z-index: 99;
+    img{
+        width:100px;
+        margin-top: 20px;
+    }
+    h3,h4{
+        font-family: 'Quantico', sans-serif;
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+    }
+    h3{
+        margin-top: 20px;
+    }
+    .DonBut{
+        margin-top: 10px;
+        a{
+            font-size: 24px;
+        }
+    }
+    span{
+        color: orange;
+    }
+    button{
+        position: absolute;
+        left: 50%;
+        bottom:10px;
+        transform: translateX(-50%);
+        outline: none;
+        border: none;
+        font-size: 16px;
+        color:white;
+        background-color: rgb(251, 76, 76);
+        font-weight: 800;
+        padding: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 4px red;
+        &:hover{
+            box-shadow: 0px 0px 4px 2px rgb(195, 0, 0);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+    }
+}
+
+.DonationPromptClosed{
+    display: none !important;
+}
+
+@keyframes enter{
+    0%{
+        top:-1000px;
+    }
+    100%{
+        top:50%;
+        transform: translateY(-50%)  translateX(-50%) ;
+    }
+}

@@ -19,6 +19,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
+  //Adding AudioContext for playing
   const ac_add = () =>{
     setAc(new AudioContext())
     window.removeEventListener('click',ac_add);

@@ -34,7 +34,7 @@ h1{
 }
 
 body{
-    cursor: context-menu;
+    cursor: default;
     overflow: hidden;
     background-color: #101010;
 }

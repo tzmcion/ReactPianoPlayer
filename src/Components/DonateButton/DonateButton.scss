@@ -1,0 +1,15 @@
+.DonateButton{
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px black;
+    background-color: beige;
+    a{
+        font-size: 18px;
+        display: block;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        text-decoration: none;
+        color: rgb(32, 143, 180);
+        transition: 0.15s;
+    }
+}

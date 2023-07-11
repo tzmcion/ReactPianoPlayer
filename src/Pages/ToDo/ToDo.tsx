@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import './Info.styles.scss';
+import DonateButton from '../../Components/DonateButton/DonateButton'
 
 import Cactus from '../../Assets/Cactus.gif';
-import sad_cactus from '../../Assets/hug.gif'
+import sad_cactus from '../../Assets/hug.gif';
 
 export default function ToDo() {
 
@@ -27,12 +28,12 @@ export default function ToDo() {
                         <img src={checkbox === 'checked' ? Cactus : sad_cactus} alt="Cactus gif" />
                     </div>
                     <div className="Support_don">
+                        <h3 className='data_don'>I understand what a <a href="https://en.wikipedia.org/wiki/Donation">Donation</a> is and I accept a fact that I'm not receiving any goods from this payment</h3> 
                         <div className='inp'>
                             <input type='checkbox' value={checkbox} onChange={(e)=>{setScheckbox(checkbox === 'false' ? 'checked': 'false')}} />
                             <p>&#60;-- Click to accept</p>
                         </div>
-                        <h3 className='data_don'>I understand what a <a href="https://en.wikipedia.org/wiki/Donation">Donation</a> is and I accept a fact that I'm not receiving any goods from this payment</h3> 
-                        {checkbox === 'checked' && <a href='https://www.buymeacoffee.com/tymekapriasz' target='_blank' rel='noreferrer' style={{textAlign:'left',paddingBottom:15,display:'block'}}>Buy Me a Coffe</a>}
+                        {checkbox === 'checked' && <DonateButton className='Butt' link='https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG' />}
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ export default function DonationPrompt() {
 
     useEffect(()=>{
         const visited = window.localStorage.getItem("pba_visited") !== null ? parseInt(window.localStorage.getItem("pba_visited")!) : 0 ;
-        if(visited % 5 === 0){
+        if(visited % 5 === 0 && visited!== 0){
             setCanPrompt(true);
             setCountVisited(visited);
         }

@@ -53,9 +53,6 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='GradientCol' type='color' title='Gradient Color on Key press' value={options.GradientColor} >
                         Change the Lighting Color which happens when blocks meet piano.
                     </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='RandomColors' type='checkbox' title='Random blocks Color' value={options.RandomColors} >
-                        Choose if you want blocks to appear with random colors each. Colors are brightened.
-                    </OptionCard>
                     <OptionCard onChange={handleOptionsChange} name='blockShadowColor' type='number' title='Shadow Radius' value={options.blockShadowRadius.toString()} >
                         Choose the radius (range) of shadow. Zero means no shadow, there is no max value
                     </OptionCard>
@@ -112,6 +109,9 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
                 <EffectChoose onChange={onChange} name='Effect' type='number' title='Snow, Snow, SNOW' textColor='effects' src={Snow} current={effect} value={'sparks'} >
                         This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
                 </EffectChoose>
+                <EffectChoose onChange={onChange} name='Effect' type='None' title='None' textColor='effects' src={''} current={effect} value={'None'} >
+                        No effect, playing without effect is the most optimal and it's good choice for weaker computers
+                </EffectChoose>
             </div>
         </div>
     )
@@ -145,7 +145,7 @@ function Options_Other({isOpened,onGoBack,options,handleOptionsChange}:OptionsPr
 }
 
 //||||||||||||||||||||||||||||
-//|||||| EFFECTS.CONF ||||||||
+//|||||| GRADIENTS ||||||||
 //||||||||||||||||||||||||||||
 
 function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
@@ -198,7 +198,10 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
 
     const renderCards = ():Array<React.ReactElement> | Array<void> => {
         return colors.map((color,index) =>{
-            return <OptionCard onChange={handleColorChange} name={`Color-${index + 1}`} type='color' title={`Gradient Color #${index}`} value={color as string} key={index}>Choose step color</OptionCard>
+            return <OptionCard onChange={handleColorChange} name={`Color-${index + 1}`} type='color' title={`Gradient Color #${index}`} value={color as string} key={index}>
+                Color building gradeint.
+                Remember to switch on GradeintBlocks!
+                </OptionCard>
         })
     }
 

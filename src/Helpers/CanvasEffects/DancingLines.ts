@@ -1,4 +1,5 @@
 import { decToHex} from "hex2dec";
+import hexAlpha from "hex-alpha";
 
 interface Effect{
     pos_x: number,
@@ -33,13 +34,13 @@ class DancingLines{
         this.speed = speed === undefined ? 13 : speed;
         this.gravitation = gravitation === undefined ? true: gravitation; 
         this.allSameSpeed = allSameSpeed === undefined ? false: allSameSpeed;
-        this.gravitation_force = gravitationForce === undefined? 0.15 : gravitationForce
+        this.gravitation_force = gravitationForce === undefined? 0.15 : gravitationForce;
         this.Effects = [];
         this.Rect_Floor_Alpha_ReturnNewAlpha = this.Rect_Floor_Alpha_ReturnNewAlpha.bind(this);
     }
 
     public create(pos_x:number,pos_y:number, color:string):void{
-        for(let x =0; x < 3; x++){
+        for(let x =0; x < 2; x++){
         const NewEffect: Effect = {
             pos_x: pos_x + this.key_width / (1.5 + Math.random()),
             pos_y: pos_y,
@@ -74,7 +75,7 @@ class DancingLines{
 
     private Rect_Floor_Alpha_ReturnNewAlpha(pos_x:number,pos_y:number, color:string, alpha:number){
         this.ctx.shadowColor = color + decToHex((alpha*1000).toString())?.slice(2);
-        this.ctx.fillStyle = color + decToHex((alpha*1000).toString())?.slice(2);
+        this.ctx.fillStyle = hexAlpha(color,parseFloat(decToHex((alpha*1000).toString())!));
         this.ctx.fillRect(Math.floor(pos_x),Math.floor(pos_y),Math.floor(this.effect_width),Math.floor(this.effect_height));
         return alpha - 1/this.life_time;
     }

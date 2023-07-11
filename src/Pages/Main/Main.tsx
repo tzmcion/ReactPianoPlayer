@@ -36,6 +36,7 @@ export default function Main() {
 
     const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
         let currentOptions = optionsSwitch(event,options);
+        console.log('changing options');
         try{
             localStorage.setItem('options',JSON.stringify(currentOptions));
             setOptions(currentOptions);

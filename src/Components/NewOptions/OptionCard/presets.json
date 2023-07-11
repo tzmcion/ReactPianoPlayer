@@ -2,17 +2,17 @@
     "name":"Rainbow preset",
     "color":"green",
     "description" : "Gradient blocks with rainbow colors, white gradient on key press, key press white blue, sound on, normal speed",
-    "data":{"Color":"#8EF971","OctaveLines":true,"KeyPressColor":"#94d6ff","RandomColors":false,"IsEffects":false,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"fountain","blockRadius":10,"ShadowColor":"#000","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#FB1378","GradientColor":"#e3e3e3","GradientBlocks":true,"GradientBlocksColor":["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"]}
+    "data":{"Color":"#8EF971","OctaveLines":true,"KeyPressColor":"#94d6ff","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"None","blockRadius":10,"ShadowColor":"#000","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#FB1378","GradientColor":"#e3e3e3","GradientBlocks":true,"GradientBlocksColor":["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"]}
 },{
     "name":"Violet preset",
     "color":"Violet",
     "description" : "Blocks color violet, light violet on key press, key press color light blue, sound on, speed normal",
-    "data":{"Color":"#7371f9","OctaveLines":true,"KeyPressColor":"#86aafe","RandomColors":false,"IsEffects":false,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"fountain","blockRadius":10,"ShadowColor":"#7371f9","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#7371f9","GradientColor":"#cba9fe","GradientBlocks":false,"GradientBlocksColor":["#123456"]}
+    "data":{"Color":"#7371f9","OctaveLines":true,"KeyPressColor":"#86aafe","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"None","blockRadius":10,"ShadowColor":"#7371f9","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#7371f9","GradientColor":"#cba9fe","GradientBlocks":false,"GradientBlocksColor":["#123456"]}
 },
 {
     "name":"Gold preset",
     "color":"#C54920",
     "description" : "Blocks color light yellow, light yellow on key press, key press color gold, sound on, speed normal",
-    "data":{"Color":"#f9dc71","OctaveLines":true,"KeyPressColor":"#ffca38","RandomColors":false,"IsEffects":false,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"fountain","blockRadius":10,"ShadowColor":"#fee95d","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#ffc494","GradientColor":"#fec90b","GradientBlocks":false,"GradientBlocksColor":["#123456"]}
+    "data":{"Color":"#f9dc71","OctaveLines":true,"KeyPressColor":"#ffca38","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"None","blockRadius":10,"ShadowColor":"#fee95d","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#ffc494","GradientColor":"#fec90b","GradientBlocks":false,"GradientBlocksColor":["#123456"]}
 }
 ]

@@ -1,4 +1,4 @@
-import React, { ReactElement,useState } from 'react'
+import React, { ReactElement,useState,useEffect } from 'react'
 import './OptionCard.style.scss';
 import './Input.styles.scss';
 
@@ -29,6 +29,10 @@ export default function OptionCard({type,name,onChange,value,children,title,text
             setValue(e.target.value)
         }
     }
+
+    useEffect(()=>{
+        setValue(value);
+    },[value])
 
     return (
         <div className='OptionCard'>

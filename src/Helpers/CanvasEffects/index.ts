@@ -5,6 +5,7 @@ import StickyBalls from "./StickyBalls";
 import Firework from "./Fireworks";
 import Sparks from "./Sparks";
 import EmptyEffect from "./EmptyEffect";
+import DNA from "./DNA";
 
 import hexToRgba from "hex-rgba";
 
@@ -24,4 +25,4 @@ const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:numbe
 }
 
 
-export {DancingLines,Fountain,HexagonEffect,StickyBalls,Firework,Sparks,EmptyEffect,KeyGradient};
+export {DancingLines,Fountain,HexagonEffect,StickyBalls,Firework,Sparks,EmptyEffect,KeyGradient,DNA};

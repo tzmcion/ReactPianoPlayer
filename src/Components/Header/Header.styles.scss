@@ -2,8 +2,8 @@
 
 .Header{
     width:100%;
-    height:80px;
-    background: linear-gradient(black 20%,transparent);
+    height:60px;
+    background: linear-gradient(#2f314b,rgb(26, 27, 41),transparent);
     text-transform: uppercase;
     position: fixed;
     z-index: 10;
@@ -17,6 +17,8 @@
             height:100%;
             display: flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
             h1{
                 font-weight: 300;
                 font-family: 'Overpass Mono', monospace;
@@ -28,6 +30,19 @@
             .Logo_Link{
                 text-decoration: none;
             }
+            &:hover{
+                &:before{
+                    content:'';
+                    position: absolute;
+                    width:0%;
+                    height:3px;
+                    bottom:10px;
+                    left:0px;
+                    border-radius: 10px;
+                    background-color: #5b5f94;
+                    animation: hover 0.4s ease forwards;
+                }
+            }
         }
         .Links{
             height:100%;
@@ -36,17 +51,27 @@
             margin-right: 158px;
             .Link{
                 color:white;
-                margin-left: 20px;
+                margin-left: 40px;
                 text-decoration: none;
                 font-size: 16px;
                 font-family: 'Poppins', sans-serif;
             }
             .Link:hover{
                 transition: 0.1s;
-                color:#BFDBF7;
-                transform: scale(1.05);
+                color:#99c7f5;
+                transform: scale(1.10);
+                font-weight: 500;
             }
         }
+    }
+}
+
+@keyframes hover{
+    0%{
+        width:0%;
+    }
+    100%{
+        width:100%;
     }
 }
 

@@ -74,7 +74,7 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
 
 function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
-    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks'>(options.Effect);
+    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA'>(options.Effect);
 
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
@@ -107,6 +107,9 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
                         Those Fancy bubbles spark like fireworks and they move a little like tornado
                 </EffectChoose>
                 <EffectChoose onChange={onChange} name='Effect' type='number' title='Snow, Snow, SNOW' textColor='effects' src={Snow} current={effect} value={'sparks'} >
+                        This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
+                </EffectChoose>
+                <EffectChoose onChange={onChange} name='Effect' type='number' title='Sinus' textColor='effects' src={Snow} current={effect} value={'DNA'} >
                         This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
                 </EffectChoose>
                 <EffectChoose onChange={onChange} name='Effect' type='None' title='None' textColor='effects' src={''} current={effect} value={'None'} >

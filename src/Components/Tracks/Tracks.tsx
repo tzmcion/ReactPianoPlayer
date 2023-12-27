@@ -7,6 +7,7 @@ import Blocks from '../../Helpers/Blocks/Blocks';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen';
 import Piano from '../DrawPiano/PianoKeys/AllKeys';
+import soundManager from '../../Helpers/soundManager';
 import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 
 import BG from '../../Assets/BG.jpg';
@@ -21,7 +22,7 @@ interface TracksProps{
     Player: MidiPlayer,
     Width:number,
     Height:number
-    sound:any,
+    sound:soundManager | undefined,
 }
 
 
@@ -108,7 +109,7 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
                                 DrawShadow(pianoWhiteCtx!,pos_x + width/4,pos_y,Height/5 / 1.6 + 1,(width+0.5)/3.5);
                         }}
                     }
-                    options.soundOn && sound && sound.instrument.play(element.NoteNumber).stop(sound.ac.currentTime + element.duration/1000);
+                    sound && sound.play_key(element.NoteNumber-21);
                 }
                 else{
                     if(BlackNumbers.includes(element.NoteNumber)){

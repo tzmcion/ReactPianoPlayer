@@ -20,7 +20,7 @@ export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound,height}:Whit
                 if(event.NoteNumber === id){
                     if(event.wasDetected === true){
                         setBackgroundColor('#5085f8');
-                        sound && sound.instrument.play(id).stop(sound.ac.currentTime + event.duration/1000);
+                        //sound && sound.play_key(id);
                     }else{
                         setBackgroundColor('#fffff0');
                     }

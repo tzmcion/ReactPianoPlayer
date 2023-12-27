@@ -1,11 +1,11 @@
 import React, { ReactElement, useState, useEffect} from 'react';
-import soundFont from 'soundfont-player';
 import './DrawPiano.styles.css';
 
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import MidiPlayer from '../../Helpers/MidiPlayer';
 import {TracksInterval, TracksAnimationFrame} from '../Tracks';
+import soundManager from '../../Helpers/soundManager';
 
 import Gear from '../../Assets/Rhombus.gif';
 
@@ -22,7 +22,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player,ac}:DrawP
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
-    const [sound,setSound] = useState<any>();
+    const [sound,setSound] = useState<soundManager>();
 
     const handleResize = () =>{
         setWindowKeyWidth(window.innerWidth / 52);
@@ -75,12 +75,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player,ac}:DrawP
     useEffect(()=>{
         window.addEventListener('resize',handleResize);
         if(options.soundOn && ac){
-            soundFont.instrument(ac, 'acoustic_grand_piano').then(function (piano) {
-                setSound({
-                    instrument:piano,
-                    ac:ac
-                })
-            })
+            setSound(new soundManager(ac as AudioContext));
         }
         return () =>{window.removeEventListener('resize',handleResize)}
     },[options.soundOn,ac])

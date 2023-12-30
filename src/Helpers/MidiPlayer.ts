@@ -141,6 +141,10 @@ class MidiPlayer{
 
     }
 
+    public get_time():number{
+        return this.timer;
+    }
+
     public Restart():void{
         clearInterval(this.interval);
         this.isPlaying = false;
@@ -156,7 +160,6 @@ class MidiPlayer{
             if(this.Midi.length > 0){
                 if(percent !== 0){
                 const max_delta = this.Midi[this.Midi.length - 1].Delta / 1000 //in ms;
-                //const min_delta = this.Midi[0].Delta * 1000; //in ms
                 const time = max_delta *(percent/100);
                 let smallest_index_dif = 100000000;
                 this.Midi.map((el,index) =>{

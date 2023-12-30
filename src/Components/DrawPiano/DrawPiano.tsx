@@ -15,10 +15,9 @@ interface DrawPianoProps{
     options: OptionsType,
     drawSpeed: number,
     Player: MidiPlayer,
-    ac:any
 }
 
-export default function DrawPiano({Data,Speed,options,drawSpeed,Player,ac}:DrawPianoProps):ReactElement {
+export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPianoProps):ReactElement {
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
@@ -74,11 +73,11 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player,ac}:DrawP
 
     useEffect(()=>{
         window.addEventListener('resize',handleResize);
-        if(options.soundOn && ac){
-            setSound(new soundManager(ac as AudioContext));
+        if(options.soundOn){
+            setSound(new soundManager());
         }
         return () =>{window.removeEventListener('resize',handleResize)}
-    },[options.soundOn,ac])
+    },[options.soundOn])
 
     return (
         <div className='Piano' style={{height: windowHeight}}>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import Main from './Pages/Main/Main';
 import Tutorial from './Pages/Tutorial/Tutorial';
 import Header from './Components/Header/Header';
@@ -11,30 +11,15 @@ import './App.css';
 
 function App() {
 
-  const [ac,setAc] = useState<any>(null);
-
-  useEffect(()=>{
-    window.addEventListener('click',ac_add)
-    window.addEventListener('drop',ac_add)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
-
-  //Adding AudioContext for playing
-  const ac_add = () =>{
-    setAc(new AudioContext())
-    window.removeEventListener('click',ac_add);
-    window.removeEventListener('drop',ac_add);
-  }
-
   return (
     <div className='main'>
       <Header />
       <Switch>
         <Route path='/tutorial' exact component={Tutorial} />
         <Route path='/Info' exact component={Info} />
-        <Route path='/Play' exact component={() => <Play ac={ac}/>} />
+        <Route path='/Play' exact component={() => <Play/>} />
         <Route path='/Record' exact component={Record} />
-        <Route path='/PlayRecorded' exact component={() =><PlayRecorded ac={ac} />} />
+        <Route path='/PlayRecorded' exact component={() =><PlayRecorded />} />
         <Route path='/' exact component={Main} />
       </Switch>
     </div>

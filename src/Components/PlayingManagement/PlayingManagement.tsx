@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactElement, useEffect, useState } from 'react';
+import React, { MouseEvent, ReactElement, useEffect, useState,useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -15,6 +15,7 @@ interface PlayingManagementProps{
 export default function PlayingManagement({Player,onStart}:PlayingManagementProps):ReactElement {
 
     const [opacity,setOpacity] = useState<number>(0);
+    const [width,setWidth] = useState("0%");
     const history = useHistory();
 
     useEffect(()=>{
@@ -34,6 +35,20 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
         })
         return () => {clearTimeout(dada);document.removeEventListener('mousemove',move)}
     },[Player])
+
+
+
+    const set_time = useCallback( ()=>{
+        setWidth((Player.get_time() / Player.MidiLength * 100).toString() + '%');
+    },[Player])
+
+    useEffect(()=>{
+        const x = setInterval(()=>{
+            set_time();
+        },100)
+        return () => {clearInterval(x);}
+    },[set_time])
+
 
     const handlePause = ():void =>{
         if(Player.isReady){
@@ -61,7 +76,6 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
             <i className="fa fa-pause" aria-hidden="true" onClick={handlePause} title='Pause/Unpause'></i>
             <i className="fa fa-stop" aria-hidden="true" onClick={handleStop} title='Reset'></i>
             </div>
-            {/* <h3 className='Timer'>{Math.floor(Player.timer / 1000)}/{Math.floor(Player.MidiLength / 1000)} (seconds)</h3> */}
             <CircularProgressbar 
                 className='Timer' 
                 value={Player.timer / 1000} 
@@ -74,9 +88,9 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
                     pathColor:'#ec3a49',
                     trailColor:'#ec3a492d',
                     strokeLinecap: 10              
-                    })} />;
+                    })} />
             <div className='Duration' onClick={onDurClick}>
-                <div className='Bar' style={{width: (Player.timer / Player.MidiLength * 100).toString() + '%'}} />
+                <div className='Bar' style={{width: width}} />
             </div>
         </div>
     )

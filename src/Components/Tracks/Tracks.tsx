@@ -109,7 +109,10 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
                                 DrawShadow(pianoWhiteCtx!,pos_x + width/4,pos_y,Height/5 / 1.6 + 1,(width+0.5)/3.5);
                         }}
                     }
-                    sound && sound.play_key(element.NoteNumber-21);
+                    if(element.Velocity > 99){
+                        element.Velocity = 99;
+                    }
+                    sound && sound.play_key(element.NoteNumber-21,element.duration,element.Velocity);
                 }
                 else{
                     if(BlackNumbers.includes(element.NoteNumber)){

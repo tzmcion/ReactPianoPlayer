@@ -1,3 +1,24 @@
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="https://github.com/user-attachments/assets/513d7f73-88c1-4474-9c35-a3181761c4e6" alt="Logo" width="100" height="100">
+  </a>
+
+  <h3 align="center">Piano MIDI player/visualizer with ReactJS & TS </h3>
+
+  <p align="center">
+    Project inheritated by AVANT group ©AVANT 2024/2025, Januarry/2025 AVANT group will begin work on a new verision 
+    <br />
+<!--     <a href="https://github.com/tzmcion/bio-meeting/wiki"><strong>Explore the docs</strong></a> -->
+    <br />
+    <br />
+<!--     <a href="https://bio-meeting.vercel.app/">Visit Latest Version of the vebsite</a> -->
+    ·
+<!--     <a href="https://github.com/users/tzmcion/projects/2">Report Bug or Request Feature</a> -->
+  </p>
+</div>
+
+
 # React Piano Player/Visualizer/Analyzer
 
 PianoBlocksApp is a web application made for hobbists/enthusiasts of playing piano. This app provides a very simple way to visualize a persons piano playing, by reading his midi File.

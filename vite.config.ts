@@ -16,4 +16,7 @@ export default defineConfig({
       '@': '/src', // Optional: Allows you to use '@/components' instead of '../../../components'
     },
   },
+  build: {
+    outDir: 'build',  // Change from 'dist' to 'build'
+  },
 });

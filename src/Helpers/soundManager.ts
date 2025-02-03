@@ -15,21 +15,21 @@ class soundManager{
         this.current_sounds = [{audio:new Audio(key_1),id:0},{audio:new Audio(key_2),id:1},{audio:new Audio(key_3),id:2},{audio:new Audio(key_88),id:87}];
         for(let x = 1; x < 8; x++){
             const src_els = [
-                `co${x}.ogg`,
-                `ct${x}.ogg`,
-                `do${x}.ogg`,
-                `dt${x}.ogg`,
-                `e${x}.ogg`,
-                `fo${x}.ogg`,
-                `ft${x}.ogg`,
-                `gt${x}.ogg`,
-                `go${x}.ogg`,
-                `at${x}.ogg`,
-                `ao${x}.ogg`,
-                `b${x}.ogg`,
+                `co${x}`,
+                `ct${x}`,
+                `do${x}`,
+                `dt${x}`,
+                `e${x}`,
+                `fo${x}`,
+                `ft${x}`,
+                `gt${x}`,
+                `go${x}`,
+                `at${x}`,
+                `ao${x}`,
+                `b${x}`,
             ];
             src_els.forEach( async (el,index) =>{
-                const path = await import(`../Assets/piano_sounds/${el}`);
+                const path = await import(`/piano_sounds/${el}.ogg`);
                 const obj:sound_object = {
                     audio: new Audio(path.default),
                     id:((x-1)*12) + index+3,
@@ -46,7 +46,8 @@ class soundManager{
         if(okey_key.time_started){
             clearTimeout(okey_key.time_started);
         }
-        okey_key.audio.pause();
+        console.log(okey_key)
+        console.log(okey_key.audio.src)
         okey_key.audio.volume = velocity/250;
         okey_key.audio.currentTime = 0;
         okey_key.audio.play();

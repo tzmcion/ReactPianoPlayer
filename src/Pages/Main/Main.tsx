@@ -1,5 +1,5 @@
 import React,{useRef,ChangeEvent, useState,useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Main.styles.scss';
 
 import InputFile from '../../Components/Inputfile/InputFile';
@@ -20,14 +20,14 @@ export default function Main() {
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
     const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [isConfiguring,setIsConfiguring] = useState<boolean>(false);
-    const history = useHistory();
+    const history = useNavigate();
 
 
     const handleFileInput = () =>{
         if(checkExtension(MidiFileRef.current?.files![0],'mid')){
             SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
                 localStorage.setItem('options',JSON.stringify(options));
-                history.push('/Play');
+                history('/Play');
             });
         }else{
             alert('Error, Submited file is not MIDI file...');
@@ -60,7 +60,7 @@ export default function Main() {
         localStorage.setItem('options',JSON.stringify(options));
         await fetch(Midi).then(r => r.blob()).then(r =>{
             SaveAsBase64(r,'file').then(e =>{
-                history.push('/Play');
+                history('/Play');
             });
             
         })

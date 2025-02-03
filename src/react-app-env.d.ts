@@ -2,3 +2,4 @@
 declare module '*.mp4';
 declare module '*.MID';
 declare module '*.ogg';
+declare module '*.png';

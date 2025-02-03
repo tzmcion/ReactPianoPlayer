@@ -25,7 +25,8 @@ PianoBlocksApp is a web application made for hobbists/enthusiasts of playing pia
 
 <b> Link to latest version https://react-piano-player-63qjc9wca-tzmcion.vercel.app/ </b>
 ###### Github version is not always up-to-date.
-### Last Update 5/05/2023
+### Last Update 03/02/2025 </br>
+<p>Update Description: Switching from react-scripts to vite, and updating</p>
 
 ## Description
 

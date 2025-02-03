@@ -1,6 +1,6 @@
 import React,{useEffect,ReactElement, useState, useRef} from 'react';
 import { noteEvent } from '../../Utils/TypesForMidi';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Record.styles.scss';
 
 import statelessRecord from './statelessRecord';
@@ -17,8 +17,8 @@ export default function Record():ReactElement {
 
     const record = useRef(new statelessRecord());
     const Canvas = useRef<HTMLCanvasElement>(null);
-    const Convert = useRef<ConvertToPDF>();
-    const history = useHistory();
+    const Convert = useRef<ConvertToPDF>(null);
+    const history = useNavigate();
     const [devices,setDevices] = useState<Array<Devices>>([]);
     const [events,setEvents] = useState<Array<noteEvent>>([]);
     const [recording,setRecording] = useState<boolean>(false);
@@ -99,7 +99,7 @@ export default function Record():ReactElement {
 
     const PlayRecoDed_onClick = ():void =>{
         if(localStorage.getItem('fileJson')){
-            history.push('/PlayRecorded');
+            history('/PlayRecorded');
         }
     }
 

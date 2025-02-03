@@ -1,7 +1,5 @@
 import React, { MouseEvent, ReactElement, useEffect, useState,useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
-import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 import './PlayingManagement.scss';
 
 import MidiPlayer from '../../Helpers/MidiPlayer';
@@ -16,7 +14,7 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
 
     const [opacity,setOpacity] = useState<number>(0);
     const [width,setWidth] = useState("0%");
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(()=>{
         let dada:any = 0;
@@ -71,12 +69,12 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
     return (
         <div className='Playing_main' style={{opacity:opacity}}>
             <div className='icons'>
-            <img src={LogoPrototype} alt='Logo' onClick={()=>{history.push('/')}} title='Go back ?' className='IconGoBack LogoImg' />
+            <img src={LogoPrototype} alt='Logo' onClick={()=>{history('/')}} title='Go back ?' className='IconGoBack LogoImg' />
             <i className="fa fa-play-circle-o" aria-hidden="true" onClick={handlePause} title='Start Playing'></i>
             <i className="fa fa-pause" aria-hidden="true" onClick={handlePause} title='Pause/Unpause'></i>
             <i className="fa fa-stop" aria-hidden="true" onClick={handleStop} title='Reset'></i>
             </div>
-            <CircularProgressbar 
+            {/* <CircularProgressbar 
                 className='Timer' 
                 value={Player.timer / 1000} 
                 maxValue={Player.MidiLength / 1000} 
@@ -88,7 +86,7 @@ export default function PlayingManagement({Player,onStart}:PlayingManagementProp
                     pathColor:'#ec3a49',
                     trailColor:'#ec3a492d',
                     strokeLinecap: 10              
-                    })} />
+                    })} /> */}
             <div className='Duration' onClick={onDurClick}>
                 <div className='Bar' style={{width: width}} />
             </div>

@@ -6,7 +6,7 @@ import Info from './Pages/ToDo/ToDo';
 import Play from './Pages/Play/Play';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';
-import {Switch, Route} from 'react-router-dom';
+import {Routes as Switch, Route} from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -15,12 +15,12 @@ function App() {
     <div className='main'>
       <Header />
       <Switch>
-        <Route path='/tutorial' exact component={Tutorial} />
-        <Route path='/Info' exact component={Info} />
-        <Route path='/Play' exact component={() => <Play/>} />
-        <Route path='/Record' exact component={Record} />
-        <Route path='/PlayRecorded' exact component={() =><PlayRecorded />} />
-        <Route path='/' exact component={Main} />
+        <Route path='/tutorial' element={<Tutorial/>} />
+        <Route path='/Info' element={<Info/>} />
+        <Route path='/Play' element={<Play/>} />
+        <Route path='/Record' element={<Record />} />
+        <Route path='/PlayRecorded' element={<PlayRecorded />} />
+        <Route path='/' element={<Main />} />
       </Switch>
     </div>
   );

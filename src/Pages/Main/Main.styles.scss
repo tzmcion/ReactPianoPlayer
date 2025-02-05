@@ -36,13 +36,24 @@
             font-size: 16px;
             z-index: 1;
         }
-        .Logo{
-            width:150px;
-            height:150px;
-            margin: 0;
-            margin-left: 12%;
-            filter: drop-shadow(0px -15px 25px #36ce3915);
-            z-index: 0;
+        .Logos{
+            display: flex;
+            flex-direction: row;
+            width: 300px;
+            align-items: center;
+            justify-content: space-between;
+            .Logo{
+                width:150px;
+                margin: 0;
+                margin-left: 12%;
+                filter: drop-shadow(0px -15px 25px #36ce3915);
+                z-index: 0;
+            }
+            .Logo_comp{
+                width: 80px;
+                margin: 10px;
+                z-index: 0;
+            }
         }
     }
     .Demo_Bt{

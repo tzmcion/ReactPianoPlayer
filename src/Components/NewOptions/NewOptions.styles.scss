@@ -6,17 +6,17 @@
     height:100%;
     z-index: 2;
     top:0%;
-    left:68.5%;
+    left:65.5%;
     transition: 1s ease;
     display: flex;
     justify-content: center;
     .background_options{
-        background-color: #060606;
+        background-color: #FFF;
         top:-65%;
         height:200%;
         width:110%;
         position: absolute;
-        transform: rotate(-15deg);
+        transform: rotate(-25deg);
         z-index: 1;
     }
     .breakline_options{
@@ -199,9 +199,21 @@
     }
 }
 
-@media only screen and (max-width: 1380px) {
+@media only screen and (max-width: 1700px) {
     .Options_Main{
-        left:73%;
+        left:72%;
+    }
+}
+
+@media only screen and (max-width: 1540px) {
+    .Options_Main{
+        left:68%;
+    }
+}
+
+@media only screen and (max-width: 1420px) {
+    .Options_Main{
+        left:85%;
     }
 }
 

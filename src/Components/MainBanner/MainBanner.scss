@@ -1,0 +1,175 @@
+
+
+.MainPageBanner{
+    width: 900px;
+    margin-top: 80px;
+    padding-left: 100px;
+    // Logo aka banner
+    .Logo{
+        width: 700px;
+        height: 200;
+        display: flex;
+        flex-direction: row;
+        .LogoLeft{
+            width: 225px;
+            height: 100%;
+            img{
+                width: 100%;
+            }
+        }
+        .LogoRight{
+            width: 575px;
+            h1,h2,a{
+                margin: 0;
+                padding: 0;
+            }
+            .TitleApp{
+                color: black;
+                margin-top: 20px;
+                text-align: left;
+                font-size: 42px;
+            }
+            .AppShortDescription{
+                margin-top: 10px;
+                color: #3F4650;
+                font-size: 36px;
+            }
+            .LinkGithub{
+                font-size: 16px;
+                color: #076DAB;
+                text-decoration: none;
+                &:hover{
+                    color: #F36300;
+                }
+            }
+        }
+    }
+    // Description
+    .Description{
+        margin-top: 30px;
+        width: 800px;
+        height: fit-content;
+        padding: 10px;
+        padding-bottom: 20px;
+        background-color: white;
+        border: 2px dashed #F36300;
+        p{
+            .ColOrange{
+                color: #F36300;
+            }
+            a{
+                color: #076DAB;
+            }
+            font-size: 24px;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    //Usage
+    .Usage{
+        width: 800px;
+        h3{
+            font-size: 32px;
+            color:#131F2D;
+            font-weight: 100;
+            margin-bottom: 0; padding-bottom: 0;
+        }
+        p{
+            margin-top: 10px;
+            font-size: 20px;
+            a{
+                color: #076DAB;
+            }
+        }
+        .AvntLogo{
+            display: flex;
+            flex-direction: row;
+            margin-left: -25px;
+            .LeftSide{
+                width: 100px;
+                img{
+                    width: 100%;
+                }
+            }
+            .RightSide{
+                h4,h5{
+                    margin: 0; padding: 0;
+                }
+                h4{
+                    margin-top: 20px;
+                    color: #F36300;
+                    font-weight: 100;
+                    font-size: 26px;
+                }
+                h5{
+                    margin-top: 0px;
+                    font-size: 18px;
+                    font-weight: 100;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-height: 750px) {
+    .MainPageBanner{
+        width: 700px;
+        margin-top: 70px;
+        // Logo
+        .Logo{
+            width: 700px;
+            height: 150px;
+            .LogoLeft{
+                width: 150px;
+            }
+            .LogoRight{
+                width: 550px;
+                .TitleApp{
+                    font-size: 34px;
+                }
+                .AppShortDescription{
+                    font-size: 28px;
+                    margin-bottom: -10px;
+                }
+                .LinkGithub{
+                    font-size: 12px;
+                }
+            }
+        }
+        // Desc
+        .Description{
+            margin-top: 20px;
+            width: 650px;
+            padding-bottom: 15px;
+            p{
+                font-size: 18px;
+            }
+        }
+        //Usage
+        .Usage{
+            margin-top: 30px;
+            width: 700px;
+            h3{
+                font-size: 28px;
+            }
+            p{
+                margin-top: 10px;
+                font-size: 18px;
+                a{
+                    color: #076DAB;
+                }
+            }
+            .AvntLogo{
+                .RightSide{
+                    h4{
+                        font-size: 24px;
+                    }
+                    h5{
+                        margin-top: 10px;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+}

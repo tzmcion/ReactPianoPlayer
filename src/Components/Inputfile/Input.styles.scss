@@ -3,7 +3,7 @@
 .FileInputDiv{
     width:50%;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     height: 100%;
     z-index: 3;
     transition: 0.5s;
@@ -12,13 +12,13 @@
         z-index: -1;
         overflow: hidden;
         right:-15%;
-        top:-100px;
-        height:130%;
-        width:85%;
-        background: linear-gradient(90deg,transparent ,#060606 0.5%);
-        transform: rotate(-15deg);
+        top:-230px;
+        height:140%;
+        width:100%;
+        background: linear-gradient(90deg,transparent ,white 1.5%);
+        transform: rotate(-25deg);
         .backgroundCanvas{
-            transform: rotate(15deg);
+            transform: rotate(25deg);
             position: absolute;
             top:0;
             right:0;
@@ -27,12 +27,11 @@
     .FileInput_Data{
         width:66%;
         height:100%;
-        margin-left: 34%;
+        margin-left: 30%;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        font-family: 'Quattrocento Sans', sans-serif;
         color:white;
         .Midi_Icon{
             width:100px;
@@ -42,42 +41,40 @@
             display: block;
         }
         h2{
-            font-size: 24px;
+            font-size: 28px;
             text-align: center;
+            color: #3F4650;
+            font-weight: 100;
+            margin-top: 0px;
         }
         h3{
-            font-size: 16px;
-            margin-top: -10px;
+            font-size: 20px;
+            margin-top: -30px;
+            color:black;
+            font-weight: 100;
         }
         .Input_Configure_Bt{
             position: relative;
             overflow: hidden;
-            color: #44C1F8;
-            background-color: #F8F0EF;
-            border-radius: 8px;
+            color: #FFF;
+            background-color: #6E8898;
+            border-radius: 4px;
             border:none;
-            font-family: 'Quantico', sans-serif;
-            font-weight: 400;
-            font-size: 20px;
+            font-size: 28px;
+            font-weight: 100;
             text-align: center;
-            width:160px;
+            width:180px;
+            height: 40px;
             padding: 2px 0px 2px 0px;
-            cursor: pointer;
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.292);
+            cursor: help;
             outline: none;
-        }
-        .Input_Configure_Bt::before{
-            content: '';
-            position: absolute;
-            border-radius: 8px;
-            width:30px;
-            height:200%;
-            top:-30%;
-            transform: rotate(-20deg);
-            background-color: #383636;
-            left:-25%;
-        }
-        .Input_Configure_Bt:hover::before{
-            animation: background_slid 0.6s ease;
+            &:hover{
+                color: #f7f7f7;
+                text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.373);
+                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.483);
+            }
+
         }
     }
     .FileInput{

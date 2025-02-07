@@ -2,20 +2,27 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './Header.styles.scss';
 
+import Logo from '../../Assets/PBA_logo.png'
+
 export default function Header() {
     return (
         <nav className='Header'>
             <div className='HeaderData'>
                 <div className='Logo'>
-                    <Link to='/' className='Logo_Link'>
-                    <h1>Piano Blocks App</h1>
+                    <Link to='/' className='Logo-Small-Res'>
+                        <img src={Logo} alt="PBA_logo" />
+                        <h2 className='jersey-10 Logo-Title'>PBA</h2>                        
+                    </Link>
+
+                    <Link to='/' className='Logo_Link Logo-Big-Res'>
+                        <h2 className='jersey-10 Logo-Title'>PIANO-BLOCKS-APP</h2>
                     </Link>
                 </div>
                 <div className='Links'>
-                    <Link to='/' className='Link'>Home</Link>
-                    <Link to='/Record' className='Link'>Record</Link>
-                    <Link to='/tutorial' className='Link'>DOCS</Link>
-                    <Link to='/info' className='Link'>Info&Support</Link>
+                    <Link to='/' className='Link jersey-10 HomeLink'>HOME</Link>
+                    <Link to='/Record' className='Link jersey-10'>RECORD</Link>
+                    <Link to='/tutorial' className='Link jersey-10'>DOCS</Link>
+                    <Link to='/info' className='Link jersey-10'>SUPPORT</Link>
                 </div>
             </div>
         </nav>

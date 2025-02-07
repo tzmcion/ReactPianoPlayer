@@ -2,83 +2,14 @@
 
 .mainDiv{
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     box-sizing: border-box;
+    height: 100vh;
     .mainHead{
         width:100%;
         height:100%;
         display: flex;
         flex-direction: row-reverse;
-    }
-    .Main_data{
-        width:50%;
-        height:100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color:white;
-        .Main_data_Text{
-            margin-left: 12%;
-            max-width: 80%;
-            text-align: center;
-        }
-        .Title{
-            font-family: 'Overpass Mono', monospace;
-            max-width: 90%;
-            font-size: 28px;
-            text-transform: uppercase;
-            z-index: 1;
-            color:#d0e4d0
-        }
-        .Description{
-            font-family: 'Overpass Mono';
-            font-size: 16px;
-            z-index: 1;
-        }
-        .Logos{
-            display: flex;
-            flex-direction: row;
-            width: 300px;
-            align-items: center;
-            justify-content: space-between;
-            .Logo{
-                width:150px;
-                margin: 0;
-                margin-left: 12%;
-                filter: drop-shadow(0px -15px 25px #36ce3915);
-                z-index: 0;
-            }
-            .Logo_comp{
-                width: 80px;
-                margin: 10px;
-                z-index: 0;
-            }
-        }
-    }
-    .Demo_Bt{
-        position: absolute;
-        z-index: 555;
-        border:none;
-        padding: 10px;
-        color:#113823;
-        text-shadow: 0px 0px 6px 1px #0e291b;
-        background-color: #d0e4d0;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-        top:95vh;
-        left:0.3vw;
-        transition: 0.15s;
-        outline: none;
-        box-shadow: 0px 0px 8px 0px #d0e4d0;
-        opacity: 0.4;
-    }
-    .Demo_Bt:hover{
-        box-shadow: 0px 0px 6px 2px #d0e4d0;
-        opacity: 1;
-        outline: none;
-        border:none
     }
 }
 

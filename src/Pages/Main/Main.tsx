@@ -7,9 +7,10 @@ import MainBanner from '../../Components/MainBanner/MainBanner';
 import NewOptions from '../../Components/NewOptions/Options';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { checkExtension, SaveAsBase64 } from '../../Utils/smallFunctions';
-import { DefaultOptions } from '../../Utils/Default';
 import optionsSwitch from '../../Utils/handleOptionsChange'
 import DonationPrompt from '../../Components/DonationPrompt/DonationPrompt';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeOptionValue } from '../../Utils/ReduxSlice_Options';
 
 
 import Midi from '../../Assets/demo.MID';
@@ -17,16 +18,16 @@ import Midi from '../../Assets/demo.MID';
 export default function Main() {
 
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
-    const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [isConfiguring,setIsConfiguring] = useState<boolean>(false);
     const history = useNavigate();
+    const dispatch = useDispatch();
+    const options = useSelector((state:{options:OptionsType}) => state.options);
 
     const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
-        let currentOptions = optionsSwitch(event,options);
-        console.log('changing options');
+        const new_Options = optionsSwitch(event,options);
         try{
-            localStorage.setItem('options',JSON.stringify(currentOptions));
-            setOptions(currentOptions);
+            localStorage.setItem('options',JSON.stringify(new_Options));
+            dispatch(changeOptionValue(new_Options));
         }catch{
             alert('this File is probably to big man');
         }
@@ -34,7 +35,7 @@ export default function Main() {
 
     const reloadOptions = ():void =>{
         const opt = localStorage.getItem('options');
-        opt && setOptions(JSON.parse(opt));
+        opt && dispatch(changeOptionValue(JSON.parse(opt)))
     }
 
     useEffect(()=>{

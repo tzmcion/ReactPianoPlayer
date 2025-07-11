@@ -27,7 +27,7 @@ const data:Options = {
     GradientBlocksColor:['#224455','#aa2244']
 }
 
-let DefaultOptions:Options = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);
+let DefaultOptions:Options = localStorage.getItem('options') === null ? data : JSON.parse(localStorage.getItem('options')!);
 
 if(!('GradientColor' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));

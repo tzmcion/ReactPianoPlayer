@@ -2,7 +2,7 @@ import { Options as OptionsType } from './TypesForOptions';
 import { ChangeEvent } from 'react';
 
 const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}},options:OptionsType):OptionsType =>{
-    let currentOptions = options;
+    let currentOptions = {...options};
     switch(event.target.name){
         case 'color':
             currentOptions.Color = event.target.value;

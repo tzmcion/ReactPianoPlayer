@@ -1,0 +1,28 @@
+Changes For new version of PBA:
+
+* Redesign of whole App, change theme to light
+* Redesigned of way the blocks are displayed
+* Implemented scaling of the app (window scaling)
+* Implemented partitioning of the app ()
+* Implemented vite as npm module, replaced old babbel
+* Implemented React Recoil for multi-level state management, replaced redux
+* Redesigned the effets and how they work / Optimized the effects.
+* Replaced options reading - implemented with react - Recoil
+* Repaired of not-updating options bug
+* Redesign the record page
+    - New way of see the recorded data
+    - New way of implementing the notes
+    - Allow user to change the tonation of the sheet music manually
+    - Allow user to implement the "Standard DEviation", to mask the rythm missalignments
+    - Allow user to implement the "Tempo", so the tempo will be correct.
+* Changed support page to "About App" Page
+* Created documentation to use the app
+* Added Workers to handle MIDI
+
+TODO:
+- Rapair the bug with options when going back the otpions do not reset
+- Repair the sound and volume and tone of the piano
+- Redesign the playing bar
+- Redesign the background
+- Repair some of the not working effects
+- Maybe try to use less seperate canvases

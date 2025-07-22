@@ -104,7 +104,7 @@ export default function InputFile({options,onConfClick,isConfOn}:InputFileProps)
             {/* Here code to alert the user when file insrted is not a midi file */}
             <Snackbar anchorOrigin={{vertical:"bottom", horizontal:"center"}} open={is_wrong_extension} autoHideDuration={5000} onClose={handle_error_close} >
             <Alert severity="error" onClose={handle_error_close}>
-                <AlertTitle>ERROR</AlertTitle>
+                <AlertTitle><b>ERROR</b></AlertTitle>
                 Provided file is not a midi file, please input a midi file.
                 </Alert>
             </Snackbar>

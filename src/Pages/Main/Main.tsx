@@ -12,7 +12,7 @@ import DonationPrompt from '../../Components/DonationPrompt/DonationPrompt';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeOptionValue } from '../../Utils/ReduxSlice_Options';
 
-
+import previeWMidi from "../../Assets/preview_midi_mendelssohn.MID";
 import Midi from '../../Assets/demo.MID';
 
 export default function Main() {
@@ -41,6 +41,7 @@ export default function Main() {
     useEffect(()=>{
         document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
+        Save_Preview_Midi();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
@@ -49,6 +50,14 @@ export default function Main() {
         await fetch(Midi).then(r => r.blob()).then(r =>{
             SaveAsBase64(r,'file').then(e =>{
                 history('/Play');
+            });
+            
+        })
+    }
+
+    const Save_Preview_Midi = async () =>{
+        await fetch(previeWMidi).then(r => r.blob()).then(r =>{
+            SaveAsBase64(r,'Preview_file').then(e =>{
             });
             
         })

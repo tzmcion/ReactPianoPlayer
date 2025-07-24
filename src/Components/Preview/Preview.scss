@@ -1,0 +1,15 @@
+.Preview_Window{
+    width: 800px;
+    height: 550px;
+    border: 1px solid black;
+    position: absolute;
+    left:120px;
+    bottom: 100px;
+    overflow: hidden;
+    z-index: 3;
+    .Inside_Player{
+        position: absolute;
+        top:-365px;
+        left: -550px;
+    }
+}

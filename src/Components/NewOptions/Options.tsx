@@ -17,6 +17,7 @@ import {
 
 import save_img from "../../Assets/save.png"
 import preview_img from "../../Assets/preview.png"
+import Preview from '../Preview/Preview';
 
 interface OptionsProps{
     isOpened:boolean,
@@ -29,6 +30,7 @@ interface OptionsProps{
 export default function Options({isOpened,onGoBack,options,handleOptionsChange,reloadOptions}:OptionsProps):ReactElement {
 
     const [table,setTable] = useState<'blocks' | 'effects' | 'other' | 'presets'>('blocks');
+    const [preview,setPreview] = useState<boolean>(false);
 
     const change_table = (name:'blocks' | 'effects' | 'other' | 'presets'):void =>{
         setTable(name);
@@ -53,8 +55,9 @@ export default function Options({isOpened,onGoBack,options,handleOptionsChange,r
                     <ChooseButton onClick={change_table} name='presets' title='presets' textColor='#000' />
                 </div>
             </div>
-            <ImageButton image={save_img} className={`Image_Save ${isOpened ? 'Bt_open' : ''}`} onClick={onGoBack} title='SAVE OPTIONS'/>
-            <ImageButton image={preview_img} className={`Image_Preview ${isOpened? 'Bt_open' : ''}`} onClick={onGoBack} title='PREVIEW'/>
+            <ImageButton image={save_img} className={`Image_Save ${isOpened ? 'Bt_open' : ''}`} onClick={onGoBack} onHover={()=>{setPreview(prev => !prev)}} title='SAVE OPTIONS'/>
+            <ImageButton image={preview_img} className={`Image_Preview ${isOpened? 'Bt_open' : ''}`} onClick={onGoBack} onHover={()=>{}} title='PREVIEW'/>
+            <Preview is_on={preview}/>
         </div>
     )
 }

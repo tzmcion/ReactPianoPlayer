@@ -31,7 +31,7 @@ export default function Play() {
 
     return (
         <div style={{overflow:'hidden'}}>
-            {Player &&<DrawPiano drawSpeed={options.playSpeed} Player={Player} Data={Events} Speed={options.speed} options={options}/>}
+            {Player && <DrawPiano Player={Player} Data={Events} options={options}/>}
             {Player && <PlayingManagement Player={Player} onStart={()=>{}} />}
         </div>
     )

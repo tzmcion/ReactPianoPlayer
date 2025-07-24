@@ -33,22 +33,10 @@
         display: flex;
         flex-direction: column;
         z-index: 3;
-        margin-top: 100px;
+        margin-top: 60px;
         margin-left: -4%;
         opacity:0;
         transition: 0.25s;
-        h2{
-            font-family: 'Poppins', sans-serif;
-            width:100%;
-            height:auto;
-            letter-spacing: 1.4px;
-            text-align: center;
-            font-size: 24px;
-            color:white;
-            display:inline-block;
-            font-weight: 400;
-            margin: 0;
-        }
         .options_Cards{
             width:90%;
             height:72vh !important;

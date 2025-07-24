@@ -6,9 +6,9 @@ export const counterSlice = createSlice({
     initialState: DefaultOptions,
     reducers:{
         changeOptionValue: (state, action) =>{
-            console.log(state);
-            console.log(action.payload);
-            state = action.payload;
+            // console.log(state);
+            // console.log(action.payload);
+            return action.payload;
         }
     },
 

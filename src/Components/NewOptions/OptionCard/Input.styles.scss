@@ -3,24 +3,35 @@
 //Color
 
 input[type="color"] {
-	-webkit-appearance: none;
 	border: none;
     display: block;
-    border-radius: 5px;
-    margin: 10px auto;
-	width:50%;
-    height:15%;
+    border-radius: 0px;
+    margin: 0px 15px;
+    outline: none;
+    appearance: none;
+	width:25%;
+    height:70%;
     cursor: pointer;
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
 	padding: 0;
-    border-radius: 5px;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.7);
+    border-radius: 3px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.400);
 }
 input[type="color"]::-webkit-color-swatch {
 	border: none;
-    border-radius: 5px;
+    border-radius: 3px;
+}
+
+.Hex_Input{
+    width: 80px;
+    margin-left: 5px;
+    font-size: 18px;
+    line-height: 28px;
+    border: none;
+    border: 2px dotted rgb(56, 56, 56);
+    padding-left: 4px;
 }
 
 //Checkbox
@@ -31,8 +42,9 @@ input[type="color"]::-webkit-color-swatch {
     cursor: pointer;
     position: relative;
     display: block;
-    margin: 10px auto;
+    margin: 0px 20px;
     box-shadow: 0px 0px 7px rgb(248, 28, 28);
+    
 }
 
 .checkboxInput:checked, .Randocheckbox:active{
@@ -74,16 +86,17 @@ input[type="color"]::-webkit-color-swatch {
 //Number
 
 .numberInput{
-    height:15%;
+    height:50%;
     margin: 10px auto;
     display: block;
     outline: none;
-    border: none;
-    -moz-appearance: textfield;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.582);
+    width: 88%;
+    appearance: textfield;
+    border-radius: 2px;
+    border: 2px dotted black;
+    font-weight: 100;
+    font-size: 20px;
+    // box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.382);
 
 }
 
@@ -93,7 +106,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .numberInput:focus-visible{
-    border:none;
+    border:2px solid black;
     outline: none;
 }
 @media only screen and (max-width: 550px) {

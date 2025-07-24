@@ -1,4 +1,4 @@
-import React,{ChangeEvent, useState,useEffect} from 'react';
+import React,{ChangeEvent, useState,useEffect, useCallback} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Main.styles.scss';
 
@@ -23,7 +23,7 @@ export default function Main() {
     const dispatch = useDispatch();
     const options = useSelector((state:{options:OptionsType}) => state.options);
 
-    const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
+    const handleOptionsChange = useCallback((event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
         const new_Options = optionsSwitch(event,options);
         try{
             localStorage.setItem('options',JSON.stringify(new_Options));
@@ -31,7 +31,7 @@ export default function Main() {
         }catch{
             alert('this File is probably to big man');
         }
-    }
+    },[options,dispatch])
 
     const reloadOptions = ():void =>{
         const opt = localStorage.getItem('options');

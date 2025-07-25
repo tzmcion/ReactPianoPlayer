@@ -12,7 +12,7 @@ interface IB_props{
 export default function ImageButton({image,className, onClick, title, onHover}:IB_props):React.ReactElement {
 
   return (
-    <div className={`ImageButton ${className}`} onClick={()=>{onClick()}} onMouseOver={() => {onHover()}}>
+    <div className={`ImageButton ${className}`} onClick={()=>{onClick()}} onMouseEnter={() => {onHover()}} onMouseLeave={() => {onHover()}}>
         <div className='ImageButton_image'>
             <img src={image} alt={title} />
         </div>

@@ -55,8 +55,8 @@ export default function Options({isOpened,onGoBack,options,handleOptionsChange,r
                     <ChooseButton onClick={change_table} name='presets' title='presets' textColor='#000' />
                 </div>
             </div>
-            <ImageButton image={save_img} className={`Image_Save ${isOpened ? 'Bt_open' : ''}`} onClick={onGoBack} onHover={()=>{setPreview(prev => !prev)}} title='SAVE OPTIONS'/>
-            <ImageButton image={preview_img} className={`Image_Preview ${isOpened? 'Bt_open' : ''}`} onClick={onGoBack} onHover={()=>{}} title='PREVIEW'/>
+            <ImageButton image={save_img} className={`Image_Save ${isOpened ? 'Bt_open' : ''}`} onClick={onGoBack} onHover={()=>{}} title='SAVE OPTIONS'/>
+            <ImageButton image={preview_img} className={`Image_Preview ${isOpened? 'Bt_open' : ''}`} onClick={() => {}} onHover={()=>{setPreview(prev => !prev)}} title='PREVIEW'/>
             <Preview is_on={preview}/>
         </div>
     )

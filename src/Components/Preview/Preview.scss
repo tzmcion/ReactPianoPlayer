@@ -6,10 +6,16 @@
     left:120px;
     bottom: 100px;
     overflow: hidden;
-    z-index: 3;
+    z-index: -1;
+    opacity: 0;
     .Inside_Player{
         position: absolute;
         top:-365px;
         left: -550px;
     }
+}
+
+.Preview_ON{
+    opacity: 1;
+    z-index: 3;
 }

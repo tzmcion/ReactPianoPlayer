@@ -5,9 +5,11 @@ import ReadMidiFile from "./ReadMidiFile";
 import getConstantDataFromMidiFile from "./getConstantDataFromMidiFile";
 import ConvertToNoteEventsJSON from './getNoteEventsJSON';
 
-
+/**
+ * Class MidiPlayer handles the timing, order, and correctness of Midi file playing
+ * It is eseentially a class which allowes to play and manipulate of the playing of midi file
+ */
 class MidiPlayer{
-    //Typescript Declarations
     private file: any
     private Midi: Array<noteEvent> | null
     private interval:any
@@ -20,9 +22,14 @@ class MidiPlayer{
     public isPlaying:boolean
     public isReseting:boolean
     public isMoved:boolean
-    //Constructor
+    /**
+     * 
+     * @param fileInput MidiFiles object of Notes, should be a returned variable from function "ReadFromLocalStorageBase64" 
+     * @param onEvent Function which will be executed when a midi event is detected
+     * @param timeStamps TimeStamps defines how often the Player checks for new event to occure. It can be also named "precision", default, 25 precision means every 25ms the player checks for new midi events
+     */
     constructor(fileInput: React.RefObject<HTMLInputElement> | ArrayBuffer | Array<noteEvent>, onEvent:Function ,timeStamps?:number){
-        if('current' in fileInput){
+        if('current' in fileInput){ //check if passed object is a react reference, or arraybuffer.
             this.file = fileInput.current?.files![0];
             this.fileType = 'ref'
         }
@@ -30,8 +37,8 @@ class MidiPlayer{
             this.file = fileInput;
             this.fileType = 'ArrayBuffer';
         }
-        this.onEvent = onEvent;
-        this.timeStamps = timeStamps ? timeStamps: 25;
+        this.onEvent = onEvent; //Function wchich is executed when an event is detected during playing
+        this.timeStamps = timeStamps ? timeStamps: 25;  //How often the player checks for new midi events (it works as interval)
         this.isPlaying = false;
         this.timer = 0;
         this.currentIndex = 0;
@@ -45,16 +52,21 @@ class MidiPlayer{
         this.simulateEvent = this.simulateEvent.bind(this);
     }
 
-    public static async NoteEvents_From_ArrayBuffer(file:ArrayBuffer):Promise<Array<noteEvent>>{
+    /**
+     * Static Method converts arrayBuffer to Array of NoteEvents.
+     * It must be done before the start of playing, as this Class is capable only of reading noteEvents
+     * @param file an ArrayBuffer --> IMidiFile
+     * @returns a Promise of array with noteEvents
+     */
+    public static async NoteEvents_From_ArrayBuffer(file:IMidiFile):Promise<Array<noteEvent>>{
         const convertToJSON = async (MidiArr:IMidiFile) =>{ 
             return new Promise<Array<noteEvent>>(function(resolve){
                 resolve(ConvertToNoteEventsJSON(MidiArr,500000,getConstantDataFromMidiFile(MidiArr)));
         })}
         return new Promise(resolve =>{
             ReadMidiFile(file,'ArrayBuffer').then(MidiObject =>{
-                const MidiArr =  MidiObject as IMidiFile;
-                convertToJSON(MidiArr).then(responde =>{
-                    resolve(responde);
+                convertToJSON(MidiObject).then(response =>{
+                    resolve(response);
                 })
             })
         })

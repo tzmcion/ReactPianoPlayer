@@ -23,5 +23,6 @@ export interface Options{
     GradientColor:string,
     GradientBlocks:boolean,
     GradientBlocksColor:Array<string>
+    Error_info:string
 }
 

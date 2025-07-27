@@ -1,9 +1,17 @@
-//File Currently Not Used
+//--------------------
+//File Not Used
+//--------------------
 import  {IMidiFile, noteEvent} from "../Utils/TypesForMidi";
 
 import getConstantDataFromMidiFile from "./getConstantDataFromMidiFile";
 import ConvertToNoteEventsJSON from './getNoteEventsJSON';
 
+/**
+ * Super simple MidiPlayer which plays the file asynchronuesly.
+ * @deprecated Uses old functions and is not used anywhere
+ * @param fileData 
+ * @param onEvent 
+ */
 const PlayMidiAsync = async (fileData:Object,onEvent:Function) =>{
     const File = fileData as IMidiFile;
     const noteEventsJSON = ConvertToNoteEventsJSON(File,500000,getConstantDataFromMidiFile(File));

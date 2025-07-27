@@ -24,7 +24,8 @@ const data:Options = {
     ThinerBlockColor:'#FB1378',
     GradientColor:'#128251',
     GradientBlocks:false,
-    GradientBlocksColor:['#224455','#aa2244']
+    GradientBlocksColor:['#224455','#aa2244'],
+    Error_info:""
 }
 
 let DefaultOptions:Options = localStorage.getItem('options') === null ? data : JSON.parse(localStorage.getItem('options')!);
@@ -138,6 +139,10 @@ if(!('GradientBlocks' in DefaultOptions)){
     window.location.reload();
 }
 if(!('GradientBlocksColor' in DefaultOptions)){
+    localStorage.setItem('options',JSON.stringify(data));
+    window.location.reload();
+}
+if(!('Error_info' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();
 }

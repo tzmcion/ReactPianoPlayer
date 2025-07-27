@@ -13,12 +13,29 @@ export interface  TimeSignature{
     thirtyseconds:number;
 }
 
+/**
+ * @deprecated Please use timeSignatureDataProps
+ */
 export interface StaticMidiDataProps{
     denominator:number,
     nominator:number,
     metronome:number,
     thirtyseconds:number,
     division:number;
+}
+
+/**
+ * Midi types for correct timeSignatureInterpretations
+ */
+export interface timeSignatureDataProps{
+    division:number,
+    timeSignatures:{
+        delta:number,
+        denominator:number,
+        nominator:number,
+        metronome:number,
+        thirtyseconds:number,
+    }[]
 }
 
 export interface MidiEventType{
@@ -32,12 +49,24 @@ export interface MidiEventType{
     noteOff:{noteNumber:number,velocity:number},
 }
 
+/**
+ * @deprecated please use new TrackNoteEvent
+ */
 export interface noteEvent{
     NoteNumber:number,
     Delta:number,
     Duration:number,
     SoundDuration:number,
     Velocity:number
+}
+
+export interface TrackNoteEvent{
+    NoteNumber:number,
+    Delta:number,
+    Duration:number,
+    SoundDuration:number,
+    Velocity:number,
+    TrackNumber:number
 }
 
 export interface blockNote{

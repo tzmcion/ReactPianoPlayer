@@ -18,6 +18,7 @@ Changes For new version of PBA:
 * Changed support page to "About App" Page
 * Created documentation to use the app
 * Added Workers to handle MIDI
+* Create a preview window
 
 TODO:
 - Rapair the bug with options when going back the otpions do not reset
@@ -26,3 +27,5 @@ TODO:
 - Redesign the background
 - Repair some of the not working effects
 - Maybe try to use less seperate canvases
+- Add functionality to work with multiple tracks in midi file
+- Add Unit tests

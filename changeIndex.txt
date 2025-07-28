@@ -15,10 +15,10 @@ Changes For new version of PBA:
     - Allow user to change the tonation of the sheet music manually
     - Allow user to implement the "Standard DEviation", to mask the rythm missalignments
     - Allow user to implement the "Tempo", so the tempo will be correct.
-* Changed support page to "About App" Page
 * Created documentation to use the app
 * Added Workers to handle MIDI
 * Create a preview window
+* Refactored MIDI file computation, now it is significanntly faster (for smaller files from 17ms to 3 ms) of worktime.
 
 TODO:
 - Rapair the bug with options when going back the otpions do not reset
@@ -29,3 +29,4 @@ TODO:
 - Maybe try to use less seperate canvases
 - Add functionality to work with multiple tracks in midi file
 - Add Unit tests
+- Change support page to "About App" Page

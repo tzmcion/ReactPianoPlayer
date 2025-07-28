@@ -3,7 +3,7 @@ name: Run Tests
 on:
   push:
     branches:
-      - main  # or 'master' or any other branch you want to monitor
+      - AVANT  # or 'master' or any other branch you want to monitor
   pull_request:
 
 jobs:

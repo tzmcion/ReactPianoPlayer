@@ -49,6 +49,19 @@ export interface MidiEventType{
     noteOff:{noteNumber:number,velocity:number},
 }
 
+export interface UpdatedMidiEventType{
+    delta:number,
+    setTempo: {microsecondsPerQuarter:number},
+    endOfTrack: boolean,
+    channel: number,
+    programChange: {programNumber:number},
+    controlChange:{type:number,value:number},
+    noteOn:{noteNumber:number,velocity:number},
+    noteOff:{noteNumber:number,velocity:number},
+    controlTrack: boolean,
+    trackNumber:number
+}
+
 /**
  * @deprecated please use new TrackNoteEvent
  */

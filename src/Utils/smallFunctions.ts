@@ -4,6 +4,11 @@ import rgbHex from 'rgb-hex';
 import {data} from './Default';
 
 
+/**
+ * @deprecated function not recomended for usage due to returning noteEvent type
+ * @param noteNumber 
+ * @returns 
+ */
 const getEmptyNoteEvent = (noteNumber:number): noteEvent => {
     return{
         NoteNumber: noteNumber,
@@ -14,6 +19,12 @@ const getEmptyNoteEvent = (noteNumber:number): noteEvent => {
     }
 }
 
+/**
+ * @deprecated function not used anywhere and not recomended for usage due to returning noteEvent type
+ * @param Keys 
+ * @param startNumber 
+ * @returns 
+ */
 const CreateEmptyArray = (Keys:number,startNumber:number):Array<noteEvent> =>{
     let Keys_Array = [];
     for(let x = startNumber; x < Keys + startNumber; x++){

@@ -23,7 +23,11 @@ interface TracksProps{
     sound:any
 }
 
-
+/**
+ * @deprecated please use TracksAnimationFrame as this one is highly inefficient
+ * @param param0 
+ * @returns 
+ */
 export default function TracksIntervalMethod({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null)

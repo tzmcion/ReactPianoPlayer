@@ -4,11 +4,12 @@
 import createNoteEvents from '../../src/Helpers/MidiReader/createNoteEvents'
 import timeSignatures from "../../src/Helpers/MidiReader/timeSignatureValuesFromMidiFile"
 import MidiToSingleTrack from "../../src/Helpers/MidiReader/MidiToSingleTrack"
+import AnimationFrameMidiPlayer from "../../src/Helpers/MidiReader/AnimationFrameMidiPlayer"
 import MIDI_mock from './MIDI_mock'
 
-import {expect, test} from 'vitest'
+import {expect, test, describe, it} from 'vitest'
 
-test("TimeSignature Unit Test", () =>{
+test("Testing: TimeSignatures", () =>{
     const result = timeSignatures(MIDI_mock);
     expect(result.division).toBe(240);
     expect(result.timeSignatures.length).toBe(3);
@@ -20,7 +21,7 @@ test("TimeSignature Unit Test", () =>{
     expect(()=>{timeSignatures(edited_MIDI)}).toThrowError();
 });
 
-test("Mergin Midi Tracks Test", () =>{
+test("Testing: MidiToSingleTrack", () =>{
     const result = MidiToSingleTrack(MIDI_mock);
     expect(result.tracks.length).toEqual(1);
     //Sum of events should not be different
@@ -38,7 +39,7 @@ test("Mergin Midi Tracks Test", () =>{
       })
 });
 
-test("Note Events length check testing", () =>{
+test("Testing: createNoteEvents", () =>{
     const note_events = createNoteEvents(MIDI_mock,timeSignatures(MIDI_mock))
     const file_track = MidiToSingleTrack(MIDI_mock).tracks[0];
     let count_notes = 0;
@@ -49,4 +50,15 @@ test("Note Events length check testing", () =>{
     })
     //Check if number of events equals number of "noteON" events from original array
     expect(note_events.length).toStrictEqual(count_notes)
+})
+
+describe("Testing: AnimationFrameMidiPlayer", () =>{
+    const onEvent = (data) =>{
+    }   
+    const player = new AnimationFrameMidiPlayer(MIDI_mock, onEvent);
+    player.pausePlay()
+    it("resolve in 10m seconds",async () =>{
+        const result = await player.__for_testing()
+        expect(result).toBe(true)
+    }, player.MidiLength + 1000)
 })

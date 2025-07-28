@@ -11,7 +11,11 @@ interface LoadingScreenProps{
 }
 
 
-
+/**
+ * @deprecated Please do not use, this is very ugly
+ * @param param0 
+ * @returns 
+ */
 export default function LoadingScreen({width,height,onLoaded,Finished}:LoadingScreenProps):ReactElement {
 
     const [opacity,setOpacity] = useState<number>(0)

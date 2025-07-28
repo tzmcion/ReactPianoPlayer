@@ -5,7 +5,7 @@ Changes For new version of PBA:
 * Implemented scaling of the app (window scaling)
 * Implemented partitioning of the app ()
 * Implemented vite as npm module, replaced old babbel
-* Implemented React Recoil for multi-level state management, replaced redux
+* Implemented redux for options manipulattion
 * Redesigned the effets and how they work / Optimized the effects.
 * Replaced options reading - implemented with react - Recoil
 * Repaired of not-updating options bug
@@ -16,7 +16,6 @@ Changes For new version of PBA:
     - Allow user to implement the "Standard DEviation", to mask the rythm missalignments
     - Allow user to implement the "Tempo", so the tempo will be correct.
 * Created documentation to use the app
-* Added Workers to handle MIDI
 * Create a preview window
 * Refactored MIDI file computation, now it is significanntly faster (for smaller files from 17ms to 3 ms) of worktime.
 
@@ -30,3 +29,4 @@ TODO:
 - Add functionality to work with multiple tracks in midi file
 - Add Unit tests
 - Change support page to "About App" Page
+- Added Workers to handle MIDI

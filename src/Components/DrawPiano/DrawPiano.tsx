@@ -16,6 +16,11 @@ interface DrawPianoProps{
     height?:number
 }
 
+/**
+ * @deprecated Please use UpdatedDrawPiano
+ * @param param0 
+ * @returns 
+ */
 export default function DrawPiano({Data,options,Player,keys_nr = 52,width = window.innerWidth,height = window.innerHeight}:DrawPianoProps):ReactElement {
 
     const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(width / keys_nr);

@@ -35,7 +35,8 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "test": "vitest"
+        "test": "vitest",
+        "testFront": "vitest --root src/"
     },
     "eslintConfig": {
         "extends": [

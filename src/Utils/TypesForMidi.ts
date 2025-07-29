@@ -82,6 +82,9 @@ export interface TrackNoteEvent{
     TrackNumber:number
 }
 
+/**
+ * @deprecated
+ */
 export interface blockNote{
     color:string
     width:number
@@ -99,3 +102,9 @@ export interface blockNote{
     wasDetected:boolean
 }
 
+export interface keyInfo{
+    position:number,
+    noteNumber:number,
+    width:number,
+    type:'BLACK' | 'WHITE'
+}

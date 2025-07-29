@@ -1,5 +1,7 @@
 /**
- * Output of new function is expected to be equal to old function
+ * Testing files created during new version preparing for AVANT
+ * **Tests run automatically on each github push on AVANT branch
+ * Last UPDATE: 07/29/2025
  */
 import createNoteEvents from '../../src/Helpers/MidiReader/createNoteEvents'
 import timeSignatures from "../../src/Helpers/MidiReader/timeSignatureValuesFromMidiFile"
@@ -39,6 +41,9 @@ test("Testing: MidiToSingleTrack", () =>{
       })
 });
 
+/**
+ * Output of new function is expected to be equal to old function
+ */
 test("Testing: createNoteEvents", () =>{
     const note_events = createNoteEvents(MIDI_mock,timeSignatures(MIDI_mock))
     const file_track = MidiToSingleTrack(MIDI_mock).tracks[0];
@@ -54,8 +59,9 @@ test("Testing: createNoteEvents", () =>{
 
 describe("Testing: AnimationFrameMidiPlayer", () =>{
     const onEvent = (data) =>{
-    }   
-    const player = new AnimationFrameMidiPlayer(MIDI_mock, onEvent);
+    }
+    const note_events = createNoteEvents(MIDI_mock,timeSignatures(MIDI_mock))
+    const player = new AnimationFrameMidiPlayer(note_events, onEvent);
     player.pausePlay()
     it("resolve in 10m seconds",async () =>{
         const result = await player.__for_testing()

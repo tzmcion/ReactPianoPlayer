@@ -1,9 +1,19 @@
+/**
+ * Class Created during new version update for AVANT as replacement for /src/Helpers/MidiPlayer
+ * Last Update: 07/28/2025
+ * Key new differences
+ * - Now midi is played using window.requestAnimationFrame, not with interval (as interval can lag often)
+ * - Now argument required is array of TrackNoteEvents, so the whole Midi processing and loading process must be done before Player object is created
+ *      It facilitates the loadingScreen problem/bug
+ * - Other functionalities should be preserved as in the obesolete class MidiPlayer
+ */
+
 import { IMidiFile, TrackNoteEvent } from "../../Utils/TypesForMidi";
-import createNoteEvents from "../../Helpers/MidiReader/createNoteEvents"
-import timeControl from "../../Helpers/MidiReader/timeSignatureValuesFromMidiFile"
 
 /**
- * Description of class
+ * Class consists of Methods which work with Blocks file (/src/Helpers/Blocks/Blocks.ts)
+ * It has a set of functions which regulate what is going on with playing.
+ * the blocks class/object works with them to handle itself
  */
 class AnimationFrameMidiPlayer{
     private notes:Array<TrackNoteEvent>
@@ -22,8 +32,8 @@ class AnimationFrameMidiPlayer{
      * @param file 
      * @param onEvent 
      */
-    constructor(file:IMidiFile, onEvent: (ev:any) => any){
-        this.notes = createNoteEvents(file,timeControl(file),"first_event")
+    constructor(src_notes:TrackNoteEvent[], onEvent: (ev:any) => any){
+        this.notes = src_notes
         this.onEvent = onEvent
         this.timer = 0
         this.currentNotesIndex = 0
@@ -34,6 +44,10 @@ class AnimationFrameMidiPlayer{
         this.restart()
     }
     
+    /**
+     * Method simulates clicking 'pause' in the Midi 
+     * 
+     */
     public pausePlay(){
         if(this.isPlaying){
             window.cancelAnimationFrame(this.animationFrame)
@@ -47,10 +61,17 @@ class AnimationFrameMidiPlayer{
 
     }
 
+    /**
+     * Method restarts the playing, resetting the timer
+     */
     public restart(){
         this.timer = Date.now() * 1000 //microseconds
     }
 
+    /**
+     * Method returns a length of midi in microseconds
+     * @returns Length of Midi file in microseconds
+     */
     public get MidiLength():number{
         return this.notes[this.notes.length -1].Delta;
     }

@@ -63,6 +63,11 @@ const checkExtension = (file:any,extension:string):boolean =>{
     return false;
 }
 
+/**
+ * Function reads a saved file from localstorage, then returns it as arraybuffer
+ * @param storageName in localStorage, the name of the item (for .getItem)
+ * @returns an array buffer of the file
+ */
 const ReadFromLocalStorageBase64 = (storageName:string):ArrayBuffer =>{
         const base64 = localStorage.getItem(storageName);   
         const base64Parts = base64?.split(',');

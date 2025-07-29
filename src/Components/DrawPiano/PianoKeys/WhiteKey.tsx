@@ -1,36 +1,28 @@
-import React, { ReactElement,useEffect, useState } from 'react'
-import { blockNote } from "../../../Utils/TypesForMidi";
+/**
+ * Function significantly altered during new ver release update.
+ * Last Update: 07/29/2025
+ * - Deleted "Data" and "sound" props, deleted useState and color change as it was not used
+ */
+
+
+import React, { ReactElement } from 'react'
 
 interface WhiteKeyProps{
     WhiteKeyWidth: number,
     pos_x:number,
-    Data: undefined | Array<blockNote>,
     id:number,
-    sound:any,
     height:number
 }
 
-export default function WhiteKey({WhiteKeyWidth,pos_x,Data,id,sound,height}:WhiteKeyProps):ReactElement {
-
-    const [backgroundColor,setBackgroundColor] = useState<string>('#fffff0');
-    
-
-    useEffect(()=>{
-        Data?.map(event =>{
-                if(event.NoteNumber === id){
-                    if(event.wasDetected === true){
-                        setBackgroundColor('#5085f8');
-                        //sound && sound.play_key(id);
-                    }else{
-                        setBackgroundColor('#fffff0');
-                    }
-                }
-            return null;
-        })
-    },[Data,id,sound])
+/**
+ * Simple Component which draws <div> as a single WhiteKey and positions it accordingly by pos_x given in props
+ * @param param0 props
+ * @returns a single HTML.div element
+ */
+export default function WhiteKey({WhiteKeyWidth,pos_x,id,height}:WhiteKeyProps):ReactElement {
 
     return (
-        <div id={id.toString()} className='whiteKey' style={{width:WhiteKeyWidth.toString() + 'px', height:height,left:pos_x.toString() + 'px',background:backgroundColor}}>
+        <div id={id.toString()} className='whiteKey' style={{width:WhiteKeyWidth.toString() + 'px', height:height,left:pos_x.toString() + 'px',background:'#fffff0'}}>
         </div>
     )
 }

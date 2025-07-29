@@ -1,36 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
-
 .LoadingScreen{
     position: absolute;
     top:0;
     left:0;
-    z-index: 100;
+    z-index: 1;
     background: white;
-    transition: 1s;
+    transition: 0.5s;
+    width: 100%;
+    height: 100%;
     img{
         display: block;
         position: relative;
         box-sizing: border-box;
         margin: 50px auto;
-        width:150px;
+        width:200px;
         padding: 5px;
-        top:100px;
+        top:50%;
+        transform: translateY(-150%);
         border-radius: 15px;
+        animation: photo_move infinite 7s ease;
     }
-    h2{
+    .LoadingText{
         display: block;
-        text-align: center;
-        margin: 100px auto;
-        font-family: 'Irish Grover', cursive;
-        font-size: 32px;
+        position: relative;
+        margin: 50px auto;
+        top:15%;
+        width: fit-content;
+        h2{
+            text-align: center;
+            font-size: 48px;
+            text-transform: uppercase;
+            filter: blur(4px);
+            z-index: 0;
+        }
+        .traveler{
+            position: relative;
+            margin-top: -93px;
+            overflow: hidden;
+            width: 100px;
+            height: 100%;
+            border-top: 2px solid black;
+            border-bottom: 2px solid rgb(1, 78, 78);
+            padding-bottom: 10px;
+            background: rgba(240, 252, 253, 0.397);
+            z-index: 1;
+            h2{
+                filter: none;
+                width: fit-content;
+                height: 40px;
+                width: 100%;
+                white-space: nowrap;
+                margin: 0;
+                padding: 0;
+                animation: move_back 7s infinite ease;
+            }
+            animation: move 7s infinite ease;
+        }
     }
 }
 
-@keyframes spin{
+@keyframes move {
     0%{
-        transform: rotate(0deg);
+        margin-left: 0;
+    }
+    50%{
+        margin-left: 474px;
     }
     100%{
-        transform: rotate(360deg);
+        margin-left: 0;
+    }
+}
+@keyframes move_back{
+    0%{
+        margin-left: 0;
+    }
+    50%{
+        margin-left: -474px;
+    }
+    100%{
+        margin-left: 0;
+    }
+}
+
+@keyframes photo_move {
+    0%{
+        transform: translateY(-150%);
+    }
+    50%{
+        transform: translateY(-160%);
+    }
+    100%{
+        transform: translateY(-150%);
     }
 }

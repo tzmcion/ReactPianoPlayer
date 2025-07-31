@@ -45,8 +45,7 @@ class Block{
      * @returns returns number, 2 if the block should be deleted, 1 if the block is detected by a piano, and 0 if nothing above
      */
     public updateBlock(speed_y:number, currentTime:number, play_height:number, speed_offset:number):number{
-        this.pos_y = speed_y * speed_offset * (currentTime - (this.creationTime + this.pauseTime ))
-        console.log(speed_y)
+        this.pos_y = speed_y/20 * (currentTime - (this.creationTime + this.pauseTime ))
         if(this.pos_y - this.height > play_height){
             return 2;
         }
@@ -67,7 +66,8 @@ class Block{
         ctx.beginPath();
         ctx.shadowColor = options.ShadowColor;
         ctx.shadowBlur = options.blockShadowRadius;
-        CanvasRoundRect(ctx,this.color,this.pos_x,this.pos_y,this.width,this.height, options.blockRadius, false);
+        CanvasRoundRect(ctx,this.color,this.pos_x,this.pos_y - this.height,this.width,this.height, options.blockRadius, false);
+
     };
 }
 
@@ -85,6 +85,7 @@ class Blocks{
     private notes_to_add:TrackNoteEvent[]
     private key_positions_map:Array<keyInfo>
     private static substr_for_note = 21
+    private static speed_offset = 1 / 22
 
     constructor(private ctx:CanvasRenderingContext2D, private effects_ctx:CanvasRenderingContext2D, private options:OptionsType, private height:number, private width:number, nr_of_keys:number, key_width:number){
         this.blocks = []
@@ -95,6 +96,8 @@ class Blocks{
         this.pause_playing = this.pause_playing.bind(this);
         this.reset = this.reset.bind(this);
         this.key_positions_map = this.__create_key_position_map(width,nr_of_keys,key_width);
+        this.__add_blocks_from_waiting_list = this.__add_blocks_from_waiting_list.bind(this);
+        this.add_blocks = this.add_blocks.bind(this);
     }
 
     /**
@@ -108,7 +111,7 @@ class Blocks{
         this.ctx.clearRect(0,0,this.width,this.height)
         this.__add_blocks_from_waiting_list(curr_time);
         this.blocks.map(block =>{
-            const result = block.updateBlock(this.options.speed,curr_time,this.height,0.001);
+            const result = block.updateBlock(this.options.playSpeed,curr_time,this.height,Blocks.speed_offset);
             block.renderBlock(this.ctx,this.options);
             if(result < 2)
                 new_blocks.push(block);
@@ -123,7 +126,7 @@ class Blocks{
      * @returns null
      */
     public add_blocks(blocks:TrackNoteEvent[]){
-        this.notes_to_add = this.notes_to_add.concat(blocks)
+        this.notes_to_add = blocks;
     };
 
     public impel_blocks_in_places(){};
@@ -136,18 +139,20 @@ class Blocks{
      * Function creates the blocks from the waiting list
      */
     private __add_blocks_from_waiting_list(current_time:number){
-        if(this.notes_to_add.length === 0)return;
+        if(this.notes_to_add.length <= 0)return;
         this.notes_to_add.map(event =>{
+            console.log(event.Duration / 1000 / this.options.playSpeed)
             const newBlock:Block = new Block(
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].position,
                 0,
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].width,
-                event.Duration / 1000 / this.options.speed,
+                event.Duration / 1000 / this.options.playSpeed,
                 '#F0F0F0',
                 current_time,
                 false
             )
-            this.blocks = [...this.blocks,newBlock];
+            this.blocks.push(newBlock);
+            return null;
         })
         this.notes_to_add = [];
     }

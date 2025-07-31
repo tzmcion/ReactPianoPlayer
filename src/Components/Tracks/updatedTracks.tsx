@@ -50,15 +50,15 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
         if(blocks){
             blocks.add_blocks(events)
         }
-    },[events, blocks])
+    },[events])
 
     useEffect(()=>{
-        if(mainCtx.current){
+        if(mainCtx.current && blocks === undefined){
             const context = mainCtx.current.getContext('2d')
             if(context === null)return;
-            setBlocks(new updatedBlocks(context,context,options,height,width,number_of_keys,width/number_of_keys))
+            setBlocks(new updatedBlocks(context,context,options,height,width,number_of_white_keys,width/number_of_white_keys))
         }
-    },[mainCtx.current])
+    },[mainCtx.current, blocks])
 
     useEffect(()=>{
         if(Player.isPlaying !== true && blocks !== undefined){

@@ -8,6 +8,7 @@ import MidiPlayer from '../../Helpers/MidiPlayer';
 import AnimationFrameMidiPlayer from '../../Helpers/MidiReader/AnimationFrameMidiPlayer';
 import timeControl from '../../Helpers/MidiReader/timeSignatureValuesFromMidiFile';
 import { DefaultOptions } from '../../Utils/Default';
+import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { IMidiFile, noteEvent, TrackNoteEvent } from "../../Utils/TypesForMidi";
 import { ReadFromLocalStorageBase64 } from '../../Utils/smallFunctions';
 import createNoteEvents from '../../Helpers/MidiReader/createNoteEvents';
@@ -49,11 +50,15 @@ export default function Play():React.ReactElement{
     const [player,setPlayer] = useState<AnimationFrameMidiPlayer>();
     const [events,setEvents] = useState<TrackNoteEvent[]>([]);
 
+    const handleMidiEvent = (Events:any) =>{
+        Events.length > 0 && setEvents(Events);
+    }
+
     useEffect(()=>{
         const MidiFile = ReadFromLocalStorageBase64("file")
         ReadMidiFile(MidiFile, 'ArrayBuffer').then((src_file) =>{
             const notes = createNoteEvents(src_file,timeControl(src_file),"first_event")
-            setPlayer(new AnimationFrameMidiPlayer(notes,setEvents));
+            setPlayer(new AnimationFrameMidiPlayer(notes,handleMidiEvent));
         })
     },[])
 

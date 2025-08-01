@@ -37,6 +37,25 @@ class Block{
     };
 
     /**
+     * set pause time, it adds up
+     */
+    public set add_pause_time(time:number){
+        this.pauseTime += time
+    }
+
+    /**
+     * Static method to calculate y position of a block if it existed, returns number
+     * @param speed_y 
+     * @param currentTime 
+     * @param play_height 
+     * @param speed_offset 
+     * @return a number --- position y of the block
+     */
+    public static calculate_y(speed_y:number, currentTime:number, speed_offset:number, creationTime:number):number{
+        return speed_y * speed_offset * (currentTime - (creationTime))
+    }
+
+    /**
      * Update the position of the block
      * Function returns a number indicating what should happened to the block (if it should be perceived or deleted from the array)
      * @param speed_y speed of playing, must be the same for each block
@@ -45,7 +64,7 @@ class Block{
      * @returns returns number, 2 if the block should be deleted, 1 if the block is detected by a piano, and 0 if nothing above
      */
     public updateBlock(speed_y:number, currentTime:number, play_height:number, speed_offset:number):number{
-        this.pos_y = speed_y/20 * (currentTime - (this.creationTime + this.pauseTime ))
+        this.pos_y = speed_y * speed_offset * (currentTime - (this.creationTime + this.pauseTime ))
         if(this.pos_y - this.height > play_height){
             return 2;
         }
@@ -86,6 +105,8 @@ class Blocks{
     private key_positions_map:Array<keyInfo>
     private static substr_for_note = 21
     private static speed_offset = 1 / 22
+    private pause_time:number
+    private is_paused:boolean
 
     constructor(private ctx:CanvasRenderingContext2D, private effects_ctx:CanvasRenderingContext2D, private options:OptionsType, private height:number, private width:number, nr_of_keys:number, key_width:number){
         this.blocks = []
@@ -95,9 +116,12 @@ class Blocks{
         this.impel_blocks_in_places = this.impel_blocks_in_places.bind(this);
         this.pause_playing = this.pause_playing.bind(this);
         this.reset = this.reset.bind(this);
+        this.pause_time = 0
+        this.is_paused = false
         this.key_positions_map = this.__create_key_position_map(width,nr_of_keys,key_width);
         this.__add_blocks_from_waiting_list = this.__add_blocks_from_waiting_list.bind(this);
         this.add_blocks = this.add_blocks.bind(this);
+        this.pause_playing = this.pause_playing.bind(this)
     }
 
     /**
@@ -106,6 +130,7 @@ class Blocks{
      * This Method is based on calculatiing time from creation to current on position calculation
      */
     public render():void{
+        if(this.is_paused)return
         const new_blocks:Block[] = [];
         const curr_time = Date.now();
         this.ctx.clearRect(0,0,this.width,this.height)
@@ -126,14 +151,65 @@ class Blocks{
      * @returns null
      */
     public add_blocks(blocks:TrackNoteEvent[]){
-        this.notes_to_add = blocks;
+        this.notes_to_add = [...this.notes_to_add, ...blocks]
     };
 
-    public impel_blocks_in_places(){};
+    /**
+     * Method should be executed everytime time event is executed
+     * @param data data of notes events
+     * @param curr_delta new calculated delta
+     */
+    public impel_blocks_in_places(data:TrackNoteEvent[], curr_delta:number):void{
+        //Calculate position of each note. If it exceeds the height, it is not added.
+        this.blocks = []
+        console.log(curr_delta)
+        data.map(note =>{
+            if(note.Delta > curr_delta){return;}
+            const delta = curr_delta / 1000
+            const height = note.Duration / 1000 / this.options.playSpeed
+            const should_add = Block.calculate_y(this.options.playSpeed,delta,Blocks.speed_offset,note.Delta/1000)
+            if(should_add - height < this.height){
+                this.blocks.push(new Block(
+                    this.key_positions_map[note.NoteNumber - Blocks.substr_for_note].position,
+                    should_add,
+                    this.key_positions_map[note.NoteNumber - Blocks.substr_for_note].width,
+                    height,
+                    '#F0F0F0',
+                    Date.now() - (curr_delta - note.Delta)/1000,
+                    false
+                ))
+            }
+        })
+        this.render()
+    };
 
-    public pause_playing(){};
+    /**
+     * Method should be executed every time a pause/play event happens
+     * @param state states if the recording is playing or not
+     */
+    public pause_playing(state:boolean):void{
+        console.log("pause")
+        if(state === true){
+            this.pause_time = this.pause_time === 0 ? 0 : Date.now() - this.pause_time
+            this.is_paused = false
+            this.blocks.map(block =>{
+                block.add_pause_time = this.pause_time
+            })
+        }
+        if(state === false){
+            //Not playing
+            this.pause_time = Date.now()
+            this.is_paused = true
+        }
+    };
 
-    public reset(){};
+    /**
+     * Method should be executed everytime the reset button is pressed
+     */
+    public reset():void{
+        this.blocks = []
+        this.ctx.clearRect(0,0,this.width,this.height)
+    };
 
     /**
      * Function creates the blocks from the waiting list
@@ -141,7 +217,6 @@ class Blocks{
     private __add_blocks_from_waiting_list(current_time:number){
         if(this.notes_to_add.length <= 0)return;
         this.notes_to_add.map(event =>{
-            console.log(event.Duration / 1000 / this.options.playSpeed)
             const newBlock:Block = new Block(
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].position,
                 0,

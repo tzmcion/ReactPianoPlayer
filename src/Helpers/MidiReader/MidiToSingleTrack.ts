@@ -10,7 +10,7 @@ import { IMidiFile, MidiEventType } from "../../Utils/TypesForMidi"
  */
 const convertToSingleTrack = (file:IMidiFile): IMidiFile =>{
     const new_file = JSON.parse(JSON.stringify(file)) as IMidiFile; //Deep Clone
-    //First, handle case when format is 0, then function only needs to add "trackNumber" and "controlTrack" flag
+    //First, handle case when format is 0, then function only needs to add "trackNumber" and "controlTrack" flag\
     if(file.tracks.length === 1){
         new_file.tracks[0] = new_file.tracks[0].map(event => ({
             ...event,

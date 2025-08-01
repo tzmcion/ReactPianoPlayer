@@ -62,7 +62,7 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
 
     useEffect(()=>{
         if(Player.isPlaying !== true && blocks !== undefined){
-            Player.pausePlay();
+            Player.set_pause_move_handlers(blocks.pause_playing, blocks.impel_blocks_in_places, blocks.reset)
             main_animation_frame();
         }
     },[blocks])

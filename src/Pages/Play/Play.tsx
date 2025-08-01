@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react';
 
 import DrawPiano from '../../Components/DrawPiano/DrawPiano';
 import UpdatedDrawPiano from '../../Components/DrawPiano/UpdatedDrawPiano';
+import UpdatedPlayingManagement from '../../Components/PlayingManagement/UpdatedPlayingManagement';
 import ReadMidiFile from '../../Helpers/ReadMidiFile';
 import PlayingManagement from '../../Components/PlayingManagement/PlayingManagement';
 import MidiPlayer from '../../Helpers/MidiPlayer';
@@ -28,9 +29,11 @@ import createNoteEvents from '../../Helpers/MidiReader/createNoteEvents';
 
 //     useEffect(() => {
 //         Player?.Restart();
+//         console.log(Player)
 //     }, [Player])
 
 //     const handleMidiEvent = (Events:Array<noteEvent>) =>{
+//         console.log(Events)
 //         Events.length > 0 && setEvents(Events);
 //     }
 
@@ -50,7 +53,7 @@ export default function Play():React.ReactElement{
     const [player,setPlayer] = useState<AnimationFrameMidiPlayer>();
     const [events,setEvents] = useState<TrackNoteEvent[]>([]);
 
-    const handleMidiEvent = (Events:any) =>{
+    const handleMidiEvent = (Events:Array<TrackNoteEvent>) =>{
         Events.length > 0 && setEvents(Events);
     }
 
@@ -63,12 +66,15 @@ export default function Play():React.ReactElement{
     },[])
 
     useEffect(()=>{
-        console.log(player)
-    },[player])
+        return () => {
+            player && player.clear_player()
+        }
+    },[])
 
     return (
         <div style={{overflow:'hidden'}}>
             <UpdatedDrawPiano width={window.innerWidth} height={window.innerHeight} events={events} Player={player} total_nr_of_keys={88} />
+            {player && <UpdatedPlayingManagement Player={player}/>}
         </div>
     )
 }

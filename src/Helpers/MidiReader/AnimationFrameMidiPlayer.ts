@@ -22,7 +22,12 @@ class AnimationFrameMidiPlayer{
     private animationFrame:any
     private currentNotesIndex:number
     private isFinished:boolean
+    private pauseTime:number
+    private progres:number
     private static tickSpeed = 25
+    private pause_handler: (state:boolean) => void
+    private move_handler: (ev:Array<TrackNoteEvent>, delta:number) => void
+    private reset_handler: () => void
 
     public isPlaying:boolean
 
@@ -37,35 +42,106 @@ class AnimationFrameMidiPlayer{
         this.onEvent = onEvent
         this.timer = 0
         this.currentNotesIndex = 0
+        this.pauseTime = 0
         this.isPlaying = false
+        this.progres = 0
         this.animationFrame = null
         this.playMidi = this.playMidi.bind(this)
         this.isFinished = false;
+        this.pause_handler = () => {}
+        this.move_handler = () => {}
+        this.reset_handler = () => {}
         this.restart()
     }
     
     /**
      * Method simulates clicking 'pause' in the Midi 
-     * 
+     * When the track is Paused, it starts playing, when it is playing, it pauses it...
+     * @returns void
      */
-    public pausePlay(){
+    public pausePlay():void{
         if(this.isPlaying){
             window.cancelAnimationFrame(this.animationFrame)
+            this.isPlaying = false
+            this.progres = Date.now() * 1000 - this.timer - this.pauseTime
+            this.pauseTime = Date.now() - this.pauseTime/1000
         }else{
+
+            this.pauseTime = (Date.now() - this.pauseTime) * 1000
             console.log("starting")
+            this.isPlaying = true
             this.playMidi()
+        }
+        this.pause_handler(this.isPlaying)
+    }
+
+    /**
+     * Method pauses the playing, that is all id does
+     * @returns void
+     */
+    public pause():void{
+        if(this.isPlaying){
+            this.pausePlay()
         }
     }
 
-    public moveTo(){
-
+    /**
+     * Method moves the current playing moment to certain time given by percent of the track
+     * @param percent percent of the track
+     */
+    public moveTo(percent:number):void{
+        if(percent <= 0){
+            this.restart()
+            this.pausePlay()
+            return
+        }
+        if(this.isPlaying){
+            this.timer = Date.now() * 1000 - (this.MidiLength * percent/100)
+            const elapsed_time = Date.now() * 1000 - this.timer - this.pauseTime
+            this.currentNotesIndex = 0;
+            this.notes.map(note =>{
+                if(note.Delta < elapsed_time){
+                    this.currentNotesIndex += 1
+                }
+            })
+            this.move_handler(this.notes,elapsed_time);
+        }
+        else{
+            this.timer = Date.now() * 1000 - (this.MidiLength * percent/100)
+            const elapsed_time = Date.now() * 1000 - this.timer
+            this.currentNotesIndex = 0;
+            this.notes.map(note =>{
+                if(note.Delta < elapsed_time){
+                    this.currentNotesIndex += 1
+                }
+            })
+            this.move_handler(this.notes,elapsed_time);     
+        }
     }
+
+    /**
+     * Method allows to set up functions which will execute when the player is paused or moved
+     * @param pause_handler 
+     * @param move_handler 
+     */
+    public set_pause_move_handlers(pause_handler:(state:boolean)=>void, move_handler:(ev:Array<TrackNoteEvent>,delta:number) => void, reset:()=>void){
+        this.pause_handler = pause_handler
+        this.move_handler = move_handler
+        this.reset_handler = reset
+    }
+
+
 
     /**
      * Method restarts the playing, resetting the timer
      */
     public restart(){
+        this.pause()
         this.timer = Date.now() * 1000 //microseconds
+        this.pauseTime = Date.now()
+        this.currentNotesIndex = 0
+        this.isFinished = false
+        this.reset_handler()
     }
 
     /**
@@ -76,12 +152,24 @@ class AnimationFrameMidiPlayer{
         return this.notes[this.notes.length -1].Delta;
     }
 
+    /**
+     * Method calculates and returns the total length of midi playing, and current progress of playing
+     * @returns Object with data about progress
+     */
+    public get Progress():{Current:number,Length:number}{
+        return{
+            Current: ((Date.now() * 1000 - this.timer - this.pauseTime) / 1000) < 0 ? this.progres / 1000 : ((Date.now() * 1000 - this.timer - this.pauseTime) / 1000),
+            Length: this.notes[this.notes.length -1].Delta / 1000
+        }
+    }
+
     private playMidi(): void{
-        const elapsed_time = Date.now() * 1000 - this.timer //microseconds
+        const elapsed_time = Date.now() * 1000 - this.timer - this.pauseTime  //microseconds
         //now start from the current index of midi file
         const noteEvents:Array<TrackNoteEvent> = [];
         if(this.currentNotesIndex >= this.notes.length){
             window.cancelAnimationFrame(this.animationFrame)
+            //this.pause()
             this.isFinished = true
             return
         }
@@ -93,6 +181,14 @@ class AnimationFrameMidiPlayer{
         }
         //Check if from the start time till now there are any new events
         this.animationFrame = window.requestAnimationFrame(this.playMidi)
+    }
+
+    /**
+     * Run this function before the component is deleted to assure no background asynchronous playing occurs
+     * @returns 
+     */
+    public clear_player(): void{
+        window.cancelAnimationFrame(this.animationFrame)
     }
 
     public async __for_testing():Promise<boolean>{

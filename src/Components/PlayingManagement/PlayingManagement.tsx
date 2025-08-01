@@ -1,3 +1,7 @@
+/**
+ * !!OBESOLOETE PLEASE USE UpdatedPlayingManagement !!
+ */
+
 import React, { MouseEvent, ReactElement, useEffect, useState,useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PlayingManagement.scss';
@@ -10,6 +14,11 @@ interface PlayingManagementProps{
     onStart:Function
 }
 
+/**
+ * @deprecated Designated to work with old Player, please use new UpdatedPlayingManagement
+ * @param param0 
+ * @returns 
+ */
 export default function PlayingManagement({Player,onStart}:PlayingManagementProps):ReactElement {
 
     const [opacity,setOpacity] = useState<number>(0);

@@ -46,7 +46,7 @@ const CreateMidiNoteEventsArray = (src_file:IMidiFile, timeControl:timeSignature
             })
         }
         if("noteOff" in midiEvent){
-            const waiting_event = WaitingEvents.find(el => el.note_number === (midiEvent.noteOff.noteNumber))
+            const waiting_event = WaitingEvents.find(el => el.note_number === (midiEvent.noteOff.noteNumber) && el.sustain_on_end === false)    //Finding el.sustain_on_end === false took me 9 hours...
             if(waiting_event === undefined){
                 throw new Error("Error during parsing of MIDI file --> found noteOff event without previous noteOn event !!!")
             }

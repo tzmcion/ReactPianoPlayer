@@ -1,3 +1,7 @@
+/**
+ * !! OBESOLOETE, PLEASE USE (/src/Helpers/MidiReader/AnimationFrameMidiPlayer) !!
+ */
+
 import React from "react";
 import  {IMidiFile, noteEvent} from "../Utils/TypesForMidi";
 
@@ -8,6 +12,7 @@ import ConvertToNoteEventsJSON from './getNoteEventsJSON';
 /**
  * Class MidiPlayer handles the timing, order, and correctness of Midi file playing
  * It is eseentially a class which allowes to play and manipulate of the playing of midi file
+ * @deprecated please use AnimationFrameMidiPlayer, as this player uses intervall, which is highly instable
  */
 class MidiPlayer{
     private file: any
@@ -23,7 +28,7 @@ class MidiPlayer{
     public isReseting:boolean
     public isMoved:boolean
     /**
-     * 
+     * @deprecated please use AnimationFrameMidiPlayer, as this player uses intervall, which is highly instable
      * @param fileInput MidiFiles object of Notes, should be a returned variable from function "ReadFromLocalStorageBase64" 
      * @param onEvent Function which will be executed when a midi event is detected
      * @param timeStamps TimeStamps defines how often the Player checks for new event to occure. It can be also named "precision", default, 25 precision means every 25ms the player checks for new midi events

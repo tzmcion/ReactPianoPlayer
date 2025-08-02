@@ -95,6 +95,7 @@ class AnimationFrameMidiPlayer{
             this.pausePlay()
             return
         }
+        this.isFinished = false
         if(this.isPlaying){
             this.timer = Date.now() * 1000 - (this.MidiLength * percent/100)
             const elapsed_time = Date.now() * 1000 - this.timer - this.pauseTime
@@ -107,8 +108,10 @@ class AnimationFrameMidiPlayer{
             this.move_handler(this.notes,elapsed_time);
         }
         else{
+            this.pauseTime = Date.now()
             this.timer = Date.now() * 1000 - (this.MidiLength * percent/100)
             const elapsed_time = Date.now() * 1000 - this.timer
+            this.progres = elapsed_time
             this.currentNotesIndex = 0;
             this.notes.map(note =>{
                 if(note.Delta < elapsed_time){
@@ -137,6 +140,7 @@ class AnimationFrameMidiPlayer{
      */
     public restart(){
         this.pause()
+        this.progres = 0;
         this.timer = Date.now() * 1000 //microseconds
         this.pauseTime = Date.now()
         this.currentNotesIndex = 0
@@ -157,8 +161,12 @@ class AnimationFrameMidiPlayer{
      * @returns Object with data about progress
      */
     public get Progress():{Current:number,Length:number}{
+        let current = ((Date.now() * 1000 - this.timer - this.pauseTime) / 1000) < 0 ? this.progres / 1000 : ((Date.now() * 1000 - this.timer - this.pauseTime) / 1000)
+        if(this.isFinished){
+            current = this.notes[this.notes.length -1].Delta / 1000
+        }
         return{
-            Current: ((Date.now() * 1000 - this.timer - this.pauseTime) / 1000) < 0 ? this.progres / 1000 : ((Date.now() * 1000 - this.timer - this.pauseTime) / 1000),
+            Current: current,
             Length: this.notes[this.notes.length -1].Delta / 1000
         }
     }

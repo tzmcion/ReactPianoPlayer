@@ -5,8 +5,9 @@ import './Header.styles.scss';
 import Logo from '../../Assets/PBA_logo.png'
 
 export default function Header() {
+
     return (
-        <nav className='Header'>
+        <nav className={`Header`}>
             <div className='HeaderData'>
                 <div className='Logo'>
                     <Link to='/' className='Logo-Small-Res'>

@@ -21,7 +21,7 @@ interface WhiteKeyProps{
  */
 export default function BlackKey({WhiteKeyWidth,pos_x, id,height}:WhiteKeyProps):ReactElement {
     return (
-        <div id={id.toString()} className='blackKey' style={{width:(WhiteKeyWidth / 1.8).toString() + 'px',height:height / 1.6,left:pos_x.toString() + 'px',background:'#2A2C2E'}}>
+        <div id={id.toString()} className='blackKey' style={{width:(WhiteKeyWidth / 2.2).toString() + 'px',height:height / 1.5,left:pos_x.toString() + 'px',background:'#2A2C2E'}}>
         </div>
     )
 }

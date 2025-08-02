@@ -39,8 +39,8 @@ export default function AllKeys({marg_top,WhiteKeyWidth,number_of_white_keys,hei
             if(num  === 1 - 1 || num === 3 - 1 || num === 6 - 1 || num ===8 - 1 || num ===10 - 1  ){
                 counter_ids++;
                 if(counter_ids < 109){
-                    if(WhiteKeyWidth * x + WhiteKeyWidth / 1.4 + WhiteKeyWidth < WhiteKeyWidth*number_of_white_keys){
-                        Returning.push(drawBlackPianoKey(WhiteKeyWidth * x + WhiteKeyWidth / 1.4,counter_ids));
+                    if(WhiteKeyWidth * x + WhiteKeyWidth / 1.3 + WhiteKeyWidth < WhiteKeyWidth*number_of_white_keys){
+                        Returning.push(drawBlackPianoKey(WhiteKeyWidth * x + WhiteKeyWidth / 1.3,counter_ids));
                     }
 
                 }

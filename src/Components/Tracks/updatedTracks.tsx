@@ -13,6 +13,7 @@ import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import DrawPianoKeys from "../DrawPiano/PianoKeys/AllKeys"
 import updatedBlocks from "../../Helpers/Blocks/updatedBlocks"
 import { useCallback, useEffect, useRef, useState } from "react";
+import './Tracks.styles.css'
 
 
 
@@ -70,6 +71,7 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
     return(
         <div>
             <canvas ref={mainCtx} width={width.toString() + 'px'} height={(height - height/5).toString() + 'px'} className='Canvas'></canvas>
+            <div className="Piano_Dividing_Line" style={{top:`${height - height/5 -5 }px`}}/>
             <DrawPianoKeys WhiteKeyWidth={width/number_of_white_keys} height={height/5} number_of_white_keys={number_of_white_keys} marg_top={height - height/5}/>
         </div>
     )

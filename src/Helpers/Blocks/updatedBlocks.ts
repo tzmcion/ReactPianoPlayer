@@ -102,6 +102,7 @@ class Block{
 class Blocks{
     private blocks:Block[]
     private notes_to_add:TrackNoteEvent[]
+    private positions_to_render_line:number[]
     private key_positions_map:Array<keyInfo>
     private static substr_for_note = 21
     private static speed_offset = 1 / 22
@@ -117,11 +118,13 @@ class Blocks{
         this.pause_playing = this.pause_playing.bind(this);
         this.reset = this.reset.bind(this);
         this.pause_time = 0
-        this.is_paused = false
+        this.is_paused = true
         this.key_positions_map = this.__create_key_position_map(width,nr_of_keys,key_width);
         this.__add_blocks_from_waiting_list = this.__add_blocks_from_waiting_list.bind(this);
+        this.positions_to_render_line = this.RenderOctaveLines()
         this.add_blocks = this.add_blocks.bind(this);
-        this.pause_playing = this.pause_playing.bind(this)
+        this.pause_playing = this.pause_playing.bind(this);
+        this.render(true);
     }
 
     /**
@@ -129,11 +132,12 @@ class Blocks{
      * This Method needs to be executed in window.requestAnimationFrame function.
      * This Method is based on calculatiing time from creation to current on position calculation
      */
-    public render():void{
-        if(this.is_paused)return
+    public render(ignore_pause = false):void{
+        if(this.is_paused && !ignore_pause)return;
         const new_blocks:Block[] = [];
         const curr_time = Date.now();
-        this.ctx.clearRect(0,0,this.width,this.height)
+        this.ctx.clearRect(0,0,this.width,this.height);
+        this.render_octave_lines();
         this.__add_blocks_from_waiting_list(curr_time);
         this.blocks.map(block =>{
             const result = block.updateBlock(this.options.playSpeed,curr_time,this.height,Blocks.speed_offset);
@@ -162,14 +166,13 @@ class Blocks{
     public impel_blocks_in_places(data:TrackNoteEvent[], curr_delta:number):void{
         //Calculate position of each note. If it exceeds the height, it is not added.
         this.blocks = []
-        console.log(curr_delta)
         data.map(note =>{
             if(note.Delta > curr_delta){return;}
             const delta = curr_delta / 1000
             const height = note.Duration / 1000 / this.options.playSpeed
             const should_add = Block.calculate_y(this.options.playSpeed,delta,Blocks.speed_offset,note.Delta/1000)
             if(should_add - height < this.height){
-                this.blocks.push(new Block(
+                const block_to_add = new Block(
                     this.key_positions_map[note.NoteNumber - Blocks.substr_for_note].position,
                     should_add,
                     this.key_positions_map[note.NoteNumber - Blocks.substr_for_note].width,
@@ -177,10 +180,17 @@ class Blocks{
                     '#F0F0F0',
                     Date.now() - (curr_delta - note.Delta)/1000,
                     false
-                ))
+                )
+                this.blocks.push(block_to_add)
             }
         })
-        this.render()
+        this.render(true)
+        if(this.is_paused)
+            this.blocks.map(block =>{
+                if(this.is_paused){
+                    block.add_pause_time = (Date.now() - this.pause_time)*-1
+                }
+            })
     };
 
     /**
@@ -188,7 +198,6 @@ class Blocks{
      * @param state states if the recording is playing or not
      */
     public pause_playing(state:boolean):void{
-        console.log("pause")
         if(state === true){
             this.pause_time = this.pause_time === 0 ? 0 : Date.now() - this.pause_time
             this.is_paused = false
@@ -209,6 +218,7 @@ class Blocks{
     public reset():void{
         this.blocks = []
         this.ctx.clearRect(0,0,this.width,this.height)
+        this.render(true);
     };
 
     /**
@@ -250,6 +260,35 @@ class Blocks{
             counter_ids++;
         }
         return Returning;
+    }
+
+    /**
+     * Method renders lines on the screen per octaves
+     */
+    private RenderOctaveLines():number[] {
+        const arr:number[] = []
+        for(let x = 3; x < 88; x++){
+            if((x-3) % 12 === 0){
+                arr.push(this.key_positions_map[x].position)
+            }
+            // if((x-8) % 12 === 0){
+            //     arr.push(this.key_positions_map[x].position)
+            // }
+
+        }
+        return arr;
+    }
+
+    /**
+     * Method renders the octave lines
+     */
+    private render_octave_lines():void {
+        this.positions_to_render_line.map(position =>{
+            this.ctx.beginPath();
+            this.ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            this.ctx.fillRect(position,0,1,this.height);
+            return null;
+        })
     }
 
 };

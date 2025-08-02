@@ -1,8 +1,7 @@
 .Piano{
     position: relative;
-    /* margin: 20px auto; */
     width:100%;
-    background-color: rgb(32, 9, 0);
+    background: #2A2C2E;
     z-index: 9;
 }
 

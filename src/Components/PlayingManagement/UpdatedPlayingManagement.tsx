@@ -19,23 +19,11 @@ interface UPM_props{
  */
 export default function UpdatedPlayingManagement({Player}:UPM_props):React.ReactElement {
 
+    const timeout_ref = useRef<any>(null);
     const [dot_left,set_dot_left] = useState<number>(0);
     const [bt_display,set_bt_display] = useState<string>(Button_Play);
     const [timing, set_timing] = useState<{curr:number,length:number}>({curr:0,length:0});
-
-    //Handling user visiting different site
-    // useEffect(()=>{
-    //     if(Player){
-    //         set_timing({curr:0, length:Player.MidiLength / 1000})
-    //         const wind_event =()=>{
-    //             if(Player){
-    //                 Player.pause();
-    //             }
-    //         }
-    //         window.addEventListener('blur',wind_event)
-    //         return () => {window.removeEventListener('blur',wind_event)}
-    //     }
-    // },[Player])
+    const [active, setActive] = useState<boolean>(false);
 
     const handlePausePlay = ():void =>{
         Player.pausePlay();
@@ -50,7 +38,6 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
     useEffect(()=>{
         if(Player){
             const handle_timer_update = ():void =>{
-                const data = Player.Progress
                 const curr = Player.Progress.Current < 0 ? 0 : Math.floor(Player.Progress.Current) / 1000
                 const leng = Player.Progress.Length < 0 ? 0 : Math.floor(Player.Progress.Length) / 1000
                 set_dot_left(curr*100 / leng)
@@ -76,13 +63,28 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
     const click_bar_handler = (ev:MouseEvent) =>{
         const target_data = ev.currentTarget.getBoundingClientRect()
         const percent = Math.floor((ev.clientX - target_data.x) *100 /target_data.width);
-        Player.moveTo(percent);
+        Player.moveTo(percent + 1);
     }
 
 
+    const set_player_active = ():void =>{
+        if(active === false){
+            setActive(true);
+        }
+        window.clearTimeout(timeout_ref.current);
+        timeout_ref.current = setTimeout(()=>{
+            setActive(false);
+        },2000);
+    }
+
+    useEffect(()=>{
+        window.addEventListener('mousemove',set_player_active);
+        return () => {window.removeEventListener('mousemove',set_player_active)}
+    },[])
+
 
   return (
-    <div className='Player_Manager'>
+    <div className={`Player_Manager ${active? "Player_Manager_Active" : ""}`}>
         <img src={LOGO} alt="PBA_LOGO" />
         <h3 className='jersey-10'>piano-blocks-app</h3>
         <div className='Button_Play' onClick={handlePausePlay}>

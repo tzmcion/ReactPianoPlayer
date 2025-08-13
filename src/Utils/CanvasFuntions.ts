@@ -33,3 +33,31 @@ const CanvasRoundRect = (ctx:CanvasRenderingContext2D,color:string | CanvasGradi
 }
 
 export {CanvasRoundRect}
+
+
+/**
+ * Function draws a radial gradient in a specified place
+ * @param ctx 
+ * @param color 
+ * @param size 
+ */
+const addShadow = (ctx:CanvasRenderingContext2D, pos_x:number, pos_y:number , height: number, width:number):void => {
+  ctx.beginPath();
+  const gradient = ctx.createLinearGradient(pos_x,pos_y,pos_x+7,pos_y);
+  gradient.addColorStop(0,'rgba(0,0,0,0.45)');
+  gradient.addColorStop(0.4,'rgba(0,0,0,0.15)');
+  gradient.addColorStop(1,'transparent');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(pos_x,pos_y,width,height);
+
+  
+  const grad_right = ctx.createLinearGradient(pos_x + Math.floor(width) - 3, pos_y, pos_x + Math.floor(width) + 1, pos_y);
+  grad_right.addColorStop(0,'transparent');
+  grad_right.addColorStop(0.7, 'rgba(0,0,0,0.25)');
+  grad_right.addColorStop(1, 'rgba(0,0,0,0.4)');
+  ctx.fillStyle = grad_right;
+  ctx.fillRect(pos_x + Math.floor(width) - 3, pos_y, 4, height);
+  ctx.closePath();
+}
+
+export {addShadow};

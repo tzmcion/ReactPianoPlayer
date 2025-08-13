@@ -6,6 +6,20 @@
     /* filter: blur(2px); */
 }
 
+.Canvas_Piano_Black{
+    position: absolute;
+    z-index: 34;
+}
+.Canvas_Piano_White{
+    position: absolute;
+    z-index: 31;
+}
+
+.Canvas_Grad{
+    position: absolute;
+    z-index: 35;
+}
+
 .Effects{
     position: absolute;
     z-index: 149;
@@ -55,7 +69,7 @@
 .Piano_Dividing_Line{
     width: 100%;
     position: absolute;
-    z-index: 31;
+    z-index: 35;
     height: 3px;
     border-top: 2px solid black;
     background-color: #800101;

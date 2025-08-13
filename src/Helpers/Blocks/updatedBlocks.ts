@@ -10,7 +10,8 @@
 import { CanvasRoundRect } from "../../Utils/CanvasFuntions";
 import { TrackNoteEvent } from "../../Utils/TypesForMidi";
 import {Options as OptionsType} from '../../Utils/TypesForOptions'
-import { keyInfo } from "../../Utils/TypesForMidi";
+import { keyInfo, blocks_canvases } from "../../Utils/TypesForMidi";
+import pianoInteraction from "./pianoInteraction";
 
 
 /**
@@ -28,8 +29,9 @@ class Block{
      * @param color color of the block
      * @param creationTime creationTime of the block, should be Date.now() or simillar function
      * @param stroke are the blocks filled or only the borders are important
+     * @param noteNumber noteNumber
      */
-    constructor(private pos_x:number, private pos_y:number, private width:number, private height:number, private color:string, private creationTime:number, private stroke:boolean){
+    constructor(private pos_x:number, private pos_y:number, private width:number, private height:number, private color:string, private creationTime:number, private stroke:boolean, public noteNumber:number){
         this.pauseTime = 0;
         this.isDetected = false;
         this.updateBlock = this.updateBlock.bind(this);
@@ -65,7 +67,7 @@ class Block{
      */
     public updateBlock(speed_y:number, currentTime:number, play_height:number, speed_offset:number):number{
         this.pos_y = speed_y * speed_offset * (currentTime - (this.creationTime + this.pauseTime ))
-        if(this.pos_y - this.height > play_height){
+        if(this.pos_y - this.height> play_height){
             return 2;
         }
         if(this.pos_y > play_height){
@@ -90,6 +92,11 @@ class Block{
     };
 }
 
+////////
+////////
+////////
+////////
+////////
 
 /**
  * Blocks are the elements which are displayed in the visualization
@@ -106,12 +113,16 @@ class Blocks{
     private key_positions_map:Array<keyInfo>
     private static substr_for_note = 21
     private static speed_offset = 1 / 22
+    private key_interactor:pianoInteraction
     private pause_time:number
     private is_paused:boolean
+    private ctx:CanvasRenderingContext2D
 
-    constructor(private ctx:CanvasRenderingContext2D, private effects_ctx:CanvasRenderingContext2D, private options:OptionsType, private height:number, private width:number, nr_of_keys:number, key_width:number){
+    constructor(canvases: blocks_canvases, private options:OptionsType, private height:number, private width:number, nr_of_keys:number, key_width:number){
         this.blocks = []
         this.notes_to_add = [];
+        this.ctx = canvases.mainCtx;
+        this.height = height - (height / 5);
         this.render = this.render.bind(this);
         this.add_blocks = this.add_blocks.bind(this);
         this.impel_blocks_in_places = this.impel_blocks_in_places.bind(this);
@@ -124,6 +135,7 @@ class Blocks{
         this.positions_to_render_line = this.RenderOctaveLines()
         this.add_blocks = this.add_blocks.bind(this);
         this.pause_playing = this.pause_playing.bind(this);
+        this.key_interactor = new pianoInteraction(canvases.blackKeyCtx,canvases.whiteKeyCtx, canvases.KeyPressGradientCtx,this.width,(height / 5),0,options);
         this.render(true);
     }
 
@@ -144,7 +156,12 @@ class Blocks{
             block.renderBlock(this.ctx,this.options);
             if(result < 2)
                 new_blocks.push(block);
+            if(result === 1){
+                this.key_interactor.handle_block_key(this.key_positions_map[block.noteNumber],this.options.KeyPressColor,this.options.GradientColor)
+            }
         })
+        this.key_interactor.render()
+        this.key_interactor.clear();
         this.blocks = new_blocks;
     };
 
@@ -179,7 +196,8 @@ class Blocks{
                     height,
                     '#F0F0F0',
                     Date.now() - (curr_delta - note.Delta)/1000,
-                    false
+                    false,
+                    note.NoteNumber - Blocks.substr_for_note
                 )
                 this.blocks.push(block_to_add)
             }
@@ -234,7 +252,8 @@ class Blocks{
                 event.Duration / 1000 / this.options.playSpeed,
                 '#F0F0F0',
                 current_time,
-                false
+                false,
+                event.NoteNumber - Blocks.substr_for_note
             )
             this.blocks.push(newBlock);
             return null;
@@ -290,7 +309,6 @@ class Blocks{
             return null;
         })
     }
-
 };
 
 export default Blocks;

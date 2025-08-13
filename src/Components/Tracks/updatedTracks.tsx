@@ -38,6 +38,9 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
 
     const [blocks,setBlocks] = useState<updatedBlocks>();
     const mainCtx = useRef<HTMLCanvasElement>(null);
+    const pianoWhite = useRef<HTMLCanvasElement>(null);
+    const pianoBlack = useRef<HTMLCanvasElement>(null);
+    const gradCtx = useRef<HTMLCanvasElement>(null);
 
     const main_animation_frame = useCallback(():void =>{
         if(blocks){
@@ -54,12 +57,22 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
     },[events])
 
     useEffect(()=>{
-        if(mainCtx.current && blocks === undefined){
+        if(blocks === undefined && pianoWhite.current && mainCtx.current && pianoBlack.current && gradCtx.current){
             const context = mainCtx.current.getContext('2d')
-            if(context === null)return;
-            setBlocks(new updatedBlocks(context,context,options,height,width,number_of_white_keys,width/number_of_white_keys))
+            const black_context = pianoBlack.current.getContext('2d');
+            const white_context = pianoWhite.current.getContext('2d');
+            const grad_context = gradCtx.current.getContext('2d');
+            if(context === null || black_context === null || white_context === null || grad_context === null)return;
+            const create_ctx_obj = {
+                mainCtx: context,
+                whiteKeyCtx:white_context,
+                blackKeyCtx:black_context,
+                effectsCtx:context,
+                KeyPressGradientCtx:grad_context
+            }
+            setBlocks(new updatedBlocks(create_ctx_obj,options,height,width,number_of_white_keys,width/number_of_white_keys))
         }
-    },[mainCtx.current, blocks])
+    },[mainCtx.current, blocks, pianoBlack.current, pianoWhite.current])
 
     useEffect(()=>{
         if(Player.isPlaying !== true && blocks !== undefined){
@@ -72,6 +85,9 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
         <div>
             <canvas ref={mainCtx} width={width.toString() + 'px'} height={(height - height/5).toString() + 'px'} className='Canvas'></canvas>
             <div className="Piano_Dividing_Line" style={{top:`${height - height/5 -5 }px`}}/>
+            <canvas ref={gradCtx} width={width.toString() + 'px'} height={300} style={{top: `${height - height/5 - 150}px`}} className="Canvas_Grad"/>
+            <canvas ref={pianoWhite} width={width.toString() + 'px'} height={height/5} style={{top: `${height - height/5}px`}} className="Canvas_Piano_White"/>
+            <canvas ref={pianoBlack} width={width.toString() + 'px'} height={height/5} style={{top: `${height - height/5}px`}} className="Canvas_Piano_Black"/>
             <DrawPianoKeys WhiteKeyWidth={width/number_of_white_keys} height={height/5} number_of_white_keys={number_of_white_keys} marg_top={height - height/5}/>
         </div>
     )

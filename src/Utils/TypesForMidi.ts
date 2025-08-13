@@ -108,3 +108,11 @@ export interface keyInfo{
     width:number,
     type:'BLACK' | 'WHITE'
 }
+
+export interface blocks_canvases{
+    mainCtx:CanvasRenderingContext2D,
+    effectsCtx:CanvasRenderingContext2D,
+    whiteKeyCtx:CanvasRenderingContext2D,
+    blackKeyCtx:CanvasRenderingContext2D,
+    KeyPressGradientCtx:CanvasRenderingContext2D
+}

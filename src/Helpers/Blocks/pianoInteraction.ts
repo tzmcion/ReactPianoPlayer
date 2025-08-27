@@ -38,7 +38,7 @@ export default class pianoInteraction{
                 CanvasRoundRect(this.white_ctx,key.color,key.position + 1,0 + this.cnavas_offSet - 2,key.width + 1,height,3);
                 addShadow(this.white_ctx,key.position,0,height, key.width + 1);
             }
-            KeyGradient(this.gradient_ctx,key.position,key.width,140,this.options.GradientColor, 85);
+            KeyGradient(this.gradient_ctx,key.position,key.width,this.height - this.height / 4,this.options.GradientColor, this.height / 2.2);
         })
     }
 

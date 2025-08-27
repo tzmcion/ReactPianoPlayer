@@ -7,6 +7,9 @@ interface Effect{
     alpha:number
 }
 
+/**
+ * @deprecated
+ */
 export default class fountain{
     private ctx:CanvasRenderingContext2D
     private width:number

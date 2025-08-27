@@ -16,7 +16,6 @@ import {
     Options_Presets as OptionsPresets} from './OptionsType/OptionsType';
 
 import save_img from "../../Assets/save.png"
-import preview_img from "../../Assets/preview.png"
 import Preview from '../Preview/Preview';
 
 interface OptionsProps{
@@ -30,7 +29,6 @@ interface OptionsProps{
 export default function Options({isOpened,onGoBack,options,handleOptionsChange,reloadOptions}:OptionsProps):ReactElement {
 
     const [table,setTable] = useState<'blocks' | 'effects' | 'other' | 'presets'>('blocks');
-    const [preview,setPreview] = useState<boolean>(false);
 
     const change_table = (name:'blocks' | 'effects' | 'other' | 'presets'):void =>{
         setTable(name);
@@ -41,23 +39,21 @@ export default function Options({isOpened,onGoBack,options,handleOptionsChange,r
         <div className={`Options_Main ${isOpened ? 'Opened' : ''} `}>
             <div className='background_options' />
             <div className='Options_Data'>
-            <OptionsDescription type={table} />
-            <div className='breakline_options' />
-                {/* <button className='Restore' onClick={()=>restoreDefaults()}>Restore Defaults </button> */}
-                {table === 'blocks' &&  <OptionsBlocks isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
-                {table === 'effects' &&  <OptionsEffect isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
-                {table === 'other' &&  <OptionsOther isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
-                {table === 'presets' && <OptionsPresets reloadOptions={reloadOptions} />}
-                <div className='options_buttons'>
-                    <ChooseButton onClick={change_table} name='blocks' title='blocks' textColor='#000' />
-                    <ChooseButton onClick={change_table} name='effects' title='effects' textColor='#000' />
-                    <ChooseButton onClick={change_table} name='other' title='other' textColor='#000' />
-                    <ChooseButton onClick={change_table} name='presets' title='presets' textColor='#000' />
-                </div>
+                <OptionsDescription type={table} />
+                <div className='breakline_options' />
+                    {table === 'blocks' &&  <OptionsBlocks isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
+                    {table === 'effects' &&  <OptionsEffect isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
+                    {table === 'other' &&  <OptionsOther isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
+                    {table === 'presets' && <OptionsPresets reloadOptions={reloadOptions} />}
+                    <Preview active={isOpened}/>
+                    <div className='options_buttons'>
+                        <ChooseButton onClick={change_table} name='blocks' title='blocks' textColor='#000' />
+                        <ChooseButton onClick={change_table} name='effects' title='effects' textColor='#000' />
+                        <ChooseButton onClick={change_table} name='other' title='other' textColor='#000' />
+                        <ChooseButton onClick={change_table} name='presets' title='presets' textColor='#000' />
+                    </div>
             </div>
             <ImageButton image={save_img} className={`Image_Save ${isOpened ? 'Bt_open' : ''}`} onClick={onGoBack} onHover={()=>{}} title='SAVE OPTIONS'/>
-            <ImageButton image={preview_img} className={`Image_Preview ${isOpened? 'Bt_open' : ''}`} onClick={() => {}} onHover={()=>{setPreview(prev => !prev)}} title='PREVIEW'/>
-            <Preview is_on={preview}/>
         </div>
     )
 }

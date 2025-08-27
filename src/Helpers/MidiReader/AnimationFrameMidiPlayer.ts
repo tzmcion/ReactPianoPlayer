@@ -51,6 +51,8 @@ class AnimationFrameMidiPlayer{
         this.pause_handler = () => {}
         this.move_handler = () => {}
         this.reset_handler = () => {}
+        this.playRandom = this.playRandom.bind(this);
+        this.play_random_notes = this.play_random_notes.bind(this)
         this.restart()
     }
     
@@ -197,6 +199,42 @@ class AnimationFrameMidiPlayer{
      */
     public clear_player(): void{
         window.cancelAnimationFrame(this.animationFrame)
+    }
+
+    /**
+     * This method plays the random notes within specified time interval
+     */
+    public play_random_notes(range:number = 12, time_interval: number = 1000){
+        console.log(range)
+        this.pauseTime = (Date.now() - this.pauseTime) * 1000;
+        this.isPlaying = true;
+        this.timer = Date.now();
+        this.playRandom(range, time_interval);
+        this.pause_handler(this.isPlaying)
+    }
+
+    /**
+     * Method generates random notes, creates specifically for preview
+     * This method uses the same variables as playMidi, therefore those methods cannot be used simultanouesly
+     * The only usable other method with this is "AnimationFrameMidiPlayer::clear_player"
+     * @param range range of maximum note number on the piano
+     */
+    private playRandom(range:number = 12, time_interval: number = 400): void{
+        const elapsed_time = Date.now() - this.timer;
+        if(elapsed_time >= time_interval){
+            this.timer = Date.now();
+            //Generate random events
+            const note:TrackNoteEvent = {
+                Delta: elapsed_time * 1000,
+                Duration: Math.floor(Math.random() * 5) * 400000,
+                NoteNumber: Math.floor(Math.random() * range) + 23,
+                SoundDuration: 1,
+                TrackNumber: 1,
+                Velocity: 1
+            }
+            this.onEvent([note]);
+        }
+        this.animationFrame = window.requestAnimationFrame(() =>{this.playRandom(range)});
     }
 
     public async __for_testing():Promise<boolean>{

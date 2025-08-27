@@ -1,82 +1,108 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react'
 import './Preview.scss'
 
-import DrawPiano from '../DrawPiano/DrawPiano'
-import MidiPlayer from '../../Helpers/MidiPlayer'
-import { noteEvent } from '../../Utils/TypesForMidi'
-import { useSelector } from 'react-redux'
+import UpdatedTracks from '../Tracks/updatedTracks'
+import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen'
+import AnimationFrameMidiPlayer from '../../Helpers/MidiReader/AnimationFrameMidiPlayer'
+import { TrackNoteEvent } from '../../Utils/TypesForMidi'
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
-import { ReadFromLocalStorageBase64 } from '../../Utils/smallFunctions'
+import { useSelector } from 'react-redux';
 
-interface Preview_props{
-    is_on:boolean
+interface PrevProps{
+    active:boolean
 }
 
-export default function Preview({is_on}:Preview_props):React.ReactElement {
+/**
+ * Preview component creates a small piano, to preview the changes done in options
+ * @param active As preview is designed for OptionsTab, which can be either open, or closed, this parameter defines if preview should be rendered
+ * @returns 
+ */
+export default function Preview({active}:PrevProps):React.ReactElement {
 
-    const [Events,setEvents] = useState<Array<noteEvent>>();
-    const [Player,setPlayer] = useState<MidiPlayer>();
-    const file_ref = useRef<ArrayBuffer>(null);
+    const [events, setEvents] = useState<TrackNoteEvent[]>([]);
+    const [player, setPlayer] = useState<AnimationFrameMidiPlayer>();
+    const [key, addKey] = useState<number>(0);
+    const [ready,setReady] = useState<boolean>(false);
+    const [width_height, set_width_height] = useState<{width:number, height:number}>({width:0,height:0});
     const options = useSelector((state:{options:OptionsType}) => state.options);
+    const width_ref = useRef<HTMLDivElement>(null);
+    const timeout_ref = useRef<any>(0);
 
-    useEffect(() => {
-        if(file_ref.current === null){
-            file_ref.current = ReadFromLocalStorageBase64('file');
-            setPlayer(new MidiPlayer(file_ref.current,handleMidiEvent,25));
+    /**
+     * Load the component
+     */
+    useEffect(()=>{
+      if(player === undefined && width_ref.current !== null){
+        const props = width_ref.current.getBoundingClientRect();
+        setPlayer(new AnimationFrameMidiPlayer([],setEvents))
+        //Set width and height initially
+        set_width_height({
+          width: props.width,
+          height: props.height
+        })
         }
-    }, []);
+        return () => {player !== undefined && player.clear_player()}
+    },[width_ref.current]);
 
-    // useEffect(() => {
-    //     Player?.Restart();
-    // }, [Player])
+    /**
+     * Handle starting of playing random notes on piano
+     */
+    useEffect(()=>{
+      if(active === false)return;
+      if(player !== undefined && ready === true){
+        setReady(true);
+        setTimeout(()=>{
+          player.restart();
+          player.play_random_notes(70);
+        },500)
+      }
+    },[player, ready, active])
 
-    const handleMidiEvent = (Events:Array<noteEvent>) =>{
-        Events.length > 0 && setEvents(Events);
-    }
-
-    const generateOptions = useCallback(():OptionsType =>{
-        const opt = {...options};
-        opt.soundOn = false;
-        return opt;
+    /**
+     * Handle alteration in options. Compoent is set to rerender with new key
+     */
+    useEffect(()=>{
+      setReady(false);
+      if(timeout_ref.current !== 0){
+        clearTimeout(timeout_ref.current);
+      }
+      timeout_ref.current = setTimeout(()=>{
+        setReady(true);
+        addKey(curr => curr + 1);
+      },500)
     },[options])
 
-    const await_player_ready = useCallback(async () =>{
-        return new Promise((res,ret)=>{
-            const inter = setInterval(()=>{
-                if(Player){
-                    if(Player.isReady){
-                        clearInterval(inter);
-                        res(true);
-                    }
-                }
-            },500)
-        })
-    },[Player])
 
-    useEffect(()=>{
-        if(Player )
-            await_player_ready().then(()=>{
-                console.log("ai")
-                Player.PausePlay()
-                Player.MoveTo(2)
-            })
-    },[Player])
 
+    /**
+     * Set active on either true or false depending if the Tab is open
+     */
     useEffect(()=>{
-        if(Player){
-            if(is_on === true){
-                Player.PausePlay()
-                Player.MoveTo(2)
-            }else{
-                Player.PausePlay();
-            }
-        }
-    },[is_on])
+      if(active === false){
+        setReady(false);
+      }else{
+        setReady(true);
+      }
+    },[active])
+
+
 
   return (
-    <div className={`Preview_Window ${is_on === true? "Preview_ON" : ""}`}>
-        {is_on && <div className='Inside_Player'>
-            {Player && <DrawPiano Player={Player} Data={Events} options={generateOptions()}/>}
+    <div className={`Preview_Window`} ref={width_ref}>
+        {!ready && <div className='Inside_Loading' ><h3 className='jersey-10'>Resetting the preview...</h3></div>}
+        {ready && <div className='Inside_Player'>
+            {player && <UpdatedTracks 
+            key={key}
+            Player={player}
+            events={events}
+            height={width_height.height + 200}
+            width={width_height.width}
+            number_of_keys={76}
+            number_of_white_keys={44}
+            options={options}
+            sound={null}
+            white_key_height={400}
+            />}
         </div>}
     </div>
   )

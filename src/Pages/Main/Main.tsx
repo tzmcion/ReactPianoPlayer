@@ -24,6 +24,7 @@ export default function Main() {
     const options = useSelector((state:{options:OptionsType}) => state.options);
 
     const handleOptionsChange = useCallback((event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
+        console.log(event)
         const new_Options = optionsSwitch(event,options);
         try{
             localStorage.setItem('options',JSON.stringify(new_Options));

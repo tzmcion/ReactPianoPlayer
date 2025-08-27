@@ -12,6 +12,7 @@ import { TrackNoteEvent } from "../../Utils/TypesForMidi";
 import {Options as OptionsType} from '../../Utils/TypesForOptions'
 import { keyInfo, blocks_canvases } from "../../Utils/TypesForMidi";
 import pianoInteraction from "./pianoInteraction";
+import EffectsManager from "../Effects/EffectsManager";
 
 
 /**
@@ -117,6 +118,7 @@ class Blocks{
     private pause_time:number
     private is_paused:boolean
     private ctx:CanvasRenderingContext2D
+    private effect_manager: EffectsManager
 
     constructor(canvases: blocks_canvases, private options:OptionsType, private height:number, private width:number, nr_of_keys:number, key_width:number){
         this.blocks = []
@@ -136,6 +138,7 @@ class Blocks{
         this.add_blocks = this.add_blocks.bind(this);
         this.pause_playing = this.pause_playing.bind(this);
         this.key_interactor = new pianoInteraction(canvases.blackKeyCtx,canvases.whiteKeyCtx, canvases.KeyPressGradientCtx,this.width,(height / 5),0,options);
+        this.effect_manager = new EffectsManager(canvases.effectsCtx, width, height - (height / 5), key_width, options.Effect);
         this.render(true);
     }
 
@@ -145,6 +148,7 @@ class Blocks{
      * This Method is based on calculatiing time from creation to current on position calculation
      */
     public render(ignore_pause = false):void{
+        this.effect_manager.render_effect();
         if(this.is_paused && !ignore_pause)return;
         const new_blocks:Block[] = [];
         const curr_time = Date.now();
@@ -158,6 +162,7 @@ class Blocks{
                 new_blocks.push(block);
             if(result === 1){
                 this.key_interactor.handle_block_key(this.key_positions_map[block.noteNumber],this.options.KeyPressColor,this.options.GradientColor)
+                this.effect_manager.generate_effect(this.key_positions_map[block.noteNumber].position);
             }
         })
         this.key_interactor.render()
@@ -187,6 +192,7 @@ class Blocks{
             if(note.Delta > curr_delta){return;}
             const delta = curr_delta / 1000
             const height = note.Duration / 1000 / this.options.playSpeed
+            const color = this.key_positions_map[note.NoteNumber - Blocks.substr_for_note].type === 'BLACK' ? this.options.ThinerBlockColor : this.options.Color;
             const should_add = Block.calculate_y(this.options.playSpeed,delta,Blocks.speed_offset,note.Delta/1000)
             if(should_add - height < this.height){
                 const block_to_add = new Block(
@@ -194,7 +200,7 @@ class Blocks{
                     should_add,
                     this.key_positions_map[note.NoteNumber - Blocks.substr_for_note].width,
                     height,
-                    '#F0F0F0',
+                    color,
                     Date.now() - (curr_delta - note.Delta)/1000,
                     false,
                     note.NoteNumber - Blocks.substr_for_note
@@ -245,12 +251,13 @@ class Blocks{
     private __add_blocks_from_waiting_list(current_time:number){
         if(this.notes_to_add.length <= 0)return;
         this.notes_to_add.map(event =>{
+            const color = this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].type === 'BLACK' ? this.options.ThinerBlockColor : this.options.Color;
             const newBlock:Block = new Block(
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].position,
                 0,
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].width,
                 event.Duration / 1000 / this.options.playSpeed,
-                '#F0F0F0',
+                color,
                 current_time,
                 false,
                 event.NoteNumber - Blocks.substr_for_note
@@ -285,6 +292,7 @@ class Blocks{
      * Method renders lines on the screen per octaves
      */
     private RenderOctaveLines():number[] {
+        if(this.key_positions_map.length !== 81)return [];
         const arr:number[] = []
         for(let x = 3; x < 88; x++){
             if((x-3) % 12 === 0){

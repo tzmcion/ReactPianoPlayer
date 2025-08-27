@@ -39,8 +39,8 @@
         transition: 0.25s;
         .options_Cards{
             width:90%;
-            height:72vh !important;
-            overflow-y: auto;
+            height:48vh !important;
+            overflow-y: scroll;
             margin:10px auto;
             display: flex;
             justify-content: center;
@@ -122,7 +122,7 @@
 }
 
 .options_buttons{
-    margin: 0px auto;
+    margin: 30px auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -10,6 +10,9 @@ interface Effect{
     alpha:number
 }
 
+/**
+ * @deprecated
+ */
 class DancingLines{
     readonly ctx:CanvasRenderingContext2D;
     readonly key_width:number;

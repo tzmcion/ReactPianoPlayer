@@ -11,6 +11,9 @@ interface Effect{
     hsl:number
 }
 
+/**
+ * @deprecated
+ */
 export default class HexagonEffect{
     private ctx:CanvasRenderingContext2D
     private width:number

@@ -42,6 +42,9 @@ class Spark{
     }
 };
 
+/**
+ * @deprecated
+ */
 class Sparks{
     private readonly ctx:CanvasRenderingContext2D
     private readonly width:number

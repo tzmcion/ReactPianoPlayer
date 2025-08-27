@@ -8,14 +8,6 @@ import PresetCard from '../OptionCard/presetCard/presetCard';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
-//Videos
-import Fountain from '../OptionCard/EffectChoose/Previews/fountain.mp4';
-import DancingLines from '../OptionCard/EffectChoose/Previews/DancingLines.mp4';
-import Hexagon from '../OptionCard/EffectChoose/Previews/Sparks.mp4';
-import Balls from '../OptionCard/EffectChoose/Previews/balls.mp4';
-import Fireworks from '../OptionCard/EffectChoose/Previews/Fireworks.mp4';
-import Snow from '../OptionCard/EffectChoose/Previews/Snow.mp4'
-
 //Helpers or types
 import { Options as OptionType } from '../../../Utils/TypesForOptions';
 import {checkExtension, read_as_text} from '../../../Utils/smallFunctions';
@@ -79,41 +71,16 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
         handleOptionsChange(ev);
-        const Simulate_event = {
-            target:{
-                name:'IsEffectsTrue',
-                value:true
-            }
-        }
-        handleOptionsChange(Simulate_event);
     }
 
     return (
         <div className='options_Cards'>
             <div className='Cards_Container'>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Fountain' textColor='effects' src={Fountain} current={effect} value={'fountain'} >
-                        Block reaches the piano, water shows (may english good)
+                <EffectChoose onChange={onChange} name='Effect' title='None' textColor='effects' current={effect} value={'None'} >
+                        No Effect !Best for high frame rate!
                 </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Sparks' textColor='effects' src={DancingLines} current={effect} value={'dancingLines'} >
-                        I bet those little sparks jump higher than you ---:O---
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Dancing Lines' textColor='effects' src={Hexagon} current={effect} value={'hexagon'} >
-                        They are like me on a dancing floor (in my imagination);
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Bubbles' textColor='effects' src={Balls} current={effect} value={'stickyBalls'} >
-                        Lava Bubbles from the deepest deeps of deepest ocean (they looked better but performance :c)
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Tornado Fireworks' textColor='effects' src={Fireworks} current={effect} value={'fireworks'} >
-                        Those Fancy bubbles spark like fireworks and they move a little like tornado
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Snow, Snow, SNOW' textColor='effects' src={Snow} current={effect} value={'sparks'} >
-                        This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Sinus' textColor='effects' src={Snow} current={effect} value={'DNA'} >
-                        This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='None' title='None' textColor='effects' src={''} current={effect} value={'None'} >
-                        No effect, playing without effect is the most optimal and it's good choice for weaker computers
+                <EffectChoose onChange={onChange} name='Effect' title='Sparks' textColor='effects' current={effect} value={'Sparks'} >
+                        Simple spark effect
                 </EffectChoose>
             </div>
         </div>

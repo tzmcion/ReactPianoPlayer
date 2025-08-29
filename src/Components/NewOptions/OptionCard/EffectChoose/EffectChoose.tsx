@@ -15,8 +15,6 @@ interface OptionCardProps{
 
 export default function EffectChoose({name,onChange,value,children,title,textColor,current}:OptionCardProps) {
 
-    const [hovered,isHovered] = useState<boolean>(false);
-
     const onClick = ():void =>{
         const event = {
             target:{
@@ -25,15 +23,6 @@ export default function EffectChoose({name,onChange,value,children,title,textCol
             }
         }
         onChange(event);
-    }
-
-    const onMouseEnter_Leave = (action:'leave' | 'enter') =>{
-        if(action === 'enter'){
-            isHovered(true);
-        }
-        if(action === 'leave'){
-            isHovered(false);
-        }
     }
 
     return (

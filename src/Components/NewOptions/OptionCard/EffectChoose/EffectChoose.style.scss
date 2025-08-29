@@ -8,6 +8,11 @@
     &:hover{
         box-shadow: 0px 0px 8px 6px #16c1d8;
     }
+    ul{
+        font-size: 18px;
+        margin: 0;
+        padding-inline-start: 20px;
+    }
 }
 
 .Curr_opt{
@@ -16,4 +21,24 @@
     &:hover{
         box-shadow: 0px 0px 8px 6px #f1c470 !important;
     }
+}
+
+.Red_cl{
+    font-weight: 800;
+    color:#F95738
+}
+
+.Blue_cl{
+    font-weight: 800;
+    color:#44C1F8
+}
+
+.Green_cl{
+    font-weight: 800;
+    color: #59CD90
+}
+
+.Purple_cl{
+    font-weight: 800;
+    color: #df48ec
 }

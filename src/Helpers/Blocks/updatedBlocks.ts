@@ -13,6 +13,7 @@ import {Options as OptionsType} from '../../Utils/TypesForOptions'
 import { keyInfo, blocks_canvases } from "../../Utils/TypesForMidi";
 import pianoInteraction from "./pianoInteraction";
 import EffectsManager from "../Effects/EffectsManager";
+import soundManager from "../soundManager";
 
 
 /**
@@ -20,7 +21,7 @@ import EffectsManager from "../Effects/EffectsManager";
  */
 class Block{
     private pauseTime:number
-    private isDetected:boolean
+    public isDetected:boolean
     /**
      * A single block
      * @param pos_x X position of the block
@@ -32,7 +33,7 @@ class Block{
      * @param stroke are the blocks filled or only the borders are important
      * @param noteNumber noteNumber
      */
-    constructor(private pos_x:number, private pos_y:number, private width:number, private height:number, private color:string, private creationTime:number, private stroke:boolean, public noteNumber:number){
+    constructor(private pos_x:number, private pos_y:number, private width:number, private height:number, private color:string, private creationTime:number, private stroke:boolean, public noteNumber:number, public soundDuration:number, public velocity:number){
         this.pauseTime = 0;
         this.isDetected = false;
         this.updateBlock = this.updateBlock.bind(this);
@@ -119,6 +120,7 @@ class Blocks{
     private is_paused:boolean
     private ctx:CanvasRenderingContext2D
     private effect_manager: EffectsManager
+    private sound_manager:soundManager | undefined
 
     constructor(canvases: blocks_canvases, private options:OptionsType, private height:number, private width:number, nr_of_keys:number, key_width:number){
         this.blocks = []
@@ -142,6 +144,11 @@ class Blocks{
         this.render(true);
     }
 
+    
+    public set_sound_manager(manager:soundManager):void {
+        this.sound_manager = manager;
+    }
+
     /**
      * Method render renders a blocks.
      * This Method needs to be executed in window.requestAnimationFrame function.
@@ -156,6 +163,7 @@ class Blocks{
         this.render_octave_lines();
         this.__add_blocks_from_waiting_list(curr_time);
         this.blocks.map(block =>{
+            const detected = block.isDetected;
             const result = block.updateBlock(this.options.playSpeed,curr_time,this.height,Blocks.speed_offset);
             block.renderBlock(this.ctx,this.options);
             if(result < 2)
@@ -163,6 +171,11 @@ class Blocks{
             if(result === 1){
                 this.key_interactor.handle_block_key(this.key_positions_map[block.noteNumber],this.options.KeyPressColor,this.options.GradientColor)
                 this.effect_manager.generate_effect(this.key_positions_map[block.noteNumber].position);
+                if(this.sound_manager !== undefined){
+                    if(detected != block.isDetected){
+                        this.sound_manager.play_key(block.noteNumber,Math.floor(block.soundDuration),block.velocity);
+                    }
+                }
             }
         })
         this.key_interactor.render()
@@ -203,7 +216,9 @@ class Blocks{
                     color,
                     Date.now() - (curr_delta - note.Delta)/1000,
                     false,
-                    note.NoteNumber - Blocks.substr_for_note
+                    note.NoteNumber - Blocks.substr_for_note,
+                    note.SoundDuration,
+                    note.Velocity
                 )
                 this.blocks.push(block_to_add)
             }
@@ -256,11 +271,13 @@ class Blocks{
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].position,
                 0,
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].width,
-                event.Duration / 1000 / this.options.playSpeed,
+                event.Duration / 1000 / ( 22 / this.options.playSpeed), //block height
                 color,
                 current_time,
                 false,
-                event.NoteNumber - Blocks.substr_for_note
+                event.NoteNumber - Blocks.substr_for_note,
+                event.SoundDuration,
+                event.Velocity
             )
             this.blocks.push(newBlock);
             return null;

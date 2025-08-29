@@ -4,19 +4,19 @@ import './OptionsDescription.scss'
 const textData = [
     {
         title: "GENERAL OPTIONS",
-        description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+        description: "Configure the midi-player. In this tab, decide how the blocks look like. Each option consists of short description of what it does.",
     },
         {
         title: "EFFECT CONFIGURATION",
-        description: "This is my piano midi player, there are many like this one, but this one is mine",
+        description: "In this tab you can choose the effect which ocures when the block meets the piano (and the sound is played)",
     },
         {
-        title: "",
-        description: "",
+        title: "ADDITIONAL OPTIONS",
+        description: "In this tab you can choose some additional, not important features for playing, like speed, watermark etc.",
     },
         {
-        title: "",
-        description: "",
+        title: "PRESETS",
+        description: "Here you can choose one of the already prepared presets, create and save your own presets",
     }
 ]
 

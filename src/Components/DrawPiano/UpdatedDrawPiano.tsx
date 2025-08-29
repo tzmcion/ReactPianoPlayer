@@ -42,17 +42,16 @@ export default function UpdatedDrawPiano({width,height,Player,events,piano_keys_
 
     useEffect(()=>{
         if(Player && soundManager){
-            set_is_loading(false);
+            soundManager.load_sounds().then(e => set_is_loading(false));
         }
     },[Player, soundManager])
 
     useEffect(()=>{
-        setSoundManager(new soundManagerClass())
-    },[])
-
-    useEffect(()=>{
-        console.log(soundManager)
-    },[soundManager])
+        if(Player){
+            console.log(Player.MidiMaxVelocity)
+            setSoundManager(new soundManagerClass(Player.MidiMaxVelocity * 50))
+        }
+    },[Player])
 
     const renderTracks = ():React.ReactElement =>{
         if(Player !== undefined && soundManager !== undefined){

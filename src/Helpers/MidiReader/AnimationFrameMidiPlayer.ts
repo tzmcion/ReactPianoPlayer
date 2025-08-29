@@ -159,6 +159,20 @@ class AnimationFrameMidiPlayer{
     }
 
     /**
+     * Method returns midi maximum velocity
+     */
+    public get MidiMaxVelocity():number{
+        if(this.notes.length == 0)return 100000;
+        let max_velocity = 0;
+        this.notes.forEach(note =>{
+            if(note.Velocity > max_velocity){
+                max_velocity = note.Velocity;
+            }
+        })
+        return max_velocity;
+    }
+
+    /**
      * Method calculates and returns the total length of midi playing, and current progress of playing
      * @returns Object with data about progress
      */

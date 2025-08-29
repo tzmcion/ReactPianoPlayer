@@ -2,7 +2,6 @@ import React,{useState,ChangeEvent} from 'react';
 import OptionCard from '../OptionCard/OptionCard';
 import OptionCardImage from '../OptionCard/OptionCardImage';
 import EffectChoose from '../OptionCard/EffectChoose/EffectChoose';
-import AddCard from '../OptionCard/addCard/addCard';
 import PresetCard from '../OptionCard/presetCard/presetCard';
 
 import Snackbar from '@mui/material/Snackbar';
@@ -51,8 +50,8 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='blockRadius' type='number' title='Block antyaliasing radius' value={options.blockRadius.toString()} >
                         Choose the antyaliasing range. Blocks will have rounded corners. more value, more rounded.
                     </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='gradientBlocks' type='checkbox' title='GradientBlocks' value={options.GradientBlocks} >
-                        Choose if you want to have yout blocks with gradient Colors (change colors in effects.conf)
+                    <OptionCard onChange={handleOptionsChange} name='GradientBlocks' type='checkbox' title='Reset Preview' value={options.GradientBlocks} >
+                        Sometimes piano preview starts lagging... Click Here to reset it.
                     </OptionCard>
             </div>
         </div>
@@ -77,10 +76,16 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
         <div className='options_Cards'>
             <div className='Cards_Container'>
                 <EffectChoose onChange={onChange} name='Effect' title='None' textColor='effects' current={effect} value={'None'} >
-                        No Effect !Best for high frame rate!
+                        <ul>
+                            <li>No particular effect</li>
+                            <li>Performance indicator: <span className='Blue_cl'>None</span></li>
+                        </ul>
                 </EffectChoose>
                 <EffectChoose onChange={onChange} name='Effect' title='Sparks' textColor='effects' current={effect} value={'Sparks'} >
-                        Simple spark effect
+                        <ul>
+                            <li>Little sparks from the keyboard</li>
+                            <li>Performance indicator: <span className='Red_cl'>High</span></li>
+                        </ul>
                 </EffectChoose>
             </div>
         </div>
@@ -178,10 +183,7 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
     return (
         <div className='options_Cards'>
             <div className='Cards_Container'>
-                    {renderCards()}
                     <div style={{display:'flex',justifyContent: 'space-evenly',flexDirection: 'column'}}>
-                    <AddCard type='delete' onClick={handleColorDelete} />
-                    <AddCard type='add' onClick={handleColorAdd} />
                     </div>
             </div>
         </div>

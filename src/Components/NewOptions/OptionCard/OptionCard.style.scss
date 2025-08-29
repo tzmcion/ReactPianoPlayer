@@ -91,13 +91,57 @@
     border-radius: 10px;
 }
 
-.ImageInput{
+.Input_Delete_Image{
+    content: 'X';
+    color: white;
     position: absolute;
-    height:200%;
-    width:100%;
-    top:-50px;
-    border-radius: 10px;
-    cursor: pointer;
+    bottom: 10px;
+    left: 10px;
+    width: 15%;
+    height: 0;
+    padding-bottom: 15%;
+    background-color: rgba(41, 33, 33, 0.911);
+    border-radius: 2px;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.459);
+    &::before{
+        content: 'X';
+        color:white;
+        position: absolute;
+        left: 22.5%;
+        top: -12.5%;
+        font-size: 40px;
+    }
+    &:hover{
+        background-color: #F95738;
+        transition: 0.1s;
+        cursor: pointer;
+    }
+    transform: scale(0.8);
+}
+
+.Image_Input_Preview{
+    position: absolute;
+    right: -90%;
+    bottom: 0;
+    width: 300px;
+    height: 180px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.747);
+    background-color: white;
+    border-radius: 5px;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+    }
+    h5{
+        position: absolute;
+        top:10px;
+        left: 10px;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+        width: fit-content;
+    }
 }
 
 .inputImageDiv{

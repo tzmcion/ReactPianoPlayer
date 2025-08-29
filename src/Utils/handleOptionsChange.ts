@@ -20,14 +20,7 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
             currentOptions.IsEffects = !options.IsEffects;
             break;
         case 'Image':
-            try{
-                let sss = options;
-                sss.backgroundImage = event.target.value
-                localStorage.setItem('options',JSON.stringify(sss))
-            }catch{
-                alert('this File is probably to big man')
-                currentOptions.backgroundImage = '';
-            }
+            currentOptions.backgroundImage = event.target.value
             break;
         case 'speed':
             currentOptions.speed = parseInt(event.target.value);

@@ -117,61 +117,94 @@
     }
 }
 
-@media only screen and (max-height: 750px) {
+@media only screen and (max-width: 1540px) {
     .MainPageBanner{
         width: 700px;
-        margin-top: 70px;
-        // Logo
         .Logo{
-            width: 700px;
-            height: 150px;
+            width: 500px;
             .LogoLeft{
                 width: 150px;
+                margin-top: 15px;
             }
             .LogoRight{
-                width: 550px;
                 .TitleApp{
-                    font-size: 34px;
+                    font-size: 28px;
                 }
                 .AppShortDescription{
-                    font-size: 28px;
-                    margin-bottom: -10px;
-                }
-                .LinkGithub{
-                    font-size: 12px;
+                    font-size: 24px;
                 }
             }
         }
-        // Desc
         .Description{
-            margin-top: 20px;
-            width: 650px;
-            padding-bottom: 15px;
+            width: 600px;
+            p{
+                font-size: 20px;
+            }
+        }
+        .Usage{
+            width: 600px;
+        }
+    }
+}
+
+@media only screen and (max-width: 1370px) {
+    .MainPageBanner{
+        width: 90%;
+        max-height: 50vh;
+        overflow: scroll;
+        margin-top: 50px;
+        padding-top: 10px;
+        padding: 0;
+        .Logo{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .LogoLeft{
+                width: 150px;
+                margin-top: 0px;
+            }
+            .LogoRight{
+                width: 300px;
+                .TitleApp{
+                    font-size: 28px;
+                }
+                .AppShortDescription{
+                    font-size: 20px;
+                }
+            }
+        }
+        .Description{
+            width: 90%;
+            margin: 10px auto;
             p{
                 font-size: 18px;
             }
         }
-        //Usage
         .Usage{
-            margin-top: 30px;
-            width: 700px;
+            width: 90%;
             h3{
-                font-size: 28px;
+                font-size: 26px;
             }
             p{
-                margin-top: 10px;
-                font-size: 18px;
-                a{
-                    color: #076DAB;
-                }
+                font-size: 16px;
+                padding: 0;
+                margin-bottom: 0;
+            }
+            li{
+                font-size: 16px;
             }
             .AvntLogo{
+                margin: 0;
+                .LeftSide{
+                    width: 80px;
+                }
                 .RightSide{
                     h4{
-                        font-size: 24px;
+                        font-size: 20px;
+                        margin-top: 15px;
                     }
                     h5{
-                        margin-top: 10px;
                         font-size: 16px;
                     }
                 }
@@ -179,3 +212,66 @@
         }
     }
 }
+
+// @media only screen and (max-height: 750px) {
+//     .MainPageBanner{
+//         width: 700px;
+//         margin-top: 70px;
+//         // Logo
+//         .Logo{
+//             width: 700px;
+//             height: 150px;
+//             .LogoLeft{
+//                 width: 150px;
+//             }
+//             .LogoRight{
+//                 width: 550px;
+//                 .TitleApp{
+//                     font-size: 34px;
+//                 }
+//                 .AppShortDescription{
+//                     font-size: 28px;
+//                     margin-bottom: -10px;
+//                 }
+//                 .LinkGithub{
+//                     font-size: 12px;
+//                 }
+//             }
+//         }
+//         // Desc
+//         .Description{
+//             margin-top: 20px;
+//             width: 650px;
+//             padding-bottom: 15px;
+//             p{
+//                 font-size: 18px;
+//             }
+//         }
+//         //Usage
+//         .Usage{
+//             margin-top: 30px;
+//             width: 700px;
+//             h3{
+//                 font-size: 28px;
+//             }
+//             p{
+//                 margin-top: 10px;
+//                 font-size: 18px;
+//                 a{
+//                     color: #076DAB;
+//                 }
+//             }
+//             .AvntLogo{
+//                 .RightSide{
+//                     h4{
+//                         font-size: 24px;
+//                     }
+//                     h5{
+//                         margin-top: 10px;
+//                         font-size: 16px;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

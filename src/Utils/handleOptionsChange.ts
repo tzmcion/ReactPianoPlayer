@@ -75,6 +75,9 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
         case 'gradientBlocksColor':
             currentOptions.GradientBlocksColor = event.target.value;
             break;
+        case 'OctaveLines':
+            currentOptions.OctaveLines = !currentOptions.OctaveLines;
+            break;
         default:
             break;
     }

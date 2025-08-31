@@ -51,6 +51,9 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='blockRadius' type='number' title='Block antyaliasing radius' value={options.blockRadius.toString()} >
                         Choose the antyaliasing range. Blocks will have rounded corners. more value, more rounded.
                     </OptionCard>
+                    <OptionCard onChange={handleOptionsChange} name='OctaveLines' type='checkbox' title='Render Octave Lines' value={options.OctaveLines} >
+                        Check if octave lines should be rendered or not
+                    </OptionCard>
                     <OptionCard onChange={handleOptionsChange} name='GradientBlocks' type='checkbox' title='Reset Preview' value={options.GradientBlocks} >
                         Sometimes piano preview starts lagging... Click Here to reset it.
                     </OptionCard>

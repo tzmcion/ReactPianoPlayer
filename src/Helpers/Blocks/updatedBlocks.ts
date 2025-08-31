@@ -160,7 +160,7 @@ class Blocks{
         const new_blocks:Block[] = [];
         const curr_time = Date.now();
         this.ctx.clearRect(0,0,this.width,this.height);
-        this.render_octave_lines();
+        this.options.OctaveLines && this.render_octave_lines();
         this.__add_blocks_from_waiting_list(curr_time);
         this.blocks.map(block =>{
             const detected = block.isDetected;
@@ -309,12 +309,12 @@ class Blocks{
      * Method renders lines on the screen per octaves
      */
     private RenderOctaveLines():number[] {
-        if(this.key_positions_map.length !== 81)return [];
         const arr:number[] = []
-        for(let x = 3; x < 88; x++){
+        for(let x = 3; x < this.key_positions_map.length; x++){
             if((x-3) % 12 === 0){
                 arr.push(this.key_positions_map[x].position)
             }
+            //FOR E-key
             // if((x-8) % 12 === 0){
             //     arr.push(this.key_positions_map[x].position)
             // }

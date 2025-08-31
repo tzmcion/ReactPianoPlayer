@@ -7,15 +7,16 @@ interface CardProps{
     name: string;
     type: string;
     title?:string;
-    children:JSX.Element | string;
+    children: React.ReactElement | string;
     value: string|boolean,
     textColor:string
 }
 
 export default function OptionCard({onChange,name,type,textColor,title,children,value}:CardProps):ReactElement {
 
-    const Myvalue = useRef<any>();
-    const [image,setImage] = useState<any>();
+    const Myvalue = useRef<any>(null);
+    const [image,setImage] = useState<any>(undefined);
+    const [hovered,setHovered] = useState<boolean>(false);
 
     const handleChange = () =>{
         
@@ -23,6 +24,9 @@ export default function OptionCard({onChange,name,type,textColor,title,children,
 
         if(Myvalue.current){
         const file = Myvalue.current.files![0];
+        if(!Myvalue.current.files[0])
+            {return new Promise(resolve =>{resolve('Error')})}
+        
         
         return new Promise<ArrayBuffer>((resolve, reject) => {
             const reader = new FileReader();
@@ -54,17 +58,28 @@ export default function OptionCard({onChange,name,type,textColor,title,children,
             alert('Error, Image Format Not supported');
         }
     }
+
+
+    const delete_image = ():void =>{
+        const data = {target:{name:'Image', value:""}};
+        onChange(data)
+        setImage(undefined);
+    }
+
     return (
-        <div className={`${name}Div OptionCard`}>
-                <h1 className={`Card_Title ${textColor ? textColor : ''}`} >{title}</h1>
-                <h2 className='Card_Description'>{children}</h2>
-                {!image && 
-                    <div className='inputImageDiv'>
-                    <h1>Insert Image</h1>
-                    <input className={`ImageInput`} accept='.jpg,.png,.gif' ref={Myvalue} type='file' name={name} onChange={handleChange} />
-                    </div>
-                }
-                {image && <img src={image} alt='your' className='inputImage' />}
+        <div className='OptionCard'>
+            <h1 className={`Card_Title jersey-10 ${textColor ? textColor : ''}`} >{title}</h1>
+            <h2 className='Card_Description jersey-10'>{children}</h2>
+            <div className='Input_Image_Container' onMouseEnter={()=>{setHovered(true)}} onMouseLeave={(()=>{setHovered(false)})}>
+                <h3 className='jersey-10'>Insert IMG.</h3>
+                <input className={`ImageInput`} accept='.jpg,.png,.gif' ref={Myvalue} type='file' name={name} onChange={handleChange} />
+            </div>
+            <div className='Input_Delete_Image' onClick={delete_image}/>
+            {hovered && image && <div className='Image_Input_Preview'>
+                    <h5 className='jersey-10'>Image Preview</h5>
+                    <img src={image} alt='preview_image' />
+            </div>}
+            <div className='RIBBON'><h3 className='jersey-10'>BETA</h3></div>
         </div>
     )
 }

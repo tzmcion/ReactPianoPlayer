@@ -7,6 +7,9 @@ interface Effect{
     alpha:number
 }
 
+/**
+ * @deprecated
+ */
 class Trail_Element{
     private pos_x:number
     private pos_y:number

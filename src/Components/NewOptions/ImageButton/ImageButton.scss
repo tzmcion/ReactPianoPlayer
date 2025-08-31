@@ -1,0 +1,50 @@
+.ImageButton{
+    width:200px;
+    position: absolute;
+    z-index: 3;
+    .ImageButton_image{
+        margin-left: 50%;
+        transform: translateX(-50%);
+        width:35%;
+        background: #131F2D;
+        border-radius: 12px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.527);
+        position: relative;
+        img{
+            width: 80%;
+            padding: 10%;
+            padding-left: 15%;
+            padding-bottom: 5%;
+            filter: invert(100%);
+        }
+    }
+    .ImageButton_context{
+        position: relative;
+        border-radius: 8px;
+        background-color: #3F4650;
+        width: 90%;
+        h3{
+            font-size: 26px;
+            line-height: 130%;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        height: fit-content;
+        margin: -17% auto;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.288);
+    }
+    &:hover{
+        cursor: pointer;
+        .ImageButton_context, .ImageButton_image{
+            box-shadow: 0px 0px 6px black;
+        }
+    }
+    transition: 0.4s ease;
+    opacity: 0;
+}
+
+.Bt_open{
+    transition: 2s;
+    opacity: 1;
+}

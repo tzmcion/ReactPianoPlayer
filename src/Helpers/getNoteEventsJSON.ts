@@ -1,3 +1,9 @@
+    /**
+     * !!
+     * !! FUNCTION DEPRECATED !!
+     * !!
+     */
+    
     // -- Basically Mapping Every midi Event takes some time
     // -- for example, there can be 24 Events in the same time
     // -- Therefore, they all (for this program), may be converted 
@@ -14,6 +20,15 @@
     import { IMidiFile, noteEvent, MidiEventType, StaticMidiDataProps } from "../Utils/TypesForMidi";
     import { CreateMidiNoteEventsArray, getEmptyNoteEvent } from "../Utils/smallFunctions";
 
+
+    /**
+     * Function converts a MidiFile to NoteEventJSON file.
+     * @deprecated Function poorly written
+     * @param File IMidiFile data
+     * @param microsecondsPerQuarterPR 
+     * @param StaticMidiFileDataPR 
+     * @returns 
+     */
     const ConvertToNoteEventsJSON = (File: IMidiFile, microsecondsPerQuarterPR:number,StaticMidiFileDataPR:StaticMidiDataProps):Array<noteEvent> =>{
         let microsecondsPerQuarter = microsecondsPerQuarterPR;
         let StaticMidiFileData = StaticMidiFileDataPR;
@@ -30,83 +45,83 @@
             let smallestDelta: Array<number> = [];
             while(true){
                 let endofTrack = false;
-            while(true){
-                let eventWasFound = false;
-                // eslint-disable-next-line
-                File.tracks.map((Track,index) =>{
-                    try{
-                        const Event = Track[newIndexes[index]] as MidiEventType;
-                            if(Event.delta === newTicksToNextEvent[index]){
-                                newIndexes[index] += 1;
-                                newTicksToNextEvent[index] = 0;
-                                eventWasFound = true;
-                                if('setTempo' in Event){    //changing tickTime if
-                                    microsecondsPerQuarter =  Event.setTempo.microsecondsPerQuarter;
-                                    tickTime = microsecondsPerQuarter /  StaticMidiFileData.division;
-                                }
-                                if('endOfTrack' in Event){
-                                    //endofTrack = true;
-                                }
-                                if('noteOn' in Event){  //NoteOn begins A note 
-                                    const ArrayIndex = Event.noteOn.noteNumber - 21; //number of note
-                                    PianoArrayOfKeys[ArrayIndex].Delta = Math.floor(newtimePassed); //when it starts
-                                    PianoArrayOfKeys[ArrayIndex].Velocity = Event.noteOn.velocity;  //velocity is volume
-                                }
-                                if('noteOff' in Event){ //boteOff ends a Note
-                                    const ArrayIndex = Event.noteOff.noteNumber - 21;   //number of note
-                                    PianoArrayOfKeys[ArrayIndex].Duration = Math.floor(newtimePassed - PianoArrayOfKeys[ArrayIndex].Delta); //Note Duration
-                                    if(!isPianoSustainOn || ('endOfTrack' in (Track[newIndexes[index]] as MidiEventType))){  //Sound Duration if Pedal Sustain is  ton on
-                                        PianoArrayOfKeys[ArrayIndex].SoundDuration = Math.floor(PianoArrayOfKeys[ArrayIndex].Duration)  //then sound duration is note duration
-                                        const Element = PianoArrayOfKeys[ArrayIndex];
-                                        if(Element.Velocity && Element.Delta >= 0){
-                                        finalNotes.push(Element);  //pushing to final notes
-                                        }
-                                        PianoArrayOfKeys[ArrayIndex] = getEmptyNoteEvent(ArrayIndex + 21);  //clearing arrayOfNotes
-                                    }else{  //if it's on it's just pushed to waiting notes, they wait for pedal off
-                                        waitingNotes.push(PianoArrayOfKeys[ArrayIndex]);
-                                        PianoArrayOfKeys[ArrayIndex] = getEmptyNoteEvent(ArrayIndex + 21);  //clearing arrayOfNotes
+                while(true){
+                    let eventWasFound = false;
+                    // eslint-disable-next-line
+                    File.tracks.map((Track,index) =>{
+                        try{
+                            const Event = Track[newIndexes[index]] as MidiEventType;
+                                if(Event.delta === newTicksToNextEvent[index]){
+                                    newIndexes[index] += 1;
+                                    newTicksToNextEvent[index] = 0;
+                                    eventWasFound = true;
+                                    if('setTempo' in Event){    //changing tickTime if
+                                        microsecondsPerQuarter =  Event.setTempo.microsecondsPerQuarter;
+                                        tickTime = microsecondsPerQuarter /  StaticMidiFileData.division;
                                     }
-                                }
-                                if('controlChange' in Event){
-                                    switch(Event.controlChange.type){
-                                        case 64:    //Sustain Pedal 
-                                            if(Event.controlChange.value <= 63){
-                                                isPianoSustainOn = false;   //sustain pedal is off
-                                                waitingNotes.map((element,index) =>{    //waiting notes are given SoundDuration here
-                                                    waitingNotes[index].SoundDuration = Math.floor(newtimePassed - element.Delta);
-                                                    return null;
-                                                })
-                                                waitingNotes.map(element =>{    //waiting notes are pushed to final notes NOTE--They are not sorted yet
-                                                    if(element.Velocity && element.Delta >= 0){
-                                                    finalNotes.push(element);   
-                                                    }
-                                                    return null;
-                                                })
-                                                waitingNotes = []; 
-                                            }else{
-                                                isPianoSustainOn = true;
+                                    if('endOfTrack' in Event){
+                                        //endofTrack = true;
+                                    }
+                                    if('noteOn' in Event){  //NoteOn begins A note 
+                                        const ArrayIndex = Event.noteOn.noteNumber - 21; //number of note
+                                        PianoArrayOfKeys[ArrayIndex].Delta = Math.floor(newtimePassed); //when it starts
+                                        PianoArrayOfKeys[ArrayIndex].Velocity = Event.noteOn.velocity;  //velocity is volume
+                                    }
+                                    if('noteOff' in Event){ //boteOff ends a Note
+                                        const ArrayIndex = Event.noteOff.noteNumber - 21;   //number of note
+                                        PianoArrayOfKeys[ArrayIndex].Duration = Math.floor(newtimePassed - PianoArrayOfKeys[ArrayIndex].Delta); //Note Duration
+                                        if(!isPianoSustainOn || ('endOfTrack' in (Track[newIndexes[index]] as MidiEventType))){  //Sound Duration if Pedal Sustain is  ton on
+                                            PianoArrayOfKeys[ArrayIndex].SoundDuration = Math.floor(PianoArrayOfKeys[ArrayIndex].Duration)  //then sound duration is note duration
+                                            const Element = PianoArrayOfKeys[ArrayIndex];
+                                            if(Element.Velocity && Element.Delta >= 0){
+                                            finalNotes.push(Element);  //pushing to final notes
                                             }
-                                            break;
-                                        default:
-                                            break;
+                                            PianoArrayOfKeys[ArrayIndex] = getEmptyNoteEvent(ArrayIndex + 21);  //clearing arrayOfNotes
+                                        }else{  //if it's on it's just pushed to waiting notes, they wait for pedal off
+                                            waitingNotes.push(PianoArrayOfKeys[ArrayIndex]);
+                                            PianoArrayOfKeys[ArrayIndex] = getEmptyNoteEvent(ArrayIndex + 21);  //clearing arrayOfNotes
+                                        }
                                     }
-                                }
-                        }else{
-                            smallestDelta.push(Event.delta - newTicksToNextEvent[index]);
+                                    if('controlChange' in Event){
+                                        switch(Event.controlChange.type){
+                                            case 64:    //Sustain Pedal 
+                                                if(Event.controlChange.value <= 63){
+                                                    isPianoSustainOn = false;   //sustain pedal is off
+                                                    waitingNotes.map((element,index) =>{    //waiting notes are given SoundDuration here
+                                                        waitingNotes[index].SoundDuration = Math.floor(newtimePassed - element.Delta);
+                                                        return null;
+                                                    })
+                                                    waitingNotes.map(element =>{    //waiting notes are pushed to final notes NOTE--They are not sorted yet
+                                                        if(element.Velocity && element.Delta >= 0){
+                                                        finalNotes.push(element);   
+                                                        }
+                                                        return null;
+                                                    })
+                                                    waitingNotes = []; 
+                                                }else{
+                                                    isPianoSustainOn = true;
+                                                }
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                            }else{
+                                smallestDelta.push(Event.delta - newTicksToNextEvent[index]);
+                            }
+                        }catch{
+                            let AllTracksFinished = true;
+                            File.tracks.map((Track,index) =>{
+                                if(Track.length > newIndexes[index])
+                                AllTracksFinished = false;
+                                return null;
+                            })
+                            endofTrack = AllTracksFinished ? true : false;
                         }
-                    }catch{
-                        let AllTracksFinished = true;
-                        File.tracks.map((Track,index) =>{
-                            if(Track.length > newIndexes[index])
-                            AllTracksFinished = false;
-                            return null;
-                        })
-                        endofTrack = AllTracksFinished ? true : false;
-                    }
-                    return null;    //returning for eslint
-                })
-                if(!eventWasFound){break;}  //if event was not found, breaking the loop of delta = 0
-            }
+                        return null;    //returning for eslint
+                    })
+                    if(!eventWasFound){break;}  //if event was not found, breaking the loop of delta = 0
+                }
             if(smallestDelta.length > 0){
             let DeltaToWait = smallestDelta.reduce((a,b)=> Math.min(a,b));
             newTicksToNextEvent.map((element,index) =>{

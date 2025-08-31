@@ -6,6 +6,9 @@ import { CanvasRoundRect } from '../../Utils/CanvasFuntions';
 import { KeyGradient } from "../CanvasEffects";
 
 
+/**
+ * @deprecated Please use class updatedBlocks
+ */
 export default class Blocks{
     private ctx:CanvasRenderingContext2D
     private ctxEffects:CanvasRenderingContext2D
@@ -28,7 +31,9 @@ export default class Blocks{
 
     public isInterval:boolean
 
-
+    /**
+     * @deprecated please use updatedBlocks
+     */
     constructor(ctx:CanvasRenderingContext2D,ctxEffects:CanvasRenderingContext2D,gradientCtx:CanvasRenderingContext2D,width:number,height:number,options:Options,BlackNumbers:Array<number>,intervalSpeed:number,Speed:number,KeysPositions:Array<any>,onBlock:Function,default_arr?:Array<blockNote>,onKeyClick?:Function,specialColor?:string){
         this.ctx=ctx;
         this.ctxEffects = ctxEffects

@@ -1,0 +1,14 @@
+Added
+* Added vite as a typescript compiler and website builder
+* Refreshed the design of the page
+* Added more usefull playing bar
+
+Repaired
+* Repaired bug with options not refreshing
+* Refreshed and cleaned the code
+* Repaired the effects choosing page
+* Repaired the effects
+
+Deleted
+* Deleted react scripts as a compiler
+* Deleted unused assets

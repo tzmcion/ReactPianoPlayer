@@ -4,5 +4,92 @@
 }
 
 .Option_Preset_Card:hover{
-    box-shadow: 0px 0px 6px 2px gold;
+    box-shadow: 0px 0px 4px 2px #f95838;
+}
+
+.Import_Save_Card{
+    width:300px;
+    height:170px;
+    margin: 20px 1.8% 20px 1.8%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .Import_Preset{
+        width: 95%;
+        height: 40%;
+        background-color: #F5F5F5;
+        border-radius: 1px;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.318);
+        position: relative;
+        transition: 0.2s;
+        h2{
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+        input{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        &:hover{
+            // background: rgba(21, 250, 193, 0.185);
+            box-shadow: 0px 0px 4px 2px #f95838;
+        }
+    }
+    .Save_Preset{
+        width: 95%;
+        height: 40%;
+        background-color: #F5F5F5;
+        border-radius: 1px;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.318);
+        cursor: pointer;
+        transition: 0.2s;
+        h2{
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+        &:hover{
+            // background: rgba(21, 177, 250, 0.185);
+            box-shadow: 0px 0px 4px 2px #f95838;
+        }
+    }
+}
+
+@media only screen and (max-width: 1220px) {
+    .Import_Save_Card{
+        height:150px;
+        width:250px;
+        margin: 10px 10px 10px 10px;
+        .Import_Preset{
+            h2{
+                font-size: 16px;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        .Save_Preset{
+            h2{
+                font-size: 16px;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
 }

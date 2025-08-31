@@ -2,7 +2,7 @@ import { Options as OptionsType } from './TypesForOptions';
 import { ChangeEvent } from 'react';
 
 const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}},options:OptionsType):OptionsType =>{
-    let currentOptions = options;
+    let currentOptions = {...options};
     switch(event.target.name){
         case 'color':
             currentOptions.Color = event.target.value;
@@ -20,14 +20,7 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
             currentOptions.IsEffects = !options.IsEffects;
             break;
         case 'Image':
-            try{
-                let sss = options;
-                sss.backgroundImage = event.target.value
-                localStorage.setItem('options',JSON.stringify(sss))
-            }catch{
-                alert('this File is probably to big man')
-                currentOptions.backgroundImage = '';
-            }
+            currentOptions.backgroundImage = event.target.value
             break;
         case 'speed':
             currentOptions.speed = parseInt(event.target.value);
@@ -56,8 +49,7 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
             currentOptions.blockRadius = parseInt(event.target.value);
             break;
         case 'Effect':
-            if(event.target.value === 'fountain' || event.target.value === 'dancingLines' || event.target.value === 'hexagon' || event.target.value === 'stickyBalls' || event.target.value === 'fireworks' || event.target.value === 'sparks' || event.target.value === 'None' || event.target.value === 'DNA'){
-                currentOptions.Effect = event.target.value;}
+            currentOptions.Effect = event.target.value;
             break;
         case 'shadowColor':
             currentOptions.ShadowColor = event.target.value;
@@ -82,6 +74,9 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
             break;
         case 'gradientBlocksColor':
             currentOptions.GradientBlocksColor = event.target.value;
+            break;
+        case 'OctaveLines':
+            currentOptions.OctaveLines = !currentOptions.OctaveLines;
             break;
         default:
             break;

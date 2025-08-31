@@ -3,6 +3,9 @@ import {Fountain, DancingLines, HexagonEffect, StickyBalls, Firework,Sparks, Emp
 
 import hexAlpha from "hex-alpha";
 
+/**
+ * @deprecated
+ */
 class Effects{
     private ctx:CanvasRenderingContext2D
     private options:OptionsType

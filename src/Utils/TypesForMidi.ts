@@ -13,12 +13,29 @@ export interface  TimeSignature{
     thirtyseconds:number;
 }
 
+/**
+ * @deprecated Please use timeSignatureDataProps
+ */
 export interface StaticMidiDataProps{
     denominator:number,
     nominator:number,
     metronome:number,
     thirtyseconds:number,
     division:number;
+}
+
+/**
+ * Midi types for correct timeSignatureInterpretations
+ */
+export interface timeSignatureDataProps{
+    division:number,
+    timeSignatures:{
+        delta:number,
+        denominator:number,
+        nominator:number,
+        metronome:number,
+        thirtyseconds:number,
+    }[]
 }
 
 export interface MidiEventType{
@@ -32,6 +49,22 @@ export interface MidiEventType{
     noteOff:{noteNumber:number,velocity:number},
 }
 
+export interface UpdatedMidiEventType{
+    delta:number,
+    setTempo: {microsecondsPerQuarter:number},
+    endOfTrack: boolean,
+    channel: number,
+    programChange: {programNumber:number},
+    controlChange:{type:number,value:number},
+    noteOn:{noteNumber:number,velocity:number},
+    noteOff:{noteNumber:number,velocity:number},
+    controlTrack: boolean,
+    trackNumber:number
+}
+
+/**
+ * @deprecated please use new TrackNoteEvent
+ */
 export interface noteEvent{
     NoteNumber:number,
     Delta:number,
@@ -40,6 +73,18 @@ export interface noteEvent{
     Velocity:number
 }
 
+export interface TrackNoteEvent{
+    NoteNumber:number,
+    Delta:number,
+    Duration:number,
+    SoundDuration:number,
+    Velocity:number,
+    TrackNumber:number
+}
+
+/**
+ * @deprecated
+ */
 export interface blockNote{
     color:string
     width:number
@@ -57,3 +102,17 @@ export interface blockNote{
     wasDetected:boolean
 }
 
+export interface keyInfo{
+    position:number,
+    noteNumber:number,
+    width:number,
+    type:'BLACK' | 'WHITE'
+}
+
+export interface blocks_canvases{
+    mainCtx:CanvasRenderingContext2D,
+    effectsCtx:CanvasRenderingContext2D,
+    whiteKeyCtx:CanvasRenderingContext2D,
+    blackKeyCtx:CanvasRenderingContext2D,
+    KeyPressGradientCtx:CanvasRenderingContext2D
+}

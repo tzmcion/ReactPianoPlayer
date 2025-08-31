@@ -1,3 +1,9 @@
+/**
+ * OBESOLETE
+ * COMPONENT NOT MAINTAINED ANYMORE
+ * Please do not use, it had many bugs and was poorly efficient
+ */
+
 import React,{ReactElement, useRef, useEffect, useState} from 'react';
 import './Tracks.styles.css';
 
@@ -23,7 +29,12 @@ interface TracksProps{
     sound:any
 }
 
-
+/**
+ * Tracks Interval method was first method used in this project. It was quickly replaced with usage of window.animationframe insted of setInterval.
+ * @deprecated please use UpdatedTracks as this one is highly inefficient
+ * @param param0 
+ * @returns 
+ */
 export default function TracksIntervalMethod({Data,Speed, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null)

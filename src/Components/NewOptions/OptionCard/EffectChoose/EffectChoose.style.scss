@@ -1,41 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,400&display=swap');
 
-.EffectChoose{
+.EffectCard{
     cursor:pointer;
     overflow:hidden;
     position: relative;
     transition: 0.4s;
+    &:hover{
+        box-shadow: 0px 0px 4px 2px #16c1d8;
+    }
+    ul{
+        font-size: 18px;
+        margin: 0;
+        padding-inline-start: 20px;
+    }
+    .Card_Description{
+        height: 80% !important;
+    }
 }
 
-.curr{
+.Curr_opt{
     transition: 0.4s;
-    box-shadow: 0px 0px 8px 6px #f1c470 !important;
+    box-shadow: 0px 0px 4px 2px #f1c470c0 !important;
+    &:hover{
+        box-shadow: 0px 0px 4px 2px #f1c470c0 !important;
+    }
 }
 
-.hovered{
-    padding: 0px;
-    box-shadow: 0px 0px 8px #9BF1F3;
+.Red_cl{
+    font-weight: 800;
+    color:#F95738
 }
 
-.video{
-    position: absolute;
-    top:-2px;
-    width:100%;
-    height:100%;
-    opacity: 0.95;
-    transition: 0.4s ease;
+.Blue_cl{
+    font-weight: 800;
+    color:#44C1F8
 }
 
-.hidd{
-    top:-100% !important;
+.Green_cl{
+    font-weight: 800;
+    color: #59CD90
 }
 
-.Click_To{
-    margin:15px;
-    text-align: center;
-    color:#f39a47;
-    font-family: 'Poppins';
-    font-weight: 400;
-    font-size: 18px;
-    text-shadow: 0px 0px 4px #f09b3b;
+.Purple_cl{
+    font-weight: 800;
+    color: #df48ec
+}
+
+@media only screen and (max-width: 1220px) {
+    .EffectCard{
+        ul{
+            font-size: 12px;
+            padding-inline-start: 0px;
+            font-weight: 100;
+        }
+    }
 }

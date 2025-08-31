@@ -9,18 +9,15 @@ import DNA from "./DNA";
 
 import hexToRgba from "hex-rgba";
 
-const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:number,height:number,color:string) =>{
-    const radius:number = 80;
-    const radialGradient = ctx.createRadialGradient(pos_x + block_width/2, height, 0, pos_x + block_width/2, height, Math.random()*20 +  radius - 20);
-    radialGradient.addColorStop(0.0, hexToRgba(color,90));
-    radialGradient.addColorStop(0.2, hexToRgba(color,60));
-    radialGradient.addColorStop(0.5, hexToRgba(color,15));
-    radialGradient.addColorStop(0.7, hexToRgba(color,3));
-    radialGradient.addColorStop(0.9, hexToRgba(color,1));
-    radialGradient.addColorStop(1, 'transparent');
+const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:number,height:number,color:string, radius:number = 80) =>{
+    const radialGradient = ctx.createRadialGradient(pos_x + block_width/2, height, 0, pos_x + block_width/2, height, Math.random() * radius/15 + (radius - radius/15));
+    radialGradient.addColorStop(0.0, hexToRgba(color,95));
+    radialGradient.addColorStop(0.35, hexToRgba(color,40));
+    radialGradient.addColorStop(0.7, hexToRgba(color,2));
+    radialGradient.addColorStop(1, hexToRgba(color,0.01));
     ctx.fillStyle = radialGradient;
     ctx.beginPath();
-    ctx.arc(pos_x + block_width/2, height, Math.random()*20 +  radius - 20, 0, 2 * Math.PI);
+    ctx.arc(pos_x + block_width/2, height, radius, 0, 2 * Math.PI);
     ctx.fill();
 }
 

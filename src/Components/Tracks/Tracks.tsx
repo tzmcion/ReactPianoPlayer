@@ -1,3 +1,9 @@
+/**
+ * OBESOLOTE
+ * FUNCTION NOT MAINTAINED ANYMORE
+ * Please do not use, it consists of some bugs, and author proposes better component updatedTracks
+ */
+
 import React,{ReactElement, useRef, useEffect, useState} from 'react';
 import './Tracks.styles.css';
 
@@ -25,7 +31,12 @@ interface TracksProps{
     sound:soundManager | undefined,
 }
 
-
+/**
+ * Main function to play piano. It handles the playing by constantly awaiting new events from midi file.
+ * @deprecated please use UpdatedTracks. This function is obesolete and does not account for smaller window size
+ * @param param0 
+ * @returns React Piano Element
+ */
 export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPositions,intervalSpeed,options,Player,sound}:TracksProps):ReactElement {
 
     const tracksRef = useRef<HTMLCanvasElement>(null);
@@ -86,7 +97,6 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
                 }
             }
         }
-
         requestRef.current =  requestAnimationFrame(animate);
     }
 
@@ -183,10 +193,10 @@ export default function Tracks({Data,Speed,Width,Height, BlackNumbers, KeysPosit
             <canvas ref={GradeintRef} width={Width} height={Height - Height/5 + 50} className='Gradient'></canvas>
             </>}
             <div className='redFancyLine' style={{marginTop:Height - Height/5}} />
-            <Piano wh={window.innerHeight - window.innerHeight/5} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} data={[]} sound={sound} />
+            <Piano marg_top={window.innerHeight - window.innerHeight/5} number_of_white_keys={52} WhiteKeyWidth={window.innerWidth / 52} height={window.innerHeight / 5} />
             <canvas ref={PianoRef} width={Width} height={Height/5 + 5} style={{position:'absolute',zIndex:34,marginTop:window.innerHeight - window.innerHeight/5}} />
             <canvas ref={PianoWhiteRef} width={Width} height={Height/5 + 5} style={{position:'absolute',zIndex:32,marginTop:window.innerHeight - window.innerHeight/5}} />
-            {loading && <LoadingScreen width={Width} onLoaded={()=>{Player.GetMidiAsObject()}} height={Height - Height/5} Finished={finishedLoading}/>}
+            {loading && <LoadingScreen Finished={finishedLoading}/>}
         </div>
     )
 }

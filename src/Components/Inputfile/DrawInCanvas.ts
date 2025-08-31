@@ -12,13 +12,13 @@ interface Ball{
 
 export default class DrawInCanvas{
     private ctx:CanvasRenderingContext2D
-    private Canvas:RefObject<HTMLCanvasElement>
+    private Canvas:RefObject<HTMLCanvasElement | null>
     private balls:Array<Ball>
     private options:Options
     private gradient:CanvasGradient
 
-    constructor(CanvasRef:RefObject<HTMLCanvasElement>,options:Options,defaultValue?:Array<Ball>){
-        this.ctx = CanvasRef.current?.getContext('2d')!;
+    constructor(CanvasRef:RefObject<HTMLCanvasElement | null>,options:Options,defaultValue?:Array<Ball>){
+        this.ctx = CanvasRef.current!.getContext('2d')!;
         this.Canvas = CanvasRef;
         this.options = options
         this.Canvas.current!.width = window.innerWidth / 2;
@@ -47,8 +47,11 @@ export default class DrawInCanvas{
             ball.y = (Date.now() - ball.start_time) / ball.speed;
             if(ball.y > this.Canvas.current!.height){ball.x = Math.random() * window.innerWidth;ball.start_time = Date.now() + 500};
             this.ctx.beginPath();
-            this.ctx.shadowColor = this.options.ShadowColor;
-            CanvasRoundRect(this.ctx,this.options.GradientBlocks ? this.gradient:color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3.7),this.options.blockRadius,true);
+            this.ctx.shadowColor = color;
+            this.ctx.shadowOffsetX = 0;
+            this.ctx.shadowOffsetY = 0;
+            this.ctx.shadowBlur = 8;
+            CanvasRoundRect(this.ctx,this.options.GradientBlocks ? this.gradient:color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3.7),5,true);
             return ball;
         })
     };
@@ -57,11 +60,12 @@ export default class DrawInCanvas{
     private CreateBalls(quantity:number):void{
         this.ctx.shadowBlur = 4;
         for(let x = 0; x < quantity; x++){
+            const ball_size = (Math.random() > 0.5 ? window.innerWidth < 1200 ? 1200  / 52 / 1.5 : window.innerWidth  / 52 / 1.5 : window.innerWidth < 1200 ? 1200/52 /1.6 / 1.5 :   window.innerWidth/52 /1.6 / 1.5)
             const ball:Ball = {
                 x: window.innerWidth/quantity * x,
                 y: Math.random() * window.innerHeight,
-                speed: Math.random() * 2 + 2,
-                size: (Math.random() > 0.5 ? window.innerWidth < 1200 ? 1200  / 52 / 1.5 : window.innerWidth  / 52 / 1.5 : window.innerWidth < 1200 ? 1200/52 /1.6 / 1.5 :   window.innerWidth/52 /1.6 / 1.5),
+                speed: Math.random() * 4 + 3.5,
+                size: ball_size,
                 start_time: Date.now() - Math.floor(Math.random() * 4000)
             }
             this.balls.push(ball);

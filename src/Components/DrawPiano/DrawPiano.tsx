@@ -7,31 +7,35 @@ import MidiPlayer from '../../Helpers/MidiPlayer';
 import {TracksInterval, TracksAnimationFrame} from '../Tracks';
 import soundManager from '../../Helpers/soundManager';
 
-import Gear from '../../Assets/Rhombus.gif';
-
 interface DrawPianoProps{
     Data: Array<noteEvent> | undefined,
-    Speed: number,
     options: OptionsType,
-    drawSpeed: number,
     Player: MidiPlayer,
+    keys_nr?:number,
+    width?:number,
+    height?:number
 }
 
-export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPianoProps):ReactElement {
+/**
+ * @deprecated Please use UpdatedDrawPiano
+ * @param param0 
+ * @returns 
+ */
+export default function DrawPiano({Data,options,Player,keys_nr = 52,width = window.innerWidth,height = window.innerHeight}:DrawPianoProps):ReactElement {
 
-    const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(window.innerWidth / 52);
-    const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
+    const [WhiteKeyWidth,setWindowKeyWidth] = useState<number>(width / keys_nr);
+    const [windowHeight,setWindowHeight] = useState<number>(height);
     const [sound,setSound] = useState<soundManager>();
 
     const handleResize = () =>{
-        setWindowKeyWidth(window.innerWidth / 52);
-        setWindowHeight(window.innerHeight);
+        setWindowKeyWidth(width / keys_nr);
+        setWindowHeight(height);
     }
 
     const KeysPositions = (type:('black' | 'all')):Array<any> =>{
         let Returning:Array<any> = [];
-        let counter_ids:number = 21;
-        for(let x = 0; x < 52; x++){
+        let counter_ids:number = keys_nr === 52? 21 : Math.floor(0.4*keys_nr); //Percent of black keys 
+        for(let x = 0; x < keys_nr; x++){
             type === 'all' && Returning.push({position: WhiteKeyWidth * x, noteNumber: counter_ids,width:WhiteKeyWidth});
             const num = counter_ids % 12;
             if(num  === 1 - 1 || num === 3 - 1 || num === 6 - 1 || num ===8 - 1 || num ===10 - 1  ){
@@ -49,21 +53,21 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
     const RenderTracks = ():ReactElement =>{
         if(options.renderMethod === 'Interval'){
             return <TracksInterval
-             Speed={drawSpeed} Data={Data!} 
+             Speed={options.speed} Data={Data!} 
              BlackNumbers={KeysPositions('black')} 
              KeysPositions={KeysPositions('all')} 
-             intervalSpeed={Speed} 
+             intervalSpeed={options.playSpeed} 
              options={options} 
              Player={Player}
              sound={sound}/>
         }else{
             return <TracksAnimationFrame
-             Speed={drawSpeed} Data={Data!}
-             Width={WhiteKeyWidth*52}
+             Speed={options.playSpeed} Data={Data!}
+             Width={WhiteKeyWidth*keys_nr}
              Height={windowHeight}
              BlackNumbers={KeysPositions('black')} 
              KeysPositions={KeysPositions('all')} 
-             intervalSpeed={Speed} 
+             intervalSpeed={options.speed} 
              options={options} 
              Player={Player}
              sound={sound}/>
@@ -82,7 +86,7 @@ export default function DrawPiano({Data,Speed,options,drawSpeed,Player}:DrawPian
     return (
         <div className='Piano' style={{height: windowHeight}}>
             {sound && options.soundOn && RenderTracks()}
-            {!sound && options.soundOn && <div style={{width:window.innerWidth, height:window.innerHeight}} className='loading_sound'><img src={Gear} alt='Loading' /><h2>Sound Loading</h2><h3>If sound is not loading try clicking anywhere on the screen</h3></div>}
+            {!sound && options.soundOn && <div style={{width:window.innerWidth, height:window.innerHeight}} className='loading_sound'><h2>Sound Loading</h2><h3>If sound is not loading try clicking anywhere on the screen</h3></div>}
             {!options.soundOn && RenderTracks()}
         </div>
     )

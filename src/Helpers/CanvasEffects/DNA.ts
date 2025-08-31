@@ -23,6 +23,9 @@ class Effect{
     }
 }
 
+/**
+ * @deprecated
+ */
 class DNA{
     private ctx;
     private width;

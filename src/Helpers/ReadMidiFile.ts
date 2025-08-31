@@ -2,13 +2,20 @@
 //  which converts a midi file
 //  into Object(JSON)
 //  It returns a Promise of an Object, which Object
-//  Will be converted JSON
+//  Will be converted to JSON
 
 import { parseArrayBuffer } from 'midi-json-parser';
+import { IMidiFile } from '../Utils/TypesForMidi';
 //  midi-json-parser is npm library created by chrisguttandin
 //  Big thanks to Him!
 
-const ReadMidiFile = (file:any,type:'ref' | 'ArrayBuffer') =>{
+/**
+ * Function reads a midiFile, returning a JSON with IMidiFile
+ * @param file a file
+ * @param type Specify if File is a reference object or an ArrayBuffer
+ * @returns 
+ */
+const ReadMidiFile = (file:any,type:'ref' | 'ArrayBuffer'): Promise<IMidiFile> =>{
 
     //Function Converting file from binarry form into ArrayBuffer
     function convertDataToArray64():Promise<ArrayBuffer | string> {
@@ -26,7 +33,7 @@ const ReadMidiFile = (file:any,type:'ref' | 'ArrayBuffer') =>{
         });
     }
     if(type === 'ref'){
-    return new Promise<Object>((resolve,reject) =>{
+    return new Promise<IMidiFile>((resolve,reject) =>{
         convertDataToArray64().then(file=>{
             //checking if Error hasn't been returned
             if(typeof file !== 'string'){
@@ -39,7 +46,7 @@ const ReadMidiFile = (file:any,type:'ref' | 'ArrayBuffer') =>{
           })
     })
     }else{
-        return new Promise<Object>((resolve,reject) =>{
+        return new Promise<IMidiFile>((resolve,reject) =>{
             //checking if Error hasn't been returned
             parseArrayBuffer(file).then(json =>{
                     resolve(json);

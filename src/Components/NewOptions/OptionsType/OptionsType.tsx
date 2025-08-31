@@ -2,19 +2,11 @@ import React,{useState,ChangeEvent} from 'react';
 import OptionCard from '../OptionCard/OptionCard';
 import OptionCardImage from '../OptionCard/OptionCardImage';
 import EffectChoose from '../OptionCard/EffectChoose/EffectChoose';
-import AddCard from '../OptionCard/addCard/addCard';
 import PresetCard from '../OptionCard/presetCard/presetCard';
+import ImportSaveCard from '../OptionCard/presetCard/ImportSaveCard';
 
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-
-//Videos
-import Fountain from '../OptionCard/EffectChoose/Previews/fountain.mp4';
-import DancingLines from '../OptionCard/EffectChoose/Previews/DancingLines.mp4';
-import Hexagon from '../OptionCard/EffectChoose/Previews/Sparks.mp4';
-import Balls from '../OptionCard/EffectChoose/Previews/balls.mp4';
-import Fireworks from '../OptionCard/EffectChoose/Previews/Fireworks.mp4';
-import Snow from '../OptionCard/EffectChoose/Previews/Snow.mp4'
 
 //Helpers or types
 import { Options as OptionType } from '../../../Utils/TypesForOptions';
@@ -59,8 +51,11 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='blockRadius' type='number' title='Block antyaliasing radius' value={options.blockRadius.toString()} >
                         Choose the antyaliasing range. Blocks will have rounded corners. more value, more rounded.
                     </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='gradientBlocks' type='checkbox' title='GradientBlocks' value={options.GradientBlocks} >
-                        Choose if you want to have yout blocks with gradient Colors (change colors in effects.conf)
+                    <OptionCard onChange={handleOptionsChange} name='OctaveLines' type='checkbox' title='Render Octave Lines' value={options.OctaveLines} >
+                        Check if octave lines should be rendered or not
+                    </OptionCard>
+                    <OptionCard onChange={handleOptionsChange} name='GradientBlocks' type='checkbox' title='Reset Preview' value={options.GradientBlocks} >
+                        Sometimes piano preview starts lagging... Click Here to reset it.
                     </OptionCard>
             </div>
         </div>
@@ -74,46 +69,34 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
 
 function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
-    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA'>(options.Effect);
+    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA' | "None">(options.Effect);
 
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
         handleOptionsChange(ev);
-        const Simulate_event = {
-            target:{
-                name:'IsEffectsTrue',
-                value:true
-            }
-        }
-        handleOptionsChange(Simulate_event);
     }
 
     return (
         <div className='options_Cards'>
             <div className='Cards_Container'>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Fountain' textColor='effects' src={Fountain} current={effect} value={'fountain'} >
-                        Block reaches the piano, water shows (may english good)
+                <EffectChoose onChange={onChange} name='Effect' title='None' textColor='effects' current={effect} value={'None'} >
+                        <ul>
+                            <li>No particular effect</li>
+                            <li>Performance indicator: <span className='Blue_cl'>None</span></li>
+                        </ul>
                 </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Sparks' textColor='effects' src={DancingLines} current={effect} value={'dancingLines'} >
-                        I bet those little sparks jump higher than you ---:O---
+                <EffectChoose onChange={onChange} name='Effect' title='Sparks' textColor='effects' current={effect} value={'Sparks'} >
+                        <ul>
+                            <li>Little sparks from the keyboard</li>
+                            <li>Performance indicator: <span className='Red_cl'>High</span></li>
+                        </ul>
                 </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Dancing Lines' textColor='effects' src={Hexagon} current={effect} value={'hexagon'} >
-                        They are like me on a dancing floor (in my imagination);
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Bubbles' textColor='effects' src={Balls} current={effect} value={'stickyBalls'} >
-                        Lava Bubbles from the deepest deeps of deepest ocean (they looked better but performance :c)
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Tornado Fireworks' textColor='effects' src={Fireworks} current={effect} value={'fireworks'} >
-                        Those Fancy bubbles spark like fireworks and they move a little like tornado
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Snow, Snow, SNOW' textColor='effects' src={Snow} current={effect} value={'sparks'} >
-                        This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='number' title='Sinus' textColor='effects' src={Snow} current={effect} value={'DNA'} >
-                        This effect makes it look like it is snowing from the keys, but it's more like a blizzard!
-                </EffectChoose>
-                <EffectChoose onChange={onChange} name='Effect' type='None' title='None' textColor='effects' src={''} current={effect} value={'None'} >
-                        No effect, playing without effect is the most optimal and it's good choice for weaker computers
+                <EffectChoose onChange={onChange} name='Effect' title='Squared' textColor='effects' current={effect} value={'Squared'} >
+                        <ul>
+                            <li>Little quares going in squares, Squared!</li>
+                            <li><span className='Red_cl'>Warning: </span>Background Image does not work with this effect</li>
+                            <li>Performance indicator: <span className='Green_cl'>Good</span></li>
+                        </ul>
                 </EffectChoose>
             </div>
         </div>
@@ -151,6 +134,11 @@ function Options_Other({isOpened,onGoBack,options,handleOptionsChange}:OptionsPr
 //|||||| GRADIENTS ||||||||
 //||||||||||||||||||||||||||||
 
+/**
+ * @deprecated
+ * @param param0 
+ * @returns 
+ */
 function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
     const [colors,setColors] = useState<Array<String>>(options.GradientBlocksColor);
@@ -211,10 +199,7 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
     return (
         <div className='options_Cards'>
             <div className='Cards_Container'>
-                    {renderCards()}
                     <div style={{display:'flex',justifyContent: 'space-evenly',flexDirection: 'column'}}>
-                    <AddCard type='delete' onClick={handleColorDelete} />
-                    <AddCard type='add' onClick={handleColorAdd} />
                     </div>
             </div>
         </div>
@@ -227,10 +212,11 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
 //|||||||||||||||||||||||||
 
 interface options_presets{
-    reloadOptions:Function
+    reloadOptions:Function,
+    options:OptionType
 }
 
-function Options_Presets({reloadOptions}:options_presets):React.ReactElement {
+function Options_Presets({reloadOptions,options}:options_presets):React.ReactElement {
 
     const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
         props,
@@ -307,12 +293,8 @@ function Options_Presets({reloadOptions}:options_presets):React.ReactElement {
 
     return <div className="options_Cards">
         <div className="Cards_Container">
+            <ImportSaveCard reloadOptions={reloadOptions} options={options} onImport={handleClick} />
             {renderPresets()}
-        </div>
-        <button className="button_save_presets" onClick={save_Presets}>Save current Preset</button>
-        <div className="import_preset_div">
-            <h4>Import Preset</h4>
-            <input type='file' className="button_import_presets" onChange={import_Preset} ref={import_ref}/>
         </div>
         <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'center',}} open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>

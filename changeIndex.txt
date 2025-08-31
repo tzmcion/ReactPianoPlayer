@@ -1,0 +1,32 @@
+Changes For new version of PBA:
+
+* Redesign of whole App, change theme to light  DONE
+* Redesigned of way the blocks are displayed    DONE
+* Implemented scaling of the app (window scaling)   DONE
+* Implemented partitioning of the app ()    DONE
+* Implemented vite as npm module, replaced old babbel   DONE
+* Implemented redux for options manipulattion   DONE
+* Redesigned the effets and how they work / Optimized the effects.  DONE
+* Repaired of not-updating options bug  DONE
+* Redesign the record page  TODO
+    - New way of see the recorded data
+    - New way of implementing the notes
+    - Allow user to change the tonation of the sheet music manually
+    - Allow user to implement the "Standard DEviation", to mask the rythm missalignments
+    - Allow user to implement the "Tempo", so the tempo will be correct.
+* Created documentation to use the app  TODO
+* Create a preview window   DONE
+* Refactored MIDI file computation, now it is significanntly faster (for smaller files from 17ms to 3 ms) of worktime.  DONE
+
+- Rapair the bug with options when going back the otpions do not reset  DONE
+- Repair the sound and volume and tone of the piano     DONE/TODO
+- Redesign the playing bar  DONE
+- Redesign the background   DONE
+- Repair some of the not working effects    DONE
+- Maybe try to use less seperate canvases   DONE
+- Add functionality to work with multiple tracks in midi file   DONE
+- Add Unit tests    DONE
+- Change support page to "About App" Page   TODO
+- Added Workers to handle MIDI  NOT NEEDED - new algorithm workes 200times faster,  DONE
+- RAPAIR THE AUDIO BY ADDING MULTIPLE DOUBELING THE AUDIO SOUNDS    TODO
+- CHANGE THE DESIGN OF CARDS TO IMPLEMENT CORRECTLY THE RIBBON VISUALS  DONE

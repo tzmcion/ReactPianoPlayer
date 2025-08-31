@@ -15,7 +15,7 @@ function App() {
     <div className='main'>
       <Header />
       <Switch>
-        <Route path='/tutorial' element={<Tutorial/>} />
+        <Route path='/Tutorial' element={<Tutorial/>} />
         <Route path='/Info' element={<Info/>} />
         <Route path='/Play' element={<Play/>} />
         <Route path='/Record' element={<Record />} />

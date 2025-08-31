@@ -35,6 +35,9 @@ class ball {
   }
 
 
+  /**
+   * @deprecated
+   */
 export default class StickyBalls{
     private ctx:CanvasRenderingContext2D
     private ctx_b:CanvasRenderingContext2D

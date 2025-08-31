@@ -2,8 +2,22 @@
 
 .Canvas{
     position: absolute;
-    z-index: 151;
+    z-index: 30;
     /* filter: blur(2px); */
+}
+
+.Canvas_Piano_Black{
+    position: absolute;
+    z-index: 34;
+}
+.Canvas_Piano_White{
+    position: absolute;
+    z-index: 31;
+}
+
+.Canvas_Grad{
+    position: absolute;
+    z-index: 34;
 }
 
 .Effects{
@@ -50,4 +64,14 @@
     margin: 0;
     padding: 0;
     text-align: center;
+}
+
+.Piano_Dividing_Line{
+    width: 100vw;
+    position: absolute;
+    z-index: 35;
+    height: 3px;
+    border-top: 2px solid rgba(0, 0, 0, 0.767);
+    background-color: #800101;
+    box-shadow: 0px 4px 6px black;
 }

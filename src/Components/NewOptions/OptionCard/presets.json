@@ -1,18 +1,18 @@
 [{
-    "name":"Rainbow preset",
-    "color":"green",
-    "description" : "Gradient blocks with rainbow colors, white gradient on key press, key press white blue, sound on, normal speed",
-    "data":{"Color":"#8EF971","OctaveLines":true,"KeyPressColor":"#94d6ff","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"None","blockRadius":10,"ShadowColor":"#000","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#FB1378","GradientColor":"#e3e3e3","GradientBlocks":true,"GradientBlocksColor":["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"]}
+    "name":"Mechanical Zombie",
+    "color":"#0fbd4c",
+    "description" : "Preset in shades of green, with Squared effect. Sound by default is disabled in this preset, remember to turn it on if needed",
+    "data":{"Color":"#07d56a","OctaveLines":true,"KeyPressColor":"#2cba70","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":6,"watermark":false,"soundOn":false,"renderMethod":"animationFrame","Effect":"Squared","blockRadius":4,"ShadowColor":"#5add99","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#53ea9c","GradientColor":"#0fbd4c","GradientBlocks":false,"GradientBlocksColor":["#ffffff","#e3e3e3","#bababa","#878787","#6b6b6b","#4f4f4f","#7f00ff"]}
 },{
-    "name":"Violet preset",
-    "color":"Violet",
-    "description" : "Blocks color violet, light violet on key press, key press color light blue, sound on, speed normal",
-    "data":{"Color":"#7371f9","OctaveLines":true,"KeyPressColor":"#86aafe","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"None","blockRadius":10,"ShadowColor":"#7371f9","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#7371f9","GradientColor":"#cba9fe","GradientBlocks":false,"GradientBlocksColor":["#123456"]}
+    "name":"Sparky Goldy",
+    "color":"#FECD56",
+    "description" : "Preset in colors of gold, matches the sparky effect",
+    "data":{"Color":"#FFF0B1","OctaveLines":true,"KeyPressColor":"#FECD56","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":false,"renderMethod":"animationFrame","Effect":"Sparks","blockRadius":6,"ShadowColor":"#ECB447","blockShadowRadius":8,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#FECD56","GradientColor":"#FFF0B1","GradientBlocks":false,"GradientBlocksColor":["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"]}
 },
 {
-    "name":"Gold preset",
-    "color":"#C54920",
-    "description" : "Blocks color light yellow, light yellow on key press, key press color gold, sound on, speed normal",
-    "data":{"Color":"#f9dc71","OctaveLines":true,"KeyPressColor":"#ffca38","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":true,"renderMethod":"animationFrame","Effect":"None","blockRadius":10,"ShadowColor":"#fee95d","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#ffc494","GradientColor":"#fec90b","GradientBlocks":false,"GradientBlocksColor":["#123456"]}
+    "name":"Mr. Black-n-White",
+    "color":"#000",
+    "description" : "Grayscale shades, no effect, high performance. To even further improve performance, disable shadow by setting shadow radius to 0",
+    "data":{"Color":"#ffffff","OctaveLines":true,"KeyPressColor":"#ffffff","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":false,"renderMethod":"animationFrame","Effect":"None","blockRadius":4,"ShadowColor":"#ffffff","blockShadowRadius":8,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#e3e3e3","GradientColor":"#ffffff","GradientBlocks":false,"GradientBlocksColor":["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"]}
 }
 ]

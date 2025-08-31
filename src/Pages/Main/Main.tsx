@@ -1,59 +1,51 @@
-import React,{useRef,ChangeEvent, useState,useEffect} from 'react';
+import React,{ChangeEvent, useState,useEffect, useCallback} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Main.styles.scss';
 
 import InputFile from '../../Components/Inputfile/InputFile';
+import MainBanner from '../../Components/MainBanner/MainBanner';
 import NewOptions from '../../Components/NewOptions/Options';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { checkExtension, SaveAsBase64 } from '../../Utils/smallFunctions';
-import { DefaultOptions } from '../../Utils/Default';
 import optionsSwitch from '../../Utils/handleOptionsChange'
 import DonationPrompt from '../../Components/DonationPrompt/DonationPrompt';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeOptionValue } from '../../Utils/ReduxSlice_Options';
 
-
-import Logo from '../../Assets/PBA_logo.png';
-import AVNT from '../../Assets/avnt.jpeg'
+import previeWMidi from "../../Assets/preview_midi_mendelssohn.MID";
 import Midi from '../../Assets/demo.MID';
 
 export default function Main() {
 
-    const MidiFileRef = useRef<HTMLInputElement>(null);
     const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
-    const [options,setOptions] = useState<OptionsType>(DefaultOptions);
     const [isConfiguring,setIsConfiguring] = useState<boolean>(false);
     const history = useNavigate();
+    const dispatch = useDispatch();
+    const options = useSelector((state:{options:OptionsType}) => state.options);
 
-
-    const handleFileInput = () =>{
-        if(checkExtension(MidiFileRef.current?.files![0],'mid')){
-            SaveAsBase64(MidiFileRef.current?.files![0],'file').then(e =>{
-                localStorage.setItem('options',JSON.stringify(options));
-                history('/Play');
-            });
-        }else{
-            alert('Error, Submited file is not MIDI file...');
-        }
-    }
-
-    const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
-        let currentOptions = optionsSwitch(event,options);
-        console.log('changing options');
+    const handleOptionsChange = useCallback((event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
+        const new_Options = optionsSwitch(event,options);
         try{
-            localStorage.setItem('options',JSON.stringify(currentOptions));
-            setOptions(currentOptions);
+            localStorage.setItem('options',JSON.stringify(new_Options));
+            dispatch(changeOptionValue(new_Options));
         }catch{
             alert('this File is probably to big man');
         }
-    }
+    },[options,dispatch])
 
-    const reloadOptions = ():void =>{
+    const reloadOptions = (text:string):void =>{
+        if(text){
+            dispatch(changeOptionValue(JSON.parse(text)))
+            return;
+        }
         const opt = localStorage.getItem('options');
-        opt && setOptions(JSON.parse(opt));
+        opt && dispatch(changeOptionValue(JSON.parse(opt)))
     }
 
     useEffect(()=>{
         document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
         window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
+        Save_Preview_Midi();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
@@ -67,6 +59,14 @@ export default function Main() {
         })
     }
 
+    const Save_Preview_Midi = async () =>{
+        await fetch(previeWMidi).then(r => r.blob()).then(r =>{
+            SaveAsBase64(r,'Preview_file').then(e =>{
+            });
+            
+        })
+    }
+
     const onConfClick = ():void =>{
         setTimeout(()=>{
             setIsConfiguring(true);
@@ -75,32 +75,11 @@ export default function Main() {
 
     return (
         <div style={{height:windowHeight}} className='mainDiv'>
-            <DonationPrompt />
+            {/* <DonationPrompt /> */}
             <div className='mainHead'>
-                <InputFile FileRef={MidiFileRef} onFileUpload={handleFileInput} onConfClick={onConfClick} options={options} isConfOn={isConfiguring}/>
-                <div className='Main_data'>
-                    <div className='Logos'>
-                        <img src={Logo} className='Logo' alt='Logo' />
-                        <img src={AVNT} className='Logo_comp' alt='Logo' />
-                    </div>
-                    <h1 className='Main_data_Text Title'>Web midi player/visualizer/recorder for piano</h1>
-                    <h3 className='Main_data_Text Description'>
-                    Piano Blocks App is a web midi player/visualizer. 
-                    <br /><br />
-                    Start immediately by draging your midi file, or click to input it mannualy.
-                    Configure app with 'Configure' Button.
-                    <br /><br />
-                    If You need any help, go to 'DOCS' page.
-                    <br />
-                    If You need to record first, go to 'RECORD' page.
-                    <br />
-                    If You enjoy using this app, go to 'INFO&SUPPORT' page.
-                    <br /><br />
-                    Enjoy using PBA !
-                    </h3>
-                </div>
+                <InputFile onConfClick={onConfClick} options={options} isConfOn={isConfiguring}/>
+                <MainBanner />
             </div>
-            <button className='Demo_Bt' onClick={PlayDemoMidi}>Play demo song</button>
             <NewOptions isOpened={isConfiguring} handleOptionsChange={handleOptionsChange} reloadOptions={reloadOptions} options={options} onGoBack={()=>{setIsConfiguring(false)}} />
         </div>
     )

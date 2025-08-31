@@ -6,25 +6,25 @@
     height:100%;
     z-index: 2;
     top:0%;
-    left:68.5%;
+    left:65.5%;
     transition: 1s ease;
     display: flex;
     justify-content: center;
     .background_options{
-        background-color: #060606;
+        background-color: #FFF;
         top:-65%;
         height:200%;
         width:110%;
         position: absolute;
-        transform: rotate(-15deg);
+        transform: rotate(-25deg);
         z-index: 1;
     }
     .breakline_options{
-        width:100%;
+        width:86%;
         margin: 5px auto;
-        height:2px;
-        background-color: #C4C4C4;
-        border-radius: 2px;
+        height:4px;
+        background-color: none;
+        border-bottom: 2px dashed black;
     }
     .Options_Data{
         width:85%;
@@ -33,26 +33,14 @@
         display: flex;
         flex-direction: column;
         z-index: 3;
-        margin-top: 100px;
+        margin-top: 60px;
         margin-left: -4%;
         opacity:0;
         transition: 0.25s;
-        h2{
-            font-family: 'Poppins', sans-serif;
-            width:100%;
-            height:auto;
-            letter-spacing: 1.4px;
-            text-align: center;
-            font-size: 24px;
-            color:white;
-            display:inline-block;
-            font-weight: 400;
-            margin: 0;
-        }
         .options_Cards{
             width:90%;
-            height:72vh !important;
-            overflow-y: auto;
+            height:48vh !important;
+            overflow-y: scroll;
             margin:10px auto;
             display: flex;
             justify-content: center;
@@ -66,7 +54,7 @@
                 align-content: baseline;
                 padding-bottom: 10px;
                 padding-top: 10px;
-                justify-content: center;
+                justify-content: space-around;
                 flex-wrap: wrap;
                 animation: Enter 0.5s ease;
             }
@@ -134,11 +122,10 @@
 }
 
 .options_buttons{
-    margin: 0px auto;
+    margin: 30px auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    bottom:50px;
     width:50%;
 }
 
@@ -152,42 +139,9 @@
     padding: 2px;
 }
 
-.button_save_presets{
-    position: absolute;
-    border-radius: 10px;
-    cursor: pointer;
-    top:30px;
-    outline:none;
-    border-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
-    right:0px;
-}
-
-.button_import_presets{
-    position: absolute;
-    height:100px;
-    top:-50px;
-    right:0px;
-    cursor: pointer;
-}
-
-.import_preset_div{
-    position: absolute;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    top:60px;
-    right:0px;
-    height:21px;
-    width:133.8px;
-    overflow: hidden;
-    background-color: gold;
-    border-radius:10px;
-    h4{
-        position: relative;
-        font-size:13px;
-        margin:0;
-        padding:0;
-    }
+.Image_Save{
+    left: -40px;
+    bottom: 60px;
 }
 
 @keyframes Enter{
@@ -199,34 +153,38 @@
     }
 }
 
-@media only screen and (max-width: 1380px) {
+@media only screen and (max-width: 1700px) {
     .Options_Main{
         left:73%;
     }
 }
 
-@media only screen and (min-width: 1200px) and (max-height:900px) {
+@media only screen and (max-width: 1540px) {
     .Options_Main{
-        .Options_Data{
-            margin-top: 70px;
-            .options_Cards{
-                height:63vh !important;
-            }
-        }
+        left:65%;
     }
-    .options_buttons{
-        margin-top: 20px !important;
+    .Image_Save{
+        left: -50px;
+        bottom: 40px;
     }
 }
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 1420px) {
+    .Options_Main{
+        .Options_Data{
+            width: 90%;
+        }
+    }
+}
+
+@media only screen and (max-width: 1370px) {
     .Options_Main{
         left:0%;
         z-index: 5;
-        top:0%;
-        padding-top:12%;
-        left:100%;
+        top:100%;
+        padding-top: 40px;
         margin-top: 10px;
+        position: absolute;
         .background_options{
             transform: rotate(0deg);
             width:100%;
@@ -236,58 +194,85 @@
         }
         .Options_Data{
             margin: 0px auto;
-            width:80%;
-            height:100%;
+            width: 1200px;
+            height:87%;
             .options_Cards{
                 height:72% !important;
             }
             .options_buttons{
-                width:90%;
+                width:70%;
                 bottom: 0;
             }
         }
-        .Bt{
-            left:15px;
-        }
     }
+
     .Opened{
-        left:0% !important;
+        top:0% !important;
+        left: 0% !important;
         width:100%;
     }
+
+    .Image_Save{
+        left: 0px;
+        bottom: 80px;
+        transform: scale(0.8);
+    }
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 1220px) {
     .Options_Main{
-        left:0%;
-        z-index: 5;
-        top:0%;
-        padding-top:12%;
-        left:100%;
-        .background_options{
-            transform: rotate(0deg);
-            width:100%;
-            height:100%;
-            top:0%;
-            left:0%;
-        }
         .Options_Data{
             margin: 0px auto;
-            width:80%;
-            height:100%;
+            width: 950px;
+            height:86%;
             .options_Cards{
                 height:72% !important;
-                margin-top: -10px;
             }
             .options_buttons{
                 width:90%;
                 bottom: 0;
             }
         }
-        .Bt{
-            left:5px;
-            .Bt_GoBack{
-                width:40px;
-                height:40px;
+    }
+    .Image_Save{
+        left: 50%;
+        bottom: 60px;
+        transform: scale(0.8) translateX(-63%);
+    }
+    .OptionsDescription{
+        height: fit-content !important;
+    }
+}
+
+@media only screen and (max-width: 910px) {
+    .Options_Main{
+        .Options_Data{
+            width: 610px;
+            .options_buttons{
+                width:90%;
+                bottom: 0;
+            }
+        }
+    }
+    .Image_Save{
+        left: 50%;
+        bottom: 60px;
+        transform: scale(0.7) translateX(-71%);
+    }
+}
+
+@media only screen and (max-width: 610px) {
+    .Options_Main{
+        .Options_Data{
+            margin: 0px auto;
+            width:80%;
+            height:85%;
+            .options_Cards{
+                height:72% !important;
+            }
+            .options_buttons{
+                width:90%;
+                bottom: 0;
             }
         }
     }
@@ -297,5 +282,15 @@
     }
     .Restore{
         display: none;
+    }
+    .OptionsDescription{
+        h3{
+            font-size: 18px !important;
+        }
+        h6{
+            font-size: 12px !important;
+            margin-top: 2px !important;
+            margin-bottom: 0px !important;
+        }
     }
 }

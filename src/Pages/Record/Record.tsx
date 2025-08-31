@@ -124,37 +124,41 @@ export default function Record():ReactElement {
     }, [])
 
     return (
-        <div className='Record' style={{height:height}}>
-            <div id='backgroundRot' />
-            <div className="content">
-                <div className='flex-50'>
-                    <h1 id='Record_Title'>Record</h1>
-                    <h3 id='Record_Description'>
-                        Record Midi through this app.
-                        <br />
-                        You can configure visuals through configure button on 'Home' page,
-                        then come back here and click 'Play recorded' with different settings.
-                        <br /><br />
-                        <strong>Note!</strong> You can not (yet) download your recorded Midi
-                        <br /><br />
-                        <strong>Note!</strong> Sheet music is only demonstrative. You can base sheet music created in professional software on it, but don't use it in any "more advanced" way.
-                        <br /><br />
-                        <strong className='Caps'>Remember to stop recording!</strong>
-
-                    </h3>
-                    <div className='buttons'>
-                        <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
-                        <button className='play' onClick={PlayRecoDed_onClick}>Play Recorded</button>
-                    </div>
-                    <h2 id='textDevices'>Connected MIDI devices :</h2>
-                    <div className='devices'>
-                        {renderDevices()}
-                    </div>
-                </div>
-                <div className='flex-50'>
-                    <canvas ref={Canvas} width={595} height={842} className='Canvas Canvas_Rec' />
-                </div>
-                </div>
+        <div className='INFO_REBUILD jersey-10'>
+            <h1>REBUILDING OF RECORDING API</h1>
+            <h2>PLEASE BE PATIENT :)</h2>
         </div>
+        // <div className='Record' style={{height:height}}>
+        //     <div id='backgroundRot' />
+        //     <div className="content">
+        //         <div className='flex-50'>
+        //             <h1 id='Record_Title'>Record</h1>
+        //             <h3 id='Record_Description'>
+        //                 Record Midi through this app.
+        //                 <br />
+        //                 You can configure visuals through configure button on 'Home' page,
+        //                 then come back here and click 'Play recorded' with different settings.
+        //                 <br /><br />
+        //                 <strong>Note!</strong> You can not (yet) download your recorded Midi
+        //                 <br /><br />
+        //                 <strong>Note!</strong> Sheet music is only demonstrative. You can base sheet music created in professional software on it, but don't use it in any "more advanced" way.
+        //                 <br /><br />
+        //                 <strong className='Caps'>Remember to stop recording!</strong>
+
+        //             </h3>
+        //             <div className='buttons'>
+        //                 <button className='rec' onClick={()=>{record.current.startStop(events); setRecording(!recording);setEvents(record.current.list); record.current.reset()}}>Rec</button>
+        //                 <button className='play' onClick={PlayRecoDed_onClick}>Play Recorded</button>
+        //             </div>
+        //             <h2 id='textDevices'>Connected MIDI devices :</h2>
+        //             <div className='devices'>
+        //                 {renderDevices()}
+        //             </div>
+        //         </div>
+        //         <div className='flex-50'>
+        //             <canvas ref={Canvas} width={595} height={842} className='Canvas Canvas_Rec' />
+        //         </div>
+        //         </div>
+        // </div>
     )
 }

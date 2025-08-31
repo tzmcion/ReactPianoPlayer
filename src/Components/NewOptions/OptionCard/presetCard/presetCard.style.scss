@@ -63,3 +63,33 @@
         }
     }
 }
+
+@media only screen and (max-width: 1220px) {
+    .Import_Save_Card{
+        height:150px;
+        width:250px;
+        margin: 10px 10px 10px 10px;
+        .Import_Preset{
+            h2{
+                font-size: 16px;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        .Save_Preset{
+            h2{
+                font-size: 16px;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}

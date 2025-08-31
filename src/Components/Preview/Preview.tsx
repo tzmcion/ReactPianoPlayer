@@ -53,7 +53,7 @@ export default function Preview({active}:PrevProps):React.ReactElement {
         setReady(true);
         setTimeout(()=>{
           player.restart();
-          player.play_random_notes(70);
+          player.play_random_notes(width_height.width > 760 ? 70 : 24);
         },500)
       }
     },[player, ready, active])
@@ -121,8 +121,8 @@ export default function Preview({active}:PrevProps):React.ReactElement {
             events={events}
             height={width_height.height + 200}
             width={width_height.width}
-            number_of_keys={76}
-            number_of_white_keys={44}
+            number_of_keys={width_height.width > 760 ? 76 : 25}
+            number_of_white_keys={width_height.width > 760 ? 44 : 15}
             options={options}
             sound={null}
             white_key_height={400}

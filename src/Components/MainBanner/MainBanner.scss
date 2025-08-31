@@ -4,6 +4,7 @@
     width: 900px;
     margin-top: 80px;
     padding-left: 100px;
+    overflow-x: hidden;
     // Logo aka banner
     .Logo{
         width: 700px;
@@ -151,7 +152,7 @@
     .MainPageBanner{
         width: 90%;
         max-height: 50vh;
-        overflow: scroll;
+        overflow-y: scroll;
         margin-top: 50px;
         padding-top: 10px;
         padding: 0;

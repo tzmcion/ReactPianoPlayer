@@ -75,7 +75,7 @@ export default function Main() {
 
     return (
         <div style={{height:windowHeight}} className='mainDiv'>
-            <DonationPrompt />
+            {/* <DonationPrompt /> */}
             <div className='mainHead'>
                 <InputFile onConfClick={onConfClick} options={options} isConfOn={isConfiguring}/>
                 <MainBanner />

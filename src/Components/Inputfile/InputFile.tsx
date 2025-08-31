@@ -48,7 +48,7 @@ export default function InputFile({options,onConfClick,isConfOn}:InputFileProps)
     }, [blocks])
 
     const onConfigureClick = () => {
-        window.innerWidth > 920 && setFade(true);
+        window.innerWidth > 1370 && setFade(true);
         onConfClick();
     }
 

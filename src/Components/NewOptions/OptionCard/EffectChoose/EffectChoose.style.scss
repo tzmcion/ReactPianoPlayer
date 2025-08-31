@@ -45,3 +45,13 @@
     font-weight: 800;
     color: #df48ec
 }
+
+@media only screen and (max-width: 1220px) {
+    .EffectCard{
+        ul{
+            font-size: 12px;
+            padding-inline-start: 0px;
+            font-weight: 100;
+        }
+    }
+}

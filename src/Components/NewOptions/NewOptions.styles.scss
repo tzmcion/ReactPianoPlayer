@@ -54,7 +54,7 @@
                 align-content: baseline;
                 padding-bottom: 10px;
                 padding-top: 10px;
-                justify-content: flex-start;
+                justify-content: space-around;
                 flex-wrap: wrap;
                 animation: Enter 0.5s ease;
             }
@@ -139,71 +139,9 @@
     padding: 2px;
 }
 
-.button_save_presets{
-    position: absolute;
-    border-radius: 10px;
-    cursor: pointer;
-    top:30px;
-    outline:none;
-    border-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
-    right:0px;
-}
-
-.button_import_presets{
-    position: absolute;
-    height:100px;
-    top:-50px;
-    right:0px;
-    cursor: pointer;
-}
-
-.import_preset_div{
-    position: absolute;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    top:60px;
-    right:0px;
-    height:21px;
-    width:133.8px;
-    overflow: hidden;
-    background-color: gold;
-    border-radius:10px;
-    h4{
-        position: relative;
-        font-size:13px;
-        margin:0;
-        padding:0;
-    }
-}
-
 .Image_Save{
-    left: 0;
-    bottom: 50px;
-}
-
-.Image_Preview{
-    left: -35px;
-    bottom: 180px;
-    width: 150px !important;
-    .ImageButton_image{
-        border-radius: 8px !important;
-        background-color: #F5F5F5 !important;
-        img{
-            padding-left: 10% !important;
-            filter: none !important;
-        }
-    }
-    .ImageButton_context{
-        background-color: #F36300 !important;
-        margin: -19% auto !important;
-        h3{
-            font-size: 22px !important;
-        }
-    }
-    &:hover{
-        cursor: zoom-in !important;
-    }
+    left: -40px;
+    bottom: 60px;
 }
 
 @keyframes Enter{
@@ -225,36 +163,28 @@
     .Options_Main{
         left:65%;
     }
+    .Image_Save{
+        left: -50px;
+        bottom: 40px;
+    }
 }
 
-// @media only screen and (max-width: 1420px) {
-//     .Options_Main{
-//         left:85%;
-//     }
-// }
-
-// @media only screen and (min-width: 1200px) and (max-height:900px) {
-//     .Options_Main{
-//         .Options_Data{
-//             margin-top: 70px;
-//             .options_Cards{
-//                 height:63vh !important;
-//             }
-//         }
-//     }
-//     .options_buttons{
-//         margin-top: 20px !important;
-//     }
-// }
+@media only screen and (max-width: 1420px) {
+    .Options_Main{
+        .Options_Data{
+            width: 90%;
+        }
+    }
+}
 
 @media only screen and (max-width: 1370px) {
     .Options_Main{
         left:0%;
         z-index: 5;
-        top:0%;
-        padding-top:12%;
-        left:100%;
+        top:100%;
+        padding-top: 40px;
         margin-top: 10px;
+        position: absolute;
         .background_options{
             transform: rotate(0deg);
             width:100%;
@@ -264,58 +194,85 @@
         }
         .Options_Data{
             margin: 0px auto;
-            width:80%;
-            height:100%;
+            width: 1200px;
+            height:87%;
             .options_Cards{
                 height:72% !important;
             }
             .options_buttons{
-                width:90%;
+                width:70%;
                 bottom: 0;
             }
         }
-        .Bt{
-            left:15px;
-        }
     }
+
     .Opened{
-        left:0% !important;
+        top:0% !important;
+        left: 0% !important;
         width:100%;
+    }
+
+    .Image_Save{
+        left: 0px;
+        bottom: 80px;
+        transform: scale(0.8);
     }
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 1220px) {
     .Options_Main{
-        left:0%;
-        z-index: 5;
-        top:0%;
-        padding-top:12%;
-        left:100%;
-        .background_options{
-            transform: rotate(0deg);
-            width:100%;
-            height:100%;
-            top:0%;
-            left:0%;
-        }
         .Options_Data{
             margin: 0px auto;
-            width:80%;
-            height:100%;
+            width: 950px;
+            height:86%;
             .options_Cards{
                 height:72% !important;
-                margin-top: -10px;
             }
             .options_buttons{
                 width:90%;
                 bottom: 0;
             }
         }
-        .Bt{
-            left:5px;
-            .Bt_GoBack{
-                width:40px;
-                height:40px;
+    }
+    .Image_Save{
+        left: 50%;
+        bottom: 60px;
+        transform: scale(0.8) translateX(-63%);
+    }
+    .OptionsDescription{
+        height: fit-content !important;
+    }
+}
+
+@media only screen and (max-width: 910px) {
+    .Options_Main{
+        .Options_Data{
+            width: 610px;
+            .options_buttons{
+                width:90%;
+                bottom: 0;
+            }
+        }
+    }
+    .Image_Save{
+        left: 50%;
+        bottom: 60px;
+        transform: scale(0.7) translateX(-71%);
+    }
+}
+
+@media only screen and (max-width: 610px) {
+    .Options_Main{
+        .Options_Data{
+            margin: 0px auto;
+            width:80%;
+            height:85%;
+            .options_Cards{
+                height:72% !important;
+            }
+            .options_buttons{
+                width:90%;
+                bottom: 0;
             }
         }
     }
@@ -325,5 +282,15 @@
     }
     .Restore{
         display: none;
+    }
+    .OptionsDescription{
+        h3{
+            font-size: 18px !important;
+        }
+        h6{
+            font-size: 12px !important;
+            margin-top: 2px !important;
+            margin-bottom: 0px !important;
+        }
     }
 }

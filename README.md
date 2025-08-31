@@ -28,6 +28,8 @@ PianoBlocksApp is a web application made for hobbists/enthusiasts of playing pia
 ### Last Update 31/08/2025 </br>
 <p>Update Description: Preparation for Version 2.0 of PBA, many updates ongoing and comming</p>
 
+![til](./.github/preview.gif)
+
 ## Description
 
 ### What does this app do ?

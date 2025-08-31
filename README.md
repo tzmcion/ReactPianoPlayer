@@ -23,7 +23,7 @@
 
 PianoBlocksApp is a web application made for hobbists/enthusiasts of playing piano. This app provides a very simple way to visualize a persons piano playing, by reading his midi File. It's main focus is to implement - alongside MIDI player - pallet of effects and configuration of the cisuals. Essentially, this app is designed to be recorded for a video on YouTube.
 
-<b> Link to latest version https://react-piano-player-63qjc9wca-tzmcion.vercel.app/ </b>
+<b> Link to latest version https://react-piano-player-tymota-aprions-projects.vercel.app/ </b>
 ###### Github version is not always up-to-date.
 ### Last Update 31/08/2025 </br>
 <p>Update Description: Preparation for Version 2.0 of PBA, many updates ongoing and comming</p>

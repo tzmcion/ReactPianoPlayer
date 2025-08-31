@@ -35,9 +35,9 @@ class soundManager{
                 let index = -1;
                 for(const el of src_els){
                     index++;
-                    const path = await import(`/piano_sounds/${el}.ogg`);
+                    // const path = await import(`/piano_sounds/${el}.ogg`);
                     const obj:sound_object = {
-                        audio: new Audio(path.default),
+                        audio: new Audio(`/piano_sounds/${el}.ogg`),
                         id:((x-1)*12) + index+3,
                         time_started:0
                     }

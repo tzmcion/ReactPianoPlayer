@@ -219,7 +219,6 @@ class AnimationFrameMidiPlayer{
      * This method plays the random notes within specified time interval
      */
     public play_random_notes(range:number = 12, time_interval: number = 1000){
-        console.log(range)
         this.pauseTime = (Date.now() - this.pauseTime) * 1000;
         this.isPlaying = true;
         this.timer = Date.now();

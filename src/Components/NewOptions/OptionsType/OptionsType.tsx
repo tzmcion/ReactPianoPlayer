@@ -3,6 +3,7 @@ import OptionCard from '../OptionCard/OptionCard';
 import OptionCardImage from '../OptionCard/OptionCardImage';
 import EffectChoose from '../OptionCard/EffectChoose/EffectChoose';
 import PresetCard from '../OptionCard/presetCard/presetCard';
+import ImportSaveCard from '../OptionCard/presetCard/ImportSaveCard';
 
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
@@ -65,7 +66,7 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
 
 function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
-    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA'>(options.Effect);
+    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA' | "None">(options.Effect);
 
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
@@ -85,6 +86,13 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
                         <ul>
                             <li>Little sparks from the keyboard</li>
                             <li>Performance indicator: <span className='Red_cl'>High</span></li>
+                        </ul>
+                </EffectChoose>
+                <EffectChoose onChange={onChange} name='Effect' title='Squared' textColor='effects' current={effect} value={'Squared'} >
+                        <ul>
+                            <li>Little quares going in squares, Squared!</li>
+                            <li><span className='Red_cl'>Warning: </span>Background Image does not work with this effect</li>
+                            <li>Performance indicator: <span className='Green_cl'>Good</span></li>
                         </ul>
                 </EffectChoose>
             </div>
@@ -123,6 +131,11 @@ function Options_Other({isOpened,onGoBack,options,handleOptionsChange}:OptionsPr
 //|||||| GRADIENTS ||||||||
 //||||||||||||||||||||||||||||
 
+/**
+ * @deprecated
+ * @param param0 
+ * @returns 
+ */
 function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
     const [colors,setColors] = useState<Array<String>>(options.GradientBlocksColor);
@@ -196,10 +209,11 @@ function Options_Effects_Adv({isOpened,onGoBack,options,handleOptionsChange}:Opt
 //|||||||||||||||||||||||||
 
 interface options_presets{
-    reloadOptions:Function
+    reloadOptions:Function,
+    options:OptionType
 }
 
-function Options_Presets({reloadOptions}:options_presets):React.ReactElement {
+function Options_Presets({reloadOptions,options}:options_presets):React.ReactElement {
 
     const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
         props,
@@ -276,12 +290,8 @@ function Options_Presets({reloadOptions}:options_presets):React.ReactElement {
 
     return <div className="options_Cards">
         <div className="Cards_Container">
+            <ImportSaveCard reloadOptions={reloadOptions} options={options} onImport={handleClick} />
             {renderPresets()}
-        </div>
-        <button className="button_save_presets" onClick={save_Presets}>Save current Preset</button>
-        <div className="import_preset_div">
-            <h4>Import Preset</h4>
-            <input type='file' className="button_import_presets" onChange={import_Preset} ref={import_ref}/>
         </div>
         <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'center',}} open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>

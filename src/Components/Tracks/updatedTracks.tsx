@@ -45,7 +45,6 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
 
     useEffect(()=>{
         return () => {
-            console.log('return');
             if(animation_frame.current !== 0){
                 window.cancelAnimationFrame(animation_frame.current);
             }    

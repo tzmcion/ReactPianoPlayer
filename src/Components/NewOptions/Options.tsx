@@ -44,7 +44,7 @@ export default function Options({isOpened,onGoBack,options,handleOptionsChange,r
                     {table === 'blocks' &&  <OptionsBlocks isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
                     {table === 'effects' &&  <OptionsEffect isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
                     {table === 'other' &&  <OptionsOther isOpened={isOpened} onGoBack={onGoBack} options={options} handleOptionsChange={handleOptionsChange} />}
-                    {table === 'presets' && <OptionsPresets reloadOptions={reloadOptions} />}
+                    {table === 'presets' && <OptionsPresets reloadOptions={reloadOptions} options={options} />}
                     <Preview active={isOpened}/>
                     <div className='options_buttons'>
                         <ChooseButton onClick={change_table} name='blocks' title='blocks' textColor='#000' />

@@ -34,7 +34,13 @@ export default function Main() {
         }
     },[options,dispatch])
 
-    const reloadOptions = ():void =>{
+    const reloadOptions = (text:string):void =>{
+        console.log(text);
+        console.log(localStorage.getItem('options'))
+        if(text){
+            dispatch(changeOptionValue(JSON.parse(text)))
+            return;
+        }
         const opt = localStorage.getItem('options');
         opt && dispatch(changeOptionValue(JSON.parse(opt)))
     }

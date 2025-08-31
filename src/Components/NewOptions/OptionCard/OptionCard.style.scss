@@ -8,6 +8,7 @@
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.318);
     margin: 20px 1.8% 20px 1.8%;
     position: relative;
+    overflow: hidden;
     .Card_Title{
         color: black;
         font-weight: 100;
@@ -38,11 +39,11 @@
         text-shadow: 0px 0px 3px #df48ec !important;
     }
     .speed{
-        color:#59CD90 !important;
+        // color:#59CD90 !important;
         text-shadow: 0px 0px 4px #59CD90 !important;
     }
     .background{
-        color: #F95738 !important;
+        // color: #F95738 !important;
         text-shadow: 0px 0px 4px #F95738 !important;
     }
     .Input_Container{
@@ -150,6 +151,25 @@
     font-family: 'IM Fell English SC';
     color:black;
     font-weight: 100;
+    }
+}
+
+.RIBBON{
+    position: absolute;
+    width: 200px;
+    height: 30px;
+    transform: rotate(45deg);
+    background-color: #F95738;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.788);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top:20px;
+    right: -70px;
+    h3{
+        color: #F5F5F5;
+        font-weight: 400;
+        font-size: 22px;
     }
 }
 

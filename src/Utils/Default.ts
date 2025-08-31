@@ -1,9 +1,9 @@
 import { Options } from "./TypesForOptions";
 
 const data:Options = {
-    Color:'#8EF971',
+    Color:'#ffffff',
     OctaveLines:true,
-    KeyPressColor:'#84E3F0',
+    KeyPressColor:'#e3e3e3',
     RandomColors:false,
     IsEffects:false,
     backgroundImage: '',
@@ -12,21 +12,28 @@ const data:Options = {
     watermark:false,
     soundOn:true,
     renderMethod:'animationFrame',
-    Effect:'fountain',
-    blockRadius:10,
-    ShadowColor:'#000',
-    blockShadowRadius:6,
+    Effect:'None',
+    blockRadius:4,
+    ShadowColor:'#ffffff',
+    blockShadowRadius:8,
     EffectsBlockColor: false,
     randomEffectColors:false,
     EffectsKeyColor:false,
     EffectsColor: '#ffffff',
     GameMode:false,
-    ThinerBlockColor:'#FB1378',
-    GradientColor:'#128251',
-    GradientBlocks:false,
-    GradientBlocksColor:['#224455','#aa2244'],
-    Error_info:""
+    ThinerBlockColor:'#e3e3e3',
+    GradientColor:'#e3e3e3',
+    GradientBlocks:true,
+    GradientBlocksColor:["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"],
 }
+
+//Important, if options are undefined do it this way :)
+try{
+    JSON.parse(localStorage.getItem('options')!)
+}catch{
+    localStorage.setItem('options',JSON.stringify(data))
+}
+
 
 let DefaultOptions:Options = localStorage.getItem('options') === null ? data : JSON.parse(localStorage.getItem('options')!);
 
@@ -139,10 +146,6 @@ if(!('GradientBlocks' in DefaultOptions)){
     window.location.reload();
 }
 if(!('GradientBlocksColor' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-if(!('Error_info' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();
 }

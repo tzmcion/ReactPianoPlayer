@@ -31,13 +31,12 @@ export default function MainBanner() {
         {/* Usage  */}
         <div className="Usage jersey-10">
             <h3>Usage:</h3>
-            <p>Start Immediately By dragging the midi file to the input field, or by clicking on it to choose the file using system file dialogue.
+            <p>Start Immediately By dragging the midi file to the input field, or by clicking on it to choose the file using system file dialogue.</p>
                 <ul>
                     <li>To configure the app, please click the button “Configure” on the Input field</li>
                     <li>To know more how to utilize the app, go to <Link to="/tutorial">“Docs”</Link> page</li>
                     <li>To record the midi file, go to <Link to="/record">“Record”</Link> page</li>
                 </ul>
-            </p>
             <p>If you enjoyed the app so far, you can go to the <Link to="/info">“Support”</Link> page, and leave a little donation</p>
             <div className="AvntLogo">
                 <div className="LeftSide">

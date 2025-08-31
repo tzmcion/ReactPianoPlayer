@@ -79,6 +79,7 @@ export default function OptionCard({onChange,name,type,textColor,title,children,
                     <h5 className='jersey-10'>Image Preview</h5>
                     <img src={image} alt='preview_image' />
             </div>}
+            <div className='RIBBON'><h3 className='jersey-10'>BETA</h3></div>
         </div>
     )
 }

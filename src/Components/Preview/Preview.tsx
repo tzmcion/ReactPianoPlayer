@@ -85,6 +85,30 @@ export default function Preview({active}:PrevProps):React.ReactElement {
       }
     },[active])
 
+    const listener = useCallback(()=>{
+        if(width_ref.current === null)return;
+        const props = width_ref.current.getBoundingClientRect();
+        set_width_height({
+          width: props.width,
+          height: props.height
+        })
+      setReady(false);
+      if(timeout_ref.current !== 0){
+        clearTimeout(timeout_ref.current);
+      }
+      timeout_ref.current = setTimeout(()=>{
+        setReady(true);
+        addKey(curr => curr + 1);
+      },500)
+    },[width_ref.current])
+
+
+    useEffect(()=>{
+      window.addEventListener('resize',listener)
+
+      return () => {window.removeEventListener('resize',listener)}
+    },[width_ref.current])
+
 
 
   return (

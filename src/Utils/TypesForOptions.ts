@@ -18,11 +18,10 @@ export interface Options{
     OctaveLines:boolean,
     GameMode:boolean,
     renderMethod:'Interval' | 'animationFrame',
-    Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA',
+    Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA' | "None",
     ThinerBlockColor:string,
     GradientColor:string,
     GradientBlocks:boolean,
     GradientBlocksColor:Array<string>
-    Error_info:string
 }
 

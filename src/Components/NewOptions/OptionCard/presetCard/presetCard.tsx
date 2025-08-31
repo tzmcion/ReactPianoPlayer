@@ -26,8 +26,8 @@ export default function PresetCard({title,color,children,json,updateOptions,onCl
 
   return (
     <div onClick={changeOptions} className='OptionCard Option_Preset_Card'>
-            <h1 className="Card_Title" style={{color:color,textShadow:`0px 0px 6px ${color}`}}>{title}</h1>
-            <h2 className='Card_Description' style={{textShadow:`0px 0px 3px black`}}>{children}</h2>
+            <h1 className="Card_Title jersey-10" style={{textShadow:`0px 0px 2px ${color}`}}>{title}</h1>
+            <h2 className='Card_Description jersey-15' >{children}</h2>
             
     </div>
   )

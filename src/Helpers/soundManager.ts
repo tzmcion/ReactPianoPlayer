@@ -54,6 +54,11 @@ class soundManager{
         if(okey_key.time_started !== 0){
             clearTimeout(okey_key.time_started);
         }
+        try{
+            okey_key.audio.pause();
+        }catch{//is already paused...
+            console.log('idk');    
+        }
         okey_key.audio.volume = velocity/this.max_velocity; //normalized to 1
         okey_key.audio.currentTime = 0;
         okey_key.audio.play();
@@ -61,7 +66,7 @@ class soundManager{
             okey_key.audio.pause();
             okey_key.audio.currentTime = 0;
             okey_key.time_started = 0;
-        },time/10)
+        },time)
     }
 
 }

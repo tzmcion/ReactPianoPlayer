@@ -140,7 +140,7 @@ class Blocks{
         this.add_blocks = this.add_blocks.bind(this);
         this.pause_playing = this.pause_playing.bind(this);
         this.key_interactor = new pianoInteraction(canvases.blackKeyCtx,canvases.whiteKeyCtx, canvases.KeyPressGradientCtx,this.width,(height / 5),0,options);
-        this.effect_manager = new EffectsManager(canvases.effectsCtx, width, height - (height / 5), key_width, options.Effect);
+        this.effect_manager = new EffectsManager(canvases.effectsCtx, width, height - (height / 5), key_width, options.Effect, this.options);
         this.render(true);
     }
 
@@ -271,7 +271,7 @@ class Blocks{
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].position,
                 0,
                 this.key_positions_map[event.NoteNumber - Blocks.substr_for_note].width,
-                event.Duration / 1000 / ( 22 / this.options.playSpeed), //block height
+                event.Duration / 1000 / ( 22 / this.options.playSpeed), //block height, 22 is magic number i guess...
                 color,
                 current_time,
                 false,

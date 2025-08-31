@@ -23,9 +23,11 @@ Changes For new version of PBA:
 - Repair the sound and volume and tone of the piano
 - Redesign the playing bar  DONE
 - Redesign the background
-- Repair some of the not working effects
+- Repair some of the not working effects    DONE
 - Maybe try to use less seperate canvases   DONE
 - Add functionality to work with multiple tracks in midi file   DONE
 - Add Unit tests    DONE
 - Change support page to "About App" Page
 - Added Workers to handle MIDI  NOT NEEDED - new algorithm workes 200times faster, 
+- RAPAIR THE AUDIO BY ADDING MULTIPLE DOUBELING THE AUDIO SOUNDS
+- CHANGE THE DESIGN OF CARDS TO IMPLEMENT CORRECTLY THE RIBBON VISUALS

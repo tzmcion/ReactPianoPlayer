@@ -1,17 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Info.styles.scss';
 import DonateButton from '../../Components/DonateButton/DonateButton'
 
-import Cactus from '../../Assets/Cactus.gif';
-import sad_cactus from '../../Assets/hug.gif';
-
 export default function ToDo() {
 
-    const [checkbox,setScheckbox] = useState<string>('false');
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        window.location.href = 'https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG'
+    },[])
 
     return (
         <div className='Info_Main'>
-            <div className="Contributes">
+            {/* <div className="Contributes">
                 <h1 className='Contributes_h1'>List of all additional data</h1>
                 <ul className='_List'>
                     <li className="L_Element"><a target='_blank' href='license' rel='noreferrer' download='License_PBA_2021-2022.txt'>App License</a></li>
@@ -22,21 +24,11 @@ export default function ToDo() {
                 </ul>
             </div>
             <div className="Support">
-                <h1 className='Support_h1'>Support / Donate</h1>
+                    <h1 className='Support_h1'>Support / Donate</h1>
                 <div className='Support_Data'>
-                    <div className="Supp_img">
-                        <img src={checkbox === 'checked' ? Cactus : sad_cactus} alt="Cactus gif" />
-                    </div>
-                    <div className="Support_don">
-                        <h3 className='data_don'>I understand what a <a href="https://en.wikipedia.org/wiki/Donation">Donation</a> is and I accept a fact that I'm not receiving any goods from this payment</h3> 
-                        <div className='inp'>
-                            <input type='checkbox' value={checkbox} onChange={(e)=>{setScheckbox(checkbox === 'false' ? 'checked': 'false')}} />
-                            <p>&#60;-- Click to accept</p>
-                        </div>
-                        {checkbox === 'checked' && <DonateButton className='Butt' link='https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG' />}
-                    </div>
+                    <DonateButton className='Butt' link='https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG' />
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

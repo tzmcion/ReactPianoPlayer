@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState, MouseEvent} from 'react'
+import { useNavigate } from 'react-router-dom'
 import AnimationFrameMidiPlayer from '../../Helpers/MidiReader/AnimationFrameMidiPlayer'
 import './UpdatedPlayingManagement.scss'
 
@@ -24,6 +25,7 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
     const [bt_display,set_bt_display] = useState<string>(Button_Play);
     const [timing, set_timing] = useState<{curr:number,length:number}>({curr:0,length:0});
     const [active, setActive] = useState<boolean>(false);
+    const navi = useNavigate();
 
     const handlePausePlay = ():void =>{
         Player.pausePlay();
@@ -85,7 +87,7 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
 
   return (
     <div className={`Player_Manager ${active? "Player_Manager_Active" : ""}`}>
-        <img src={LOGO} alt="PBA_LOGO" />
+        <img className="logo_upd" onClick={()=>{navi('/'); console.log('click')}}src={LOGO} alt="PBA_LOGO" />
         <h3 className='jersey-10 titlePBA'>piano-blocks-app</h3>
         <div className='Button_Play' onClick={handlePausePlay}>
             <img src={bt_display} alt='button_for_pauseplay' />

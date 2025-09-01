@@ -92,3 +92,15 @@
         transform: translateY(-150%);
     }
 }
+
+@media only screen and (max-width:1210px) {
+    .LoadingScreen{
+        img{
+            width: 100px;
+            top:35%;
+        }
+        .LoadingText{
+            transform: scale(0.6);
+        }
+    }
+}

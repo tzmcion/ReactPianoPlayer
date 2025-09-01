@@ -23,7 +23,7 @@ export default function Header() {
                     <Link to='/' className='Link jersey-10 HomeLink'>HOME</Link>
                     <Link to='/Record' className='Link jersey-10'>RECORD</Link>
                     <Link to='/tutorial' className='Link jersey-10'>DOCS</Link>
-                    <Link to='/info' className='Link jersey-10'>SUPPORT</Link>
+                    <Link to='https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG' className='Link jersey-10'>SUPPORT</Link>
                 </div>
             </div>
         </nav>

@@ -1,49 +1,50 @@
 <br />
 <div align="center">
   <a href="https://github.com/tzmcion">
-    <img src="https://github.com/user-attachments/assets/513d7f73-88c1-4474-9c35-a3181761c4e6" alt="Logo" width="100" height="100">
+    <img src="./public/PBA_logo.png" alt="Logo" width="100" height="100">
+    <h3>PIANO-BLOCKS-APP</h3>
   </a>
 
-  <h3 align="center">Piano MIDI player/visualizer with ReactJS & TS </h3>
+  <h3 align="center">Piano MIDI player/visualizer designed for MIDI playback with various visual configurations and effects </h3>
 
   <p align="center">
-    Project inheritated by AVANT group ©AVANT 2024/2025, Januarry/2025 AVANT group will begin work on a new verision 
-    <br />
 <!--     <a href="https://github.com/tzmcion/bio-meeting/wiki"><strong>Explore the docs</strong></a> -->
-    <br />
-    <br />
-<!--     <a href="https://bio-meeting.vercel.app/">Visit Latest Version of the vebsite</a> -->
-    ·
-<!--     <a href="https://github.com/users/tzmcion/projects/2">Report Bug or Request Feature</a> -->
+    <a href="https://react-piano-player-tymota-aprions-projects.vercel.app/">Visit Latest Version of the app</a>
+  </p>
+  <p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1150px-React-icon.svg.png" title="ReactJS" width="33" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1024px-Typescript_logo_2020.svg.png" title="TypeScript" width="33" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/MIDI_LOGO.svg" title="MIDI" width="33" />
+  <img src="https://vitest.dev/logo.svg" width="33" title="Vite/Vitest" />
+  <img src="https://cdn.worldvectorlogo.com/logos/redux.svg" width="33" title="Redux" />
+  <img src="https://sass-lang.com/assets/img/styleguide/seal-color.png" width="33" title="SASS/SCSS" />
   </p>
 </div>
 
 
-# React Piano Player/Visualizer/Analyzer
+# Webb App for MIDI playback with visualization
 
-PianoBlocksApp is a web application made for hobbists/enthusiasts of playing piano. This app provides a very simple way to visualize a persons piano playing, by reading his midi File. It's main focus is to implement - alongside MIDI player - pallet of effects and configuration of the cisuals. Essentially, this app is designed to be recorded for a video on YouTube.
-
-<b> Link to latest version https://react-piano-player-tymota-aprions-projects.vercel.app/ </b>
-###### Github version is not always up-to-date.
-### Last Update 31/08/2025 </br>
-<p>Update Description: Preparation for Version 2.0 of PBA, many updates ongoing and comming</p>
+PianoBlocksApp is a web application made for hobbists/enthusiasts of playing piano. This app provides a very simple way to visualize a persons piano playing, by reading the MIDI recording. It's main focus is to implement - alongside MIDI player - pallet of effects and configuration of the visuals. Essentially, this app is designed to be recorded and used for a video creation for YouTube, or other websites/purposes. If you are looking for a MIDI player app for music learning, please fell free to use this app, but I recomend a better application: <a href="https://github.com/Bewelge/MIDIano">MIDIano</a>
+> [!IMPORTANT]
+ Version of the app on "main" branch is not always up-to-date and does not alwasy contain all the bugs fixed
 
 ![til](./.github/preview.gif)
 
 ## Description
 
-### What does this app do ?
+App is a MIDI-player. What it does it converts the inserted midi file, verifies it's compatibility, compresess all the tracks to single track, and plays the file. The main goal of the app is not to facilitate learning process for musicians, rather to find a simple way of recreating fancy videos found in online-creators channels on YouTube, or other streaming platforms. The app provides a pallete of options and effects to implement during playback.
 
-I always wanted to create piano Tutorials like big youtubers, but I didn't want to pay for professional software, so I created it myself :). This app makes it super easy to create piano tutorials, it delivers some basic effects, basic sound, and if you can't record a midi file with softwares, you can record it there. Also with recording app gives you basic (super basic) sheet music. On top of that, app gives you plenty of ways to customize effects, colors, spped of playing. With this app you can learn and have fun.
+>[!TIP]
+> <b>Main Advantages of Piano-Blocks-App:</b>
+> <ul>
+>  <li>Playback Stop/Pause/Reset/Jump Forward-Backwards</li>
+>   <li>Independent sound from piano - sound will realistically still be played if a key is pressed</li>
+>   <li>Independent effects canvas - Effects will still render even if the playback is paused</li>
+>   <li>Visual configuration - Visualization can be easily configured</li>
+>   <li>Mobile devices compatibility - altough performance can be poor, app is compatibile with mobile devices</li>
+>   <li>Presets - App comes with ready presets to choose from - either better for performance or visuals</li>
+> </ul>
 
-### Technologies used
-
- * <b>React</b>
- * <b>Typescript</b>
- * <b>HTML/CSS</b>
- * <b>Sass (scss)</b>
- * <b>Redux (a little)</b>
- * <b>NPM library</b>
 
 ### How does the app work ? 
 
@@ -52,15 +53,15 @@ I always wanted to create piano Tutorials like big youtubers, but I didn't want 
 <ol>
  <li>
   <b>User input</b></br>
-  User Drags/chooses Midi file. He can configure options before that, or he can play demo file, then the Midi file is automatically imported
+  User Drags/chooses Midi file. He can configure options before that, using the preview view to see the results
  </li>
  <li>
-  <b>Website proceses it</b></br>
-  Website saves the file to localstorage and it procesess it. It uses a "/helpers/getNoteEventsJSON.ts" file (function) to remove all unnecesarry events.
+  <b>Website proceses the inserted MIDI</b></br>
+  Website saves the file to localstorage, checks it's extensions, converts the MIDI format to compatibile with the app - Midi has 3 different formats used. It also combines multiple tracks into one single track.
  </li>
  <li>
  <b>Website creates canvas animation</b></br>
-  Canvas animation is created, frame rate is 60fps or 144 fps (depends on the screen type).
+  Canvas animation is created, the app uses 5 separate canvas elements to render everything properlly.
  </li>
 </ol>
 
@@ -80,20 +81,14 @@ Or git clone
 git clone https://github.com/tzmcion/ReactPianoPlayer
 ```
 
-## Note !
+> [!CAUTION]
+> * Sometimes multiple resizing can cause BUGs to appear - please refresh the page if that happens
+> * Currently the record page is being reworked on - sorry for the inconvinience
+> * Many more effects and configuration options will appear in the future
+> * Some dependencies in `package.lock` are not used
+> * Many files and classes are currently set as @deprecated, be aware if you clone this repository
+> * If you'd like to work on this app, I will explain how every file works to you with pleasure, just write :)
 
-* In Official version you can find Donation page, but I deleted it here 
-* Some dependencies in `package.lock` are not used
-* Please report every issue and bug 
-* If you'd like to work on this app, I will explain how every file works to you with pleasure, just write :)
-
-## Resources 
-
-- __soundfont-player__
-- __midi-parser-js__
-- __react-youtube__
-- __rgb-hex__
-- __sass__
 
 ## License
 

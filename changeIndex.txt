@@ -19,7 +19,7 @@ Changes For new version of PBA:
 * Refactored MIDI file computation, now it is significanntly faster (for smaller files from 17ms to 3 ms) of worktime.  DONE
 
 - Rapair the bug with options when going back the otpions do not reset  DONE
-- Repair the sound and volume and tone of the piano     DONE/TODO
+- Repair the sound and volume and tone of the piano     DONE
 - Redesign the playing bar  DONE
 - Redesign the background   DONE
 - Repair some of the not working effects    DONE
@@ -28,5 +28,5 @@ Changes For new version of PBA:
 - Add Unit tests    DONE
 - Change support page to "About App" Page   TODO
 - Added Workers to handle MIDI  NOT NEEDED - new algorithm workes 200times faster,  DONE
-- RAPAIR THE AUDIO BY ADDING MULTIPLE DOUBELING THE AUDIO SOUNDS    TODO
+- RAPAIR THE AUDIO BY ADDING MULTIPLE DOUBELING THE AUDIO SOUNDS    DONE
 - CHANGE THE DESIGN OF CARDS TO IMPLEMENT CORRECTLY THE RIBBON VISUALS  DONE

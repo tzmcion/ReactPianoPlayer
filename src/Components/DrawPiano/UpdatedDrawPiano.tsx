@@ -7,7 +7,7 @@
  * - Moved Watermark render Here
  */
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import AnimationFrameMidiPlayer from "../../Helpers/MidiReader/AnimationFrameMidiPlayer";
 import { TrackNoteEvent } from "../../Utils/TypesForMidi";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";

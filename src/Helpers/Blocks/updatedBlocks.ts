@@ -173,7 +173,7 @@ class Blocks{
                 this.effect_manager.generate_effect(this.key_positions_map[block.noteNumber].position);
                 if(this.sound_manager !== undefined){
                     if(detected != block.isDetected){
-                        this.sound_manager.play_key(block.noteNumber,Math.floor(block.soundDuration),block.velocity);
+                        this.sound_manager.play_key(block.noteNumber,Math.floor(block.soundDuration),block.velocity * 25);
                     }
                 }
             }

@@ -86,7 +86,7 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
   return (
     <div className={`Player_Manager ${active? "Player_Manager_Active" : ""}`}>
         <img src={LOGO} alt="PBA_LOGO" />
-        <h3 className='jersey-10'>piano-blocks-app</h3>
+        <h3 className='jersey-10 titlePBA'>piano-blocks-app</h3>
         <div className='Button_Play' onClick={handlePausePlay}>
             <img src={bt_display} alt='button_for_pauseplay' />
         </div>

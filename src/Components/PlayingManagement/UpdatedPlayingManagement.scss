@@ -94,3 +94,95 @@
     opacity: 1;
     transition: 0.2s;
 }
+
+.WIDTH_INFO{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    background-color: #e6e6e6;
+    h3{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width:1600px) {
+    .Player_Manager{
+        .Timer_Bar{
+            width: 55%;
+        }
+    }
+}
+
+@media only screen and (max-width:1410px) {
+    .Player_Manager{
+        .Timer_Bar{
+            width: 50%;
+            margin-left: 2.5%;
+        }
+    }
+}
+
+@media only screen and (max-width:1200px) {
+    .Player_Manager{
+        img{
+
+        }
+        h3{
+            font-size: 16px;
+        }
+        .Button_Play, .Button_Reset{
+            width: 30px;
+            height: 30px;
+        }
+        .Timer_Bar{
+            width: 40%;
+            margin-left: 5%;
+        }
+    }
+}
+
+@media only screen and (max-width:750px) {
+    .Player_Manager{
+        .Timer_Bar{
+            width: 35%;
+            margin-left: 4.5%;
+        }
+    }
+}
+
+@media only screen and (max-width:670px) {
+    .Player_Manager{
+        .Timer_Bar{
+            width: 30%;
+            margin-left: 5.5%;
+        }
+    }
+}
+
+@media only screen and (max-width:620px) {
+    .Player_Manager{
+        .titlePBA{
+            display: none;
+        }
+        .Timer_Bar{
+            width: 45%;
+            margin-left: 8.5%;
+        }
+    }
+}
+
+@media only screen and (max-width:510px) {
+    .Player_Manager{
+        .titlePBA{
+            display: none;
+        }
+        .Timer_Bar{
+            width: 40%;
+            margin-left: 10%;
+        }
+    }
+}

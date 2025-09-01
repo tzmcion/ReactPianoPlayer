@@ -6,13 +6,16 @@ import key_88 from '../Assets/piano_sounds/ct8.ogg';
 interface sound_object{
     audio:HTMLAudioElement
     id:number,
-    time_started?: any
+    time_started?: any,
+    date_started?: any
 }
 
 class soundManager{
     private current_sounds:Array<sound_object>;
+    private additional_sounds:Array<sound_object>;
     constructor(private max_velocity:number){
         this.current_sounds = [{audio:new Audio(key_1),id:0},{audio:new Audio(key_2),id:1},{audio:new Audio(key_3),id:2},{audio:new Audio(key_88),id:87}];
+        this.additional_sounds = [{audio:new Audio(key_1),id:0},{audio:new Audio(key_2),id:1},{audio:new Audio(key_3),id:2},{audio:new Audio(key_88),id:87}];
     }
 
     public load_sounds():Promise<boolean> {
@@ -41,32 +44,75 @@ class soundManager{
                         id:((x-1)*12) + index+3,
                         time_started:0
                     }
+                    const obj_add:sound_object = {
+                        audio: new Audio(`/piano_sounds/${el}.ogg`),
+                        id:((x-1)*12) + index+3,
+                        time_started:0
+                    }
+                    obj.audio.load()
+                    obj_add.audio.load();
                     this.current_sounds.push(obj);
+                    this.additional_sounds.push(obj_add)
                 }
             }
             res(true)
         })
     }
+
+    private audio_fade(audio:HTMLAudioElement, time:number, key:sound_object):void{
+        const initial_volume = audio.volume;
+        const inter = setInterval(()=>{
+            if(audio.volume - (initial_volume/50) < 0){
+                audio.pause();
+                audio.currentTime = 0;
+                key.time_started = 0;
+                key.date_started = 0;
+                clearInterval(inter);
+                return;
+            }
+            audio.volume -= (initial_volume/50);
+        }, time/50);
+    }
     
 
     public play_key(key:number,time:number = 0.1,velocity:number=0.1){
         const okey_key = this.current_sounds[this.current_sounds.findIndex(e => e.id===key)];
+        const additional_key = this.additional_sounds[this.additional_sounds.findIndex(e => e.id===key)];
         if(okey_key.time_started !== 0){
+            //check if additional key can be played
+            if(additional_key.time_started === 0){
+                //Then play additional key instead
+                additional_key.audio.volume = velocity / this.max_velocity;
+                additional_key.audio.currentTime = 0;
+                additional_key.audio.play();
+                additional_key.date_started = Date.now();
+                additional_key.time_started = setTimeout(()=>{
+                    this.audio_fade(additional_key.audio,250, additional_key);
+                },time/1000)
+                return;
+            }
+            //If both are being played
+            if(okey_key.date_started > additional_key.date_started){
+                //Additional_key is older, stop playing him
+                clearTimeout(additional_key.time_started);
+                //and play
+                additional_key.audio.volume = velocity / this.max_velocity;
+                additional_key.audio.currentTime = 0;
+                additional_key.audio.play();
+                additional_key.date_started = Date.now();
+                additional_key.time_started = setTimeout(()=>{
+                    this.audio_fade(additional_key.audio,250, additional_key);
+                },time/1000)
+                return;
+            }
             clearTimeout(okey_key.time_started);
-        }
-        try{
-            okey_key.audio.pause();
-        }catch{//is already paused...
-            console.log('idk');    
         }
         okey_key.audio.volume = velocity/this.max_velocity; //normalized to 1
         okey_key.audio.currentTime = 0;
         okey_key.audio.play();
         okey_key.time_started = setTimeout(()=>{
-            okey_key.audio.pause();
-            okey_key.audio.currentTime = 0;
-            okey_key.time_started = 0;
-        },time)
+            this.audio_fade(okey_key.audio,250, okey_key);
+        },time/1000)
     }
 
 }

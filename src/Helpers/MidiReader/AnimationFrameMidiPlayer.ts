@@ -30,6 +30,7 @@ class AnimationFrameMidiPlayer{
     private reset_handler: () => void
 
     public isPlaying:boolean
+    public isPausedByScript:boolean
 
 
     /**
@@ -53,6 +54,7 @@ class AnimationFrameMidiPlayer{
         this.reset_handler = () => {}
         this.playRandom = this.playRandom.bind(this);
         this.play_random_notes = this.play_random_notes.bind(this)
+        this.isPausedByScript = false;
         this.restart()
     }
     
@@ -68,10 +70,9 @@ class AnimationFrameMidiPlayer{
             this.progres = Date.now() * 1000 - this.timer - this.pauseTime
             this.pauseTime = Date.now() - this.pauseTime/1000
         }else{
-
             this.pauseTime = (Date.now() - this.pauseTime) * 1000
-            console.log("starting")
             this.isPlaying = true
+            this.isPausedByScript = false;
             this.playMidi()
         }
         this.pause_handler(this.isPlaying)

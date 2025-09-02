@@ -2,8 +2,8 @@
 
 .MainPageBanner{
     width: 900px;
-    margin-top: 40px;
-    padding-left: 80px;
+    margin-top: 80px;
+    padding-left: 100px;
     overflow-x: hidden;
     // Logo aka banner
     .Logo{
@@ -145,6 +145,13 @@
         .Usage{
             width: 600px;
         }
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-height:900px){
+    .MainPageBanner{
+        margin-top: 40px;
+        padding-left: 80px;
     }
 }
 

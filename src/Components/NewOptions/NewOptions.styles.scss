@@ -177,6 +177,20 @@
     }
 }
 
+@media only screen and (min-width: 1200px) and (max-height:900px){
+    .Options_Main{
+        .Options_Data{
+            .options_Cards{
+                margin: 0 auto;
+                height: 45vh !important;
+                .Cards_Container{
+                    padding-top: 0px;
+                }
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 1370px) {
     .Options_Main{
         left:0%;

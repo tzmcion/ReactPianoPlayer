@@ -13,7 +13,7 @@ export default function ToDo() {
 
     return (
         <div className='Info_Main'>
-            {/* <div className="Contributes">
+            <div className="Contributes">
                 <h1 className='Contributes_h1'>List of all additional data</h1>
                 <ul className='_List'>
                     <li className="L_Element"><a target='_blank' href='license' rel='noreferrer' download='License_PBA_2021-2022.txt'>App License</a></li>
@@ -28,7 +28,7 @@ export default function ToDo() {
                 <div className='Support_Data'>
                     <DonateButton className='Butt' link='https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG' />
                 </div>
-            </div> */}
+            </div>
         </div>
     )
 }

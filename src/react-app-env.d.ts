@@ -4,3 +4,4 @@ declare module '*.MID';
 declare module '*.ogg';
 declare module '*.png';
 declare module '*.jpeg';
+declare module '*.gif';

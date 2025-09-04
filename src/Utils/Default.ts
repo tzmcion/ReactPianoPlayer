@@ -11,6 +11,7 @@ const data:Options = {
     Color:'#ffffff',
     OctaveLines:true,
     KeyPressColor:'#e3e3e3',
+    KeyPressGradientColor: "#ffffff",
     backgroundImage: '',
     speed:35,
     playSpeed:5,
@@ -43,6 +44,11 @@ if(!('ThinerBlockColor' in DefaultOptions)){
 if(!('EffectsColor' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();
+}
+
+if(!('KeyPressGradientColor' in DefaultOptions)){
+    localStorage.setItem('options',JSON.stringify(data));
+    window.location.reload();    
 }
 
 if(!('blockShadowRadius' in DefaultOptions)){

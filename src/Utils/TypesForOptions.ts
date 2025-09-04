@@ -6,6 +6,7 @@
 export interface Options{
     Color:string,
     KeyPressColor:string,
+    KeyPressGradientColor:string,
     backgroundImage: string,
     speed:number,
     playSpeed:number,

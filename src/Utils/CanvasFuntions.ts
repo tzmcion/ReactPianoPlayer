@@ -1,5 +1,6 @@
 /*
-  This file consist of (currently) one function - CanvasRoundREct
+  File cosists of functions used for drawing on the canvas
+  LAST UPDATE: 04/09/2025
 */
 
 /**

@@ -13,7 +13,6 @@ const data:Options = {
     KeyPressColor:'#e3e3e3',
     KeyPressGradientColor: "#ffffff",
     backgroundImage: '',
-    speed:35,
     playSpeed:5,
     watermark:false,
     soundOn:true,
@@ -82,11 +81,6 @@ if(!('watermark' in DefaultOptions)){
 }
 
 if(!('playSpeed' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('speed' in DefaultOptions)){
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();
 }

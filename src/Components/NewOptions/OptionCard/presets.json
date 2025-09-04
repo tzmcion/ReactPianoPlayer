@@ -2,17 +2,17 @@
     "name":"Mechanical Zombie",
     "color":"#0fbd4c",
     "description" : "Preset in shades of green, with Squared effect. Sound by default is disabled in this preset, remember to turn it on if needed",
-    "data":{"Color":"#07d56a","OctaveLines":true,"KeyPressColor":"#2cba70","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":6,"watermark":false,"soundOn":false,"renderMethod":"animationFrame","Effect":"Squared","blockRadius":4,"ShadowColor":"#5add99","blockShadowRadius":6,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#53ea9c","GradientColor":"#0fbd4c","GradientBlocks":false,"GradientBlocksColor":["#ffffff","#e3e3e3","#bababa","#878787","#6b6b6b","#4f4f4f","#7f00ff"]}
+    "data":{"Color":"#07d56a","OctaveLines":true,"KeyPressColor":"#2cba70","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":6,"watermark":false,"soundOn":false,"Effect":"Squared","blockRadius":4,"ShadowColor":"#5add99","blockShadowRadius":6,"EffectsColor":"#ffffff","ThinerBlockColor":"#53ea9c","KeyPressGradientColor":"#0fbd4c"}
 },{
     "name":"Sparky Goldy",
     "color":"#FECD56",
     "description" : "Preset in colors of gold, matches the sparky effect",
-    "data":{"Color":"#FFF0B1","OctaveLines":true,"KeyPressColor":"#FECD56","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":false,"renderMethod":"animationFrame","Effect":"Sparks","blockRadius":6,"ShadowColor":"#ECB447","blockShadowRadius":8,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#FECD56","GradientColor":"#FFF0B1","GradientBlocks":false,"GradientBlocksColor":["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"]}
+    "data":{"Color":"#FFF0B1","OctaveLines":true,"KeyPressColor":"#FECD56","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"Sparks","blockRadius":6,"ShadowColor":"#ECB447","blockShadowRadius":8,"EffectsColor":"#ffffff","ThinerBlockColor":"#FECD56","KeyPressGradientColor":"#FFF0B1"}
 },
 {
     "name":"Mr. Black-n-White",
     "color":"#000",
     "description" : "Grayscale shades, no effect, high performance. To even further improve performance, disable shadow by setting shadow radius to 0",
-    "data":{"Color":"#ffffff","OctaveLines":true,"KeyPressColor":"#ffffff","RandomColors":false,"IsEffects":true,"backgroundImage":"","speed":35,"playSpeed":5,"watermark":false,"soundOn":false,"renderMethod":"animationFrame","Effect":"None","blockRadius":4,"ShadowColor":"#ffffff","blockShadowRadius":8,"EffectsBlockColor":false,"randomEffectColors":false,"EffectsKeyColor":false,"EffectsColor":"#ffffff","GameMode":false,"ThinerBlockColor":"#e3e3e3","GradientColor":"#ffffff","GradientBlocks":false,"GradientBlocksColor":["#ff0000","#f59b00","#ffff00","#00ff00","#0033ff","#4b0082","#7f00ff"]}
+    "data":{"Color":"#ffffff","OctaveLines":true,"KeyPressColor":"#ffffff","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"None","blockRadius":4,"ShadowColor":"#ffffff","blockShadowRadius":8,"EffectsColor":"#ffffff","ThinerBlockColor":"#e3e3e3","KeyPressGradientColor":"#ffffff"}
 }
 ]

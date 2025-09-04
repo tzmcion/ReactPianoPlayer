@@ -8,7 +8,6 @@ export interface Options{
     KeyPressColor:string,
     KeyPressGradientColor:string,
     backgroundImage: string,
-    speed:number,
     playSpeed:number,
     watermark:boolean,
     soundOn:boolean,

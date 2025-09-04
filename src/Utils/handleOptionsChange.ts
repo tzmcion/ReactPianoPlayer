@@ -58,6 +58,9 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
         case 'refresh':
             currentOptions.refresh = !currentOptions.refresh;
             break;
+        case 'KeyPressGradientColor':
+            currentOptions.KeyPressGradientColor = event.target.value;
+            break;
         default:
             break;
     }

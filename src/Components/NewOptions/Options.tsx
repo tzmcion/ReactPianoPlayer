@@ -6,13 +6,11 @@ import ImageButton from './ImageButton/ImageButton';
 import OptionsDescription from './OptionsDescription/OptionsDescription';
 
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
-import { restoreDefaults } from '../../Utils/smallFunctions';
 
 import {
     Options_Blocks as OptionsBlocks,
     Options_Effects as OptionsEffect,
     Options_Other as OptionsOther,
-    Options_Effects_Adv as OptionsEffectsAdv,
     Options_Presets as OptionsPresets} from './OptionsType/OptionsType';
 
 import save_img from "../../Assets/save.png"

@@ -19,7 +19,20 @@ class soundManager{
     }
 
     public load_sounds():Promise<boolean> {
-        return new Promise(async (res,req) =>{
+
+        const loadAudioElement = (audio:HTMLAudioElement):Promise<boolean> => {
+            audio.load()
+            return new Promise(res =>{
+                const onReady = () =>{
+                    audio.removeEventListener('canplaythrough', onReady);
+                    res(true);
+                }
+
+                audio.addEventListener('canplaythrough', onReady);
+            });
+        }
+
+        return new Promise(async (res) =>{
             for(let x = 1; x < 8; x++){
                 const src_els = [
                     `co${x}`,
@@ -38,21 +51,25 @@ class soundManager{
                 let index = -1;
                 for(const el of src_els){
                     index++;
-                    // const path = await import(`/piano_sounds/${el}.ogg`);
+                    const data = await fetch(`/piano_sounds/${el}.ogg`);
+                    const ar_buf = await data.arrayBuffer();
                     const obj:sound_object = {
-                        audio: new Audio(`/piano_sounds/${el}.ogg`),
+                        audio: new Audio(),
                         id:((x-1)*12) + index+3,
                         time_started:0
                     }
                     const obj_add:sound_object = {
-                        audio: new Audio(`/piano_sounds/${el}.ogg`),
+                        audio: new Audio(),
                         id:((x-1)*12) + index+3,
                         time_started:0
                     }
-                    obj.audio.load()
-                    obj_add.audio.load();
+                    const blob = new Blob([ar_buf], {type:"audio/wav"});
+                    obj.audio.src = window.URL.createObjectURL(blob);
+                    obj_add.audio.src = window.URL.createObjectURL(blob);
                     this.current_sounds.push(obj);
-                    this.additional_sounds.push(obj_add)
+                    this.additional_sounds.push(obj_add);
+                    await loadAudioElement(obj.audio);
+                    await loadAudioElement(obj_add.audio);
                 }
             }
             res(true)
@@ -113,6 +130,14 @@ class soundManager{
         okey_key.time_started = setTimeout(()=>{
             this.audio_fade(okey_key.audio,250, okey_key);
         },time/1000)
+    }
+
+    /**
+     * Method for testing purposes
+     * @inner USE ONLY IN TESTING
+     */
+    public get __test_sounds():Array<sound_object>{
+        return this.current_sounds;
     }
 
 }

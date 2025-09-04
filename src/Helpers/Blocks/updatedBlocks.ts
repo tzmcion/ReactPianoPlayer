@@ -144,7 +144,10 @@ class Blocks{
         this.render(true);
     }
 
-    
+    /**
+     * Method set the sound manager. Without it, no sound would be played
+     * @param manager 
+     */
     public set_sound_manager(manager:soundManager):void {
         this.sound_manager = manager;
     }
@@ -169,7 +172,7 @@ class Blocks{
             if(result < 2)
                 new_blocks.push(block);
             if(result === 1){
-                this.key_interactor.handle_block_key(this.key_positions_map[block.noteNumber],this.options.KeyPressColor,this.options.GradientColor)
+                this.key_interactor.handle_block_key(this.key_positions_map[block.noteNumber],this.options.KeyPressColor,this.options.KeyPressGradientColor)
                 this.effect_manager.generate_effect(this.key_positions_map[block.noteNumber].position);
                 if(this.sound_manager !== undefined){
                     if(detected != block.isDetected){

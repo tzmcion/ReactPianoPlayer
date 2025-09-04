@@ -1,3 +1,8 @@
+/**
+ * File consist of small helpfull functions used across the app
+ * Last UPDATE: 04/09/2025
+ */
+
 import { noteEvent } from "./TypesForMidi";
 import rgbHex from 'rgb-hex';
 
@@ -5,7 +10,9 @@ import {data} from './Default';
 
 
 /**
- * @deprecated function not recomended for usage due to returning noteEvent type
+ * Function not recomended for usage due to returning noteEvent type
+ * Used before in "/src/Helpers/getNoteEventsJSON.ts"
+ * @deprecated 
  * @param noteNumber 
  * @returns 
  */
@@ -20,7 +27,8 @@ const getEmptyNoteEvent = (noteNumber:number): noteEvent => {
 }
 
 /**
- * @deprecated function not used anywhere and not recomended for usage due to returning noteEvent type
+ * Function not used anywhere and not recomended for usage due to returning noteEvent type
+ * @deprecated
  * @param Keys 
  * @param startNumber 
  * @returns 
@@ -33,26 +41,71 @@ const CreateEmptyArray = (Keys:number,startNumber:number):Array<noteEvent> =>{
     return Keys_Array;
 }
 
+/**
+ * Very weird function
+ * @param r range from 0-255
+ * @param g range from 0-255
+ * @param b range from 0-255
+ * @returns string in format of RGB
+ * @deprecated 
+ */
 const RandomColor = (r?:number,g?:number,b?:number):string=>{
     return `rgb(${r === undefined? Math.random() * 255 : r},${g === undefined ? Math.random() * 255: g},${b === undefined ? Math.random() * 255 : b})`;
 }
 
+/**
+ * Very weird function
+ * @param r range from 0-255
+ * @param g range from 0-255
+ * @param b range from 0-255
+ * @returns string in format of RGB
+ * @deprecated 
+ */
 const RandomColorRGBwithMin = (r?:number,g?:number,b?:number):string =>{
     return `rgb(${r === undefined? Math.random() * 254 : Math.random() * (254 -r) + r},${g === undefined ? Math.random() * 254: Math.random() * (254 -g ) + g},${b === undefined ? Math.random() * 254 : Math.random() * (254 -b) + b})`;
 }
 
+/**
+ * Very weird function
+ * @param r range from 0-255
+ * @param g range from 0-255
+ * @param b range from 0-255
+ * @returns string in format of RGBA
+ * @deprecated 
+ */
 const RandomColorToAlhpa = (r?:number,g?:number,b?:number):string=>{
     return `rgba(${r === undefined? Math.random() * 255 : r},${g === undefined ? Math.random() * 255: g},${b === undefined ? Math.random() * 255 : b}`;
 }
 
+/**
+ * Very weird function
+ * @param r range from 0-255
+ * @param g range from 0-255
+ * @param b range from 0-255
+ * @returns string in format of RGBA
+ * @deprecated 
+ */
 const RandomColorToAlphawithMin = (r?:number,g?:number,b?:number):string =>{
     return `rgba(${r === undefined? Math.random() * 255 : Math.random() * (255 -r) + r},${g === undefined ? Math.random() * 255: Math.random() * (255 -g ) + g},${b === undefined ? Math.random() * 255 : Math.random() * (255 -b) + b}`;
 }
 
+/**
+ * Function returns random color in format of HeX
+ * @param r 
+ * @param g 
+ * @param b 
+ * @returns hex color
+ */
 const RandomColorHex = (r?:number,g?:number,b?:number):string =>{
     return rgbHex(Math.floor(r === undefined ? Math.random() * 255:r),Math.floor(g === undefined ? Math.random() * 255:g),Math.floor(b === undefined ? Math.random() * 255:b));
 }
 
+/**
+ * Method checks the extension of the file. File is a input element
+ * @param file File from input element (NOT THE NAME OF THE FILE)
+ * @param extension string of extension (example: .JSON, MIDI, MID)
+ * @returns boolean stating if extension of the file matches the provided extension
+ */
 const checkExtension = (file:any,extension:string):boolean =>{
     if(file){
         const ext:string = file.name.split('.').pop();
@@ -82,6 +135,14 @@ const ReadFromLocalStorageBase64 = (storageName:string):ArrayBuffer =>{
         }
         return new ArrayBuffer(1);
     }
+
+/**
+ * Function saves the element as binary data in A SCII string format (base64)
+ * @param element data to save, either a file, or  JSON
+ * @param storageName name in localStorage to save the file in
+ * @param json specifies if the inserted data is in form of a JSON
+ * @returns a promise, which always results in true.
+ */
 const SaveAsBase64 = (element:any,storageName:string,json?:boolean):Promise<boolean> => {
         if(json){
             return new Promise<boolean>(resolve =>{
@@ -98,10 +159,15 @@ const SaveAsBase64 = (element:any,storageName:string,json?:boolean):Promise<bool
                     resolve(true);
                 }
                 reader.readAsDataURL(file);
-            })
+        })
     }
 }
 
+/**
+ * Function reads the file as a string, and returns in as a promise.
+ * @param file a type for file from input
+ * @returns A Promise of string, in case of error, returns string "Error"
+ */
 const read_as_text = async (file:any):Promise<string> =>{
     return new Promise<string>(resolve =>{
         const reader = new FileReader();
@@ -113,6 +179,11 @@ const read_as_text = async (file:any):Promise<string> =>{
     })
 }
 
+/**
+ * Method restores the default options by reloading the localStorage, and refreshing the window
+ * PLEASE DO NOT USE
+ * @deprecated
+ */
 const restoreDefaults = ():void =>{
     localStorage.setItem('options',JSON.stringify(data));
     window.location.reload();

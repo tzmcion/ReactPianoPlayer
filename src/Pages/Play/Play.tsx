@@ -43,7 +43,6 @@ export default function Play():React.ReactElement{
     },[]);
 
     const focus_listener = useCallback(()=>{
-        console.log(player)
         if(player === undefined)return;
         if(document.visibilityState === "hidden"){
             if(player.isPlaying){

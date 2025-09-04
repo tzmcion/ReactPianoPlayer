@@ -1,8 +1,12 @@
+
+/**
+ * Interface for Options object. Every component which uses options must follow this type to ensure the app is working correctly
+ * LAST UPDATE: 09/04/2025
+ */
 export interface Options{
     Color:string,
     KeyPressColor:string,
-    RandomColors:boolean,
-    IsEffects:boolean,
+    KeyPressGradientColor:string,
     backgroundImage: string,
     speed:number,
     playSpeed:number,
@@ -10,18 +14,11 @@ export interface Options{
     soundOn:boolean,
     blockRadius:number,
     blockShadowRadius:number,
+    refresh:boolean,
     ShadowColor:string,
-    randomEffectColors:boolean,
-    EffectsBlockColor:boolean,
-    EffectsKeyColor:boolean,
     EffectsColor:string,
     OctaveLines:boolean,
-    GameMode:boolean,
-    renderMethod:'Interval' | 'animationFrame',
-    Effect:'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA' | "None",
+    Effect:"Squares" | "Sparks" | "None",
     ThinerBlockColor:string,
-    GradientColor:string,
-    GradientBlocks:boolean,
-    GradientBlocksColor:Array<string>
 }
 

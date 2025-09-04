@@ -1,3 +1,8 @@
+/**
+ * File consists of class which draws falling blocks in cavas
+ * LAST UPDATE: 04/09/2025
+ */
+
 import { RefObject } from "react"
 import {CanvasRoundRect} from '../../Utils/CanvasFuntions';
 import { Options } from "../../Utils/TypesForOptions";
@@ -10,31 +15,37 @@ interface Ball{
     start_time:number
 }
 
+/**
+ * Class creates an object which takes care of drawing falling blocks in canvas
+ */
 export default class DrawInCanvas{
     private ctx:CanvasRenderingContext2D
     private Canvas:RefObject<HTMLCanvasElement | null>
-    private balls:Array<Ball>
+    private balls:Array<Ball> = []
     private options:Options
-    private gradient:CanvasGradient
 
-    constructor(CanvasRef:RefObject<HTMLCanvasElement | null>,options:Options,defaultValue?:Array<Ball>){
+    /**
+     * Class draws random falling blocks, with random sizes, down the screen.
+     * @param CanvasRef A ref object to canvas element
+     * @param options options, main variable in this app
+     */
+    constructor(CanvasRef:RefObject<HTMLCanvasElement | null>,options:Options){
         this.ctx = CanvasRef.current!.getContext('2d')!;
         this.Canvas = CanvasRef;
         this.options = options
         this.Canvas.current!.width = window.innerWidth / 2;
         this.Canvas.current!.height = window.innerHeight + 300;
-        this.balls = defaultValue ? defaultValue : [];
         this.CreateBalls = this.CreateBalls.bind(this);
         this.render = this.render.bind(this);
-        this.CreateBalls(100);
-        this.gradient = this.ctx.createLinearGradient(0,0, this.Canvas.current!.width * Math.cos(90 / 180 * Math.PI),this.Canvas.current!.height  * Math.sin(90 / 180 * Math.PI));
-        const step = 1 / this.options.GradientBlocksColor.length;
-        let current_step = 0;
-        console.log(this.options.GradientBlocksColor)
-        this.options.GradientBlocksColor.forEach(color =>{this.gradient.addColorStop(current_step,color); current_step+=step});
+        this.CreateBalls(Math.floor(100*(window.innerWidth/2)/900));
     }
 
-    public render(color:string):void{
+    /**
+     * Method renders the falling blocks
+     * @param color color of the blocks
+     * @param contours specifies if only contours are rendered, or the rectangle is filled
+     */
+    public render(color:string, contours:boolean=true):void{
     if(this.Canvas && this.ctx){
         if(this.Canvas && this.Canvas.current){
         if(this.Canvas.current!.width !== window.innerWidth || this.Canvas.current!.height !== window.innerHeight + 300){
@@ -51,12 +62,16 @@ export default class DrawInCanvas{
             this.ctx.shadowOffsetX = 0;
             this.ctx.shadowOffsetY = 0;
             this.ctx.shadowBlur = 8;
-            CanvasRoundRect(this.ctx,this.options.GradientBlocks ? this.gradient:color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3.7),5,true);
+            CanvasRoundRect(this.ctx,color,Math.floor(ball.x),Math.floor(ball.y),Math.floor(ball.size),Math.floor(ball.size*3.7),5,contours);
             return ball;
         })
     };
     }
 
+    /**
+     * Function create the blocks (idk why function name is balls)
+     * @param quantity How many should appear on the screen
+     */
     private CreateBalls(quantity:number):void{
         this.ctx.shadowBlur = 4;
         for(let x = 0; x < quantity; x++){
@@ -64,7 +79,7 @@ export default class DrawInCanvas{
             const ball:Ball = {
                 x: window.innerWidth/quantity * x,
                 y: Math.random() * window.innerHeight,
-                speed: Math.random() * 4 + 3.5,
+                speed: Math.random() * this.options.playSpeed + 3.5,
                 size: ball_size,
                 start_time: Date.now() - Math.floor(Math.random() * 4000)
             }
@@ -72,6 +87,9 @@ export default class DrawInCanvas{
         }
     }
 
+    /**
+     * Get the blocks array
+     */
     public get Blocks():Array<Ball>{
         return this.Blocks;
     }

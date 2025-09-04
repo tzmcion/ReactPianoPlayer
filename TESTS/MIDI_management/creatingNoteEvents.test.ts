@@ -57,6 +57,10 @@ test("Testing: createNoteEvents", () =>{
     expect(note_events.length).toStrictEqual(count_notes)
 })
 
+//
+//  DELETED DURING DEVELOPMENT CAUSE TAKES TO MUCH TIME
+//
+
 describe("Testing: AnimationFrameMidiPlayer", () =>{
     const onEvent = (data) =>{
     }

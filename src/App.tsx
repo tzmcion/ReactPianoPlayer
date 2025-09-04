@@ -7,7 +7,6 @@ import Play from './Pages/Play/Play';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';
 import RebuildInfo from './Pages/RebuildInfo/RebuildInfo';
-import { Analytics } from '@vercel/analytics/next';
 import {Routes as Switch, Route} from 'react-router-dom';
 import './App.css';
 
@@ -16,7 +15,6 @@ function App() {
   return (
     <div className='main'>
       <Header />
-      <Analytics />
       <Switch>
         <Route path='/Tutorial' element={<Tutorial/>} />
         <Route path='/Info' element={<Info/>} />

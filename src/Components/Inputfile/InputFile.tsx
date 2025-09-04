@@ -1,6 +1,7 @@
 import React, {ReactElement, useRef, useEffect,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
+import { RandomColorRGBwithMin } from '../../Utils/smallFunctions';
 import Alert from '@mui/material/Alert';
 import { AlertTitle } from '@mui/material';
 import './Input.styles.scss';
@@ -32,7 +33,7 @@ export default function InputFile({options,onConfClick,isConfOn}:InputFileProps)
 
     const render = () =>{
         if(Canvas.current && blocks){
-            blocks.render("#F36300");
+            blocks.render("#000000", true);
             animationId.current = requestAnimationFrame(render);
         }
     }
@@ -44,7 +45,6 @@ export default function InputFile({options,onConfClick,isConfOn}:InputFileProps)
         return () => {
             cancelAnimationFrame(animationId.current);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blocks])
 
     const onConfigureClick = () => {
@@ -69,9 +69,8 @@ export default function InputFile({options,onConfClick,isConfOn}:InputFileProps)
         //Get the file to new variable
         const File = MidiFileRef.current.files[0]
         //Check if extension of the file is correct, if not, alert the user
-        if(checkExtension(File,".MID") == false){
+        if(checkExtension(File,".MID") === false && checkExtension(File, ".MIDI") === false){
             //Use Materials UI to allert the user about incorrectly assigned file
-            console.log("AIAI")
             set_is_wrong_extension(true)
             return;
         }
@@ -105,7 +104,7 @@ export default function InputFile({options,onConfClick,isConfOn}:InputFileProps)
             <Snackbar anchorOrigin={{vertical:"bottom", horizontal:"center"}} open={is_wrong_extension} autoHideDuration={5000} onClose={handle_error_close} >
             <Alert severity="error" onClose={handle_error_close}>
                 <AlertTitle><b>ERROR</b></AlertTitle>
-                Provided file is not a midi file, please input a midi file.
+                    Provided file is not a midi file, please input a midi file.
                 </Alert>
             </Snackbar>
         </div>

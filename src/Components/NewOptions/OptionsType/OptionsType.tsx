@@ -42,7 +42,7 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='KeyPressColor' type='color' title='Key Pressed Color' value={options.KeyPressColor} >
                         Choose the color of a key when block reaches it. It will activate and change color to this.
                     </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='GradientCol' type='color' title='Gradient Color on Key press' value={options.GradientColor} >
+                    <OptionCard onChange={handleOptionsChange} name='KeyPressGradientColor' type='color' title='Gradient Color on Key press' value={options.KeyPressGradientColor} >
                         Change the Lighting Color which happens when blocks meet piano.
                     </OptionCard>
                     <OptionCard onChange={handleOptionsChange} name='blockShadowColor' type='number' title='Shadow Radius' value={options.blockShadowRadius.toString()} >
@@ -54,7 +54,7 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='OctaveLines' type='checkbox' title='Render Octave Lines' value={options.OctaveLines} >
                         Check if octave lines should be rendered or not
                     </OptionCard>
-                    <OptionCard onChange={handleOptionsChange} name='GradientBlocks' type='checkbox' title='Reset Preview' value={options.GradientBlocks} >
+                    <OptionCard onChange={handleOptionsChange} name='refresh' type='checkbox' title='Reset Preview' value={options.refresh} >
                         Sometimes piano preview starts lagging... Click Here to reset it.
                     </OptionCard>
             </div>
@@ -240,7 +240,6 @@ function Options_Presets({reloadOptions,options}:options_presets):React.ReactEle
         if (reason === 'clickaway') {
             return;
           }
-      
           setChooseOpen(false);
       }
     
@@ -248,47 +247,13 @@ function Options_Presets({reloadOptions,options}:options_presets):React.ReactEle
         if (reason === 'clickaway') {
           return;
         }
-    
         setOpen(false);
       };
-
-    const import_ref = React.useRef<HTMLInputElement>(null);
 
     const renderPresets = ():Array<React.ReactElement> => {
         return presets.map((preset,index) =>
             <PresetCard color={preset.color} title={preset.name} onClick={handleCardClick} json={JSON.stringify(preset.data)} key={index} updateOptions={reloadOptions}>{preset.description}</PresetCard>
         )
-    }
-
-    const save_Presets = async () =>{
-        const current_preset = localStorage.getItem('options');
-        if(current_preset){
-        const blob = new Blob([current_preset],{type:'application/json'})
-        const href = await URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = href;
-        link.download = 'PBA_saved_preset.json';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        }
-    }
-
-    const import_Preset = async () =>{
-        try{ 
-            const file = import_ref.current?.files![0];
-            if(checkExtension(file,'.json')){
-                read_as_text(file).then(text =>{
-                    localStorage.setItem('options',text);
-                    handleClick();
-                    reloadOptions();
-                })
-            }
-            else{
-                prompt('This is not a valid file...');
-            }
-        }
-        catch{}
     }
 
     return <div className="options_Cards">

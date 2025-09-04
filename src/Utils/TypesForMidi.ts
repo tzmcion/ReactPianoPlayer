@@ -1,3 +1,15 @@
+/**
+ * File consists multiple types for midi management
+ * types for Midi used in all files of "/src/Helpers/MidiReader/*"
+ * and used in "/src/Helpers/Blocks/updatedBlocks.ts"
+ * File last updated: 09/04/2025
+ */
+
+
+/**
+ * Type used for conversion from buffer MidiFile to MID
+ * Can be interpreted as "raw Midi type"
+ */
 export interface IMidiFile {
     division: number;
 
@@ -26,6 +38,7 @@ export interface StaticMidiDataProps{
 
 /**
  * Midi types for correct timeSignatureInterpretations
+ * used in "/src/Helpers/MidiReader/timeSignatureValuesFromMidiFile.ts"
  */
 export interface timeSignatureDataProps{
     division:number,
@@ -38,6 +51,10 @@ export interface timeSignatureDataProps{
     }[]
 }
 
+/**
+ * Old Type used in "src/Helpers/getNoteEventsJSON.ts"
+ * @deprecated
+ */
 export interface MidiEventType{
     delta:number,
     setTempo: {microsecondsPerQuarter:number},
@@ -49,6 +66,9 @@ export interface MidiEventType{
     noteOff:{noteNumber:number,velocity:number},
 }
 
+/**
+ * Type used in "src/Helpers/MidiReader/createNoteEvents.ts"
+ */
 export interface UpdatedMidiEventType{
     delta:number,
     setTempo: {microsecondsPerQuarter:number},
@@ -73,6 +93,9 @@ export interface noteEvent{
     Velocity:number
 }
 
+/**
+ * Type for converting Midi to format appliable in this app
+ */
 export interface TrackNoteEvent{
     NoteNumber:number,
     Delta:number,
@@ -84,6 +107,7 @@ export interface TrackNoteEvent{
 
 /**
  * @deprecated
+ * blockNote used in blocks.ts
  */
 export interface blockNote{
     color:string
@@ -102,6 +126,9 @@ export interface blockNote{
     wasDetected:boolean
 }
 
+/**
+ * Type for keyInfo, used in rendering blocks in "updatedBlocks"
+ */
 export interface keyInfo{
     position:number,
     noteNumber:number,
@@ -109,6 +136,9 @@ export interface keyInfo{
     type:'BLACK' | 'WHITE'
 }
 
+/**
+ * All the Canvas elements used to render content during playtime
+ */
 export interface blocks_canvases{
     mainCtx:CanvasRenderingContext2D,
     effectsCtx:CanvasRenderingContext2D,

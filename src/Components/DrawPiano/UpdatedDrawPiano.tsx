@@ -48,7 +48,6 @@ export default function UpdatedDrawPiano({width,height,Player,events,piano_keys_
 
     useEffect(()=>{
         if(Player){
-            console.log(Player.MidiMaxVelocity)
             setSoundManager(new soundManagerClass(Player.MidiMaxVelocity * 50))
         }
     },[Player])

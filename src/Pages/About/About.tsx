@@ -7,10 +7,6 @@ export default function ToDo() {
 
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        window.location.href = 'https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG'
-    },[])
-
     return (
         <div className='Info_Main'>
             <div className="Contributes">

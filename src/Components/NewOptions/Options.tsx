@@ -1,9 +1,10 @@
-import React, { ReactElement,useState } from 'react'
+import React, { ReactElement,useState, useEffect } from 'react'
 import './NewOptions.styles.scss';
 
 import ChooseButton from './ChooseButtons/ChooseButton';
 import ImageButton from './ImageButton/ImageButton';
 import OptionsDescription from './OptionsDescription/OptionsDescription';
+import Preview from '../Preview/Preview';
 
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 
@@ -14,8 +15,6 @@ import {
     Options_Presets as OptionsPresets} from './OptionsType/OptionsType';
 
 import save_img from "../../Assets/save.png"
-import Preview from '../Preview/Preview';
-
 interface OptionsProps{
     isOpened:boolean,
     onGoBack:Function,
@@ -27,14 +26,28 @@ interface OptionsProps{
 export default function Options({isOpened,onGoBack,options,handleOptionsChange,reloadOptions}:OptionsProps):ReactElement {
 
     const [table,setTable] = useState<'blocks' | 'effects' | 'other' | 'presets'>('blocks');
+    const [resizeDisable, setResizeDisable] = useState<String>('');
 
     const change_table = (name:'blocks' | 'effects' | 'other' | 'presets'):void =>{
         setTable(name);
     }
 
+    useEffect(()=>{
+        const resize_listener = () =>{
+            setResizeDisable("disable_transitions");
+            setTimeout(()=>{
+                setResizeDisable("");
+            },100)
+        }
+
+        window.addEventListener('resize', resize_listener);
+
+        return () => {window.removeEventListener('resize',resize_listener)}
+    }, [])
+
 
     return (
-        <div className={`Options_Main ${isOpened ? 'Opened' : ''} `}>
+        <div className={`Options_Main ${isOpened ? 'Opened' : ''} ${resizeDisable}`}>
             <div className='background_options' />
             <div className='Options_Data'>
                 <OptionsDescription type={table} />

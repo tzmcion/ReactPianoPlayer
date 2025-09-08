@@ -11,7 +11,7 @@ import { Options } from '../../Utils/TypesForOptions';
 export default class EffectsManager{
 
     private effects:Effect;
-    constructor(private ctx:CanvasRenderingContext2D, width:number,private height:number, private key_width:number,effect_type:string, options:Options){
+    constructor(private ctx:CanvasRenderingContext2D, width:number, private height:number, private key_width:number,private effect_type:string,private options:Options){
         switch(effect_type){
             case 'Sparks':
                 this.effects = new Sparks(ctx, width, height, 1, 6,);
@@ -28,6 +28,10 @@ export default class EffectsManager{
         }
     }
 
+    public handle_resize(width:number, height: number){
+        this.height = height;
+        this.effects.handle_resze(width, height);
+    }
 
     public generate_effect(pos_x:number):void{
         this.effects.create_effect(pos_x, this.height, this.key_width);

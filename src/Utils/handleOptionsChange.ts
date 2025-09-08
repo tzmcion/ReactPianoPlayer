@@ -22,9 +22,6 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
         case 'Image':
             currentOptions.backgroundImage = event.target.value
             break;
-        case 'speed':
-            currentOptions.speed = parseInt(event.target.value);
-            break;
         case 'playSpeed':
             currentOptions.playSpeed = parseInt(event.target.value);
             break;

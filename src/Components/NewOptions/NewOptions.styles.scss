@@ -144,6 +144,13 @@
     bottom: 60px;
 }
 
+.disable_transitions{
+    transition: none !important;
+    .Options_Data{
+        transition: none !important;
+    }
+}
+
 @keyframes Enter{
     0%{
         margin-Top: -50%;

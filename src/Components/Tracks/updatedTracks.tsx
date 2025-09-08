@@ -65,6 +65,14 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
     },[events])
 
     useEffect(()=>{
+        if(blocks){
+            blocks.handle_resize(width,height,width/number_of_white_keys);
+            console.log('resize')
+        }
+
+    },[width,height]);
+
+    useEffect(()=>{
         if(blocks === undefined && pianoWhite.current && mainCtx.current && pianoBlack.current && gradCtx.current && EffectCtx.current){
             const context = mainCtx.current.getContext('2d')
             const black_context = pianoBlack.current.getContext('2d');

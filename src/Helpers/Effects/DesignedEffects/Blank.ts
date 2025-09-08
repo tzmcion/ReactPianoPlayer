@@ -18,4 +18,8 @@ export default class Blank extends _Effect{
     public update_effect(): void {
         
     }
+
+    public handle_resze(width: number, height: number): void {
+        
+    }
 }

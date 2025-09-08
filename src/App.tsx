@@ -7,6 +7,7 @@ import Play from './Pages/Play/Play';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';
 import RebuildInfo from './Pages/RebuildInfo/RebuildInfo';
+import PlayLive from './Pages/PlayLive/PlayLive';
 import {Routes as Switch, Route} from 'react-router-dom';
 import './App.css';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/Record' element={<Record />} />
         <Route path='/RebuildInfo' element={<RebuildInfo />} />
         <Route path='/PlayRecorded' element={<PlayRecorded />} />
+        <Route path='/PlayLive' element={<PlayLive />} />
         <Route path='/' element={<Main />} />
       </Switch>
     </div>

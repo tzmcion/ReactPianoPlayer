@@ -57,6 +57,11 @@ class Sparks extends Effect{
         this.ctx.closePath()
     }
 
+    public handle_resze(width: number, height: number): void {
+        this.width = width;
+        this.height = height;
+    }
+
     public update_effect(): void {
         const new_effects:Spark[] = [];
         this.sparks.forEach(spark =>{

@@ -75,6 +75,11 @@ class Squared extends Effect{
         //Render Effects
     }
 
+    public handle_resze(width: number, height: number): void {
+        this.width = width;
+        this.height = height;
+    }
+
     public update_effect(): void {
         const new_effects:Array<Square> = [];
         this.effects.map(efect =>{

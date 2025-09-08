@@ -25,6 +25,11 @@ export default abstract class Effect{
     public abstract update_effect():void;
 
     /**
+     * Method handles the resize of the screen
+     */
+    public abstract handle_resze(width:number, height:number):void;
+
+    /**
      * Method clears the Canvas
      */
     public clear_ctx():void {

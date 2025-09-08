@@ -39,7 +39,10 @@ export default function Play():React.ReactElement{
     },[])
 
     const resize_listener = useCallback(()=>{
-        window.location.reload()
+        set_width_height({
+            width: window.innerWidth,
+            height: window.innerHeight
+        })
     },[]);
 
     const focus_listener = useCallback(()=>{

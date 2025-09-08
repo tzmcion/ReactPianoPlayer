@@ -22,6 +22,7 @@ export default function Header() {
                 <div className='Links'>
                     <Link to='/' className='Link jersey-10 HomeLink'>HOME</Link>
                     <Link to='/RebuildInfo' className='Link jersey-10'>RECORD</Link>
+                    {/* <Link to='/PlayLive' className='Link jersey-10'>LIVE PLAY</Link> */}
                     <Link to='/tutorial' className='Link jersey-10'>DOCS</Link>
                     <Link to='https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG' className='Link jersey-10'>SUPPORT</Link>
                 </div>

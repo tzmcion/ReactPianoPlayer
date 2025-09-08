@@ -48,6 +48,15 @@ class Block{
     }
 
     /**
+     * Put the block in different x_position
+     * @param pos_x: new x position of the block
+     */
+    public block_alter_x_pos(pos_x: number){
+        //I think the Y does not need to change, only the x position
+        this.pos_x = pos_x;
+    }
+
+    /**
      * Static method to calculate y position of a block if it existed, returns number
      * @param speed_y 
      * @param currentTime 
@@ -122,7 +131,7 @@ class Blocks{
     private effect_manager: EffectsManager
     private sound_manager:soundManager | undefined
 
-    constructor(canvases: blocks_canvases, private options:OptionsType, private height:number, private width:number, nr_of_keys:number, key_width:number){
+    constructor(canvases: blocks_canvases, private options:OptionsType, private height:number, private width:number, private nr_of_keys:number, private key_width:number){
         this.blocks = []
         this.notes_to_add = [];
         this.ctx = canvases.mainCtx;
@@ -286,6 +295,26 @@ class Blocks{
             return null;
         })
         this.notes_to_add = [];
+    }
+
+
+    /**
+     * Method handles the resize of the canvas, it needs to rerender the blocks
+     * @param width 
+     * @param height 
+     */
+    public handle_resize(width:number,height:number, key_width: number):void {
+        this.key_width = key_width;
+        this.width = width;
+        this.height = height;
+        this.key_positions_map = this.__create_key_position_map(width, this.nr_of_keys, this.key_width);
+        this.height = height - (height / 5);
+        this.key_interactor.handle_resize(width,height / 5);
+        this.effect_manager.handle_resize(width, height - (height / 5));
+        this.positions_to_render_line = this.RenderOctaveLines()
+        this.blocks.forEach(block =>{
+            block.block_alter_x_pos(this.key_positions_map[block.noteNumber].position);
+        })
     }
 
     /**

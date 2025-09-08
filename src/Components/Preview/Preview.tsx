@@ -92,14 +92,14 @@ export default function Preview({active}:PrevProps):React.ReactElement {
           width: props.width,
           height: props.height
         })
-      setReady(false);
-      if(timeout_ref.current !== 0){
-        clearTimeout(timeout_ref.current);
-      }
-      timeout_ref.current = setTimeout(()=>{
-        setReady(true);
-        addKey(curr => curr + 1);
-      },500)
+      // setReady(false);
+      // if(timeout_ref.current !== 0){
+      //   clearTimeout(timeout_ref.current);
+      // }
+      // timeout_ref.current = setTimeout(()=>{
+      //   setReady(true);
+      //   addKey(curr => curr + 1);
+      // },500)
     },[width_ref.current])
 
 

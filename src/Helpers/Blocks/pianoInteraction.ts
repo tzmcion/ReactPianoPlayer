@@ -25,6 +25,13 @@ export default class pianoInteraction{
         })
     }
 
+    public handle_resize(width:number, height:number):void {
+        this.black_key_height = (height-this.cnavas_offSet) / 1.5 + 5;
+        this.white_key_height = (height-this.cnavas_offSet) + 2;
+        this.width = width;
+        this.height = height;
+    }
+
     public render():void {
         this.white_ctx.clearRect(0,0,this.width,this.height);
         this.black_ctx.clearRect(0,0,this.width,this.height);

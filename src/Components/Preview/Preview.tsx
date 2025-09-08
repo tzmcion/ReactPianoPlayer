@@ -92,14 +92,6 @@ export default function Preview({active}:PrevProps):React.ReactElement {
           width: props.width,
           height: props.height
         })
-      // setReady(false);
-      // if(timeout_ref.current !== 0){
-      //   clearTimeout(timeout_ref.current);
-      // }
-      // timeout_ref.current = setTimeout(()=>{
-      //   setReady(true);
-      //   addKey(curr => curr + 1);
-      // },500)
     },[width_ref.current])
 
 
@@ -118,7 +110,6 @@ export default function Preview({active}:PrevProps):React.ReactElement {
             {player && <UpdatedTracks 
             key={key}
             Player={player}
-            events={events}
             height={width_height.height + 200}
             width={width_height.width}
             number_of_keys={width_height.width > 760 ? 76 : 25}

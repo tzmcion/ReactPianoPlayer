@@ -23,7 +23,6 @@ interface UT_props{
     width:number,
     height:number,
     Player:AnimationFrameMidiPlayer
-    events:TrackNoteEvent[]
     options:OptionsType,
     sound:soundManager | null,
     number_of_keys:number
@@ -34,7 +33,7 @@ interface UT_props{
  * Performs main visualizations and playing of Midi file, can be called a heart of app
  * @returns 
  */
-const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white_keys,white_key_height, number_of_keys,}:UT_props):React.ReactElement =>{
+const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys,white_key_height, number_of_keys,}:UT_props):React.ReactElement =>{
     const [blocks,setBlocks] = useState<updatedBlocks | undefined>(undefined);
     const animation_frame = useRef<any>(0);
     const mainCtx = useRef<HTMLCanvasElement>(null);
@@ -43,7 +42,14 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
     const gradCtx = useRef<HTMLCanvasElement>(null);
     const EffectCtx = useRef<HTMLCanvasElement>(null);
 
+    const add_event = useCallback((ev: TrackNoteEvent[]) =>{
+        if(blocks){
+            blocks.add_blocks(ev);
+        }
+    },[blocks])
+
     useEffect(()=>{
+        
         return () => {
             if(animation_frame.current !== 0){
                 window.cancelAnimationFrame(animation_frame.current);
@@ -54,15 +60,10 @@ const UpdatedTracks = ({width,height,Player,events,options,sound,number_of_white
     const main_animation_frame = useCallback(():any =>{
         if(blocks){
             blocks.render();
+            Player.setEventHandler(add_event)
         }
         animation_frame.current = window.requestAnimationFrame(main_animation_frame);
     },[blocks])
-
-    useEffect(()=>{
-        if(blocks){
-            blocks.add_blocks(events)
-        }
-    },[events])
 
     useEffect(()=>{
         if(blocks){

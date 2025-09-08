@@ -36,9 +36,9 @@ class AnimationFrameMidiPlayer{
     /**
      * Description of constructor
      * @param file 
-     * @param onEvent 
+     * @param onEvent Optional parameter, MUST be set, but can be set using method setEventHandler()
      */
-    constructor(src_notes:TrackNoteEvent[], onEvent: (ev:any) => any){
+    constructor(src_notes:TrackNoteEvent[], onEvent: (ev:any) => any = () =>{}){
         this.notes = src_notes
         this.onEvent = onEvent
         this.timer = 0
@@ -56,6 +56,10 @@ class AnimationFrameMidiPlayer{
         this.play_random_notes = this.play_random_notes.bind(this)
         this.isPausedByScript = false;
         this.restart()
+    }
+
+    public setEventHandler(onEvent: (ev:any) => any):void{
+        this.onEvent = onEvent;
     }
     
     /**

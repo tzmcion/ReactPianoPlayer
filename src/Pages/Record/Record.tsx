@@ -1,3 +1,6 @@
+/**
+ * PAGE WILL BE REBUILD
+ */
 import React,{useEffect,ReactElement, useState, useRef} from 'react';
 import { noteEvent } from '../../Utils/TypesForMidi';
 import { useNavigate } from 'react-router-dom';

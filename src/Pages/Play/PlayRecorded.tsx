@@ -7,6 +7,10 @@ import { DefaultOptions } from '../../Utils/Default';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { noteEvent } from "../../Utils/TypesForMidi";
 
+/**
+ * @deprecated
+ * @returns React Element
+ */
 export default function PlayRecorded() {
 
     const [options,setOptions] = useState<OptionsType>(DefaultOptions);

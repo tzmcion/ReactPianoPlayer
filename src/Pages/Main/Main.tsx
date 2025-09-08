@@ -1,28 +1,30 @@
-import React,{ChangeEvent, useState,useEffect, useCallback} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React,{ChangeEvent, useState, useCallback} from 'react';
 import './Main.styles.scss';
 
 import InputFile from '../../Components/Inputfile/InputFile';
 import MainBanner from '../../Components/MainBanner/MainBanner';
 import NewOptions from '../../Components/NewOptions/Options';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
-import { checkExtension, SaveAsBase64 } from '../../Utils/smallFunctions';
 import optionsSwitch from '../../Utils/handleOptionsChange'
 import DonationPrompt from '../../Components/DonationPrompt/DonationPrompt';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeOptionValue } from '../../Utils/ReduxSlice_Options';
 
-import previeWMidi from "../../Assets/preview_midi_mendelssohn.MID";
-import Midi from '../../Assets/demo.MID';
+/**
+ * Main Page/Screen of the web app, it renders the input file screen, the options screen, and banner with basic information
+ * @returns 
+ */
+export default function Main(): React.ReactElement {
 
-export default function Main() {
-
-    const [windowHeight,setWindowHeight] = useState<number>(window.innerHeight);
     const [isConfiguring,setIsConfiguring] = useState<boolean>(false);
-    const history = useNavigate();
     const dispatch = useDispatch();
     const options = useSelector((state:{options:OptionsType}) => state.options);
 
+    /**
+     * This function handles when the options change.
+     * WHY is it in the main page? Well because of the mistakes from the past
+     * It should be moved to the options page
+     */
     const handleOptionsChange = useCallback((event:ChangeEvent<HTMLInputElement> | {target:{name:string,value:any}}) =>{
         const new_Options = optionsSwitch(event,options);
         try{
@@ -33,6 +35,7 @@ export default function Main() {
         }
     },[options,dispatch])
 
+    //This function handles refreshing of the options when Preset changes
     const reloadOptions = (text:string):void =>{
         if(text){
             dispatch(changeOptionValue(JSON.parse(text)))
@@ -42,31 +45,7 @@ export default function Main() {
         opt && dispatch(changeOptionValue(JSON.parse(opt)))
     }
 
-    useEffect(()=>{
-        document.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
-        window.addEventListener('resize',()=>{setWindowHeight(window.innerHeight)});
-        Save_Preview_Midi();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
-
-    const PlayDemoMidi = async () =>{
-        localStorage.setItem('options',JSON.stringify(options));
-        await fetch(Midi).then(r => r.blob()).then(r =>{
-            SaveAsBase64(r,'file').then(e =>{
-                history('/Play');
-            });
-            
-        })
-    }
-
-    const Save_Preview_Midi = async () =>{
-        await fetch(previeWMidi).then(r => r.blob()).then(r =>{
-            SaveAsBase64(r,'Preview_file').then(e =>{
-            });
-            
-        })
-    }
-
+    //Clicking on configurate button
     const onConfClick = ():void =>{
         setTimeout(()=>{
             setIsConfiguring(true);
@@ -74,7 +53,7 @@ export default function Main() {
     }
 
     return (
-        <div style={{height:windowHeight}} className='mainDiv'>
+        <div className='mainDiv'>
             {/* <DonationPrompt /> */}
             <div className='mainHead'>
                 <InputFile onConfClick={onConfClick} options={options} isConfOn={isConfiguring}/>

@@ -1,3 +1,7 @@
+/**
+ * COMPONENT WILL BE REBUILD
+ */
+
 import React, { ReactElement,useState,useEffect } from 'react'
 import './Tutorial.styles.css';
 

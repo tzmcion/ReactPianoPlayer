@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Info.styles.scss';
+import './About.scss';
 import DonateButton from '../../Components/DonateButton/DonateButton'
 
 export default function ToDo() {

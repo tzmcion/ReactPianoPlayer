@@ -2,7 +2,7 @@ import React from 'react';
 import Main from './Pages/Main/Main';
 import Tutorial from './Pages/Tutorial/Tutorial';
 import Header from './Components/Header/Header';
-import Info from './Pages/ToDo/ToDo';
+import Info from './Pages/About/About';
 import Play from './Pages/Play/Play';
 import PlayRecorded from './Pages/Play/PlayRecorded';
 import Record from './Pages/Record/Record';

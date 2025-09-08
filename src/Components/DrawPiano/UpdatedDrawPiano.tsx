@@ -22,7 +22,6 @@ interface dr_props{
     width:number,
     height:number,
     Player:AnimationFrameMidiPlayer | undefined,
-    events: TrackNoteEvent[],
     piano_keys_height?:number,
     total_nr_of_keys?: 88| 76 | 61 | 49 | 25
 }
@@ -33,7 +32,7 @@ interface dr_props{
  * @param param0 props
  * @returns React Element with piano inside
  */
-export default function UpdatedDrawPiano({width,height,Player,events,piano_keys_height = 200,total_nr_of_keys=88}:dr_props):React.ReactElement{
+export default function UpdatedDrawPiano({width,height,Player,piano_keys_height = 200,total_nr_of_keys=88}:dr_props):React.ReactElement{
 
     const nr_of_white_keys = total_nr_of_keys === 25 ? 15 : total_nr_of_keys === 49 ? 28 : total_nr_of_keys === 61 ? 36 : total_nr_of_keys === 76 ? 44 : 52;    //I don't believe I had to write this...
     const [is_loading,set_is_loading] = useState<boolean>(true);
@@ -56,7 +55,6 @@ export default function UpdatedDrawPiano({width,height,Player,events,piano_keys_
         if(Player !== undefined && soundManager !== undefined){
             return <Tracks 
                 Player={Player}
-                events={events}
                 height={height}
                 width={width}
                 number_of_white_keys={nr_of_white_keys}

@@ -69,7 +69,7 @@ export default function Play():React.ReactElement{
     //Page Renders the piano, if the width is to small, it renders "Screen Width to small"
     //Rendering the components to handle playing management, and component to handle the piano
     return (
-        <div style={{overflow:'hidden'}}>
+        <div style={{overflow:'hidden', height:'100vh', position:'relative'}}>
             {width_height.width < 500 && <div className='WIDTH_INFO'><h3 className='jersey-10'>PLEASE ROTATE THE DEVICE, SCREEN WIDTH CURRENTLY IS TO SMALL TOO DISPLAY PIANO</h3></div>}
             <UpdatedDrawPiano width={width_height.width} height={width_height.height} Player={player} total_nr_of_keys={88} />
             {player && <UpdatedPlayingManagement Player={player}/>}

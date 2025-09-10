@@ -30,3 +30,8 @@ Changes For new version of PBA:
 - Added Workers to handle MIDI  NOT NEEDED - new algorithm workes 200times faster,  DONE
 - RAPAIR THE AUDIO BY ADDING MULTIPLE DOUBELING THE AUDIO SOUNDS    DONE
 - CHANGE THE DESIGN OF CARDS TO IMPLEMENT CORRECTLY THE RIBBON VISUALS  DONE
+- Player pauses automatically when page is switched DONE
+- Resize is now refreshing also the blocks, making everything look ok DONE
+- Deleted transition and bugs during resizing of options page DONE
+- Deleted alterations of state with every note event creation, now the connection between rendering component and playing component is direct DONE
+- 

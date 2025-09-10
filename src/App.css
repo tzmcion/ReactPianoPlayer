@@ -2,7 +2,8 @@
     width:100%;
     position: absolute;
     top: 0px;
-    overflow-y: hidden;
+    height: 100vh;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 

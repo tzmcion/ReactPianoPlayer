@@ -1,0 +1,91 @@
+@media only screen and (min-width: 1100px) and (max-height:900px){
+    .About_Container{
+        transform: scale(0.9);
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: -10px;
+    }
+}
+
+@media only screen and (max-width: 1480px) {
+    .About_Container{
+        width: 1080px;
+        .FAQ, .Description, .Support, .Join{
+            width: 100%;
+        }
+        .Description{
+            width: 440px;
+            .Description_Context{
+                .Description_Article{
+                    h4{
+                        font-size: 18px;
+                    }
+                    p{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        h3{
+            font-size: 28px;
+        }
+        .FAQ{
+            width: 620px;
+            .FAQ_container{
+                .FAQ_question{
+                    max-height: 35px;
+                    h5{
+                        font-size: 16px;
+                    }
+                    .FAQ_question_container{
+                        h4{
+                            font-size: 18px;
+                            height: 33px;
+                            word-wrap: break-word;
+                            display: flex;
+                            align-items: center;
+                        }
+                        p{
+                            font-size: 14px;
+                            padding-top: 5px;
+                        }
+                    }
+                }
+                .FAQ_open{
+                    max-height: 300px;
+                }
+            }
+        }
+        .Support{
+            .Support_Left{
+                .Support_Left_Content{
+                    h2{
+                        font-size: 40px;
+                    }
+                    p{
+                        font-size: 14px;
+                    }
+                    ul{
+                        font-size: 14px;
+                    }
+                }
+            }
+            .Support_Right{
+                .Support_Right_Content{
+                    img{
+                        margin-top: 30px;
+                    }
+                    a{
+                        margin-top: -15px;
+                    }
+                }
+            }
+        }
+        .Join{
+            h2{
+                font-size: 19px;
+            }
+        }
+    }
+
+}

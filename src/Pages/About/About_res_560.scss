@@ -1,0 +1,97 @@
+@media only screen and (max-width: 560px) {
+    .About_Container{
+        width: 340px;
+        .Description{
+            // width: 440px;
+            .Description_Context{
+                .Description_Article{
+                    h4{
+                        font-size: 16px;
+                    }
+                    p{
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+        h3{
+            font-size: 24px;
+        }
+        .FAQ{
+            // width: 620px;
+            .FAQ_container{
+                .FAQ_question{
+                    max-height: 72px;
+                    margin-top: 5px;
+                    h5{
+                        font-size: 14px;
+                        width: 30px;
+                        padding-left: 5px;
+                        padding-top: 25px;
+                    }
+                    .FAQ_question_container{
+                        width: calc(100% - 40px);
+                        h4{
+                            line-height: 14px;
+                            font-size: 14px;
+                            height: 70px;
+                        }
+                        p{
+                            font-size: 12px;
+                            padding-top: 5px;
+                        }
+                    }
+                }
+                .FAQ_open{
+                    max-height: 450px;
+                }
+            }
+        }
+        .Support{
+            flex-direction: column;
+            .Support_Left{
+                width: 100%;
+                .Support_Left_Content{
+                    box-sizing: border-box;
+                    width: 100%;
+                    h2{
+                        font-size: 24px;
+                    }
+                    p{
+                        font-size: 14px;
+                        width: 100%;
+                        padding-top: 5px;
+                    }
+                    h5{
+                        margin-top: 10px;
+                        display: none;
+                    }
+                    ul{
+                        font-size: 10px;
+                        margin-top: 10px;
+                    }
+                }
+            }
+            .Support_Right{
+                width: 100%;
+                .Support_Right_Content{
+                    left: 0;
+                    margin: 0;
+                    top: -1px;
+                    img{
+                        display: none;
+                    }
+                    a{
+                        // margin-top: -15px;
+                    }
+                }
+            }
+        }
+        .Join{
+            h2{
+                font-size: 16px;
+            }
+        }
+    }
+
+}

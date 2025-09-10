@@ -1,33 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import './About.scss';
-import DonateButton from '../../Components/DonateButton/DonateButton'
+import "./About_res_1480.scss";
+import "./About_res_1100.scss";
+import "./About_res_760.scss";
+import "./About_res_560.scss";
 
-export default function ToDo() {
+import Description from './Description/Description';
+import FAQ from './FAQ/FAQ';
+import Support from './Support/Support';
 
-    const navigate = useNavigate();
-
-    useEffect(()=>{
-        window.location.href = 'https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG'
-    },[])
+export default function About():React.ReactElement {
 
     return (
-        <div className='Info_Main'>
-            <div className="Contributes">
-                <h1 className='Contributes_h1'>List of all additional data</h1>
-                <ul className='_List'>
-                    <li className="L_Element"><a target='_blank' href='license' rel='noreferrer' download='License_PBA_2021-2022.txt'>App License</a></li>
-                    <li className="L_Element"><a target='_blank' href='Authors' rel='noreferrer' download='Authors_PBA_2021-2022.txt'>Authors & Info</a></li>
-                    <li className="L_Element"><a target='_blank' href='Contribute.txt' rel='noreferrer' download='Contributes_PBA_2021-2022.txt'>Used things (Contributing Authors) </a></li>
-                    <li className="L_Element"><a target='_blank' href='dependencies.txt' rel='noreferrer' download='NPM_Dependencies_PBA_2021-2022.txt'>List of All Dependencies</a></li>
-                    <li className="L_Element"><a target='_blank' href='https://github.com/tzmcion/ReactPianoPlayer' rel='noreferrer'  >Source Code (Last Update 11 Nov)</a></li>
-                </ul>
-            </div>
-            <div className="Support">
-                    <h1 className='Support_h1'>Support / Donate</h1>
-                <div className='Support_Data'>
-                    <DonateButton className='Butt' link='https://www.paypal.com/donate/?hosted_button_id=J6GQGKHC7H7SG' />
-                </div>
+        <div className='About_Container jersey-10'>
+            <Description />
+            <FAQ />
+            <Support />
+            <div className='Join'>
+                <h2>Want to contribute to the project, or You have any questions? Contact: <span className='Link_color'>tymsonekjelonek@gmail.com</span>, IG: <a href='https://www.instagram.com/tymsonekjelonek/'>@tymsonekjelonek</a>, LinkedIn: <a href='https://www.linkedin.com/in/tymoteusz-apriasz-2ba8501a6/'>Tymoteusz Apriasz</a>  .  </h2>
             </div>
         </div>
     )

@@ -4,3 +4,4 @@
 <a href="https://www.flaticon.com/free-icons/play-button" title="play button icons">Play button icons created by Those Icons - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/save-as" title="save as icons">Save as icons created by Sir.Vector - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/preview" title="preview icons">Preview icons created by Miftakhul Rizky - Flaticon</a>
+<a href="www.freepik.com" title="Icon for donation designed by FreePik">Icon on Donate page</a>

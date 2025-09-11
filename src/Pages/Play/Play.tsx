@@ -66,7 +66,6 @@ export default function Play():React.ReactElement{
         }
     },[player])
 
-    //Page Renders the piano, if the width is to small, it renders "Screen Width to small"
     //Rendering the components to handle playing management, and component to handle the piano
     return (
         <div style={{overflow:'hidden', position:'relative'}}>

@@ -2,6 +2,11 @@ import React from 'react'
 
 import DonateImg from "../../../Assets/Donate_Img.png"
 
+/**
+ * Support Block for the About Page, 
+ * Static, Stateless component, separated just to clear out the code
+ * @returns React Element
+ */
 export default function Support():React.ReactElement {
   return (
     <div className='Support'>

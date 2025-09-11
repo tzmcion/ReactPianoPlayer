@@ -36,7 +36,12 @@ const articles:Article[] = [
 ];
 
 
-export default function Description() {
+/**
+ * Component has a fields for description of the app,
+ * created to lesser the mess in the text editor
+ * @returns React Element
+ */
+export default function Description(): React.ReactElement {
 
     const render_articles = ():React.ReactElement[] | React.ReactElement =>{
         return articles.map((article, index) => <div className='Description_Article' key={index.toString() + "_About"}>

@@ -2,6 +2,7 @@ import { TimeSignature, IMidiFile, timeSignatureDataProps } from "../../Utils/Ty
 
 /**
  * Function extracts the timeSignature values with their corresponding deltas
+ * LAST CHANGE: 28/07/2025
  * @param file an IMidiFile
  * @returns returns array of denominator/nominator/metronome/thirtyseconds with their delta when they change
  */

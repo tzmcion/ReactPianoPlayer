@@ -1,3 +1,8 @@
+/**
+ * File manages the sounds during playing
+ * Implements only one function - play - which plays the sound for certain amount of time
+ * LAST CHANGE: 12/09/2025
+ */
 import key_1 from '../Assets/piano_sounds/at0.ogg';
 import key_2 from '../Assets/piano_sounds/ao0.ogg';
 import key_3 from '../Assets/piano_sounds/b0.ogg';
@@ -18,8 +23,14 @@ class soundManager{
         this.additional_sounds = [{audio:new Audio(key_1),id:0},{audio:new Audio(key_2),id:1},{audio:new Audio(key_3),id:2},{audio:new Audio(key_88),id:87}];
     }
 
+    /**
+     * Method load the piano sounds, loading each after each
+     * @tip This method should be revritten for faster load
+     * @returns Promise with boolean stating compleated (true)
+     */
     public load_sounds():Promise<boolean> {
 
+        //Function handles the load element for audio, checking if it can be loaded
         const loadAudioElement = (audio:HTMLAudioElement):Promise<boolean> => {
             audio.load()
             return new Promise(res =>{
@@ -76,6 +87,12 @@ class soundManager{
         })
     }
 
+    /**
+     * Method fades the audio, to smoothen the effect of audio fading away, and simulate how it works normally on the piano
+     * @param audio audio element which needs to be faded
+     * @param time time of fading
+     * @param key key parameter to reset the current element
+     */
     private audio_fade(audio:HTMLAudioElement, time:number, key:sound_object):void{
         const initial_volume = audio.volume;
         const inter = setInterval(()=>{
@@ -92,7 +109,14 @@ class soundManager{
     }
     
 
-    public play_key(key:number,time:number = 0.1,velocity:number=0.1){
+    /**
+     * Method plays the key on the certain note number, for given time and with given velocity (volume)
+     * @param key number of key on the piano to play
+     * @param time Time for which the sound needs to be played
+     * @param velocity volume of the sound
+     * @returns Nothing
+     */
+    public play_key(key:number,time:number = 0.1,velocity:number=0.1):void{
         const okey_key = this.current_sounds[this.current_sounds.findIndex(e => e.id===key)];
         const additional_key = this.additional_sounds[this.additional_sounds.findIndex(e => e.id===key)];
         if(okey_key.time_started !== 0){

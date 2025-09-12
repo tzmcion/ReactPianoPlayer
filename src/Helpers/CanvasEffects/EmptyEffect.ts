@@ -1,4 +1,7 @@
 
+/**
+ * @deprecated
+ */
 class EmptyEffect{
     public render(){
 

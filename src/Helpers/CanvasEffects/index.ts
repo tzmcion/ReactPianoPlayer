@@ -9,7 +9,11 @@ import DNA from "./DNA";
 
 import hexToRgba from "hex-rgba";
 
-const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:number,height:number,color:string, radius:number = 80) =>{
+/**
+ * Function creates a radial gradient in the specified pos_x of the canvas
+ * Should be soon replaced by a better optimized function
+ */
+const KeyGradient = (ctx:CanvasRenderingContext2D,pos_x:number,block_width:number,height:number,color:string, radius:number = 80):void =>{
     const radialGradient = ctx.createRadialGradient(pos_x + block_width/2, height, 0, pos_x + block_width/2, height, Math.random() * radius/15 + (radius - radius/15));
     radialGradient.addColorStop(0.0, hexToRgba(color,95));
     radialGradient.addColorStop(0.35, hexToRgba(color,40));

@@ -1,10 +1,11 @@
-import { IMidiFile, MidiEventType } from "../../Utils/TypesForMidi"
+import { IMidiFile, UpdatedMidiEventType } from "../../Utils/TypesForMidi"
 
 /**
  * Function which converts a IMidiFile to have one single track
  * Every event in track receives 2 additional objects:
  * "controlTrack" --> boolean stating if an event is from track which only had controlEvents and no any noteOn, noteOff events
  * "trackNumber" --> number field stating from which track it came. If the controlTrack flag is true, this number will be -1
+ * LAST CHANGE: 12/09/2025
  * @param file IMidiFile
  * @returns an updated IMidiFile with only one track, also the track has additional 2 objects
  */
@@ -37,7 +38,7 @@ const convertToSingleTrack = (file:IMidiFile): IMidiFile =>{
         let smallest_delta_index = 0, smallest_value = Number.MAX_SAFE_INTEGER;//Look for the smallest delta
         new_file.tracks.forEach((track,index) =>{
             if(track.length === 0)return;
-            const first_event = track[0] as MidiEventType;
+            const first_event = track[0] as UpdatedMidiEventType;
             if(first_event.delta < smallest_value){
                 smallest_delta_index = index;
                 smallest_value = first_event.delta

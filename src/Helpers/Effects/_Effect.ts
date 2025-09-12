@@ -1,8 +1,15 @@
 /**
  * A pattern for class effect,
  * Every effect must follow the same methods
+ * LAST UPDATE: 12/09/2025
  */
 export default abstract class Effect{
+    /**
+     * Constructor for abstract class of Effect
+     * @param ctx canvas ctx
+     * @param width width of ctx
+     * @param height height of ctx
+     */
     constructor(protected ctx:CanvasRenderingContext2D, protected width:number, protected height:number){}
 
     /**

@@ -1,6 +1,6 @@
 /**
  * Class Created during new version update for AVANT as replacement for /src/Helpers/MidiPlayer
- * Last Update: 07/28/2025
+ * Last Update: 12/09/2025
  * Key new differences
  * - Now midi is played using window.requestAnimationFrame, not with interval (as interval can lag often)
  * - Now argument required is array of TrackNoteEvents, so the whole Midi processing and loading process must be done before Player object is created
@@ -8,7 +8,7 @@
  * - Other functionalities should be preserved as in the obesolete class MidiPlayer
  */
 
-import { IMidiFile, TrackNoteEvent } from "../../Utils/TypesForMidi";
+import { TrackNoteEvent } from "../../Utils/TypesForMidi";
 
 /**
  * Class consists of Methods which work with Blocks file (/src/Helpers/Blocks/Blocks.ts)
@@ -58,6 +58,11 @@ class AnimationFrameMidiPlayer{
         this.restart()
     }
 
+    /**
+     * Method sets the event handler for the events to add
+     * Can be set by this function, or in constructor, but MUST be set, otherwise not good
+     * @param onEvent function which accepts event as argument
+     */
     public setEventHandler(onEvent: (ev:any) => any):void{
         this.onEvent = onEvent;
     }
@@ -192,6 +197,10 @@ class AnimationFrameMidiPlayer{
         }
     }
 
+    /**
+     * Method plays the midi file, sets up animation frame for itself, rerenders itself and awiat events
+     * @returns 
+     */
     private playMidi(): void{
         const elapsed_time = Date.now() * 1000 - this.timer - this.pauseTime  //microseconds
         //now start from the current index of midi file
@@ -202,6 +211,10 @@ class AnimationFrameMidiPlayer{
             this.isFinished = true
             return
         }
+        //As long as there is event which occured between current and last animation frame, it is added to the list
+        //EXPLENATION - yes then there can be delay in the real playback, however, the delay is no longer than 17ms
+        //And there is no point in changing this, as blocks render in 60FPS, having one frame per 16.7ms, therefore
+        //Even if this was changed there still can be a delay when the blocks hit the piano... (as they hit it with 16.7ms delay)
         while(this.currentNotesIndex < this.notes.length && this.notes[this.currentNotesIndex].Delta <= elapsed_time){
             noteEvents.push(this.notes[this.currentNotesIndex++])
         }
@@ -255,6 +268,10 @@ class AnimationFrameMidiPlayer{
         this.animationFrame = window.requestAnimationFrame(() =>{this.playRandom(range)});
     }
 
+    /**
+     * Function created for testing purposes of the midi player
+     * @returns Promise of completion of playing
+     */
     public async __for_testing():Promise<boolean>{
         return new Promise((res,ret) =>{
             setInterval(()=>{

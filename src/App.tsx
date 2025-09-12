@@ -11,6 +11,11 @@ import PlayLive from './Pages/PlayLive/PlayLive';
 import {Routes as Switch, Route} from 'react-router-dom';
 import './App.css';
 
+/**
+ * Main App function with router.
+ * Here add new routes
+ * @returns 
+ */
 function App() {
 
   return (

@@ -3,6 +3,7 @@
 //  into Object(JSON)
 //  It returns a Promise of an Object, which Object
 //  Will be converted to JSON
+//  LAST CHANGE: 12/09/2025
 
 import { parseArrayBuffer } from 'midi-json-parser';
 import { IMidiFile } from '../Utils/TypesForMidi';
@@ -13,7 +14,7 @@ import { IMidiFile } from '../Utils/TypesForMidi';
  * Function reads a midiFile, returning a JSON with IMidiFile
  * @param file a file
  * @param type Specify if File is a reference object or an ArrayBuffer
- * @returns 
+ * @returns Promise with IMidiFile inside
  */
 const ReadMidiFile = (file:any,type:'ref' | 'ArrayBuffer'): Promise<IMidiFile> =>{
 

@@ -2,9 +2,7 @@ import React, {useState, useEffect, useCallback, useRef} from 'react'
 import './Preview.scss'
 
 import UpdatedTracks from '../Tracks/updatedTracks'
-import LoadingScreen from '../DrawPiano/LoadingScreen/LoadingScreen'
 import AnimationFrameMidiPlayer from '../../Helpers/MidiReader/AnimationFrameMidiPlayer'
-import { TrackNoteEvent } from '../../Utils/TypesForMidi'
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { useSelector } from 'react-redux';
 
@@ -14,12 +12,12 @@ interface PrevProps{
 
 /**
  * Preview component creates a small piano, to preview the changes done in options
+ * LAST EDIT: 12/09/2025
  * @param active As preview is designed for OptionsTab, which can be either open, or closed, this parameter defines if preview should be rendered
  * @returns 
  */
 export default function Preview({active}:PrevProps):React.ReactElement {
 
-    const [events, setEvents] = useState<TrackNoteEvent[]>([]);
     const [player, setPlayer] = useState<AnimationFrameMidiPlayer>();
     const [key, addKey] = useState<number>(0);
     const [ready,setReady] = useState<boolean>(false);
@@ -29,12 +27,12 @@ export default function Preview({active}:PrevProps):React.ReactElement {
     const timeout_ref = useRef<any>(0);
 
     /**
-     * Load the component
+     * Load the component, loaded the player when it is undefined.
      */
     useEffect(()=>{
       if(player === undefined && width_ref.current !== null){
         const props = width_ref.current.getBoundingClientRect();
-        setPlayer(new AnimationFrameMidiPlayer([],setEvents))
+        setPlayer(new AnimationFrameMidiPlayer([]))
         //Set width and height initially
         set_width_height({
           width: props.width,
@@ -85,6 +83,7 @@ export default function Preview({active}:PrevProps):React.ReactElement {
       }
     },[active])
 
+    //Set new width and height on resize
     const listener = useCallback(()=>{
         if(width_ref.current === null)return;
         const props = width_ref.current.getBoundingClientRect();
@@ -95,6 +94,7 @@ export default function Preview({active}:PrevProps):React.ReactElement {
     },[width_ref.current])
 
 
+    //Add listeners for resize
     useEffect(()=>{
       window.addEventListener('resize',listener)
 
@@ -112,11 +112,9 @@ export default function Preview({active}:PrevProps):React.ReactElement {
             Player={player}
             height={width_height.height + 200}
             width={width_height.width}
-            number_of_keys={width_height.width > 760 ? 76 : 25}
             number_of_white_keys={width_height.width > 760 ? 44 : 15}
             options={options}
             sound={null}
-            white_key_height={400}
             />}
         </div>}
     </div>

@@ -1,9 +1,8 @@
 /**
  * Component created during new version preparing for AVANT in replacement of (/src/Components/Tracks/Tracks.tsx) and (/src/Components/Tracks/TracksIntervalMethod.tsx)
- * LAST UPDATE: 07/29/2025
+ * LAST UPDATE: 12/09/2025
  * Main changes from obesolete components:
  * - width and height is nowehwere from static window.inner values
- * - 
  */
 
 import AnimationFrameMidiPlayer from "../../Helpers/MidiReader/AnimationFrameMidiPlayer";
@@ -19,13 +18,11 @@ import './Tracks.styles.css'
 
 interface UT_props{
     number_of_white_keys:number,
-    white_key_height:number,
     width:number,
     height:number,
     Player:AnimationFrameMidiPlayer
     options:OptionsType,
     sound:soundManager | null,
-    number_of_keys:number
 }
 
 /**
@@ -33,7 +30,7 @@ interface UT_props{
  * Performs main visualizations and playing of Midi file, can be called a heart of app
  * @returns 
  */
-const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys,white_key_height, number_of_keys,}:UT_props):React.ReactElement =>{
+const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:UT_props):React.ReactElement =>{
     const [blocks,setBlocks] = useState<updatedBlocks | undefined>(undefined);
     const animation_frame = useRef<any>(0);
     const mainCtx = useRef<HTMLCanvasElement>(null);
@@ -42,14 +39,18 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys,w
     const gradCtx = useRef<HTMLCanvasElement>(null);
     const EffectCtx = useRef<HTMLCanvasElement>(null);
 
+    /**
+     * Function handles adding the event.
+     * !usecallback does not work as this function is copied.
+     */
     const add_event = useCallback((ev: TrackNoteEvent[]) =>{
         if(blocks){
             blocks.add_blocks(ev);
         }
     },[blocks])
 
+    /** Cancel animation frame when component is deleted */
     useEffect(()=>{
-        
         return () => {
             if(animation_frame.current !== 0){
                 window.cancelAnimationFrame(animation_frame.current);
@@ -57,14 +58,17 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys,w
         }
     },[])
 
+    /**
+     * main animation frame, renders blocks.
+     */
     const main_animation_frame = useCallback(():any =>{
         if(blocks){
             blocks.render();
-            Player.setEventHandler(add_event)
         }
         animation_frame.current = window.requestAnimationFrame(main_animation_frame);
     },[blocks])
 
+    /** Handles the resizing of the page */
     useEffect(()=>{
         if(blocks){
             blocks.handle_resize(width,height,width/number_of_white_keys);
@@ -73,6 +77,7 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys,w
 
     },[width,height]);
 
+    //Function checks if every canvas is loaded and sets it up in blocks
     useEffect(()=>{
         if(blocks === undefined && pianoWhite.current && mainCtx.current && pianoBlack.current && gradCtx.current && EffectCtx.current){
             const context = mainCtx.current.getContext('2d')
@@ -92,10 +97,12 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys,w
         }
     },[mainCtx.current, blocks, pianoBlack.current, pianoWhite.current, EffectCtx.current])
 
+    //Here set up all functions/handlers which require blocks to exist
     useEffect(()=>{
         if(blocks !== undefined){
+            Player.setEventHandler(add_event)
             Player.set_pause_move_handlers(blocks.pause_playing, blocks.impel_blocks_in_places, blocks.reset);
-            if(options.soundOn && sound !== null){
+            if(sound !== null){
                 blocks.set_sound_manager(sound);
             }
             main_animation_frame();

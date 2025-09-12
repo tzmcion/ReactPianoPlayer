@@ -8,6 +8,7 @@
 
 import React,{ReactElement,useState,useEffect} from 'react'
 import './LoadingScreen.scss';
+import PBA_Icon from "../../../Assets/PBA_logo.png"
 interface LoadingScreenProps{
     Finished:boolean
 }
@@ -34,7 +35,7 @@ export default function LoadingScreen({Finished}:LoadingScreenProps):ReactElemen
     return (
         <>
         {render_screen && <div className='LoadingScreen' style={{opacity:opacity.toString()}}>
-            <img src={'/PBA_logo.png'} alt='Loading' />
+            <img src={PBA_Icon} alt='Loading' />
             <div className='LoadingText'>
                 <h2 className='jersey-10'>Reading the MIDI file, please wait...</h2>
                 <div className='traveler'>

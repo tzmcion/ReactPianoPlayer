@@ -15,28 +15,30 @@ interface UPM_props{
 /**
  * Component handles the bar with "pause,play,stop,reset,move" etc. 
  * Important for user interaction and control of what is goind on with the playing
- * @param param0 
- * @returns 
+ * @param Player AnimationFrameMidiPlayer needed to run the component, as all the buttons correspond with it
  */
 export default function UpdatedPlayingManagement({Player}:UPM_props):React.ReactElement {
 
-    const timeout_ref = useRef<any>(null);
-    const [dot_left,set_dot_left] = useState<number>(0);
-    const [bt_display,set_bt_display] = useState<string>(Button_Play);
-    const [timing, set_timing] = useState<{curr:number,length:number}>({curr:0,length:0});
-    const [active, setActive] = useState<boolean>(false);
-    const navi = useNavigate();
+    const timeout_ref = useRef<any>(null);  //auto hide the element
+    const [dot_left,set_dot_left] = useState<number>(0);    //for playing bar, how much % of was played
+    const [bt_display,set_bt_display] = useState<string>(Button_Play);  //paused or played button to display
+    const [timing, set_timing] = useState<{curr:number,length:number}>({curr:0,length:0});  //time of playing
+    const [active, setActive] = useState<boolean>(false);   //is bar visible
+    const navi = useNavigate(); //navigate to go back to main page
 
+    //Handle pause play...
     const handlePausePlay = ():void =>{
         Player.pausePlay();
         set_bt_display(curr => curr === Button_Play ? Button_Pause : Button_Play)
     }
 
+    //Handle Reset of the playing...
     const handleResetButton = ():void =>{
         Player.restart();
-        set_bt_display(Button_Play)
+        set_bt_display(Button_Play);
     }
 
+    //When Player is ready, set function to handle update of the timer every 100ms
     useEffect(()=>{
         if(Player){
             const handle_timer_update = ():void =>{
@@ -51,7 +53,8 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
         }
     },[Player])
 
-    const make_timer_string = () =>{
+    //Function to create the timer of how much of the track was played
+    const make_timer_string = ():string =>{
         let curr_str, length_str
         const mins = Math.floor(timing.curr/60)
         const secs = Math.floor(timing.curr % 60);
@@ -62,13 +65,14 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
         return curr_str + "/" + length_str
     }
 
+    //handle clicking on the bar
     const click_bar_handler = (ev:MouseEvent) =>{
         const target_data = ev.currentTarget.getBoundingClientRect()
         const percent = Math.floor((ev.clientX - target_data.x) *100 /target_data.width);
         Player.moveTo(percent + 1);
     }
 
-
+    //set player active on mouse move
     const set_player_active = ():void =>{
         if(active === false){
             setActive(true);
@@ -79,6 +83,7 @@ export default function UpdatedPlayingManagement({Player}:UPM_props):React.React
         },2000);
     }
 
+    
     useEffect(()=>{
         window.addEventListener('mousemove',set_player_active);
         return () => {window.removeEventListener('mousemove',set_player_active)}

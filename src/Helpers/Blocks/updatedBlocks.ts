@@ -1,6 +1,6 @@
 /**
  * This Class was created for new version on AVANT update, replacing old /src/Helpers/Blocks/Blocks.ts
- * LAST UPDATE: 07/29/2025
+ * LAST UPDATE: 12/09/2025
  * Key changes:
  * - Code refactoring
  * - Deletion of old "game" code
@@ -273,7 +273,7 @@ class Blocks{
     };
 
     /**
-     * Function creates the blocks from the waiting list
+     * Method creates the blocks from the waiting list
      */
     private __add_blocks_from_waiting_list(current_time:number){
         if(this.notes_to_add.length <= 0)return;
@@ -318,7 +318,7 @@ class Blocks{
     }
 
     /**
-     * Function creates a map of key positions
+     * Method creates a map of key positions
      */
     private __create_key_position_map(width:number,nr_of_keys:number, WhiteKeyWidth:number):keyInfo[]{
         let Returning:Array<keyInfo> = [];

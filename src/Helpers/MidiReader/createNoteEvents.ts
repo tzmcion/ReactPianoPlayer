@@ -1,7 +1,3 @@
-/*
-    Function after creation will be converted to work as web worker, as it is computationally expensive
-*/
-
 import { IMidiFile, TrackNoteEvent, UpdatedMidiEventType, timeSignatureDataProps } from "../../Utils/TypesForMidi";
 import MidiToSingleTrack from './MidiToSingleTrack'
 
@@ -17,6 +13,7 @@ interface awaiting_event{
 /**
  * Function Converts IMidiFile to NoteEvents array. It uses TrackNoteEvent, which states if the event occured on different track
  * Also, it converts all the tracks to one single track
+ * LAST CHANGE: 28/07/2025
  * @param src_file source file
  * @param timeControl file with time controll
  * @param focus_track Optional parameter - as the tracks are merged, sometimes the noteEvent can occure for same note number. This parameter specifies the priority. first_event means unless noteOff event happens, all other events are ignored. end_last means the previous note will be ended.
@@ -36,6 +33,7 @@ const CreateMidiNoteEventsArray = (src_file:IMidiFile, timeControl:timeSignature
             tickTime = midiEvent.setTempo.microsecondsPerQuarter / timeControl.division;
         }
         if("noteOn" in midiEvent){
+            //On event being noteOn, the note is added to "waitingEvents" array, and it wait there until noteOff event happens on the same key
             WaitingEvents.push({
                 delta_start:time_passed,
                 delta_end:-1,
@@ -46,6 +44,8 @@ const CreateMidiNoteEventsArray = (src_file:IMidiFile, timeControl:timeSignature
             })
         }
         if("noteOff" in midiEvent){
+            //on NoteOff event the note is found in waitingEvents array, and it's length etc. is calucalted.
+            //If sustain is on, note is kept in array until pedal is off, to calculate duration of the sound
             const waiting_event = WaitingEvents.find(el => el.note_number === (midiEvent.noteOff.noteNumber) && el.sustain_on_end === false)    //Finding el.sustain_on_end === false took me 9 hours...
             if(waiting_event === undefined){
                 throw new Error("Error during parsing of MIDI file --> found noteOff event without previous noteOn event !!!")
@@ -76,7 +76,7 @@ const CreateMidiNoteEventsArray = (src_file:IMidiFile, timeControl:timeSignature
                     const new_waiting_events:Array<awaiting_event> = [];
                     WaitingEvents.forEach(ev =>{
                         if(ev.delta_end != -1 && ev.sustain_on_end === true){
-                            //These events will now end
+                            //These events will now end, as sustain pedal is of
                             NoteEvents.push({
                                 Delta:ev.delta_start,
                                 Duration:ev.delta_end,

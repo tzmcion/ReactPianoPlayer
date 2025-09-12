@@ -48,6 +48,9 @@ class Trail_Element{
     }
 }
 
+/**
+ * @deprecated
+ */
 export default class Firework{
     private ctx:CanvasRenderingContext2D
     private width:number

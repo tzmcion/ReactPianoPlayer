@@ -61,14 +61,14 @@ test("Testing: createNoteEvents", () =>{
 //  DELETED DURING DEVELOPMENT CAUSE TAKES TO MUCH TIME
 //
 
-describe("Testing: AnimationFrameMidiPlayer", () =>{
-    const onEvent = (data) =>{
-    }
-    const note_events = createNoteEvents(MIDI_mock,timeSignatures(MIDI_mock))
-    const player = new AnimationFrameMidiPlayer(note_events, onEvent);
-    player.pausePlay()
-    it("resolve in 10m seconds",async () =>{
-        const result = await player.__for_testing()
-        expect(result).toBe(true)
-    }, player.MidiLength + 1000)
-})
+// describe("Testing: AnimationFrameMidiPlayer", () =>{
+//     const onEvent = (data) =>{
+//     }
+//     const note_events = createNoteEvents(MIDI_mock,timeSignatures(MIDI_mock))
+//     const player = new AnimationFrameMidiPlayer(note_events, onEvent);
+//     player.pausePlay()
+//     it("resolve in 10m seconds",async () =>{
+//         const result = await player.__for_testing()
+//         expect(result).toBe(true)
+//     }, player.MidiLength + 1000)
+// })

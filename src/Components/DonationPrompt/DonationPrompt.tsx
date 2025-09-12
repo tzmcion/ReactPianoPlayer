@@ -1,8 +1,11 @@
 import React,{useEffect,useState} from 'react'
-import DonateButton from '../DonateButton/DonateButton';
 import Hi from '../../Assets/hi.png';
 import './DonationPrompt.scss'
 
+/**
+ * @deprecated
+ * @returns 
+ */
 export default function DonationPrompt() {
 
     const [canPrompt,setCanPrompt] = useState<boolean>(false);
@@ -25,7 +28,6 @@ export default function DonationPrompt() {
             If you like using this app consider donating
             It really helps run this project for free
         </h4>
-        <DonateButton className='DonBut' link='https://www.paypal.com/donate/?hosted_button_id=TLEW452UQRPFG'/>
         <h2>Thank You!</h2>
         <button onClick={()=>{setCanPrompt(false)}}>Close</button>
     </div>

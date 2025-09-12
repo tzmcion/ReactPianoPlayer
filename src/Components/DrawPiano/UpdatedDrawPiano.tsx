@@ -1,15 +1,13 @@
 /**
  * Component Created during new ver creation for AVANT
- * Last Update: 07/29/2025
+ * Last Update: 12/09/2025
  * - Component is a refreshed version of "DrawPiano", which can handle new, not obesolete components
  * - Component now should be able to handle different height and width, not only fixed to window Size
  * - Moved Loading Screen Here
- * - Moved Watermark render Here
  */
 
 import React, {useEffect, useState } from "react";
 import AnimationFrameMidiPlayer from "../../Helpers/MidiReader/AnimationFrameMidiPlayer";
-import { TrackNoteEvent } from "../../Utils/TypesForMidi";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
 import soundManagerClass from "../../Helpers/soundManager";
 import { useSelector } from 'react-redux';
@@ -36,51 +34,45 @@ export default function UpdatedDrawPiano({width,height,Player,piano_keys_height 
 
     const nr_of_white_keys = total_nr_of_keys === 25 ? 15 : total_nr_of_keys === 49 ? 28 : total_nr_of_keys === 61 ? 36 : total_nr_of_keys === 76 ? 44 : 52;    //I don't believe I had to write this...
     const [is_loading,set_is_loading] = useState<boolean>(true);
-    const [soundManager,setSoundManager] = useState<soundManagerClass>();
+    const [soundManager,setSoundManager] = useState<soundManagerClass | null>(null);
     const options = useSelector((state:{options:OptionsType}) => state.options);
 
+    //If player and sounds are ready, then set the loading screen to dissapear
     useEffect(()=>{
-        if(Player && soundManager){
-            soundManager.load_sounds().then(e => set_is_loading(false));
+        if(Player){
+            if(options.soundOn === true){
+                if(soundManager)soundManager.load_sounds().then(e => set_is_loading(false));
+                return;
+            }
+            //else
+            set_is_loading(false);
         }
     },[Player, soundManager])
 
+    //When player is ready and maxvelocity can be deducted, create sound manager
     useEffect(()=>{
-        if(Player){
+        if(Player && options.soundOn === true){
             setSoundManager(new soundManagerClass(Player.MidiMaxVelocity * 50))
         }
     },[Player])
 
+    //Function renders the tracks only when player is defined, and sounds are defined (if sounds are on)
     const renderTracks = ():React.ReactElement =>{
-        if(Player !== undefined && soundManager !== undefined){
+        if(Player !== undefined && (soundManager !== undefined || options.soundOn === false)){
             return <Tracks 
                 Player={Player}
                 height={height}
                 width={width}
                 number_of_white_keys={nr_of_white_keys}
-                white_key_height={piano_keys_height}
                 options={options}
                 sound={soundManager}
-                number_of_keys={total_nr_of_keys}
             />
         }
         return <></>
     }
 
-    const renderWatermark = ():React.ReactElement => {
-        if(options.watermark){
-            return (
-            <div className="Watermark">
-                <h3>Some watermark</h3>
-            </div>)
-        }
-        return <></>
-    }
-
-
     return <div className="Piano" style={{width:width, height:height}}>
         <LoadingScreen Finished={!is_loading}/> {/*Loading Screen will automatically dissapear after it's work is done, so this will become an empty component*/}
         {renderTracks()}
-        {renderWatermark()}
     </div>
 }

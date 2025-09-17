@@ -142,7 +142,5 @@ export interface keyInfo{
 export interface blocks_canvases{
     mainCtx:CanvasRenderingContext2D,
     effectsCtx:CanvasRenderingContext2D,
-    whiteKeyCtx:CanvasRenderingContext2D,
     blackKeyCtx:CanvasRenderingContext2D,
-    KeyPressGradientCtx:CanvasRenderingContext2D
 }

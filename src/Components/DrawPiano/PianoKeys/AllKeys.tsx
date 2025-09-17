@@ -13,21 +13,22 @@ interface AllKeysProps{
     marg_top:number,
     WhiteKeyWidth:number,
     number_of_white_keys:number,
-    height:number
+    height:number,
+    Black_key_height_ratio:number
 }
 /**
  * Function draws piano Keys on in a single div element
  * @param param0 
  * @returns 
  */
-export default function AllKeys({marg_top,WhiteKeyWidth,number_of_white_keys,height}:AllKeysProps):ReactElement {
+export default function AllKeys({marg_top,WhiteKeyWidth,number_of_white_keys,height, Black_key_height_ratio}:AllKeysProps):ReactElement {
 
     const drawWhitePianoKey = (pos_x:number,id:number):ReactElement =>{
         return <WhiteKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} id={id} key={id} height={height}/>
     }
 
     const drawBlackPianoKey = (pos_x:number,id:number):ReactElement =>{
-        return <BlackKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} id={id} key={id} height={height}/>
+        return <BlackKey WhiteKeyWidth={WhiteKeyWidth} pos_x={pos_x} id={id} key={id} height={height} height_ratio={Black_key_height_ratio}/>
     }
 
     const KeysPositions = ():Array<any> =>{
@@ -52,6 +53,7 @@ export default function AllKeys({marg_top,WhiteKeyWidth,number_of_white_keys,hei
 
     return (
         <div className='piano_keys' style={{marginTop: marg_top,height:height}}>
+            <div className="Piano_Dividing_Line" style={{top:`-4px`}}/>
             {KeysPositions()}
         </div>
     )

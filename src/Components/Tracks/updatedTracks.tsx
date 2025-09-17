@@ -8,7 +8,7 @@
 import AnimationFrameMidiPlayer from "../../Helpers/MidiReader/AnimationFrameMidiPlayer";
 import soundManager from "../../Helpers/soundManager";
 import { TrackNoteEvent } from "../../Utils/TypesForMidi";
-import { Options as OptionsType } from '../../Utils/TypesForOptions';
+import { Options as OptionsType, TRACKS_CONFIGURATION as TRACKS_CONF_TYPE } from '../../Utils/TypesForOptions';
 import DrawPianoKeys from "../DrawPiano/PianoKeys/AllKeys"
 import updatedBlocks from "../../Helpers/Blocks/updatedBlocks"
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -34,10 +34,16 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:
     const [blocks,setBlocks] = useState<updatedBlocks | undefined>(undefined);
     const animation_frame = useRef<any>(0);
     const mainCtx = useRef<HTMLCanvasElement>(null);
-    const pianoWhite = useRef<HTMLCanvasElement>(null);
     const pianoBlack = useRef<HTMLCanvasElement>(null);
-    const gradCtx = useRef<HTMLCanvasElement>(null);
     const EffectCtx = useRef<HTMLCanvasElement>(null);
+
+    //
+    //TODO: IMPLEMENT THIS INTO OPTIONS
+    //
+    const TRACKS_CONFIGURATION:TRACKS_CONF_TYPE = {
+        piano_height_ratio: 1/5,
+        key_wh_to_bl_ratio: 2/3
+    }
 
     /**
      * Function handles adding the event.
@@ -79,23 +85,19 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:
 
     //Function checks if every canvas is loaded and sets it up in blocks
     useEffect(()=>{
-        if(blocks === undefined && pianoWhite.current && mainCtx.current && pianoBlack.current && gradCtx.current && EffectCtx.current){
+        if(blocks === undefined && mainCtx.current && pianoBlack.current && EffectCtx.current){
             const context = mainCtx.current.getContext('2d')
             const black_context = pianoBlack.current.getContext('2d');
-            const white_context = pianoWhite.current.getContext('2d');
-            const grad_context = gradCtx.current.getContext('2d');
             const effect_context = EffectCtx.current.getContext('2d')
-            if(context === null || black_context === null || white_context === null || grad_context === null || effect_context === null)return;
+            if(context === null || black_context === null || effect_context === null)return;
             const create_ctx_obj = {
                 mainCtx: context,
-                whiteKeyCtx:white_context,
                 blackKeyCtx:black_context,
                 effectsCtx:effect_context,
-                KeyPressGradientCtx:grad_context
             }
-            setBlocks(new updatedBlocks(create_ctx_obj,options,height,width,number_of_white_keys,width/number_of_white_keys))
+            setBlocks(new updatedBlocks(create_ctx_obj,options,height,width,number_of_white_keys,width/number_of_white_keys, TRACKS_CONFIGURATION))
         }
-    },[mainCtx.current, blocks, pianoBlack.current, pianoWhite.current, EffectCtx.current])
+    },[mainCtx.current, blocks, pianoBlack.current, EffectCtx.current])
 
     //Here set up all functions/handlers which require blocks to exist
     useEffect(()=>{
@@ -112,12 +114,16 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:
     return(
         <div>
             <canvas ref={EffectCtx} width={width.toString() + 'px'} height={(height - height/5).toString() + 'px'} className="Canvas"/>
-            <canvas ref={mainCtx} width={width.toString() + 'px'} height={(height - height/5).toString() + 'px'} className='Canvas'></canvas>
-            <div className="Piano_Dividing_Line" style={{top:`${height - height/5 -5 }px`}}/>
-            <canvas ref={gradCtx} width={width.toString() + 'px'} height={300} style={{top: `${height - height/5 - (height - height/5)/5}px`}} className="Canvas_Grad"/>
-            <canvas ref={pianoWhite} width={width.toString() + 'px'} height={height/5} style={{top: `${height - height/5}px`}} className="Canvas_Piano_White"/>
-            <canvas ref={pianoBlack} width={width.toString() + 'px'} height={height/5} style={{top: `${height - height/5}px`}} className="Canvas_Piano_Black"/>
-            <DrawPianoKeys WhiteKeyWidth={width/number_of_white_keys} height={height/5} number_of_white_keys={number_of_white_keys} marg_top={height - height/5}/>
+            <canvas ref={mainCtx} width={width.toString() + 'px'} height={(height).toString() + 'px'} className='Canvas_Main'></canvas>
+            <canvas ref={pianoBlack} width={width.toString() + 'px'} height={height*TRACKS_CONFIGURATION.piano_height_ratio} style={{top: `${height - height*TRACKS_CONFIGURATION.piano_height_ratio}px`}} className="Canvas_Piano_Black"/>
+            <DrawPianoKeys 
+                WhiteKeyWidth={width/number_of_white_keys} 
+                height={height*TRACKS_CONFIGURATION.piano_height_ratio} 
+                number_of_white_keys={number_of_white_keys} 
+                marg_top={height - height*TRACKS_CONFIGURATION.piano_height_ratio}
+                Black_key_height_ratio={TRACKS_CONFIGURATION.key_wh_to_bl_ratio}
+                />
+
         </div>
     )
 }

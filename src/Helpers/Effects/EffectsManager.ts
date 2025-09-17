@@ -26,7 +26,7 @@ export default class EffectsManager{
      * @param effect_type type of effect
      * @param options options
      */
-    constructor(ctx:CanvasRenderingContext2D, width:number, private height:number, private key_width:number, effect_type:string, options:OptionsType){
+    constructor(ctx:CanvasRenderingContext2D, width:number, private height:number, effect_type:string, options:OptionsType){
         switch(effect_type){
             case 'Sparks':
                 this.effects = new Sparks(ctx, width, height, 1, 6,);
@@ -59,8 +59,8 @@ export default class EffectsManager{
      * but dependent on situation can be executed in other situations
      * @param pos_x pos_x of the key
      */
-    public generate_effect(pos_x:number):void{
-        this.effects.create_effect(pos_x, this.height, this.key_width);
+    public generate_effect(pos_x:number, key_width:number):void{
+        this.effects.create_effect(pos_x, this.height, key_width);
     }
 
     /**

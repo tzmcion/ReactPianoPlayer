@@ -9,7 +9,7 @@
 
 import { CanvasRoundRect } from "../../Utils/CanvasFuntions";
 import { TrackNoteEvent } from "../../Utils/TypesForMidi";
-import {Options as OptionsType} from '../../Utils/TypesForOptions'
+import {Options as OptionsType, TRACKS_CONFIGURATION} from '../../Utils/TypesForOptions'
 import { keyInfo, blocks_canvases } from "../../Utils/TypesForMidi";
 import pianoInteraction from "./pianoInteraction";
 import EffectsManager from "../Effects/EffectsManager";
@@ -51,9 +51,17 @@ class Block{
      * Put the block in different x_position
      * @param pos_x: new x position of the block
      */
-    public block_alter_x_pos(pos_x: number){
+    public block_alter_x_pos(pos_x: number):void{
         //I think the Y does not need to change, only the x position
         this.pos_x = pos_x;
+    }
+
+    /**
+     * Change the width of the block
+     * @param width new key width
+     */
+    public block_alter_width(width:number):void{
+        this.width = width;
     }
 
     /**
@@ -131,25 +139,29 @@ class Blocks{
     private effect_manager: EffectsManager
     private sound_manager:soundManager | undefined
 
-    constructor(canvases: blocks_canvases, private options:OptionsType, private height:number, private width:number, private nr_of_keys:number, private key_width:number){
+    constructor(canvases: blocks_canvases, private options:OptionsType, private height:number, private width:number, private nr_of_keys:number, private key_width:number, private TR_CONF:TRACKS_CONFIGURATION){
         this.blocks = []
         this.notes_to_add = [];
         this.ctx = canvases.mainCtx;
-        this.height = height - (height / 5);
+        this.height = height - (height*TR_CONF.piano_height_ratio);
+        this.pause_time = 0
+        this.is_paused = true
+        this.key_positions_map = this.__create_key_position_map(width,nr_of_keys,key_width);
+        this.positions_to_render_line = this.RenderOctaveLines()
+        this.key_interactor = new pianoInteraction(canvases.blackKeyCtx,canvases.mainCtx,this.width,height,TR_CONF,options);
+        this.effect_manager = new EffectsManager(canvases.effectsCtx, width, height - (height / 5), options.Effect, this.options);
+        //
+        //Binding
+        //
+        this.add_blocks = this.add_blocks.bind(this);
+        this.pause_playing = this.pause_playing.bind(this);
         this.render = this.render.bind(this);
         this.add_blocks = this.add_blocks.bind(this);
         this.impel_blocks_in_places = this.impel_blocks_in_places.bind(this);
         this.pause_playing = this.pause_playing.bind(this);
         this.reset = this.reset.bind(this);
-        this.pause_time = 0
-        this.is_paused = true
-        this.key_positions_map = this.__create_key_position_map(width,nr_of_keys,key_width);
         this.__add_blocks_from_waiting_list = this.__add_blocks_from_waiting_list.bind(this);
-        this.positions_to_render_line = this.RenderOctaveLines()
-        this.add_blocks = this.add_blocks.bind(this);
-        this.pause_playing = this.pause_playing.bind(this);
-        this.key_interactor = new pianoInteraction(canvases.blackKeyCtx,canvases.whiteKeyCtx, canvases.KeyPressGradientCtx,this.width,(height / 5),0,options);
-        this.effect_manager = new EffectsManager(canvases.effectsCtx, width, height - (height / 5), key_width, options.Effect, this.options);
+        //Run render to display the octave lines if applicable
         this.render(true);
     }
 
@@ -182,7 +194,7 @@ class Blocks{
                 new_blocks.push(block);
             if(result === 1){
                 this.key_interactor.handle_block_key(this.key_positions_map[block.noteNumber],this.options.KeyPressColor,this.options.KeyPressGradientColor)
-                this.effect_manager.generate_effect(this.key_positions_map[block.noteNumber].position);
+                this.effect_manager.generate_effect(this.key_positions_map[block.noteNumber].position, this.key_positions_map[block.noteNumber].width);
                 if(this.sound_manager !== undefined){
                     if(detected != block.isDetected){
                         this.sound_manager.play_key(block.noteNumber,Math.floor(block.soundDuration),block.velocity * 25);
@@ -304,16 +316,18 @@ class Blocks{
      * @param height 
      */
     public handle_resize(width:number,height:number, key_width: number):void {
+        const H_OFF = height * this.TR_CONF.piano_height_ratio
         this.key_width = key_width;
         this.width = width;
         this.height = height;
         this.key_positions_map = this.__create_key_position_map(width, this.nr_of_keys, this.key_width);
-        this.height = height - (height / 5);
-        this.key_interactor.handle_resize(width,height / 5);
-        this.effect_manager.handle_resize(width, height - (height / 5));
+        this.height = height - H_OFF;
+        this.key_interactor.handle_resize(width,height);
+        this.effect_manager.handle_resize(width, height - H_OFF);
         this.positions_to_render_line = this.RenderOctaveLines()
         this.blocks.forEach(block =>{
             block.block_alter_x_pos(this.key_positions_map[block.noteNumber].position);
+            block.block_alter_width(this.key_positions_map[block.noteNumber].width);
         })
     }
 
@@ -359,12 +373,12 @@ class Blocks{
      * Method renders the octave lines
      */
     private render_octave_lines():void {
-        this.positions_to_render_line.map(position =>{
-            this.ctx.beginPath();
-            this.ctx.fillStyle = 'rgba(255,255,255,0.15)';
-            this.ctx.fillRect(position,0,1,this.height);
-            return null;
+        this.ctx.beginPath();
+        this.ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        this.positions_to_render_line.forEach(position =>{
+            this.ctx.rect(position,0,1,this.height)
         })
+        this.ctx.fill();
     }
 };
 

@@ -74,3 +74,13 @@
     font-size: 32px;
     text-align: center;
 }
+
+.Piano_Dividing_Line{
+    width: 100vw;
+    position: absolute;
+    z-index: 35;
+    height: 3px;
+    border-top: 2px solid rgba(0, 0, 0, 0.767);
+    background-color: #800101;
+    box-shadow: 0px 4px 6px black;
+}

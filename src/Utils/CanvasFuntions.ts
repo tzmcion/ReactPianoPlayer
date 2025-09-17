@@ -37,10 +37,8 @@ export {CanvasRoundRect}
 
 
 /**
- * Function draws a radial gradient in a specified place
- * @param ctx 
- * @param color 
- * @param size 
+ * Function add shadow adds a linear gradient to left and right side of the rectangle
+ * It's quite expensive to compute due to creation of linear gradients every iteration
  */
 const addShadow = (ctx:CanvasRenderingContext2D, pos_x:number, pos_y:number , height: number, width:number):void => {
   ctx.beginPath();

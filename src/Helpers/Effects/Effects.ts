@@ -1,3 +1,7 @@
+/**
+ * @deprecated File deprecated
+ */
+
 import { Options as OptionsType } from "../../Utils/TypesForOptions";
 import {Fountain, DancingLines, HexagonEffect, StickyBalls, Firework,Sparks, EmptyEffect,DNA} from '../CanvasEffects';
 

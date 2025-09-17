@@ -149,7 +149,7 @@ class Blocks{
         this.key_positions_map = this.__create_key_position_map(width,nr_of_keys,key_width);
         this.positions_to_render_line = this.RenderOctaveLines()
         this.key_interactor = new pianoInteraction(canvases.blackKeyCtx,canvases.mainCtx,this.width,height,TR_CONF,options);
-        this.effect_manager = new EffectsManager(canvases.effectsCtx, width, height - (height / 5), options.Effect, this.options);
+        this.effect_manager = new EffectsManager(canvases.effectsCtx, width, this.height, options.Effect, this.options);
         //
         //Binding
         //

@@ -1,8 +1,6 @@
 //TODO: Add option for Key Gradient to be like fire: https://codepen.io/Capse/pen/aNOeee
 // Current RadialGradient is very basic and unatractive
 // Also, that radial gradient could be prerendered and reused
-//TODO: Combine white_ctx and black_ctx into one single canvas (goal - reduce .clearRect function as much as possible)
-//TODO: Combine radial gradient with piano lighting up - generate offsets for canvas... (goal - reduce .clearRect function as much as possible)
 
 import { keyInfo } from "../../Utils/TypesForMidi";
 import { CanvasRoundRect, addShadow } from '../../Utils/CanvasFuntions';
@@ -69,7 +67,6 @@ export default class pianoInteraction{
      */
     public render():void {
         const HEIGHT_OFFSET = this.height - this.TR_CONF.piano_height_ratio * this.height;
-        //!! TO MANY CLEAR RECTS
         this.main_ctx.clearRect(0,HEIGHT_OFFSET,this.width, this.white_key_height);    //Clears only the bottom part of the screen, as upper was cleared earlier
         this.black_ctx.clearRect(0,0,this.width, this.black_key_height );   //Here I don't know yet how to proceed, but It will stay like this
         this.main_ctx.shadowBlur = 0;
@@ -78,10 +75,10 @@ export default class pianoInteraction{
             const height = key.type === 'BLACK' ? this.black_key_height : this.white_key_height
             if(key.type === "BLACK"){
                 CanvasRoundRect(this.black_ctx,key.color,key.position + 1,0 - 2,key.width,height,3);
-                addShadow(this.main_ctx,key.position + 1,HEIGHT_OFFSET,height - 5, key.width);
+                //addShadow(this.main_ctx,key.position + 1,HEIGHT_OFFSET,height - 5, key.width);    //This shadow makes almost no change, but still takes computing time
             }else{
                 CanvasRoundRect(this.main_ctx,key.color,key.position,HEIGHT_OFFSET,key.width,height,3);
-                addShadow(this.main_ctx,key.position,HEIGHT_OFFSET,height, key.width);
+                addShadow(this.main_ctx,key.position,HEIGHT_OFFSET,height, key.width);      //Better to have gradient defined for keys (as it is always the same), and just fill rect
             }
             this.gradient.generateGradient(key.position + key.width/2, key.width * 1.5);
             this.gradient.updateGradient();

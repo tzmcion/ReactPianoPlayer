@@ -21,3 +21,8 @@ export interface Options{
     ThinerBlockColor:string,
 }
 
+export interface TRACKS_CONFIGURATION{
+    piano_height_ratio: number,
+    key_wh_to_bl_ratio: number
+}
+

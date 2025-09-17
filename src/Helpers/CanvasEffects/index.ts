@@ -10,6 +10,7 @@ import DNA from "./DNA";
 import hexToRgba from "hex-rgba";
 
 /**
+ * @deprecated please use KeyGradientManager with BasicGradient to recieve same effect
  * Function creates a radial gradient in the specified pos_x of the canvas
  * Should be soon replaced by a better optimized function
  */

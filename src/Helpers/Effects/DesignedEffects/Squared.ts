@@ -53,7 +53,7 @@ class Squared extends Effect{
     constructor(ctx:CanvasRenderingContext2D, width:number, height:number, private speed:number, private size:number, private colors:string[], private vanish_factor:number, private quantity_per_event=1){
         super(ctx,width,height);
         ctx.globalCompositeOperation = 'source-over';
-        this.ctx.fillStyle = '#fff';
+        this.ctx.fillStyle = colors[0];
         this.ctx.fillRect(0,0,width,height)
     }
 

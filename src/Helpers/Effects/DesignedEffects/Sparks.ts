@@ -60,6 +60,7 @@ class Sparks extends Effect{
     public handle_resze(width: number, height: number): void {
         this.width = width;
         this.height = height;
+        this.render_effect()
     }
 
     public update_effect(): void {

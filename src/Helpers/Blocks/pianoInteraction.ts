@@ -6,8 +6,8 @@
 
 import { keyInfo } from "../../Utils/TypesForMidi";
 import { CanvasRoundRect, addShadow } from '../../Utils/CanvasFuntions';
-import { Options } from "../../Utils/TypesForOptions";
-import { KeyGradient } from "../CanvasEffects";
+import { Options, TRACKS_CONFIGURATION } from "../../Utils/TypesForOptions";
+import GradientManager from "../Effects/GradientManager";
 
 /**
  * Class is used to light-up the keys on the piano
@@ -15,6 +15,7 @@ import { KeyGradient } from "../CanvasEffects";
  */
 export default class pianoInteraction{
     private keys_to_light:Array<keyInfo & {color:string, gradient_color:string}> = [];
+    private gradient:GradientManager
     private black_key_height:number
     private white_key_height:number
 
@@ -28,10 +29,10 @@ export default class pianoInteraction{
      * @param cnavas_offSet -- the offset on how bigger the light key should be than the normal key
      * @param options - options
      */
-    constructor(private black_ctx:CanvasRenderingContext2D,private white_ctx:CanvasRenderingContext2D, private gradient_ctx: CanvasRenderingContext2D,private width:number,private height:number, private cnavas_offSet:number, private options:Options){
-        this.black_key_height = (height-cnavas_offSet) / 1.5 + 5;
-        this.white_key_height = (height-cnavas_offSet) + 2;
-        this.gradient_ctx.globalCompositeOperation = 'source-over';
+    constructor(private black_ctx:CanvasRenderingContext2D,private main_ctx:CanvasRenderingContext2D,private width:number,private height:number, private TR_CONF:TRACKS_CONFIGURATION, private options:Options){
+        this.black_key_height = ((height*TR_CONF.piano_height_ratio)) * this.TR_CONF.key_wh_to_bl_ratio + 5;
+        this.white_key_height = ((height*TR_CONF.piano_height_ratio)) + 2;
+        this.gradient = new GradientManager(main_ctx,this.height - this.height*TR_CONF.piano_height_ratio,options, this.white_key_height /1.5);
     }
 
     /**
@@ -57,8 +58,8 @@ export default class pianoInteraction{
      * @param height new height
      */
     public handle_resize(width:number, height:number):void {
-        this.black_key_height = (height-this.cnavas_offSet) / 1.5 + 5;
-        this.white_key_height = (height-this.cnavas_offSet) + 2;
+        this.black_key_height = (height*this.TR_CONF.piano_height_ratio) *this.TR_CONF.key_wh_to_bl_ratio + 5;
+        this.white_key_height = (height*this.TR_CONF.piano_height_ratio) + 2;
         this.width = width;
         this.height = height;
     }
@@ -67,20 +68,24 @@ export default class pianoInteraction{
      * Method renders the lighten-up keys and the radial gradient for the keys
      */
     public render():void {
+        const HEIGHT_OFFSET = this.height - this.TR_CONF.piano_height_ratio * this.height;
         //!! TO MANY CLEAR RECTS
-        this.white_ctx.clearRect(0,0,this.width,this.height);
-        this.black_ctx.clearRect(0,0,this.width,this.height);
-        this.gradient_ctx.clearRect(0,0,this.width,this.height * 3);  
+        this.main_ctx.clearRect(0,HEIGHT_OFFSET,this.width, this.white_key_height);    //Clears only the bottom part of the screen, as upper was cleared earlier
+        this.black_ctx.clearRect(0,0,this.width, this.black_key_height );   //Here I don't know yet how to proceed, but It will stay like this
+        this.main_ctx.shadowBlur = 0;
+        this.black_ctx.shadowBlur = 0;
         this.keys_to_light.map(key =>{
             const height = key.type === 'BLACK' ? this.black_key_height : this.white_key_height
             if(key.type === "BLACK"){
-                CanvasRoundRect(this.black_ctx,key.color,key.position + 1,0 + this.cnavas_offSet - 2,key.width,height,3);
-                addShadow(this.white_ctx,key.position + 1,0,height - 5, key.width);
+                CanvasRoundRect(this.black_ctx,key.color,key.position + 1,0 - 2,key.width,height,3);
+                addShadow(this.main_ctx,key.position + 1,HEIGHT_OFFSET,height - 5, key.width);
             }else{
-                CanvasRoundRect(this.white_ctx,key.color,key.position + 1,0 + this.cnavas_offSet - 2,key.width + 1,height,3);
-                addShadow(this.white_ctx,key.position,0,height, key.width + 1);
+                CanvasRoundRect(this.main_ctx,key.color,key.position,HEIGHT_OFFSET,key.width,height,3);
+                addShadow(this.main_ctx,key.position,HEIGHT_OFFSET,height, key.width);
             }
-            KeyGradient(this.gradient_ctx,key.position,key.width,this.height - this.height / 4,this.options.KeyPressGradientColor, this.height / 2.2);
+            this.gradient.generateGradient(key.position + key.width/2, key.width * 1.5);
+            this.gradient.updateGradient();
+            this.gradient.renderGradient();
         })
     }
 

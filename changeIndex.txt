@@ -34,4 +34,8 @@ Changes For new version of PBA:
 - Resize is now refreshing also the blocks, making everything look ok DONE
 - Deleted transition and bugs during resizing of options page DONE
 - Deleted alterations of state with every note event creation, now the connection between rendering component and playing component is direct DONE
-- 
+- Reduced number of canvases which are used for render from 5 to 3
+- Additional options for configuration:
+    * Controll how big part of the screen piano takes (example 1/5 of the screen is for piano)  TODO
+    * Controll how big are the black keys on the piano (example 2/3 of the white key height)    TODO
+

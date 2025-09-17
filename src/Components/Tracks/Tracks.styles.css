@@ -6,6 +6,11 @@
     /* filter: blur(2px); */
 }
 
+.Canvas_Main{
+    position: absolute;
+    z-index: 32;
+}
+
 .Canvas_Piano_Black{
     position: absolute;
     z-index: 34;
@@ -64,14 +69,4 @@
     margin: 0;
     padding: 0;
     text-align: center;
-}
-
-.Piano_Dividing_Line{
-    width: 100vw;
-    position: absolute;
-    z-index: 35;
-    height: 3px;
-    border-top: 2px solid rgba(0, 0, 0, 0.767);
-    background-color: #800101;
-    box-shadow: 0px 4px 6px black;
 }

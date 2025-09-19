@@ -6,54 +6,104 @@ interface Stain_Options{
     max_height:number,
     offset_margin:number,
     speed:number,
+    max_radius:number,
+    bounce:number,
 }
 
 export type { Stain_Options };
 
 interface path_element{
-    x0:number,
-    y0:number,
-    x1:number,
-    y1:number,
-    r:number
+    pos_x:number,
+    pos_y:number,
+    radius:number,
+    opacity:number,
+    falling_speed:number,
+    opacity_fade_speed:number,
+    x_movement:number,
+    sin_opacity:number,
+    sin_opacity_nominator:number,
+    color:string //In HEX format
 }
 
 class Stain_Entity{
-    private reached_destination:boolean = false;
+    private gravitation:number = 0.08
     private end_x:number
     private end_y:number
+    private create_time:number = Date.now()
+    private speed_x:number = (Math.random() > 0.5 ? 1 : -1) * Math.random() * 2 + 0.5
+    private speed_y:number = Math.random() * 7.5 + 8.5 * -1
+    private stop_time:number = Math.random()*1500 + 1000
+    private initial_radius:number = Math.random() * this.configuration.max_radius + 0.5
     private render_next:number = 0
+    private TT_MARGIN = 15
     public static DEFAULT_CONF:Stain_Options = {
-        max_height:20,
-        max_width:20,
+        max_height:50,
+        max_width:90,
         offset_margin:10,
-        speed:1
+        max_radius:4,
+        speed:1,
+        bounce: 0.9
     }
     private path_element:path_element[];
 
-    constructor(start_x:number, start_y:number, private color:string, private configuration:Stain_Options ){
-        this.end_x = start_x + Math.random() * configuration.offset_margin * (Math.random() > 0.5 ? 1 : -1) - 200;
-        this.end_y = start_y - Math.random() * configuration.offset_margin - 100;
+    constructor(start_x:number, start_y:number, private color:string[], private configuration:Stain_Options, private height:number ){
+        this.end_x = start_x;
+        this.end_y = start_y;
         this.path_element = this._generate_shape();
     }
 
-    public update(){
-
+    public update():boolean{
+        if(Date.now() - this.create_time >= this.stop_time ){
+            
+            let is_each_zero = false;
+            this.path_element.forEach((el,index) =>{
+                el.sin_opacity+=el.sin_opacity_nominator;
+                el.color = el.color.slice(0,7) + (Math.abs(Math.floor(el.opacity * Math.cos(el.sin_opacity))) < 16 ? '0' : '') + Math.abs(Math.floor(el.opacity * Math.cos(el.sin_opacity))).toString(16)
+                el.pos_y += el.falling_speed;
+                el.pos_x += el.x_movement;
+                el.x_movement -= this.gravitation * (el.x_movement < 0 ? -1 : 1);
+                el.falling_speed += this.gravitation;
+                if(index * this.TT_MARGIN <= this.render_next){
+                    el.opacity -= el.opacity_fade_speed;
+                }
+                if(el.opacity > 0){
+                    is_each_zero = true;
+                }
+            })
+            return is_each_zero;
+        }//If yet not the explosion time
+        this.end_x += this.speed_x;
+        this.end_y += this.speed_y;
+        this.speed_y += this.gravitation;
+        this.path_element.forEach(el =>{
+            el.pos_x = this.end_x;
+            el.pos_y = this.end_y;
+        })
+        return true;
     }
 
     public render(ctx:CanvasRenderingContext2D){
-        ctx.beginPath();
-        this.path_element.forEach((el,index) =>{
-            if(index * 30 <= this.render_next){
-                ctx.moveTo(el.x0,el.y0)
-                ctx.arcTo((el.x0 + el.x1)/2,(el.y0 + el.y1)/2, el.x1, el.y1, el.r);
-                ctx.lineTo(el.x1,el.y1);
-            }
-            this.render_next+=1;
-        })
-        ctx.fillStyle = this.color;
-        ctx.strokeStyle = this.color;
-        ctx.fill();
+        if(Date.now() - this.create_time >= this.stop_time){
+            this.path_element.forEach((el,index) =>{
+                if(index * this.TT_MARGIN <= this.render_next && el.opacity > 0){
+                    ctx.beginPath();
+                    ctx.fillStyle = el.color;
+                    ctx.arc(el.pos_x,el.pos_y,el.radius,0,Math.PI * 2);
+                    ctx.fill();
+                }
+                this.render_next+=1;
+            })
+            return;
+        }//else
+        const TRAIL_SIZE = 15;
+        for(let x = 0; x < TRAIL_SIZE; x++){
+            const pos_x = this.end_x - this.speed_x*(x+1)
+            const pos_y = this.end_y - this.speed_y*(x+1)
+            ctx.beginPath();
+            ctx.fillStyle = this.color[0] + Math.abs(Math.floor(255/ (0.5*(x+2)))).toString(16)
+            ctx.arc(pos_x, pos_y, this.initial_radius / (0.20*(x+5)), 0, Math.PI *2);
+            ctx.fill();
+        }
     }
 
     private _reach_destination():void{
@@ -61,58 +111,28 @@ class Stain_Entity{
     }
 
     private _generate_shape():Array<path_element>{
-        let width = Math.random() * this.configuration.max_width;
-        let height = Math.random() * this.configuration.max_height;
-        const turns_per_horizon = 3;
-        let start_x = this.end_x;
-        let start_y = this.end_y;
-        let forward = 1;
-        let dir = (Math.random() > 0.5 ? 1 : -1)
-        const radius = 5;
+        const DOTS_PER_ENTITY = 30;
+        const ENTITY_RADIUS = this.initial_radius;
+        const CENTER_X = this.end_x;
+        const CENTER_Y = this.end_y;
         const path_arr:path_element[] = [];
-        for(;forward>=-1;forward-=2){
-            for(let x = 0; x < turns_per_horizon; x++){
-                dir *= -1;
-                const dest_x = start_x + width/turns_per_horizon * (x+1) * forward;
-                const dest_y = start_y + (Math.random() * this.configuration.max_height/2) * dir;
-                const path:path_element = {
-                    x0: start_x,
-                    y0: start_y,
-                    x1: dest_x,
-                    y1: dest_y,
-                    r: radius
-                }
-                start_x = dest_x;
-                start_y = dest_y;
-                path_arr.push(path);
+        for(let x = 0; x < DOTS_PER_ENTITY; x++){
+            const DENOM_X = Math.random() > 0.5 ? 1 : -1;
+            const DENOM_Y = Math.random() > 0.5 ? 1 : -1;
+            const element:path_element = {
+                opacity:Math.floor(204 * Math.random() + 50),
+                pos_x: CENTER_X,
+                pos_y: CENTER_Y,
+                radius: ENTITY_RADIUS * Math.random(),
+                falling_speed: Math.random() * 3.5 * ( Math.random() > 0.5 ? -1 : 0.2),
+                opacity_fade_speed: Math.random() * 3 + 1,
+                x_movement: Math.random() * 2.6 * (DENOM_X),
+                sin_opacity: DENOM_Y === -1 ? Math.random() * 90 : 0,
+                sin_opacity_nominator: DENOM_Y === -1 ? Math.random() * 0.1 + 0.2 : 0,
+                color: this.color[Math.floor(Math.random() * this.color.length)]
             }
-            for(let y = 0; y < turns_per_horizon; y++){
-                dir *=-1;
-                const dest_x = start_x + (Math.random() * this.configuration.max_width/2) * dir;
-                const dest_y = start_y + height/turns_per_horizon * (y+1) * forward;
-                const path:path_element = {
-                    x0: start_x,
-                    y0: start_y,
-                    x1: dest_x,
-                    y1: dest_y,
-                    r: radius
-                }
-                start_x = dest_x;
-                start_y = dest_y;
-                path_arr.push(path);
-            }
-            width = Math.abs(start_x - this.end_x)
-            height = Math.abs(start_y - this.end_y)
+            path_arr.push(element);
         }
-        const path:path_element = {
-            x0: start_x,
-            y0: start_y,
-            x1: this.end_x,
-            y1: this.end_y,
-            r: radius
-        }
-        path_arr.push(path);
-        console.log(path_arr);
         return path_arr;
     }
 }
@@ -120,24 +140,39 @@ class Stain_Entity{
 
 export default class Stain extends Effect{
     private entities:Stain_Entity[] = [];
-    private rendered:boolean = false;
+    private occupied_pos:{id:number,time:number}[] = [];
 
     constructor(ctx: CanvasRenderingContext2D, width:number, height:number,private options: Options){
         super(ctx, width, height);
     }
 
     public create_effect(pos_x: number, pos_y: number, key_width: number): void {
-        if(!this.rendered)
-        this.entities.push(new Stain_Entity(pos_x,pos_y, this.options.Color, Stain_Entity.DEFAULT_CONF))
-        this.rendered = true;
-    }
+        const TIMESPAN = 750;
+        const time_now = Date.now();
+        const el = this.occupied_pos.find(el => el.id === pos_x);
+        if(el){
+            if(time_now - el.time > TIMESPAN){
+                el.time = time_now;
+                this.entities.push(new Stain_Entity(pos_x + key_width/2,pos_y, [this.options.Color, this.options.ThinerBlockColor], Stain_Entity.DEFAULT_CONF, this.height))
+                return;
+            }
+            return;
+        }//if element does not exist
+        this.occupied_pos.push({
+            id:pos_x,
+            time:time_now
+        })
+        this.entities.push(new Stain_Entity(pos_x + key_width/2,pos_y, [this.options.Color, this.options.ThinerBlockColor], Stain_Entity.DEFAULT_CONF, this.height));
 
-    public update_effect(): void {
         
     }
 
+    public update_effect(): void {
+        this.entities = this.entities.filter(entity => entity.update());
+    }
+
     public render_effect(): void {
-        const vanish_speed = 0.02
+        const vanish_speed = 1;
         this.ctx.fillStyle = 'rgba(42,44,46,' + vanish_speed.toString() + ')';
         this.ctx.fillRect(0,0,this.width,this.height);
         this.entities.forEach(entity =>{

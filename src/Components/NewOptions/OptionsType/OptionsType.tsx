@@ -98,6 +98,13 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
                             <li>Performance indicator: <span className='Green_cl'>Good</span></li>
                         </ul>
                 </EffectChoose>
+                <EffectChoose onChange={onChange} name='Effect' title='Firework' textColor='effects' current={effect} value={'Firework'} >
+                        <ul>
+                            <li>Colorfull fireworks flying from keys when played</li>
+                            <li><span className='Red_cl'>Warning: </span>Background Image does not work with this effect</li>
+                            <li>Performance indicator: <span className='Purple_cl'>Mid</span></li>
+                        </ul>
+                </EffectChoose>
             </div>
         </div>
     )

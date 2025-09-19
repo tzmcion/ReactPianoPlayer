@@ -17,7 +17,7 @@ export interface Options{
     ShadowColor:string,
     EffectsColor:string,
     OctaveLines:boolean,
-    Effect:"Squares" | "Sparks" | "None",
+    Effect:"Squares" | "Sparks" | "Firework" | "None",
     ThinerBlockColor:string,
 }
 

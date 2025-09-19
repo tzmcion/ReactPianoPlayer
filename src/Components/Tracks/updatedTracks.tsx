@@ -41,7 +41,7 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:
     //TODO: IMPLEMENT THIS INTO OPTIONS
     //
     const TRACKS_CONFIGURATION:TRACKS_CONF_TYPE = {
-        piano_height_ratio: 1/1.5,
+        piano_height_ratio: 1/5,
         key_wh_to_bl_ratio: 2/3
     }
 

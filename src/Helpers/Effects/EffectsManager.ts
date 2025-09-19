@@ -35,9 +35,11 @@ export default class EffectsManager{
             case 'Squared':
                 this.effects = new Squared(ctx,width,height,2.5,3,[options.Color,options.ThinerBlockColor],0.05);
                 break;
-            case "None":
-                //this.effects = new Blank(ctx, 0, 0);
+            case "Firework":
                 this.effects = new Stain(ctx,width,height, options);
+                break;
+            case "None":
+                this.effects = new Blank(ctx, 0, 0);
                 break
             default:
                 this.effects = new Blank(ctx, 0, 0);

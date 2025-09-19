@@ -6,6 +6,7 @@ import { Options as OptionsType } from '../../Utils/TypesForOptions';
  */
 import Sparks from './DesignedEffects/Sparks';
 import Squared from './DesignedEffects/Squared';
+import Stain from './DesignedEffects/Stain';
 import Blank from './DesignedEffects/Blank';
 
 /**
@@ -34,8 +35,11 @@ export default class EffectsManager{
             case 'Squared':
                 this.effects = new Squared(ctx,width,height,2.5,3,[options.Color,options.ThinerBlockColor],0.05);
                 break;
+            case "Firework":
+                this.effects = new Stain(ctx,width,height, options);
+                break;
             case "None":
-                this.effects = new Blank(ctx, 0, 0)
+                this.effects = new Blank(ctx, 0, 0);
                 break
             default:
                 this.effects = new Blank(ctx, 0, 0);

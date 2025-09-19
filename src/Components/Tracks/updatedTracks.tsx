@@ -55,15 +55,6 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:
         }
     },[blocks])
 
-    /** Cancel animation frame when component is deleted */
-    useEffect(()=>{
-        return () => {
-            if(animation_frame.current !== 0){
-                window.cancelAnimationFrame(animation_frame.current);
-            }    
-        }
-    },[])
-
     /**
      * main animation frame, renders blocks.
      */
@@ -100,6 +91,7 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:
     },[mainCtx.current, blocks, pianoBlack.current, EffectCtx.current])
 
     //Here set up all functions/handlers which require blocks to exist
+    //Also setup clearing the animationFrame when page closes
     useEffect(()=>{
         if(blocks !== undefined){
             Player.setEventHandler(add_event)
@@ -108,6 +100,12 @@ const UpdatedTracks = ({width,height,Player,options,sound,number_of_white_keys}:
                 blocks.set_sound_manager(sound);
             }
             main_animation_frame();
+        }
+
+         return () => {
+            if(animation_frame.current !== 0){
+                window.cancelAnimationFrame(animation_frame.current);
+            }    
         }
     },[blocks])
 

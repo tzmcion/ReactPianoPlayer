@@ -4,10 +4,10 @@
  * LAST UPDATE: 04/09/2025
  */
 
-import { Options } from "./TypesForOptions";
+import { Options as OptionsType } from "./TypesForOptions";
 
 /**Default options */
-const data:Options = {
+const Default_data:OptionsType = {
     Color:'#ffffff',
     OctaveLines:true,
     KeyPressColor:'#e3e3e3',
@@ -20,96 +20,46 @@ const data:Options = {
     blockRadius:4,
     ShadowColor:'#ffffff',
     blockShadowRadius:8,
-    EffectsColor: '#ffffff',
     ThinerBlockColor:'#e3e3e3',
-    refresh: false
+    refresh: false,
+    keyWhToBlRatio: 1/2,
+    pianoHeightRatio: 1/5
 }
 
-//Important, if options are undefined do it this way :)
-try{
-    JSON.parse(localStorage.getItem('options')!)
-}catch{
-    localStorage.setItem('options',JSON.stringify(data))
-}
+const handleDefaultValuesCheck = ():OptionsType => {
+    //Important, if options are undefined do it this way :)
+    try{
+        JSON.parse(localStorage.getItem('options')!)
+    }catch{
+        localStorage.setItem('options',JSON.stringify(Default_data))
+    }
+
+    let DefaultOptions:OptionsType = localStorage.getItem('options') === null ? Default_data : JSON.parse(localStorage.getItem('options')!);
+
+    let needs_reload = false;
+    for(const [key,value] of Object.entries(Default_data)){
+        const obj_key = key as keyof OptionsType;
+        if(!Object.hasOwn(DefaultOptions,obj_key)){
+            DefaultOptions = {
+                ...DefaultOptions,
+                [obj_key]:value
+            }
+            needs_reload = true;
+        }
+    }
+
+    if(needs_reload){
+        localStorage.setItem('options',JSON.stringify(DefaultOptions));
+        window.location.reload();
+    }
+
+    return DefaultOptions;
+} 
+
+
 
 /**Default options variable*/
-let DefaultOptions:Options = localStorage.getItem('options') === null ? data : JSON.parse(localStorage.getItem('options')!);
 
-if(!('ThinerBlockColor' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
 
-if(!('EffectsColor' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('KeyPressGradientColor' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();    
-}
-
-if(!('blockShadowRadius' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('ShadowColor' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('blockRadius' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('Effect' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('soundOn' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('watermark' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('playSpeed' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('backgroundImage' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-if(!('KeyPressColor' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('OctaveLines' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('Color' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-if(!('refresh' in DefaultOptions)){
-    localStorage.setItem('options',JSON.stringify(data));
-    window.location.reload();
-}
-
-DefaultOptions = localStorage.getItem('options') === null ? data: JSON.parse(localStorage.getItem('options')!);
-
-export {DefaultOptions};
-export {data};
+export {handleDefaultValuesCheck};
+export {Default_data};

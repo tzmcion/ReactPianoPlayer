@@ -1,18 +1,20 @@
-[{
-    "name":"Mechanical Zombie",
-    "color":"#0fbd4c",
-    "description" : "Preset in shades of green, with Squared effect. Sound by default is disabled in this preset, remember to turn it on if needed",
-    "data":{"Color":"#07d56a","OctaveLines":true,"KeyPressColor":"#2cba70","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":6,"watermark":false,"soundOn":false,"Effect":"Squared","blockRadius":4,"ShadowColor":"#5add99","blockShadowRadius":6,"EffectsColor":"#ffffff","ThinerBlockColor":"#53ea9c","KeyPressGradientColor":"#0fbd4c"}
-},{
-    "name":"Sparky Goldy",
-    "color":"#FECD56",
-    "description" : "Preset in colors of gold, matches the sparky effect",
-    "data":{"Color":"#FFF0B1","OctaveLines":true,"KeyPressColor":"#FECD56","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"Sparks","blockRadius":6,"ShadowColor":"#ECB447","blockShadowRadius":8,"EffectsColor":"#ffffff","ThinerBlockColor":"#FECD56","KeyPressGradientColor":"#FFF0B1"}
-},
-{
-    "name":"Mr. Black-n-White",
-    "color":"#000",
-    "description" : "Grayscale shades, no effect, high performance. To even further improve performance, disable shadow by setting shadow radius to 0",
-    "data":{"Color":"#ffffff","OctaveLines":true,"KeyPressColor":"#ffffff","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"None","blockRadius":4,"ShadowColor":"#ffffff","blockShadowRadius":8,"EffectsColor":"#ffffff","ThinerBlockColor":"#e3e3e3","KeyPressGradientColor":"#ffffff"}
-}
+[
+    {
+        "name":"Mechanical Zombie",
+        "color":"#0fbd4c",
+        "description" : "Preset in shades of green, with Squared effect. Sound by default is disabled in this preset, remember to turn it on if needed",
+        "data":{"Color":"#07d56a","OctaveLines":true,"KeyPressColor":"#2cba70","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":6,"watermark":false,"soundOn":false,"Effect":"Squared","blockRadius":4,"ShadowColor":"#5add99","blockShadowRadius":6,"ThinerBlockColor":"#53ea9c","KeyPressGradientColor":"#0fbd4c","refresh":false,"keyWhToBlRatio":0.5,"pianoHeightRatio":0.2}
+    },
+    {
+        "name":"Sparky Goldy",
+        "color":"#FECD56",
+        "description" : "Preset in colors of gold, matches the sparky effect",
+        "data":{"Color":"#FFF0B1","OctaveLines":true,"KeyPressColor":"#FECD56","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"Sparks","blockRadius":6,"ShadowColor":"#ECB447","blockShadowRadius":8,"ThinerBlockColor":"#FECD56","KeyPressGradientColor":"#FFF0B1","refresh":false,"keyWhToBlRatio":0.5,"pianoHeightRatio":0.2}
+    },
+    {
+        "name":"Mr. Black-n-White",
+        "color":"#000",
+        "description" : "Grayscale shades, no effect, high performance. To even further improve performance, disable shadow by setting shadow radius to 0",
+        "data":{"Color":"#ffffff","OctaveLines":true,"KeyPressColor":"#ffffff","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"None","blockRadius":4,"ShadowColor":"#ffffff","blockShadowRadius":8,"ThinerBlockColor":"#e3e3e3","KeyPressGradientColor":"#ffffff","refresh":false,"keyWhToBlRatio":0.5,"pianoHeightRatio":0.2}
+    }
 ]

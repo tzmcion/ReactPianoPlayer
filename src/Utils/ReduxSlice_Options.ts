@@ -4,11 +4,11 @@
  */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { DefaultOptions } from "./Default";
+import { handleDefaultValuesCheck } from "./Default";
 
 export const counterSlice = createSlice({
     name: "Options",
-    initialState: DefaultOptions,
+    initialState: handleDefaultValuesCheck(),
     reducers:{
         changeOptionValue: (state, action) =>{
             return action.payload;

@@ -6,7 +6,7 @@
 import { noteEvent } from "./TypesForMidi";
 import rgbHex from 'rgb-hex';
 
-import {data} from './Default';
+import {Default_data as data} from './Default';
 
 
 /**
@@ -189,10 +189,43 @@ const restoreDefaults = ():void =>{
     window.location.reload();
 }
 
+/**
+ * I don't remember the english word for it
+ */
+const random_denominator = ():1|-1 => {
+    return Math.random() > - 0.5 ? 1 : -1
+}
+
+/**
+ * Function adds the to the hex color the alpha number
+ * @param hex - color in hexadecimall format
+ * @param alpha - alpha value, range from 0 to 255
+ * @returns Color in format of HEX: #FFFFF[Alpha], example: #000fff02
+ */
+const alpha_hex = (hex:string, alpha: number):string => {
+    if(hex.length === 0 || alpha < 0 || alpha > 255){
+        throw new Error("provided string is not a color in hexadecimal format, or provided alpha is higher than 255 or lower than 0");
+    }
+    if(hex[0] !== '#'){
+        hex = "#" + hex;
+    }
+    if(hex.length > 7){
+        hex = hex.slice(0,7);
+    }
+    if(alpha === 0){
+        return hex + "00";
+    }
+    if(hex.length === 4){
+        //Add at the end of the string the same value as it is on the begin
+        hex = hex + hex.slice(1,4)
+    }
+    return (hex + (alpha < 16 ? '0' : '') + Math.abs(Math.floor(alpha)).toString(16));
+}
+
 export {CreateEmptyArray as CreateMidiNoteEventsArray};
 export {getEmptyNoteEvent};
 export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin, RandomColorToAlphawithMin};
 export {checkExtension};
 export {restoreDefaults};
-export {read_as_text};
+export {read_as_text, random_denominator, alpha_hex};
 export {ReadFromLocalStorageBase64, SaveAsBase64}

@@ -67,7 +67,7 @@ export default function OptionCard({onChange,name,type,textColor,title,children,
     }
 
     return (
-        <div className='OptionCard'>
+        <div className='OptionCard' data-testid="OptionCardTest">
             <h1 className={`Card_Title jersey-10 ${textColor ? textColor : ''}`} >{title}</h1>
             <h2 className='Card_Description jersey-10'>{children}</h2>
             <div className='Input_Image_Container' onMouseEnter={()=>{setHovered(true)}} onMouseLeave={(()=>{setHovered(false)})}>

@@ -54,6 +54,12 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
                     <OptionCard onChange={handleOptionsChange} name='OctaveLines' type='checkbox' title='Render Octave Lines' value={options.OctaveLines} >
                         Check if octave lines should be rendered or not
                     </OptionCard>
+                    <OptionCard onChange={handleOptionsChange} name='pianoHeightRatio' type='number' title='Piano to screen height ratio' value={options.keyWhToBlRatio.toString()} >
+                        Change here how much of the screen is occupied by piano - default value is 0.2 (1/5 of the screen height)
+                    </OptionCard>
+                    <OptionCard onChange={handleOptionsChange} name='keyWhToBlRatio' type='number' title='Black to white key ratio' value={options.pianoHeightRatio.toString()} >
+                        Change how much of the height of white piano key is black piano key - default value is 0.5 ( 1/2 of the white key height)
+                    </OptionCard>
                     <OptionCard onChange={handleOptionsChange} name='refresh' type='checkbox' title='Reset Preview' value={options.refresh} >
                         Sometimes piano preview starts lagging... Click Here to reset it.
                     </OptionCard>
@@ -69,7 +75,7 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
 
 function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
-    const [effect,setEffect] = useState<'fountain' | 'dancingLines' | 'hexagon' | 'stickyBalls' | 'fireworks' | 'sparks' | 'DNA' | "None">(options.Effect);
+    const [effect,setEffect] = useState<typeof options.Effect>(options.Effect);
 
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
@@ -77,7 +83,7 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
     }
 
     return (
-        <div className='options_Cards'>
+        <div className='options_Cards' data-testid="OptionCardTest"> {/*TestID here because of only one option for effect*/}
             <div className='Cards_Container'>
                 <EffectChoose onChange={onChange} name='Effect' title='None' textColor='effects' current={effect} value={'None'} >
                         <ul>

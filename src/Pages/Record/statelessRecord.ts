@@ -1,6 +1,6 @@
 import { noteEvent } from "../../Utils/TypesForMidi";
 import { SaveAsBase64 } from '../../Utils/smallFunctions';
-import { DefaultOptions } from '../../Utils/Default';
+import { Default_data as DefaultOptions } from '../../Utils/Default';
 
 interface singleNote{
     ison:boolean,

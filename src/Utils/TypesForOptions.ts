@@ -15,10 +15,11 @@ export interface Options{
     blockShadowRadius:number,
     refresh:boolean,
     ShadowColor:string,
-    EffectsColor:string,
     OctaveLines:boolean,
     Effect:"Squares" | "Sparks" | "Firework" | "None",
     ThinerBlockColor:string,
+    pianoHeightRatio:number,
+    keyWhToBlRatio:number
 }
 
 export interface TRACKS_CONFIGURATION{

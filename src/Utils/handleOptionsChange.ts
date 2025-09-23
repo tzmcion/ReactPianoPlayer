@@ -46,9 +46,6 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
         case 'shadowColor':
             currentOptions.ShadowColor = event.target.value;
             break;
-        case 'EffectsColor':
-            currentOptions.EffectsColor = event.target.value;
-            break;
         case 'OctaveLines':
             currentOptions.OctaveLines = !currentOptions.OctaveLines;
             break;
@@ -58,7 +55,14 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
         case 'KeyPressGradientColor':
             currentOptions.KeyPressGradientColor = event.target.value;
             break;
+        case "pianoHeightRatio":
+            currentOptions.pianoHeightRatio = event.target.value;
+            break;
+        case "keyWhToBlRatio":
+            currentOptions.keyWhToBlRatio = event.target.value;
+            break;
         default:
+            throw new Error("Not yet supported option tried to be changed");
             break;
     }
     return currentOptions;

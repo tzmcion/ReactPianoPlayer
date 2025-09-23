@@ -3,7 +3,7 @@ import React,{useEffect,useState} from 'react';
 import DrawPiano from '../../Components/DrawPiano/DrawPiano';
 import PlayingManagement from '../../Components/PlayingManagement/PlayingManagement';
 import MidiPlayer from '../../Helpers/MidiPlayer';
-import { DefaultOptions } from '../../Utils/Default';
+import { Default_data as DefaultOptions } from '../../Utils/Default';
 import { Options as OptionsType } from '../../Utils/TypesForOptions';
 import { noteEvent } from "../../Utils/TypesForMidi";
 

@@ -55,7 +55,7 @@ export default function OptionCard({type,name,onChange,value,children,title,text
     },[value])
 
     return (
-        <div className='OptionCard'>
+        <div className='OptionCard' data-testid="OptionCardTest">
             <h1 className={`Card_Title jersey-10 ${textColor ? textColor : ''}`} >{title}</h1>
             <h2 className='Card_Description jersey-10'>{children}</h2>
             <div className='Input_Container'>

@@ -9,6 +9,29 @@
     position: absolute;
 }
 
+.PianoWatermark{
+    position: absolute;
+    top:10px;
+    right: 10px;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    z-index: 35;
+    h3 , h5{
+        margin: 0;
+        padding: 0;
+        font-weight: 100;
+        text-align: right;
+    }
+    h3{
+        font-size: 32px;
+    }
+    h5{
+        font-size: 20px;
+    }
+}
+
 .whiteKey{
     
     border:1px solid black;

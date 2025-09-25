@@ -193,7 +193,7 @@ const restoreDefaults = ():void =>{
  * I don't remember the english word for it
  */
 const random_denominator = ():1|-1 => {
-    return Math.random() > - 0.5 ? 1 : -1
+    return Math.random() > 0.5 ? 1 : -1
 }
 
 /**

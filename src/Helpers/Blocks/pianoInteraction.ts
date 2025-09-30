@@ -81,9 +81,9 @@ export default class pianoInteraction{
                 addShadow(this.main_ctx,key.position,HEIGHT_OFFSET,height, key.width);      //Better to have gradient defined for keys (as it is always the same), and just fill rect
             }
             this.gradient.generateGradient(key.position + key.width/2, key.width * 1.5);
-            this.gradient.updateGradient();
-            this.gradient.renderGradient();
         })
+        this.gradient.updateGradient();
+        this.gradient.renderGradient();
     }
 
     /**

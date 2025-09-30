@@ -71,8 +71,20 @@ export default function UpdatedDrawPiano({width,height,Player,piano_keys_height 
         return <></>
     }
 
+    const renderWatermark = ():React.ReactElement => {
+        if(options.watermark === false){
+            return <></>
+        }
+
+        return <div className="PianoWatermark jersey-10">
+            <h3>PIANO-BLOCKS-APP</h3>
+            <h5>Version 3.0</h5>
+        </div>
+    }
+
     return <div className="Piano" style={{width:width, height:height}}>
         <LoadingScreen Finished={!is_loading}/> {/*Loading Screen will automatically dissapear after it's work is done, so this will become an empty component*/}
+        {renderWatermark()}
         {renderTracks()}
     </div>
 }

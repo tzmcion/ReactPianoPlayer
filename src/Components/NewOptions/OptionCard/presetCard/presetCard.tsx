@@ -1,5 +1,6 @@
 import React from 'react';
 import './presetCard.style.scss';
+import { validate_options } from '../../../../Utils/Default';
 
 
 interface Props{
@@ -16,6 +17,13 @@ interface Props{
 export default function PresetCard({title,color,children,json,updateOptions,onClick}:Props):React.ReactElement {
   const changeOptions = ():void => {
     if(typeof json == 'string'){
+      const new_options = validate_options(JSON.parse(json));
+      if(new_options.reloaded){
+        localStorage.setItem('options', JSON.stringify(new_options.data))
+        onClick();
+        updateOptions();
+        return
+      }
       localStorage.setItem('options',json)
       onClick();
       updateOptions();

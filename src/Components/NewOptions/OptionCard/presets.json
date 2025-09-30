@@ -16,5 +16,11 @@
         "color":"#000",
         "description" : "Grayscale shades, no effect, high performance. To even further improve performance, disable shadow by setting shadow radius to 0",
         "data":{"Color":"#ffffff","OctaveLines":true,"KeyPressColor":"#ffffff","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"None","blockRadius":4,"ShadowColor":"#ffffff","blockShadowRadius":8,"ThinerBlockColor":"#e3e3e3","KeyPressGradientColor":"#ffffff","refresh":false,"keyWhToBlRatio":0.5,"pianoHeightRatio":0.2}
+    },
+    {
+        "name":"Absolute Minimum",
+        "color":"#81E5F0",
+        "description": "Absolute minimum settings for highest possible performance, all unnecessary options disabled. Use this on low-tech machines",
+        "data":{"Color":"#ffffff","OctaveLines":false,"KeyPressColor":"#ffffff","RandomColors":false,"IsEffects":true,"backgroundImage":"","playSpeed":5,"watermark":false,"soundOn":false,"Effect":"None","blockRadius":0,"ShadowColor":"#ffffff","blockShadowRadius":0,"ThinerBlockColor":"#e3e3e3","KeyPressGradientColor":"#ffffff","refresh":false,"keyWhToBlRatio":0.5,"pianoHeightRatio":0.2,"KeyPressEffect":"None"}
     }
 ]

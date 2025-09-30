@@ -17,6 +17,7 @@ export interface Options{
     ShadowColor:string,
     OctaveLines:boolean,
     Effect:"Squares" | "Sparks" | "Firework" | "None",
+    KeyPressEffect: "Gradient" | "Fireplace" | "None",
     ThinerBlockColor:string,
     pianoHeightRatio:number,
     keyWhToBlRatio:number

@@ -17,6 +17,7 @@ const Default_data:OptionsType = {
     watermark:false,
     soundOn:true,
     Effect:'None',
+    KeyPressEffect: "Gradient",
     blockRadius:4,
     ShadowColor:'#ffffff',
     blockShadowRadius:8,
@@ -26,6 +27,11 @@ const Default_data:OptionsType = {
     pianoHeightRatio: 1/5
 }
 
+/**
+ * Function checks the options in localStorage, and rewrites them if options are missing, 
+ * then reloads the page
+ * @returns new options 
+ */
 const handleDefaultValuesCheck = ():OptionsType => {
     //Important, if options are undefined do it this way :)
     try{
@@ -54,12 +60,35 @@ const handleDefaultValuesCheck = ():OptionsType => {
     }
 
     return DefaultOptions;
-} 
+}
 
+/**
+ * Function checks the options variable and returns updated if necessary
+ * @param options - options to check
+ * @returns object with data field with updated or repaired options, and reloaded boolean
+ */
+const validate_options = (options:OptionsType):{data:OptionsType, reloaded:boolean} =>{
+    let opt = JSON.parse(JSON.stringify(options));
+    let was_reloaded = false;
+    for(const [key,value] of Object.entries(Default_data)){
+        const obj_key = key;
+        if(!Object.hasOwn(opt,obj_key)){
+            opt = {
+                ...opt,
+                [obj_key]:value
+            }
+            was_reloaded = true;
+        }
+    }
+    return {
+        data:opt,
+        reloaded:was_reloaded
+    }
+}
 
 
 /**Default options variable*/
 
 
-export {handleDefaultValuesCheck};
+export {handleDefaultValuesCheck, validate_options};
 export {Default_data};

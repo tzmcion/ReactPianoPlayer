@@ -76,9 +76,15 @@ function Options_Blocks({isOpened,onGoBack,options,handleOptionsChange}:OptionsP
 function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:OptionsProps) {
 
     const [effect,setEffect] = useState<typeof options.Effect>(options.Effect);
+    const [gradEffect, setGradEffect] = useState<typeof options.KeyPressEffect>(options.KeyPressEffect);
 
     const onChange = (ev:any) =>{
         setEffect(ev.target.value);
+        handleOptionsChange(ev);
+    }
+
+    const onGradChange = (ev:any) =>{
+        setGradEffect(ev.target.value);
         handleOptionsChange(ev);
     }
 
@@ -105,6 +111,28 @@ function Options_Effects({isOpened,onGoBack,options,handleOptionsChange}:Options
                         </ul>
                 </EffectChoose>
                 <EffectChoose onChange={onChange} name='Effect' title='Firework' textColor='effects' current={effect} value={'Firework'} >
+                        <ul>
+                            <li>Colorfull fireworks flying from keys when played</li>
+                            <li><span className='Red_cl'>Warning: </span>Background Image does not work with this effect</li>
+                            <li>Performance indicator: <span className='Purple_cl'>Mid</span></li>
+                        </ul>
+                </EffectChoose>
+                <h3 className="Effects_Info_Bar jersey-15">Key Press Effects: </h3>
+                <EffectChoose onChange={onChange} name='KeyPressEffect' title='None' textColor='effects' current={options.KeyPressEffect} value={'None'} >
+                        <ul>
+                            <li>Colorfull fireworks flying from keys when played</li>
+                            <li><span className='Red_cl'>Warning: </span>Background Image does not work with this effect</li>
+                            <li>Performance indicator: <span className='Blue_cl'>None</span></li>
+                        </ul>
+                </EffectChoose>
+                                <EffectChoose onChange={onChange} name='KeyPressEffect' title='Gradient' textColor='effects' current={options.KeyPressEffect} value={'Gradient'} >
+                        <ul>
+                            <li>Colorfull fireworks flying from keys when played</li>
+                            <li><span className='Red_cl'>Warning: </span>Background Image does not work with this effect</li>
+                            <li>Performance indicator: <span className='Green_cl'>Little</span></li>
+                        </ul>
+                </EffectChoose>
+                                <EffectChoose onChange={onChange} name='KeyPressEffect' title='Fireplace' textColor='effects' current={options.KeyPressEffect} value={'Fireplace'} >
                         <ul>
                             <li>Colorfull fireworks flying from keys when played</li>
                             <li><span className='Red_cl'>Warning: </span>Background Image does not work with this effect</li>

@@ -7,11 +7,13 @@ class FireEntity{
     private y_speed:number
     private create_time:number
     private alpha:number = 1
+    private is_round:boolean
     constructor(private pos_x:number, private pos_y:number, private color:string, private TTL:number, private size:number){
         this.create_time = Date.now();
         this.x_decider = Math.random() * 90
         this.path_multiplier = Math.random() + 0.2
         this.y_speed = Math.random() * 1.1 + 0.8
+        this.is_round = random_denominator() === 1 ? true : false
     }
 
     public update(curr_time:number):boolean{
@@ -27,6 +29,11 @@ class FireEntity{
     public render(ctx:CanvasRenderingContext2D):void{
         ctx.beginPath();
         ctx.fillStyle = alpha_hex(this.color,this.alpha*255);
+        if(this.is_round){
+            ctx.arc(this.pos_x, this.pos_y, this.size, 0,Math.PI*2);
+            ctx.fill();
+            return
+        }
         ctx.fillRect(this.pos_x, this.pos_y, this.size, this.size);
     }
 }
@@ -38,13 +45,16 @@ export default class FireGradient extends GradientEffect{
     public colors_array:string[] = ["#fcc26cff", "#ffec97ff", "#ffed90ff", "#ff3535ff"]
     private entities_array:FireEntity[] = [];
 
-    constructor(ctx:CanvasRenderingContext2D, pos_y:number){
+    constructor(ctx:CanvasRenderingContext2D, pos_y:number, colors:string[] = []){
         super(ctx,pos_y)
+        if(colors.length > 0){
+            this.colors_array = colors;
+        }
     };
 
     public create_gradient(pos_x: number, key_size: number): void {
-        for(let x = 0; x < 2; x++){
-            const ENT_POS_X = pos_x + (random_denominator() * Math.random() * key_size/2);
+        for(let x = 0; x < 3; x++){
+            const ENT_POS_X = pos_x + (random_denominator() * Math.random() * key_size/3);
             const ENT_COLOR = this.colors_array[Math.floor(Math.random() * this.colors_array.length)];
             const TTL_NR = Math.random() * (1500);
             const ENT_SIZE = Math.random() * 3 + 2;

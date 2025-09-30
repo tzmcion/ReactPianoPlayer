@@ -19,6 +19,17 @@
         transform: rotate(-25deg);
         z-index: 1;
     }
+    .Effects_Info_Bar{
+        width: 90%;
+        display: block;
+        text-align: center;
+        font-size: 28px;
+        margin: 0;
+        padding: 0;
+        padding-bottom: 10px;
+        border-bottom: 2px dotted rgba(0, 0, 0, 0.493);
+        transform: translateX(6%);
+    }
     .breakline_options{
         width:86%;
         margin: 5px auto;
@@ -54,7 +65,7 @@
                 align-content: baseline;
                 padding-bottom: 10px;
                 padding-top: 10px;
-                justify-content: space-around;
+                justify-content: flex-start;
                 flex-wrap: wrap;
                 animation: Enter 0.5s ease;
             }

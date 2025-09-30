@@ -222,9 +222,34 @@ const alpha_hex = (hex:string, alpha: number):string => {
     return (hex + (alpha < 16 ? '0' : '') + Math.abs(Math.floor(alpha)).toString(16));
 }
 
+/**
+ * Apply a little lighten and darken to the color
+ * @param hex hexadecimal color
+ * @param forza force of the change, range from 0-255
+ * @param random_in_color randomization of each color, default 0 (no randomization)
+ * @returns 
+ */
+const lighten_darken_color = (hex:string, forza:number, random_in_color:number = 0):string => {
+    if(hex[0] === "#"){
+        hex = hex.slice(1,hex.length)
+    }
+    if(hex.length !== 6){
+        hex = hex.slice(0,6)
+    }
+    const first_nr = Number("0x"+hex.slice(0,2)) + (forza + (Math.floor(Math.random() * random_in_color * random_denominator())))
+    const second_nr = Number("0x"+hex.slice(2,4)) + (forza + (Math.floor(Math.random() * random_in_color * random_denominator())))
+    const third_nr = Number("0x"+hex.slice(4,6)) + (forza + (Math.floor(Math.random() * random_in_color * random_denominator())))
+
+    let build_hex_string = "#";
+    build_hex_string += first_nr > 255 ? "ff" : first_nr < 0 ? "00" : (first_nr < 16 ? '0' : '') + Math.abs(Math.floor(first_nr)).toString(16)
+    build_hex_string += second_nr > 255 ? "ff" : second_nr < 0 ? "00" : (second_nr < 16 ? '0' : '') + Math.abs(Math.floor(second_nr)).toString(16)
+    build_hex_string += third_nr > 255 ? "ff" : third_nr < 0 ? "00" : (third_nr < 16 ? '0' : '') + Math.abs(Math.floor(third_nr)).toString(16)
+    return build_hex_string;
+}
+
 export {CreateEmptyArray as CreateMidiNoteEventsArray};
 export {getEmptyNoteEvent};
-export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin, RandomColorToAlphawithMin};
+export {RandomColor, RandomColorToAlhpa, RandomColorHex, RandomColorRGBwithMin, RandomColorToAlphawithMin, lighten_darken_color};
 export {checkExtension};
 export {restoreDefaults};
 export {read_as_text, random_denominator, alpha_hex};

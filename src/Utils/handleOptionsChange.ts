@@ -61,6 +61,9 @@ const handleOptionsChange = (event:ChangeEvent<HTMLInputElement> | {target:{name
         case "keyWhToBlRatio":
             currentOptions.keyWhToBlRatio = event.target.value;
             break;
+        case "KeyPressEffect":
+            currentOptions.KeyPressEffect = event.target.value;
+            break;
         default:
             throw new Error("Not yet supported option tried to be changed");
             break;
